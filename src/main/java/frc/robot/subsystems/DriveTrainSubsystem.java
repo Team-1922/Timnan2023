@@ -6,9 +6,21 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class DriveTrainSubsystem extends SubsystemBase {
+public class DriveTrainSubsystem extends SubsystemBase { 
+  private CanSparkMax m_leftlead;
+  private CanSparkMax m_followMotor;
+
   /** Creates a new DriveTrainSubsystem. */
-  public DriveTrainSubsystem() {}
+  public DriveTrainSubsystem() {
+    //Motor controlers
+   
+
+
+
+
+
+
+  }
 
   @Override
   public void periodic() {
