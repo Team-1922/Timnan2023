@@ -40,7 +40,8 @@ public class TankDrive extends CommandBase {
     
 
 
-  //  m_DriveTrainSubsystem.drive(m_LeftJoystick, m_RightJoystick);
+   m_DriveTrainSubsystem.drive(m_LeftJoystick*.5, m_RightJoystick*.5);
+   //change the number after the * to adjust the output or whatever 
   }
 
   // Called once the command ends or is interrupted.
