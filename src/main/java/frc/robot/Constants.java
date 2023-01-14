@@ -27,6 +27,5 @@ public final class Constants {
     public static final int RightHoldingMotorID = 4;
     public static final double IOMotorRPM = 0;
     public static final double HoldingMorerPower = 0;
-    
   }
 }

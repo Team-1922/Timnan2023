@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import java.util.concurrent.atomic.DoubleAccumulator;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
@@ -15,7 +17,8 @@ public class TankDrive extends CommandBase {
    Joystick m_LeftJoystick = RobotContainer.LeftJoystick;
    
    Joystick m_RightJoystick = RobotContainer.RightJoystick;
-
+   double m_LeftX = m_LeftJoystick.getX();
+   double m_RightX= m_RightJoystick.getX();
   /** Creates a new TankDrive. */
   public TankDrive(
 
@@ -40,7 +43,7 @@ public class TankDrive extends CommandBase {
     
 
 
-   m_DriveTrainSubsystem.drive(m_LeftJoystick*.5, m_RightJoystick*.5);
+   //m_DriveTrainSubsystem.drive( m_LeftX,  m_RightX);
    //change the number after the * to adjust the output or whatever 
   }
 
