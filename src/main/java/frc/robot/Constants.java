@@ -14,7 +14,26 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
-    public static boolean inAuto;
+    public static final double kLeftLead = 0;
+    public static final double kLeftFollow = 0;
+    public static final double kRightLead = 0;
+    public static final double kRightFollow = 0;
+    public static final double kVeolcityRPMConversion = 0;
+    public static final double kIOMotorRPM = 0;
+    public static final double kHoldingMotorPower = 0;
+    public static final double kIOEjectRPM = 0;
+    public static final double kPivotMotorVelocity = 0;
+    public static final double kPivotMotorPower = 0;
+    public static final double kPivotMotorMinAngle = 0;
+    public static final double kPivotMotorMaxAngle = 0;
+    // kPivotMotorMinAngle should be kept at zero, as it is not absolute, but a representation of the furthest back the arm is capable of extending.
+    public static final int kPivotMotorID = 0;
+    public static final int kLeftIOMotorID = 1;
+    public static final int kRightIOMotorID = 2;
+    public static final int kLeftHoldingMotorID = 3;
+    public static final int kRightHoldingMotorID = 4;
+    public static final int kLeftJoystickID = 100;
+    public static final int kRightJoystickID = 101;
     public static final double leftLead = 0;
     public static final double leftFollow = 0;
     public static final double rightLead = 0;
