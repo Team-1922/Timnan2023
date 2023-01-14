@@ -8,7 +8,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Arm extends SubsystemBase {
   /** Creates a new ARM. */
-  public Arm() {}
+  public Arm() {
+
+
+    
+  }
 
   @Override
   public void periodic() {
