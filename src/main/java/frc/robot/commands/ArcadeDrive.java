@@ -15,8 +15,11 @@ public class ArcadeDrive extends CommandBase {
  Joystick m_LeftJoystick = RobotContainer.LeftJoystick;
    
  Joystick m_RightJoystick = RobotContainer.RightJoystick;
- double m_LeftX = m_LeftJoystick.getX();
+ 
  double m_RightY= m_RightJoystick.getY();
+ double m_RightX= m_RightJoystick.getX();
+ double m_LeftY = m_LeftJoystick.getY();
+ double m_LeftX = m_LeftJoystick.getX();
   /** Creates a new ArcadeDrive. */
   public ArcadeDrive() {
 
@@ -31,7 +34,9 @@ public class ArcadeDrive extends CommandBase {
   @Override
   public void execute() {
 
-   // m_DriveTrainSubsystem.drive(m_LeftX, m_RightY*2);
+ double ArcadedrivePartOne = m_LeftY*m_LeftX;
+ double ArcadedrivePartTwo = m_LeftX*m_RightY;
+    m_DriveTrainSubsystem.drive(ArcadedrivePartOne, ArcadedrivePartTwo);
 //fix that later pls 
     
   }
