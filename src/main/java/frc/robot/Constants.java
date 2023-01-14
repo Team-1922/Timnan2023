@@ -20,5 +20,13 @@ public final class Constants {
     public static final double rightLead = 0;
     public static final double rightFollow = 0;
     public static final double veolcityRPMConversion = 0;
+    public static final int ArmMotorID = 0;
+    public static final int LeftIOMotorID = 1;
+    public static final int RightIOMotorID = 2;
+    public static final int LeftHoldingMotorID = 3;
+    public static final int RightHoldingMotorID = 4;
+    public static final double IOMotorRPM = 0;
+    public static final double HoldingMorerPower = 0;
+    
   }
 }
