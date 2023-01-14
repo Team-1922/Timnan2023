@@ -19,6 +19,6 @@ public final class Constants {
     public static final double leftFollow = 0;
     public static final double rightLead = 0;
     public static final double rightFollow = 0;
-    public static final double RPMToVelocity = 0;
+    public static final double veolcityRPMConversion = 0;
   }
 }
