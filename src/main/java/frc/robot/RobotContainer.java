@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
@@ -24,7 +25,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem();
-
+  private final TankDrive m_TankDrive = new TankDrive();
   
  public final static Joystick LeftJoystick = new Joystick(0);
  public final static Joystick RightJoystick = new Joystick(1);
