@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class GatherTheCube extends CommandBase {
   /** Creates a new GatherTheCube. */
-  public GatherTheCube() {
+  // public GatherTheCube() {
     // Use addRequirements() here to declare subsystem dependencies.
-  }
+  // }
 
   // Called when the command is initially scheduled.
   @Override
