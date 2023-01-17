@@ -14,6 +14,8 @@ public final class Autos {
     return Commands.sequence(subsystem.exampleMethodCommand(), new ExampleCommand(subsystem));
   }
 
+//bada bing
+String badabing = "badaboom";
   private Autos() {
     throw new UnsupportedOperationException("This is a utility class!");
   }
