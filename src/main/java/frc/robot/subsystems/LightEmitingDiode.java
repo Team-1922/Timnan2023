@@ -8,10 +8,35 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LightEmitingDiode extends SubsystemBase {
   /** Creates a new LED. */
-  public LightEmitingDiode() {}
+  public LightEmitingDiode() {
+
+
+
+
+    
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
 }
+
+
+
+/*
+
+Tinman 
+                                 ^
+                                /|\
+                               / | \
+                              /  |  \
+                           __/___|___\__
+                          |            |
+                          |     _    | |
+                          |    ||\_____|
+                          |    \_|_|_|_|
+                          |            |
+                          |____________|
+                        
+*/
