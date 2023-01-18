@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import com.revrobotics.CANSparkMax;
 
 public class EndEffector extends SubsystemBase {
   private CANSparkMax m_RightIOMotor = new CANSparkMax(Constants.kRightIOMotorID);
