@@ -10,10 +10,10 @@ public class LightEmitingDiode extends SubsystemBase {
   /** Creates a new LED. */
   public LightEmitingDiode() {
 
+// we can either use the leds as a status indicator, or as just a decoration, both if we can figure that out in our spare line.
 
 
 
-    
   }
 
   @Override
