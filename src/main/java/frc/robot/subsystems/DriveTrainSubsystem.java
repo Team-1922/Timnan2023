@@ -10,10 +10,10 @@ import frc.robot.Constants;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 public class DriveTrainSubsystem extends SubsystemBase { 
-  private CANSparkMax m_leftLead = new CANSparkMax(Constants.leftLead, MotorType.kBrushless);
-  private CANSparkMax m_leftFollow = new CANSparkMax(Constants.leftFollow, MotorType.kBrushless);
-  private CANSparkMax m_rightLead = new CANSparkMax(Constants.rightLead, MotorType.kBrushless);
-  private CANSparkMax m_rightFollow = new CANSparkMax(Constants.rightFollow, MotorType.kBrushless);
+  private CANSparkMax m_leftLead = new CANSparkMax(Constants.kLeftLead, MotorType.kBrushless);
+  private CANSparkMax m_leftFollow = new CANSparkMax(Constants.kLeftFollow, MotorType.kBrushless);
+  private CANSparkMax m_rightLead = new CANSparkMax(Constants.kRightLead, MotorType.kBrushless);
+  private CANSparkMax m_rightFollow = new CANSparkMax(Constants.kRightFollow, MotorType.kBrushless);
   private SparkMaxPIDController m_pidControllerLeft;
   private SparkMaxPIDController m_pidControllerRight;
   /** Creates a new DriveTrainSubsystem. */
