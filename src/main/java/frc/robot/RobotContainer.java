@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -25,7 +27,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem();
+  private final AHRS m_navX = new AHRS(SPI.Port.kMXP);
+  private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
   private final TankDrive m_TankDrive = new TankDrive();
   
  public final static Joystick LeftJoystick = new Joystick(0);
