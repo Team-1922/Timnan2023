@@ -10,10 +10,10 @@ import frc.robot.Constants;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 public class DriveTrainSubsystem extends SubsystemBase { 
-  private CANSparkMax m_leftLead = new CANSparkMax(Constants.leftLead);
-  private CANSparkMax m_leftFollow = new CANSparkMax(Constants.leftFollow);
-  private CANSparkMax m_rightLead = new CANSparkMax(Constants.rightLead);
-  private CANSparkMax m_rightFollow = new CANSparkMax(Constants.rightFollow);
+  private CANSparkMax m_leftLead = new CANSparkMax(Constants.leftLead, MotorType.kBrushless);
+  private CANSparkMax m_leftFollow = new CANSparkMax(Constants.leftFollow, MotorType.kBrushless);
+  private CANSparkMax m_rightLead = new CANSparkMax(Constants.rightLead, MotorType.kBrushless);
+  private CANSparkMax m_rightFollow = new CANSparkMax(Constants.rightFollow, MotorType.kBrushless);
   private SparkMaxPIDController m_pidControllerLeft;
   private SparkMaxPIDController m_pidControllerRight;
   /** Creates a new DriveTrainSubsystem. */
@@ -34,13 +34,8 @@ public void Drive(double leftSpeed, double rightSpeed){
 
 }
 public void velocityDrive(double velocity){
-  double setPointLeft = ;
-  double setPointRight = ;
-  double RPM =;
-  m_pidControllerLeft.setReference(setPointLeft, CANSparkMax.ControlType.kVelocity);
-  m_pidControllerRight.setReference(setPointRight, CANSparkMax.ControlType.kVelocity);
-  Constants.velocityRPMConversion;
-  
+//  m_pidControllerLeft.setRefrence();
+//  m_pidControllerRight.setRefrence();
 }
   @Override
   public void periodic() {

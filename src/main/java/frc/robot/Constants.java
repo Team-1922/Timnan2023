@@ -12,7 +12,7 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  public static class OperatorConstants {
+ // public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
     public static final double kLeftLead = 0;
     public static final double kLeftFollow = 0;
@@ -34,10 +34,10 @@ public final class Constants {
     public static final int kRightHoldingMotorID = 4;
     public static final int kLeftJoystickID = 100;
     public static final int kRightJoystickID = 101;
-    public static final double leftLead = 0;
-    public static final double leftFollow = 0;
-    public static final double rightLead = 0;
-    public static final double rightFollow = 0;
+    public static final int leftLead = 0;
+    public static final int leftFollow = 0;
+    public static final int rightLead = 0;
+    public static final int rightFollow = 0;
     public static final double veolcityRPMConversion = 0;
     public static final int ArmMotorID = 0;
     public static final int LeftIOMotorID = 1;
@@ -46,5 +46,5 @@ public final class Constants {
     public static final int RightHoldingMotorID = 4;
     public static final double IOMotorRPM = 0;
     public static final double HoldingMorerPower = 0;
-  }
+ // }
 }
