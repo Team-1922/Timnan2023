@@ -3,7 +3,6 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -13,7 +12,36 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  public static class OperatorConstants {
+ // public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
-  }
+    public static final int kLeftLead = 0;
+    public static final int kLeftFollow = 0;
+    public static final int kRightLead = 0;
+    public static final int kRightFollow = 0;
+    public static final double kVeolcityRPMConversion = 0;
+    public static final double kIOMotorRPM = 0;
+    public static final double kHoldingMotorPower = 0;
+    public static final double kIOEjectRPM = 0;
+    public static final double kPivotMotorVelocity = 0;
+    public static final double kPivotMotorPower = 0;
+    public static final double kPivotMotorMinAngle = 0;
+    public static final double kPivotMotorMaxAngle = 0;
+    // kPivotMotorMinAngle should be kept at zero, as it is not absolute, but a representation of the furthest back the arm is capable of extending.
+    public static final int kPivotMotorID = 0;
+    public static final int kLeftIOMotorID = 1;
+    public static final int kRightIOMotorID = 2;
+    public static final int kLeftHoldingMotorID = 3;
+    public static final int kRightHoldingMotorID = 4;
+    public static final int kLeftJoystickID = 100;
+    public static final int kRightJoystickID = 101;
+
+    public static final double veolcityRPMConversion = 0;
+    public static final int ArmMotorID = 0;
+    public static final int LeftIOMotorID = 1;
+    public static final int RightIOMotorID = 2;
+    public static final int LeftHoldingMotorID = 3;
+    public static final int RightHoldingMotorID = 4;
+    public static final double IOMotorRPM = 0;
+    public static final double HoldingMorerPower = 0;
+ // }
 }
