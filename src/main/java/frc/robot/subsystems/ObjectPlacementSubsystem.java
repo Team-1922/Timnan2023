@@ -3,9 +3,8 @@ import javax.swing.Action;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
-public class EndAffectorSubSystem extends SubsystemBase{
+public class ObjectPlacementSubsystem extends SubsystemBase{
 
     boolean hasObject = true;
     public CommandBase PlaceObject() {

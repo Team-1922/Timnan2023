@@ -5,13 +5,59 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.revrobotics.CANSparkMax;
+import frc.robot.Constants;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.kauailabs.navx.frc.AHRS;
 
-public class DriveTrainSubsystem extends SubsystemBase {
+
+public class DriveTrainSubsystem extends SubsystemBase { 
+  private CANSparkMax m_leftLead = new CANSparkMax(Constants.kLeftLead, MotorType.kBrushless);
+  private CANSparkMax m_leftFollow = new CANSparkMax(Constants.kLeftFollow, MotorType.kBrushless);
+  private CANSparkMax m_rightLead = new CANSparkMax(Constants.kRightLead, MotorType.kBrushless);
+  private CANSparkMax m_rightFollow = new CANSparkMax(Constants.kRightFollow, MotorType.kBrushless);
+  private SparkMaxPIDController m_pidControllerLeft;
+  private SparkMaxPIDController m_pidControllerRight;
+  private AHRS m_navX;
   /** Creates a new DriveTrainSubsystem. */
-  public DriveTrainSubsystem() {}
+  public DriveTrainSubsystem(AHRS navX) {
+    //Motor controlers
+    m_leftLead.restoreFactoryDefaults();
+    m_leftFollow.restoreFactoryDefaults();
+    m_rightLead.restoreFactoryDefaults();
+    m_rightFollow.restoreFactoryDefaults();
+    m_leftFollow.follow(m_leftLead);
+    m_rightFollow.follow(m_rightLead);
+    m_pidControllerLeft = m_leftLead.getPIDController();
+    m_pidControllerRight = m_rightLead.getPIDController();
 
+    m_navX = navX;
+  }
+public void Drive(double leftSpeed, double rightSpeed){
+  m_leftLead.set(leftSpeed);
+  m_rightLead.set(rightSpeed);
+
+}
+public void velocityDrive(double velocity){
+//  m_pidControllerLeft.setRefrence();
+//  m_pidControllerRight.setRefrence();
+}
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  
+
   }
+
+
+  public double robotYaw(){
+    return m_navX.getYaw();
+  }
+
+  public double robotPitch(){
+    return m_navX.getPitch();
+  }
+
+
 }
