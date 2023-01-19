@@ -35,12 +35,13 @@ public class RobotContainer {
   private final CommandXboxController m_driverController =
       new CommandXboxController(Constants.kDriverControllerPort);
 
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+
   private final AHRS m_navX = new AHRS(SPI.Port.kMXP);
 
 // Subsystems, put them here or code might not work 
 
-
+private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
+  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   //arm commands
 
 
@@ -53,7 +54,6 @@ public class RobotContainer {
 
 
   // drive commands 
-  private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
   private final TankDrive m_TankDrive = new TankDrive();
   
 
