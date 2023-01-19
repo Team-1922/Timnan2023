@@ -25,18 +25,40 @@ import edu.wpi.first.wpilibj.SPI;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final AHRS m_navX = new AHRS(SPI.Port.kMXP);
-  private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
-  private final TankDrive m_TankDrive = new TankDrive();
-  
+  // joysticks and xboxcontrollers 
  public final static Joystick LeftJoystick = new Joystick(0);
  public final static Joystick RightJoystick = new Joystick(1);
 
+
+ 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(Constants.kDriverControllerPort);
+
+  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final AHRS m_navX = new AHRS(SPI.Port.kMXP);
+
+  //arm commands
+
+
+  
+
+    // Auto drive commands
+
+    
+
+
+
+  // drive commands 
+  private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
+  private final TankDrive m_TankDrive = new TankDrive();
+  
+
+  //other commands 
+
+
+
+  
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
