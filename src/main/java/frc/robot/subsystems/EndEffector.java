@@ -5,10 +5,21 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class EndEffector extends SubsystemBase {
+  private CANSparkMax m_RightIOMotor = new CANSparkMax(Constants.kRightIOMotorID, MotorType.kBrushless);
+  private CANSparkMax m_LeftIOMotor = new CANSparkMax(Constants.kLeftIOMotorID, MotorType.kBrushless);
+  private CANSparkMax m_RightHoldingMotor = new CANSparkMax(Constants.kRightHoldingMotorID, MotorType.kBrushless);
+  private CANSparkMax m_LeftHoldingMotor = new CANSparkMax(Constants.kLeftHoldingMotorID, MotorType.kBrushless);
   /** Creates a new EndEffector. */
   public EndEffector() {}
+
+  public void GatherTheCube() {
+    
+  }
 
   @Override
   public void periodic() {
