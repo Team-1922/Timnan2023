@@ -38,6 +38,9 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final AHRS m_navX = new AHRS(SPI.Port.kMXP);
 
+// Subsystems, put them here or code might not work 
+
+
   //arm commands
 
 
