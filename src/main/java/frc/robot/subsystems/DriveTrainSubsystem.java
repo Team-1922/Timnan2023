@@ -7,6 +7,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
+
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 public class DriveTrainSubsystem extends SubsystemBase { 
@@ -16,6 +18,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   private CANSparkMax m_rightFollow = new CANSparkMax(Constants.kRightFollow, MotorType.kBrushless);
   private SparkMaxPIDController m_pidControllerLeft;
   private SparkMaxPIDController m_pidControllerRight;
+
   /** Creates a new DriveTrainSubsystem. */
   public DriveTrainSubsystem() {
     //Motor controlers
@@ -36,6 +39,10 @@ public void Drive(double leftSpeed, double rightSpeed){
 public void velocityDrive(double velocity){
 //  m_pidControllerLeft.setRefrence();
 //  m_pidControllerRight.setRefrence();
+
+ double MaxVelocity = 250; // the max velocity of the motor , test this when the drivebase is done
+ double OutputScale = .9 ; //scale the output 
+Drive( RobotContainer.LeftJoystick.getY()*MaxVelocity*OutputScale, RobotContainer.RightJoystick.getY()*MaxVelocity*OutputScale);
 }
   @Override
   public void periodic() {
