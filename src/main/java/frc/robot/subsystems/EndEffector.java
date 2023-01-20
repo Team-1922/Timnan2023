@@ -14,11 +14,47 @@ public class EndEffector extends SubsystemBase {
   private CANSparkMax m_LeftIOMotor = new CANSparkMax(Constants.kLeftIOMotorID, MotorType.kBrushless);
   private CANSparkMax m_RightHoldingMotor = new CANSparkMax(Constants.kRightHoldingMotorID, MotorType.kBrushless);
   private CANSparkMax m_LeftHoldingMotor = new CANSparkMax(Constants.kLeftHoldingMotorID, MotorType.kBrushless);
+  private boolean m_hasObject;
   /** Creates a new EndEffector. */
-  public EndEffector() {}
+  public EndEffector() {
 
-  public void GatherTheCube() {
-    
+  }
+
+  public boolean getHasObject() {
+    return m_hasObject;
+  }
+
+  public void gatherTheCube() {
+    //We need the arm to move
+    m_RightIOMotor.set(Constants.kIOMotorGatherRPM);
+    m_LeftIOMotor.set(Constants.kIOMotorGatherRPM);
+    //Add some sensor stuff and conditionals
+    m_hasObject = true;
+  }
+  /*
+  while (hasObject = true) {
+    m_LeftHoldingMotor.set(Constants.kHoldingMotorRPM);
+    mRightHoldingMotor.set(Constants.kHoldingMotorRPM);
+  }
+    Put this somewhere else later.
+  */
+
+  public void Score(String scoreMode) {
+    //Also needs some arm movement and calculations
+    switch (scoreMode) {
+      case "low":
+        
+      ;
+      case "mid":
+
+      ;
+      case "high":
+        //Avoiding the code for mid and high as of now since physical testing will be required to get accurate results
+      ;
+      default:
+        System.out.println("Invalid Input")
+      ;
+    }
   }
 
   @Override

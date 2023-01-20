@@ -19,9 +19,11 @@ public final class Constants {
     public static final int kRightLead = 0;
     public static final int kRightFollow = 0;
     public static final double kVeolcityRPMConversion = 0;
-    public static final double kIOMotorRPM = 0;
-    public static final double kHoldingMotorPower = 0;
-    public static final double kIOEjectRPM = 0;
+    public static final double kIOMotorGatherRPM = 0;
+    public static final double kIOMotorLowRPM = 0;
+    public static final double kIOMotorMidRPM = 0;
+    public static final double kIOMotorHighRPM = 0;
+    public static final double kHoldingMotorRPM = 0;
     public static final double kPivotMotorVelocity = 0;
     public static final double kPivotMotorPower = 0;
     public static final double kPivotMotorMinAngle = 0;
@@ -34,14 +36,5 @@ public final class Constants {
     public static final int kRightHoldingMotorID = 4;
     public static final int kLeftJoystickID = 100;
     public static final int kRightJoystickID = 101;
-
-    public static final double veolcityRPMConversion = 0;
-    public static final int ArmMotorID = 0;
-    public static final int LeftIOMotorID = 1;
-    public static final int RightIOMotorID = 2;
-    public static final int LeftHoldingMotorID = 3;
-    public static final int RightHoldingMotorID = 4;
-    public static final double IOMotorRPM = 0;
-    public static final double HoldingMorerPower = 0;
  // }
 }
