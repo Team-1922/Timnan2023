@@ -43,5 +43,8 @@ public final class Constants {
     public static final int RightHoldingMotorID = 4;
     public static final double IOMotorRPM = 0;
     public static final double HoldingMorerPower = 0;
+
+    // Multiply raw encoder output by this to convert that to feet travelled
+    public static final double EncoderTicksToFeet = 0; //TBD
  // }
 }
