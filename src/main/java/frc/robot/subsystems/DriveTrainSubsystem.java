@@ -131,7 +131,7 @@ DifferentialDrive.arcadeDriveIK(RobotContainer.LeftJoystick.getX(), RobotContain
 
 public void DifferentialTankDrive(double rightside, double leftside){
 
-DifferentialDrive.tankDriveIK(RobotContainer.LeftJoystick.getX(), RobotContainer.RightJoystick.getZ(), false);
+DifferentialDrive.tankDriveIK(RobotContainer.LeftJoystick.getY(), RobotContainer.RightJoystick.getY(), false);
   
   }
 
