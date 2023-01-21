@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
@@ -21,12 +23,12 @@ import frc.robot.RobotContainer;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 public class DriveTrainSubsystem extends SubsystemBase { 
-  private CANSparkMax m_leftLead = new CANSparkMax(Constants.kLeftLead, MotorType.kBrushless);
-  private CANSparkMax m_leftFollow = new CANSparkMax(Constants.kLeftFollow, MotorType.kBrushless);
-  private CANSparkMax m_rightLead = new CANSparkMax(Constants.kRightLead, MotorType.kBrushless);
-  private CANSparkMax m_rightFollow = new CANSparkMax(Constants.kRightFollow, MotorType.kBrushless);
-  private SparkMaxPIDController m_pidControllerLeft;
-  private SparkMaxPIDController m_pidControllerRight;
+  public static CANSparkMax m_leftLead = new CANSparkMax(Constants.kLeftLead, MotorType.kBrushless);
+  public static CANSparkMax m_leftFollow = new CANSparkMax(Constants.kLeftFollow, MotorType.kBrushless);
+  public static CANSparkMax m_rightLead = new CANSparkMax(Constants.kRightLead, MotorType.kBrushless);
+  public static CANSparkMax m_rightFollow = new CANSparkMax(Constants.kRightFollow, MotorType.kBrushless);
+  public SparkMaxPIDController m_pidControllerLeft;
+  public SparkMaxPIDController m_pidControllerRight;
   double kp, ki, kd, kff, kiz, maxrpm;
  double rightkp, rightki, rightkd, rightkff, rightkiz, rightmaxrpm;
  double kMinOutput, kMaxOutput;
@@ -79,6 +81,8 @@ double RightkMinOutput, RightkMaxOutput;
     m_pidControllerRight = m_rightLead.getPIDController();
 
     m_navX = navX;
+
+
   }
 public void Drive(double leftSpeed, double rightSpeed){
   m_leftLead.set(leftSpeed);
@@ -112,12 +116,33 @@ m_pidControllerRight.setReference(rightsetpoint, CANSparkMax.ControlType.kVeloci
 
 
 
-
  /* double MaxVelocity = 250; // the max velocity of the motor , test this when the drivebase is done
  double OutputScale = .9 ; //scale the output 
 Drive( RobotContainer.LeftJoystick.getY()*MaxVelocity*OutputScale, RobotContainer.RightJoystick.getY()*MaxVelocity*OutputScale); */
 
 }
+
+public void DifferentialArcadeDrive(double rightside, double leftside){
+
+DifferentialDrive.arcadeDriveIK(rightside, leftside, false);
+
+}
+
+
+public void DifferentialTankDrive(double rightside, double leftside){
+
+DifferentialDrive.tankDriveIK(leftside, rightside, false);
+  
+  }
+
+  
+public void DifferentialCurvatureDrive(double rightside, double leftside){
+
+  DifferentialDrive.curvatureDriveIK(rightside, leftside, true);
+  
+  }
+
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

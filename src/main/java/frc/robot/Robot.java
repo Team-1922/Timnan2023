@@ -5,8 +5,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.DriveTrainSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -20,6 +23,9 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   public boolean inAuto;
+  MotorControllerGroup m_rightside = new MotorControllerGroup(DriveTrainSubsystem.m_rightFollow , DriveTrainSubsystem.m_rightLead);
+  MotorControllerGroup m_leftside = new MotorControllerGroup(DriveTrainSubsystem.m_leftLead, DriveTrainSubsystem.m_leftFollow);
+ DifferentialDrive m_DifferentialDrive = new DifferentialDrive(m_leftside, m_rightside);
 
   /**
    * This function is run when the robot is first started up and should be used for any
