@@ -124,21 +124,21 @@ Drive( RobotContainer.LeftJoystick.getY()*MaxVelocity*OutputScale, RobotContaine
 
 public void DifferentialArcadeDrive(double rightside, double leftside){
 
-DifferentialDrive.arcadeDriveIK(rightside, leftside, false);
+DifferentialDrive.arcadeDriveIK(RobotContainer.LeftJoystick.getX(), RobotContainer.RightJoystick.getZ(), false);
 
 }
 
 
 public void DifferentialTankDrive(double rightside, double leftside){
 
-DifferentialDrive.tankDriveIK(leftside, rightside, false);
+DifferentialDrive.tankDriveIK(RobotContainer.LeftJoystick.getX(), RobotContainer.RightJoystick.getZ(), false);
   
   }
 
   
 public void DifferentialCurvatureDrive(double rightside, double leftside){
 
-  DifferentialDrive.curvatureDriveIK(rightside, leftside, true);
+  DifferentialDrive.curvatureDriveIK(RobotContainer.LeftJoystick.getX(), RobotContainer.RightJoystick.getZ(), true);
   
   }
 
