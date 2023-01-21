@@ -34,8 +34,7 @@ public class RobotContainer {
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(Constants.kDriverControllerPort);
-<<<<<<< HEAD
-=======
+
 
 
   private final AHRS m_navX = new AHRS(SPI.Port.kMXP);
@@ -60,11 +59,6 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
   
 
   //other commands 
-
-
-
-  
->>>>>>> eed21454b1b5fd9a86b947c3559a59818592176f
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
