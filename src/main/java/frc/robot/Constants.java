@@ -23,12 +23,18 @@ public final class Constants {
     public static final double kIOMotorLowRPM = 0;
     public static final double kIOMotorMidRPM = 0;
     public static final double kIOMotorHighRPM = 0;
+    public static final double kIOMotorMaxRPM = 0;
     public static final double kHoldingMotorRPM = 0;
     public static final double kPivotMotorVelocity = 0;
+    //Do NOT set this above one
     public static final double kPivotMotorPower = 0;
+    public static final double kPivotMotorGatherAngle = 0;
+    public static final double kPivotMotorLowAngle = 0;
+    public static final double kPivotMotorMidAngle = 0;
+    public static final double kPivotMotorHighAngle = 0;
     public static final double kPivotMotorMinAngle = 0;
     public static final double kPivotMotorMaxAngle = 0;
-    // kPivotMotorMinAngle should be kept at zero, as it is not absolute, but a representation of the furthest back the arm is capable of extending.
+    // Min and Max angle represent the angles at which the arm contacts the ground or its frame
     public static final int kPivotMotorID = 0;
     public static final int kLeftIOMotorID = 1;
     public static final int kRightIOMotorID = 2;

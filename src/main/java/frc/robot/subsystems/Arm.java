@@ -10,9 +10,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxAbsoluteEncoder;
+import com.revrobotics.SparkMaxPIDController;
 
 public class Arm extends SubsystemBase {
-  private CANSparkMax m_PivotArm = new CANSparkMax(Constants.kPivotMotorID, MotorType.kBrushless);
+  static CANSparkMax m_PivotArm = new CANSparkMax(Constants.kPivotMotorID, MotorType.kBrushless);
+  static SparkMaxAbsoluteEncoder m_PivotingArm = m_PivotArm.getAbsoluteEncoder(null);
+  static SparkMaxPIDController m_ArmPivoter = m_PivotArm.getPIDController();
+  static double m_ArmPos = m_PivotingArm.getPosition();
   //Put some encoder stuff in the future
   /** Creates a new ARM. */
   public Arm() {

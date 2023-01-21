@@ -6,14 +6,21 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.Arm;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxAbsoluteEncoder;
+import com.revrobotics.CANSparkMax.ControlType;
 
 public class EndEffector extends SubsystemBase {
   private CANSparkMax m_RightIOMotor = new CANSparkMax(Constants.kRightIOMotorID, MotorType.kBrushless);
   private CANSparkMax m_LeftIOMotor = new CANSparkMax(Constants.kLeftIOMotorID, MotorType.kBrushless);
-  private CANSparkMax m_RightHoldingMotor = new CANSparkMax(Constants.kRightHoldingMotorID, MotorType.kBrushless);
-  private CANSparkMax m_LeftHoldingMotor = new CANSparkMax(Constants.kLeftHoldingMotorID, MotorType.kBrushless);
+  private CANSparkMax pivotMotor = Arm.m_PivotArm;
+
+  private double GatherPower = (Constants.kIOMotorGatherRPM/Constants.kIOMotorMaxRPM * -1);
+  private double LowPower = (Constants.kIOMotorLowRPM/Constants.kIOMotorMaxRPM);
+  private double MidPower = (Constants.kIOMotorMidRPM/Constants.kIOMotorMaxRPM);
+  private double HighPower = (Constants.kIOMotorHighRPM/Constants.kIOMotorMaxRPM);
   private boolean m_hasObject;
   /** Creates a new EndEffector. */
   public EndEffector() {
@@ -25,30 +32,30 @@ public class EndEffector extends SubsystemBase {
   }
 
   public void gatherTheCube() {
-    //We need the arm to move
-    m_RightIOMotor.set(Constants.kIOMotorGatherRPM);
-    m_LeftIOMotor.set(Constants.kIOMotorGatherRPM);
+    Arm.m_ArmPivoter.setReference(Constants.kPivotMotorGatherAngle, ControlType.kPosition);
+    m_RightIOMotor.set(GatherPower);
+    m_LeftIOMotor.set(GatherPower);
     //Add some sensor stuff and conditionals
     m_hasObject = true;
   }
-  /*
-  while (hasObject = true) {
-    m_LeftHoldingMotor.set(Constants.kHoldingMotorRPM);
-    mRightHoldingMotor.set(Constants.kHoldingMotorRPM);
-  }
-    Put this somewhere else later.
-  */
 
   public void Score(String scoreMode) {
     //Also needs some arm movement and calculations
     switch (scoreMode) {
       case "low":
-        
+      Arm.m_ArmPivoter.setReference(Constants.kPivotMotorLowAngle, ControlType.kPosition);
+        m_RightIOMotor.set(LowPower);
+        m_LeftIOMotor.set(LowPower);
       ;
       case "mid":
-
+      Arm.m_ArmPivoter.setReference(Constants.kPivotMotorMidAngle, ControlType.kPosition);
+      m_RightIOMotor.set(MidPower);
+      m_LeftIOMotor.set(MidPower);
       ;
       case "high":
+      Arm.m_ArmPivoter.setReference(Constants.kPivotMotorHighAngle, ControlType.kPosition);
+        m_RightIOMotor.set(HighPower);
+        m_LeftIOMotor.set(HighPower);
         //Avoiding the code for mid and high as of now since physical testing will be required to get accurate results
       ;
       default:
