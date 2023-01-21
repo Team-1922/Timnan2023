@@ -19,12 +19,11 @@ public final class Constants {
     public static final int kRightLead = 0;
     public static final int kRightFollow = 0;
     public static final double kVeolcityRPMConversion = 0;
-    public static final double kIOMotorGatherRPM = 0;
-    public static final double kIOMotorLowRPM = 0;
-    public static final double kIOMotorMidRPM = 0;
-    public static final double kIOMotorHighRPM = 0;
-    public static final double kIOMotorMaxRPM = 0;
-    public static final double kHoldingMotorRPM = 0;
+    public static final double kIOMotorGatherPower = 0;
+    public static final double kIOMotorLowPower = 0;
+    public static final double kIOMotorMidPower = 0;
+    public static final double kIOMotorHighPower = 0;
+    public static final double kIOMotorMaxPower = 0;
     public static final double kPivotMotorVelocity = 0;
     //Do NOT set this above one
     public static final double kPivotMotorPower = 0;

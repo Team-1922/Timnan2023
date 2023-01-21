@@ -9,18 +9,17 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Arm;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.SparkMaxAbsoluteEncoder;
 import com.revrobotics.CANSparkMax.ControlType;
 
 public class EndEffector extends SubsystemBase {
   private CANSparkMax m_RightIOMotor = new CANSparkMax(Constants.kRightIOMotorID, MotorType.kBrushless);
+  private SparkMaxPIDController m_RightPID = m_RightIOMotor.getPIDController();
   private CANSparkMax m_LeftIOMotor = new CANSparkMax(Constants.kLeftIOMotorID, MotorType.kBrushless);
+  private SparkMaxPIDController m_LeftPID = m_LeftIOMotor.getPIDController();
   private CANSparkMax pivotMotor = Arm.m_PivotArm;
 
-  private double GatherPower = (Constants.kIOMotorGatherRPM/Constants.kIOMotorMaxRPM * -1);
-  private double LowPower = (Constants.kIOMotorLowRPM/Constants.kIOMotorMaxRPM);
-  private double MidPower = (Constants.kIOMotorMidRPM/Constants.kIOMotorMaxRPM);
-  private double HighPower = (Constants.kIOMotorHighRPM/Constants.kIOMotorMaxRPM);
   private boolean m_hasObject;
   /** Creates a new EndEffector. */
   public EndEffector() {
@@ -33,8 +32,8 @@ public class EndEffector extends SubsystemBase {
 
   public void gatherTheCube() {
     Arm.m_ArmPivoter.setReference(Constants.kPivotMotorGatherAngle, ControlType.kPosition);
-    m_RightIOMotor.set(GatherPower);
-    m_LeftIOMotor.set(GatherPower);
+    m_LeftPID.setReference(Constants.kIOMotorGatherPower, ControlType.kVoltage);
+    m_RightPID.setReference(Constants.kIOMotorGatherPower, ControlType.kVoltage);
     //Add some sensor stuff and conditionals
     m_hasObject = true;
   }
@@ -44,18 +43,18 @@ public class EndEffector extends SubsystemBase {
     switch (scoreMode) {
       case "low":
       Arm.m_ArmPivoter.setReference(Constants.kPivotMotorLowAngle, ControlType.kPosition);
-        m_RightIOMotor.set(LowPower);
-        m_LeftIOMotor.set(LowPower);
+      m_LeftPID.setReference(Constants.kIOMotorLowPower, ControlType.kVoltage);
+      m_RightPID.setReference(Constants.kIOMotorLowPower, ControlType.kVoltage);
       ;
       case "mid":
       Arm.m_ArmPivoter.setReference(Constants.kPivotMotorMidAngle, ControlType.kPosition);
-      m_RightIOMotor.set(MidPower);
-      m_LeftIOMotor.set(MidPower);
+      m_LeftPID.setReference(Constants.kIOMotorMidPower, ControlType.kVoltage);
+      m_RightPID.setReference(Constants.kIOMotorMidPower, ControlType.kVoltage);
       ;
       case "high":
       Arm.m_ArmPivoter.setReference(Constants.kPivotMotorHighAngle, ControlType.kPosition);
-        m_RightIOMotor.set(HighPower);
-        m_LeftIOMotor.set(HighPower);
+      m_LeftPID.setReference(Constants.kIOMotorHighPower, ControlType.kVoltage);
+      m_RightPID.setReference(Constants.kIOMotorHighPower, ControlType.kVoltage);
         //Avoiding the code for mid and high as of now since physical testing will be required to get accurate results
       ;
       default:

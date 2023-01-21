@@ -21,7 +21,7 @@ public class Arm extends SubsystemBase {
   //Put some encoder stuff in the future
   /** Creates a new ARM. */
   public Arm() {
-
+    m_ArmPivoter.setOutputRange(Constants.kPivotMotorMinAngle, Constants.kPivotMotorMaxAngle);
 
     
   }
