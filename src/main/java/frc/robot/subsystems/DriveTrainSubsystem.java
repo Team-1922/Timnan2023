@@ -35,12 +35,19 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     SmartDashboard.putNumber("left p gain", kp);
     SmartDashboard.putNumber("left i gain", ki);
-   //
-    SmartDashboard.putNumber("left d gain", kd); /* */ 
+    SmartDashboard.putNumber("left d gain", kd); 
     SmartDashboard.putNumber("left feed foward ", kff);
     SmartDashboard.putNumber("left i zone", kiz);
     SmartDashboard.putNumber("left max rpm", maxrpm);
 
+
+    
+    SmartDashboard.putNumber("right p gain", rightkp);
+    SmartDashboard.putNumber("right i gain", rightki);
+    SmartDashboard.putNumber("right d gain", rightkd); 
+    SmartDashboard.putNumber("right feed foward ", rightkff);
+    SmartDashboard.putNumber("right i zone", rightkiz);
+    SmartDashboard.putNumber("right max rpm", rightmaxrpm);
 
     //Motor controlers
     m_leftLead.restoreFactoryDefaults();
@@ -61,23 +68,23 @@ public void velocityDrive(double velocity){
  //m_pidControllerLeft.setRefrence();
   //m_pidControllerRight.setRefrence();
   m_pidControllerLeft.setP(SmartDashboard.getNumber( "left p gain" , 0));
-  m_pidControllerLeft.setI(ki);
-  m_pidControllerLeft.setD(kd);
+  m_pidControllerLeft.setI(SmartDashboard.getNumber("left i gain", 0));
+  m_pidControllerLeft.setD(SmartDashboard.getNumber("left d gain", 0));
  m_pidControllerLeft.setOutputRange(0, 1); //change that later, 1 and 0 are placeholders
- m_pidControllerLeft.setFF(kff); //feed foward
-m_pidControllerLeft.setIZone(kiz); //i zone
+ m_pidControllerLeft.setFF(SmartDashboard.getNumber("left feed foward", 0)); //feed foward
+m_pidControllerLeft.setIZone(SmartDashboard.getNumber("left i zone", 0)); //i zone
 
 double leftsetpoint = RobotContainer.LeftJoystick.getY()*maxrpm;
 m_pidControllerLeft.setReference(leftsetpoint, CANSparkMax.ControlType.kVelocity);
 
      // right side
-m_pidControllerRight.setP(rightkp);
+m_pidControllerRight.setP(SmartDashboard.getNumber("right p gain", 0));
 
-m_pidControllerRight.setI(rightki);
-m_pidControllerRight.setD(rightkd);
+m_pidControllerRight.setI(SmartDashboard.getNumber("right i gain", 0));
+m_pidControllerRight.setD(SmartDashboard.getNumber("right d gain", 0));
 m_pidControllerRight.setOutputRange(0, 1);
-m_pidControllerRight.setFF(rightkff);
-m_pidControllerRight.setIZone(rightkiz);
+m_pidControllerRight.setFF(SmartDashboard.getNumber("right feed foward", 0));
+m_pidControllerRight.setIZone(SmartDashboard.getNumber("right i zone", 0));
 double rightsetpoint = RobotContainer.RightJoystick.getY()*maxrpm;
 m_pidControllerRight.setReference(rightsetpoint, CANSparkMax.ControlType.kVelocity);
 
