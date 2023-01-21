@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.util.Units;
@@ -80,20 +81,25 @@ public void velocityDrive(double velocity){
     return m_navX.getPitch();
   }
 
-  
+
 
   public double getLeftEncoderRaw(){
     return m_leftEncoder.getPosition();
   }
   public double getLeftEncoderFeet(){
-    return m_leftEncoder.getPosition() * Constants.EncoderTicksToFeet;
+    return m_leftEncoder.getPosition() * Constants.kEncoderTicksToFeet;
   }
 
   public double getRightEncoderRaw(){
     return m_rightEncoder.getPosition();
   }
   public double getRightEncoderFeet(){
-    return m_rightEncoder.getPosition() * Constants.EncoderTicksToFeet;
+    return m_rightEncoder.getPosition() * Constants.kEncoderTicksToFeet;
+  }
+
+
+  public Pose2d getRobotPose(){
+    return m_odometry.getPoseMeters();
   }
 
 

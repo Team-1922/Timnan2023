@@ -45,6 +45,6 @@ public final class Constants {
     public static final double HoldingMorerPower = 0;
 
     // Multiply raw encoder output by this to convert that to feet travelled
-    public static final double EncoderTicksToFeet = 0; //TBD
+    public static final double kEncoderTicksToFeet = 0; //TBD
  // }
 }
