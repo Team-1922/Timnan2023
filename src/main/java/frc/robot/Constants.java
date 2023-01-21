@@ -35,8 +35,8 @@ public final class Constants {
     public static final double kPivotMotorMaxAngle = 0;
     // Min and Max angle represent the angles at which the arm contacts the ground or its frame
     public static final int kPivotMotorID = 0;
-    public static final int kLeftIOMotorID = 1;
-    public static final int kRightIOMotorID = 2;
+    public static final int kTopIOMotorID = 1;
+    public static final int kBottomIOMotorID = 2;
     public static final int kLeftHoldingMotorID = 3;
     public static final int kRightHoldingMotorID = 4;
     public static final int kLeftJoystickID = 100;

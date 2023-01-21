@@ -15,13 +15,13 @@ import com.revrobotics.SparkMaxPIDController;
 
 public class Arm extends SubsystemBase {
   static CANSparkMax m_PivotArm = new CANSparkMax(Constants.kPivotMotorID, MotorType.kBrushless);
-  static SparkMaxAbsoluteEncoder m_PivotingArm = m_PivotArm.getAbsoluteEncoder(null);
-  static SparkMaxPIDController m_ArmPivoter = m_PivotArm.getPIDController();
-  static double m_ArmPos = m_PivotingArm.getPosition();
+  static SparkMaxAbsoluteEncoder m_ArmEncoder = m_PivotArm.getAbsoluteEncoder(null);
+  static SparkMaxPIDController m_ArmPID = m_PivotArm.getPIDController();
+  static double m_ArmPos = m_ArmEncoder.getPosition();
   //Put some encoder stuff in the future
   /** Creates a new ARM. */
   public Arm() {
-    m_ArmPivoter.setOutputRange(Constants.kPivotMotorMinAngle, Constants.kPivotMotorMaxAngle);
+    m_ArmPID.setOutputRange(Constants.kPivotMotorMinAngle, Constants.kPivotMotorMaxAngle);
 
     
   }
