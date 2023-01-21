@@ -6,6 +6,11 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.revrobotics.CANSparkMax;
+import frc.robot.Constants;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.kauailabs.navx.frc.AHRS;
 
 import org.opencv.core.KeyPoint;
 
@@ -57,8 +62,23 @@ double RightkMinOutput, RightkMaxOutput;
     m_leftFollow.follow(m_leftLead);
     m_rightFollow.follow(m_rightLead);
     m_pidControllerLeft = m_leftLead.getPIDController();
+    m_pidControllerRight = m_rightLead.getPIDController();}
+
+
+  private AHRS m_navX; 
+  /** Creates a new DriveTrainSubsystem. */
+  public DriveTrainSubsystem(AHRS navX) {
+    //Motor controlers
+    m_leftLead.restoreFactoryDefaults();
+    m_leftFollow.restoreFactoryDefaults();
+    m_rightLead.restoreFactoryDefaults();
+    m_rightFollow.restoreFactoryDefaults();
+    m_leftFollow.follow(m_leftLead);
+    m_rightFollow.follow(m_rightLead);
+    m_pidControllerLeft = m_leftLead.getPIDController();
     m_pidControllerRight = m_rightLead.getPIDController();
 
+    m_navX = navX;
   }
 public void Drive(double leftSpeed, double rightSpeed){
   m_leftLead.set(leftSpeed);
@@ -66,6 +86,7 @@ public void Drive(double leftSpeed, double rightSpeed){
 
 }
 public void velocityDrive(double velocity){
+
  //m_pidControllerLeft.setRefrence();
   //m_pidControllerRight.setRefrence();
   m_pidControllerLeft.setP(SmartDashboard.getNumber( "left p gain" , 0));
@@ -95,15 +116,23 @@ m_pidControllerRight.setReference(rightsetpoint, CANSparkMax.ControlType.kVeloci
  /* double MaxVelocity = 250; // the max velocity of the motor , test this when the drivebase is done
  double OutputScale = .9 ; //scale the output 
 Drive( RobotContainer.LeftJoystick.getY()*MaxVelocity*OutputScale, RobotContainer.RightJoystick.getY()*MaxVelocity*OutputScale); */
+
 }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   
 
- //
-//SmartDashboard.getNumber(getName(), kd)
-
-
   }
+
+
+  public double robotYaw(){
+    return m_navX.getYaw();
+  }
+
+  public double robotPitch(){
+    return m_navX.getPitch();
+  }
+
+
 }

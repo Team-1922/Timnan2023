@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -23,17 +25,46 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem();
-  private final TankDrive m_TankDrive = new TankDrive();
-  
+  // joysticks and xboxcontrollers 
  public final static Joystick LeftJoystick = new Joystick(0);
  public final static Joystick RightJoystick = new Joystick(1);
 
+
+ 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(Constants.kDriverControllerPort);
+<<<<<<< HEAD
+=======
+
+
+  private final AHRS m_navX = new AHRS(SPI.Port.kMXP);
+
+// Subsystems, put them here or code might not work 
+
+private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
+  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  //arm commands
+
+
+  
+
+    // Auto drive commands
+
+    
+
+
+
+  // drive commands 
+  private final TankDrive m_TankDrive = new TankDrive();
+  
+
+  //other commands 
+
+
+
+  
+>>>>>>> eed21454b1b5fd9a86b947c3559a59818592176f
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
