@@ -4,9 +4,13 @@
 
 package frc.robot.commands;
 
+import java.util.ArrayList;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrainSubsystem;
 
@@ -19,6 +23,9 @@ public class TrajectoryDrive extends CommandBase {
 
   private Translation2d endPoseTranslation = new Translation2d(1, 2); 
   private Pose2d endPose = new Pose2d(endPoseTranslation, Rotation2d.fromDegrees(360));
+  private ArrayList<Translation2d> waypoints = new ArrayList<Translation2d>();
+
+//  private TrajectoryConfig config = new TrajectoryConfig();
   
   /** Creates a new TrajectoryDrive. */
   public TrajectoryDrive(DriveTrainSubsystem driveTrain) {
@@ -32,7 +39,14 @@ public class TrajectoryDrive extends CommandBase {
   public void initialize() {
     startingPose = m_driveTrain.getRobotPose();
     startingTime = System.currentTimeMillis();
-
+/* 
+    TrajectoryGenerator.generateTrajectory(
+      startingPose,
+      arrayList,
+      endPose,
+      config
+    ); 
+*/
   }
 
   // Called every time the scheduler runs while the command is scheduled.

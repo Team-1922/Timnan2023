@@ -21,7 +21,7 @@ public class AutoBalance extends PIDCommand {
         // The controller that the command will use
         new PIDController(0, 0, 0), // Need to insert proper pid values here, waiting until testing
         // This should return the measurement
-        () -> driveTrain.robotYaw(),
+        () -> driveTrain.robotPitch(),
         // This should return the setpoint (can also be a constant)
         0,
         // This uses the output
