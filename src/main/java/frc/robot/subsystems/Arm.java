@@ -22,12 +22,20 @@ public class Arm extends SubsystemBase {
   /** Creates a new ARM. */
   public Arm() {
     m_ArmPID.setOutputRange(Constants.kPivotMotorMinAngle, Constants.kPivotMotorMaxAngle);
-
+    m_ArmPID.setP(0);
+    m_ArmPID.setI(0);
+    m_ArmPID.setD(0);
+    m_ArmPID.setFF(0);
     
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  public double calculateNewFF() {
+    m_ArmEncoder.getPosition()
+    return 0;
   }
 }

@@ -23,6 +23,9 @@ public class EndEffector extends SubsystemBase {
   public EndEffector() {
     m_BottomIOMotor.restoreFactoryDefaults();
     m_TopIOMotor.restoreFactoryDefaults();
+    m_BottomPID.setP(0);
+    m_BottomPID.setI(0);
+    m_BottomPID.setD(0);
   }
 
   public boolean getHasObject() {

@@ -3,10 +3,12 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
+import frc.robot.subsystems.EndEffector;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Score extends CommandBase {
+  EndEffector cubePositioner = new EndEffector();
   /** Creates a new Score. */
   public Score() {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -27,6 +29,6 @@ public class Score extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return cubePositioner.getHasObject();
   }
 }
