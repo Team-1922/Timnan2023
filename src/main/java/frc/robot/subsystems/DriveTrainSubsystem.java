@@ -27,7 +27,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   private CANSparkMax m_rightFollow = new CANSparkMax(Constants.kRightFollow, MotorType.kBrushless);
   private SparkMaxPIDController m_pidControllerLeft;
   private SparkMaxPIDController m_pidControllerRight;
-  double kp, ki, kd, kff, kiz, maxrpm;
+  double kp, ki, kd, kff, kiz, kmaxrpm;
  double rightkp, rightki, rightkd, rightkff, rightkiz, rightmaxrpm;
  double kMinOutput, kMaxOutput;
 double RightkMinOutput, RightkMaxOutput;
@@ -45,7 +45,7 @@ double minoutput, maxoutput, rightminoutput, rightmaxoutput;
     SmartDashboard.putNumber("left d gain", kd); 
     SmartDashboard.putNumber("left feed foward ", kff);
     SmartDashboard.putNumber("left i zone", kiz);
-    SmartDashboard.putNumber("left max rpm", maxrpm);
+    SmartDashboard.putNumber("left max rpm", kmaxrpm);
     SmartDashboard.putNumber("left max output", kMaxOutput);
     SmartDashboard.putNumber("left min output", kMinOutput);
 
@@ -101,7 +101,7 @@ public void velocityDrive(double velocity){
  m_pidControllerLeft.setFF(ff); //feed foward
 m_pidControllerLeft.setIZone(iz); //i zone
 
-double leftsetpoint = RobotContainer.LeftJoystick.getY()*maxrpm;
+double leftsetpoint = RobotContainer.LeftJoystick.getY()*kmaxrpm;
 m_pidControllerLeft.setReference(leftsetpoint, CANSparkMax.ControlType.kVelocity);
 
      // right side
@@ -109,10 +109,10 @@ m_pidControllerRight.setP(rightp);
 
 m_pidControllerRight.setI(righti);
 m_pidControllerRight.setD(rightd);
-m_pidControllerRight.setOutputRange(SmartDashboard.getNumber("right min output", 0), SmartDashboard.getNumber("right max output", 1));
+m_pidControllerRight.setOutputRange(rightminoutput, rightmaxoutput);
 m_pidControllerRight.setFF(rightff);
 m_pidControllerRight.setIZone(rightd);
-double rightsetpoint = RobotContainer.RightJoystick.getY()*maxrpm;
+double rightsetpoint = RobotContainer.RightJoystick.getY()*kmaxrpm;
 m_pidControllerRight.setReference(rightsetpoint, CANSparkMax.ControlType.kVelocity);
 
 
@@ -126,22 +126,28 @@ Drive( RobotContainer.LeftJoystick.getY()*MaxVelocity*OutputScale, RobotContaine
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    //left pid
   if (p != kp){  m_pidControllerLeft.setP(SmartDashboard.getNumber( "left p gain" , 0)); }
 if (i != ki) {  m_pidControllerLeft.setI(SmartDashboard.getNumber("left i gain", 0)); }
  if (d != kd){ m_pidControllerLeft.setD(SmartDashboard.getNumber("left d gain", 0));}
- 
   if (ff != kff) {m_pidControllerLeft.setFF(SmartDashboard.getNumber("left feed foward", 0)); } //feed foward
    if (iz != kiz) {m_pidControllerLeft.setIZone(SmartDashboard.getNumber("left i zone", 0));}
+if (minoutput != kMinOutput){minoutput = kMinOutput;}
+if (maxoutput != kMaxOutput){maxoutput = kMaxOutput;}
 
 
+   // right pid
     if (rightp != rightkp){ m_pidControllerRight.setP(SmartDashboard.getNumber("right p gain", 0));}
-
    if (righti != rightki) m_pidControllerRight.setI(SmartDashboard.getNumber("right i gain", 0));
   if (rightd != rightkd) { m_pidControllerRight.setD(SmartDashboard.getNumber("right d gain", 0));}
- 
    if (rightff != rightkff){ m_pidControllerRight.setFF(SmartDashboard.getNumber("right feed foward", 0));}
-   if (rightiz != rightkiz){ m_pidControllerRight.setIZone(SmartDashboard.getNumber("right i zone", 0)); }
+   if (rightiz != rightkiz){ m_pidControllerRight.setIZone(SmartDashboard.getNumber("right i zone", 0));}
+   if (rightmaxoutput != kMaxOutput) {rightmaxoutput = kMaxOutput;}
     
+
+
+
 
   }
 
