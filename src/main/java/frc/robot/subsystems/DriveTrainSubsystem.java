@@ -91,7 +91,7 @@ public void velocityDrive(double velocity){
   m_pidControllerLeft.setP(p);
   m_pidControllerLeft.setI(i);
   m_pidControllerLeft.setD(d);
- m_pidControllerLeft.setOutputRange(SmartDashboard.getNumber("left min output", 0), SmartDashboard.getNumber("left max output", 1)); 
+ m_pidControllerLeft.setOutputRange(minoutput,maxoutput); 
  m_pidControllerLeft.setFF(ff); //feed foward
 m_pidControllerLeft.setIZone(iz); //i zone
 
