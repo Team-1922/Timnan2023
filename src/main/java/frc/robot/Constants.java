@@ -46,5 +46,7 @@ public final class Constants {
 
     // Multiply raw encoder output by this to convert that to feet travelled
     public static final double kEncoderTicksToFeet = 0; //TBD
+    // For trajectory differentialDriveKinematics
+    public static final double distBetweenWheelsMeters = 0; //TBD
  // }
 }

@@ -6,12 +6,18 @@ package frc.robot.commands;
 
 import java.util.ArrayList;
 
+import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrainSubsystem;
 
 public class TrajectoryDrive extends CommandBase {
@@ -25,7 +31,15 @@ public class TrajectoryDrive extends CommandBase {
   private Pose2d endPose = new Pose2d(endPoseTranslation, Rotation2d.fromDegrees(360));
   private ArrayList<Translation2d> waypoints = new ArrayList<Translation2d>();
 
-//  private TrajectoryConfig config = new TrajectoryConfig();
+  private TrajectoryConfig config = new TrajectoryConfig(1, 1);
+
+  private Trajectory trajectory;
+
+  private RamseteController ramseteController = new RamseteController();
+  private ChassisSpeeds chassisSpeeds = new ChassisSpeeds();
+  private DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Constants.distBetweenWheelsMeters);
+  private DifferentialDriveWheelSpeeds wheelSpeeds = new DifferentialDriveWheelSpeeds();
+ 
   
   /** Creates a new TrajectoryDrive. */
   public TrajectoryDrive(DriveTrainSubsystem driveTrain) {
@@ -39,27 +53,39 @@ public class TrajectoryDrive extends CommandBase {
   public void initialize() {
     startingPose = m_driveTrain.getRobotPose();
     startingTime = System.currentTimeMillis();
-/* 
-    TrajectoryGenerator.generateTrajectory(
+
+    waypoints.add(new Translation2d(1, 2));
+    waypoints.add(new Translation2d(1, 2));
+ 
+    trajectory = TrajectoryGenerator.generateTrajectory(
       startingPose,
-      arrayList,
+      waypoints,
       endPose,
       config
     ); 
-*/ 
+ 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    chassisSpeeds = (ramseteController.calculate(m_driveTrain.getRobotPose(), trajectory.sample(System.currentTimeMillis() - startingTime)));
+    wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
+
+    // m_driveTrain.velocityDrive(wheelSpeeds.leftMetersPerSecond(), wheelsSpeeds.rightMetersPerSecond());
+
+
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_driveTrain.Drive(0, 0);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_driveTrain.getRobotPose() == endPose;
   }
 }
