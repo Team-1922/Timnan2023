@@ -27,15 +27,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
   private CANSparkMax m_rightFollow = new CANSparkMax(Constants.kRightFollow, MotorType.kBrushless);
   private SparkMaxPIDController m_pidControllerLeft;
   private SparkMaxPIDController m_pidControllerRight;
-  double kp, ki, kd, kff, kiz, kmaxrpm;
- double rightkp, rightki, rightkd, rightkff, rightkiz, krightmaxrpm;
- double kMinOutput, kMaxOutput;
-double RightkMinOutput, RightkMaxOutput;
-
-
-
-double p,i,d,ff,iz,Maxrpm,rightp,righti,rightd,rightff,rightiz,rightmaxrpm;
-double minoutput, maxoutput, rightminoutput, rightmaxoutput;
+  double kp, ki, kd, kff, kiz, kmaxrpm, rightkp, rightki, rightkd, rightkff, rightkiz, krightmaxrpm, kMinOutput, kMaxOutput,RightkMinOutput, RightkMaxOutput;
+  double p,i,d,ff,iz,Maxrpm,rightp,righti,rightd,rightff,rightiz,rightmaxrpm, minoutput, maxoutput, rightminoutput, rightmaxoutput;
   /** Creates a new DriveTrainSubsystem. */
   public DriveTrainSubsystem() {
 
