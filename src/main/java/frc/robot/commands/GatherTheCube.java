@@ -5,11 +5,13 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.EndEffector;
+import frc.robot.subsystems.Arm;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class GatherTheCube extends CommandBase {
   EndEffector cubeHarvester = new EndEffector();
+  private Arm robotArm = new Arm();
   /** Creates a new GatherTheCube. */
   private GatherTheCube() {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -21,7 +23,9 @@ public class GatherTheCube extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    robotArm.setNewFF();
+  }
 
   // Called once the command ends or is interrupted.
   @Override

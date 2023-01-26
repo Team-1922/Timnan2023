@@ -26,6 +26,9 @@ public class EndEffector extends SubsystemBase {
     m_BottomPID.setP(0);
     m_BottomPID.setI(0);
     m_BottomPID.setD(0);
+    m_TopPID.setP(0);
+    m_TopPID.setI(0);
+    m_TopPID.setD(0); //Probably will be set on controller or determined through testing later
   }
 
   public boolean getHasObject() {

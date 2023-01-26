@@ -25,7 +25,7 @@ public class Arm extends SubsystemBase {
     m_ArmPID.setP(0);
     m_ArmPID.setI(0);
     m_ArmPID.setD(0);
-    m_ArmPID.setFF(0);
+    m_ArmPID.setFF(0); //Probably will be set on controller or determined through testing later
     
   }
 
@@ -34,8 +34,9 @@ public class Arm extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public double calculateNewFF() {
-    m_ArmEncoder.getPosition()
-    return 0;
+  public double setNewFF() {
+    double newFF;
+    newFF = (Constants.kCOMRadius * Math.cos(m_ArmEncoder.getPosition()));  //may have to do some conversions
+    return newFF;
   }
 }
