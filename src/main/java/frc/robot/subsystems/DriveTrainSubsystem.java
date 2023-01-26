@@ -4,8 +4,11 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+
 import com.revrobotics.CANSparkMax;
 import frc.robot.Constants;
 import com.revrobotics.SparkMaxPIDController;
@@ -117,10 +120,39 @@ m_pidControllerRight.setReference(rightsetpoint, CANSparkMax.ControlType.kVeloci
 Drive( RobotContainer.LeftJoystick.getY()*MaxVelocity*OutputScale, RobotContainer.RightJoystick.getY()*MaxVelocity*OutputScale); */
 
 }
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
+public void timedpid( )   {
 
+Timer.delay(1);
+
+    kp = SmartDashboard.getNumber("left p gain", 0);
+    ki= SmartDashboard.getNumber("left i gain", 0);
+    kd = SmartDashboard.getNumber("left d gain", 0);
+    kmaxrpm = SmartDashboard.getNumber("left max rpm", 10);
+
+Timer.delay(2);
+ kff = SmartDashboard.getNumber("left feed foward", 0);
+ kiz = SmartDashboard.getNumber("left i zone", 0);
+kMinOutput = SmartDashboard.getNumber("left min output", 0);
+kMaxOutput = SmartDashboard.getNumber("left max output", 1);
+Timer.delay(1);
+
+rightkp = SmartDashboard.getNumber("right p gain", 0);
+rightki = SmartDashboard.getNumber("right i gain", 0);
+rightkd = SmartDashboard.getNumber("right d gain", 0);
+Timer.delay(2);
+  rightkff = SmartDashboard.getNumber("right feed foward", 0);
+  rightkiz = SmartDashboard.getNumber("right iz", 0);
+  RightkMaxOutput = SmartDashboard.getNumber("right max output", 1);
+  RightkMinOutput = SmartDashboard.getNumber("right min output", 0);
+  krightmaxrpm = SmartDashboard.getNumber("right max rpm", 10); 
+
+};
+
+@Override
+public void periodic()   {
+
+    // This method will be called once per scheduler run
+timedpid();
     //left pid
   if (p != kp){  m_pidControllerLeft.setP(SmartDashboard.getNumber( "left p gain" , 0)); }
 if (i != ki) {  m_pidControllerLeft.setI(SmartDashboard.getNumber("left i gain", 0)); }
@@ -138,7 +170,7 @@ if (Maxrpm != kmaxrpm) {Maxrpm = SmartDashboard.getNumber("left max rpm", 10);}
    if (rightff != rightkff){ m_pidControllerRight.setFF(SmartDashboard.getNumber("right feed foward", 0));}
    if (rightiz != rightkiz){ m_pidControllerRight.setIZone(SmartDashboard.getNumber("right i zone", 0));}
    if (RightkMaxOutput != rightmaxoutput) {rightmaxoutput =SmartDashboard.getNumber("right max output", 1);}
-   if (krightMinOutput != rightminoutput) {krightMinOutput = SmartDashboard.getNumber("right min output", 0);}
+   if (rightminoutput != krightMinOutput) {krightMinOutput = SmartDashboard.getNumber("right min output", 0);}
    if (rightmaxrpm != krightmaxrpm) {rightmaxrpm = SmartDashboard.getNumber("right max rpm", 10);}
 
 
@@ -146,6 +178,10 @@ if (Maxrpm != kmaxrpm) {Maxrpm = SmartDashboard.getNumber("left max rpm", 10);}
   }
 
 
+  private void WaitCommand(int j)
+   {
+    new WaitCommand(j);
+  }
   public double robotYaw(){
     return m_navX.getYaw();
   }
