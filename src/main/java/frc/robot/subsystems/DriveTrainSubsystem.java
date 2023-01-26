@@ -122,7 +122,8 @@ Drive( RobotContainer.LeftJoystick.getY()*MaxVelocity*OutputScale, RobotContaine
 }
 public void timedpid( )   {
 
-Timer.delay(1);
+
+Timer.delay(2);
 
     kp = SmartDashboard.getNumber("left p gain", 0);
     ki= SmartDashboard.getNumber("left i gain", 0);
@@ -134,7 +135,7 @@ Timer.delay(2);
  kiz = SmartDashboard.getNumber("left i zone", 0);
 kMinOutput = SmartDashboard.getNumber("left min output", 0);
 kMaxOutput = SmartDashboard.getNumber("left max output", 1);
-Timer.delay(1);
+Timer.delay(2);
 
 rightkp = SmartDashboard.getNumber("right p gain", 0);
 rightki = SmartDashboard.getNumber("right i gain", 0);
@@ -154,6 +155,7 @@ public void periodic()   {
     // This method will be called once per scheduler run
 timedpid();
     //left pid
+
   if (p != kp){  m_pidControllerLeft.setP(SmartDashboard.getNumber( "left p gain" , 0)); }
 if (i != ki) {  m_pidControllerLeft.setI(SmartDashboard.getNumber("left i gain", 0)); }
  if (d != kd){ m_pidControllerLeft.setD(SmartDashboard.getNumber("left d gain", 0));}
