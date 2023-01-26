@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.subsystems.Arm;
 import com.revrobotics.CANSparkMax;
@@ -17,6 +18,7 @@ public class EndEffector extends SubsystemBase {
   private CANSparkMax m_TopIOMotor = new CANSparkMax(Constants.kTopIOMotorID, MotorType.kBrushless);
   SparkMaxPIDController m_BottomPID = m_BottomIOMotor.getPIDController();
   SparkMaxPIDController m_TopPID = m_TopIOMotor.getPIDController();
+  private double eP, eI, eD;
 
   private boolean m_hasObject;
   /** Creates a new EndEffector. */
@@ -29,6 +31,10 @@ public class EndEffector extends SubsystemBase {
     m_TopPID.setP(0);
     m_TopPID.setI(0);
     m_TopPID.setD(0); //Probably will be set on controller or determined through testing later
+    
+    SmartDashboard.putNumber("P gain", eP);
+    SmartDashboard.putNumber("I gain", eI);
+    SmartDashboard.putNumber("D gain", eD);
   }
 
   public boolean getHasObject() {
@@ -73,5 +79,12 @@ public class EndEffector extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    double ioP = SmartDashboard.getNumber("P gain", 0);
+    double ioI = SmartDashboard.getNumber("I gain", 0);
+    double ioD = SmartDashboard.getNumber("D gain", 0);
+    
+    if (eP != ioP) {m_BottomPID.setP(eP); m_TopPID.setP(eP); eP = ioP;}
+    if (eI != ioI) {m_BottomPID.setI(eI); m_TopPID.setI(eI); eI = ioI;}
+    if (eD != ioD) {m_BottomPID.setD(eD); m_TopPID.setD(eD); eD = ioD;}
   }
 }
