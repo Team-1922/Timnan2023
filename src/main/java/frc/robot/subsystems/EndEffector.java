@@ -18,6 +18,7 @@ public class EndEffector extends SubsystemBase {
   private CANSparkMax m_TopIOMotor = new CANSparkMax(Constants.kTopIOMotorID, MotorType.kBrushless);
   SparkMaxPIDController m_BottomPID = m_BottomIOMotor.getPIDController();
   SparkMaxPIDController m_TopPID = m_TopIOMotor.getPIDController();
+  public int m_valueRefCounter = 0;
   private double eP, eI, eD;
 
   private boolean m_hasObject;
@@ -79,12 +80,19 @@ public class EndEffector extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    double ioP = SmartDashboard.getNumber("P gain", 0);
-    double ioI = SmartDashboard.getNumber("I gain", 0);
-    double ioD = SmartDashboard.getNumber("D gain", 0);
-    
-    if (eP != ioP) {m_BottomPID.setP(eP); m_TopPID.setP(eP); eP = ioP;}
-    if (eI != ioI) {m_BottomPID.setI(eI); m_TopPID.setI(eI); eI = ioI;}
-    if (eD != ioD) {m_BottomPID.setD(eD); m_TopPID.setD(eD); eD = ioD;}
+
+    if (m_valueRefCounter % Constants.eeRefRateMod == 0) {
+     double ioP = SmartDashboard.getNumber("P gain", 0);
+     if (eP != ioP) {m_BottomPID.setP(eP); m_TopPID.setP(eP); eP = ioP;}
+
+    } else if (m_valueRefCounter % (Constants.eeRefRateMod + 1) == 0) {
+      double ioI = SmartDashboard.getNumber("I gain", 0);
+      if (eI != ioI) {m_BottomPID.setI(eI); m_TopPID.setI(eI); eI = ioI;}
+
+    } else if (m_valueRefCounter % (Constants.eeRefRateMod + 2) == 0) {
+      double ioD = SmartDashboard.getNumber("D gain", 0);
+      if (eD != ioD) {m_BottomPID.setD(eD); m_TopPID.setD(eD); eD = ioD;}
+    }
+    m_valueRefCounter++;
   }
 }
