@@ -88,9 +88,11 @@ public class DriveTrainSubsystem extends SubsystemBase {
     m_pidControllerLeft = m_leftLead.getPIDController();
     m_pidControllerRight = m_rightLead.getPIDController();
 
+
+    
     m_navX = navX;
 
-    // Setting up the odometry object in the constructor--A little sketchy? No errors and it builds though
+    // Setting up the odometry object 
     m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(robotPitch()), Units.feetToMeters(getRightEncoderFeet()), Units.feetToMeters(getLeftEncoderFeet()));
   }
   
