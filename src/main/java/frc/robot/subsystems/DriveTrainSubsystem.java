@@ -80,16 +80,11 @@ public class DriveTrainSubsystem extends SubsystemBase {
     m_pidControllerLeft = m_leftLead.getPIDController();
     m_pidControllerRight = m_rightLead.getPIDController();
 
-    m_navX = navX;
-  }
-public void Drive(double leftSpeed, double rightSpeed){
-  m_leftLead.set(leftSpeed);
-  m_rightLead.set(rightSpeed);
-
-}
-public void velocityDrive(double leftVelocity, double rightVelocity){
-
- //m_pidControllerLeft.setRefrence();
+    m_navX = navX; 
+    
+    
+    //pid stuff that we need
+    //m_pidControllerLeft.setRefrence();
   //m_pidControllerRight.setRefrence();
   m_pidControllerLeft.setP(p);
   m_pidControllerLeft.setI(i);
@@ -97,19 +92,25 @@ public void velocityDrive(double leftVelocity, double rightVelocity){
  m_pidControllerLeft.setOutputRange(minoutput,maxoutput); 
  m_pidControllerLeft.setFF(ff); //feed foward
 m_pidControllerLeft.setIZone(iz); //i zone
-
-double leftsetpoint =leftVelocity*Maxrpm;
-m_pidControllerLeft.setReference(leftsetpoint, CANSparkMax.ControlType.kVelocity);
-
-     // right side
 m_pidControllerRight.setP(rightp);
-
 m_pidControllerRight.setI(righti);
 m_pidControllerRight.setD(rightd);
 m_pidControllerRight.setOutputRange(rightminoutput, RightkMaxOutput);
 m_pidControllerRight.setFF(rightff);
 m_pidControllerRight.setIZone(rightd);
-double rightsetpoint = rightVelocity*rightmaxrpm;
+  }
+public void Drive(double leftSpeed, double rightSpeed){
+  m_leftLead.set(leftSpeed);
+  m_rightLead.set(rightSpeed);
+
+}
+public void velocityDrive(double LeftRPM, double rightRPM){
+
+
+
+double leftsetpoint =LeftRPM;
+m_pidControllerLeft.setReference(leftsetpoint, CANSparkMax.ControlType.kVelocity);
+double rightsetpoint = rightRPM;
 m_pidControllerRight.setReference(rightsetpoint, CANSparkMax.ControlType.kVelocity);
 
 
@@ -120,6 +121,7 @@ m_pidControllerRight.setReference(rightsetpoint, CANSparkMax.ControlType.kVeloci
 Drive( RobotContainer.LeftJoystick.getY()*MaxVelocity*OutputScale, RobotContainer.RightJoystick.getY()*MaxVelocity*OutputScale); */
 
 }
+
 public void timedpid( )   {
 
 
