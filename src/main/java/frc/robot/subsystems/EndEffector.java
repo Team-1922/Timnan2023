@@ -7,7 +7,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
-import frc.robot.subsystems.Arm;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxPIDController;
@@ -18,7 +17,7 @@ public class EndEffector extends SubsystemBase {
   private CANSparkMax m_TopIOMotor = new CANSparkMax(Constants.kTopIOMotorID, MotorType.kBrushless);
   SparkMaxPIDController m_BottomPID = m_BottomIOMotor.getPIDController();
   SparkMaxPIDController m_TopPID = m_TopIOMotor.getPIDController();
-  public int m_valueRefCounter = 0;
+  public static int m_valueRefCounter = 0;
   private double eP, eI, eD;
 
   private boolean m_hasObject;
@@ -80,7 +79,6 @@ public class EndEffector extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-
     if (m_valueRefCounter % Constants.eeRefRateMod == 0) {
      double ioP = SmartDashboard.getNumber("P gain", 0);
      if (eP != ioP) {m_BottomPID.setP(eP); m_TopPID.setP(eP); eP = ioP;}
