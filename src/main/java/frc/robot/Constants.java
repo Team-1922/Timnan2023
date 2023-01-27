@@ -43,5 +43,18 @@ public final class Constants {
     public static final int kRightHoldingMotorID = 4;
     public static final int kLeftJoystickID = 100;
     public static final int kRightJoystickID = 101;
+    public static final double veolcityRPMConversion = 0;
+    public static final int ArmMotorID = 0;
+    public static final int LeftIOMotorID = 1;
+    public static final int RightIOMotorID = 2;
+    public static final int LeftHoldingMotorID = 3;
+    public static final int RightHoldingMotorID = 4;
+    public static final double IOMotorRPM = 0;
+    public static final double HoldingMorerPower = 0;
+
+    // Multiply raw encoder output by this to convert that to feet travelled
+    public static final double kEncoderTicksToFeet = 0; //TBD
+    // For trajectory differentialDriveKinematics
+    public static final double distBetweenWheelsMeters = 0; //TBD
  // }
 }

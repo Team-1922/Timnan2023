@@ -6,6 +6,7 @@ package frc.robot;
 
 
 import frc.robot.Constants;
+import frc.robot.commands.AutoBalance;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TankDrive;
@@ -35,6 +36,8 @@ public class RobotContainer {
   private final CommandXboxController m_driverController =
       new CommandXboxController(Constants.kDriverControllerPort);
 
+
+
   private final AHRS m_navX = new AHRS(SPI.Port.kMXP);
 
 // Subsystems, put them here or code might not work 
@@ -47,6 +50,8 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
   
 
     // Auto drive commands
+    private final AutoBalance m_autoBalance = new AutoBalance(m_DriveTrainSubsystem);
+
 
     
 
@@ -57,11 +62,6 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
   
 
   //other commands 
-
-
-
-  
-
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
