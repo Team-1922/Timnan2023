@@ -87,7 +87,7 @@ public void Drive(double leftSpeed, double rightSpeed){
   m_rightLead.set(rightSpeed);
 
 }
-public void velocityDrive(double velocity){
+public void velocityDrive(double leftVelocity, double rightVelocity){
 
  //m_pidControllerLeft.setRefrence();
   //m_pidControllerRight.setRefrence();
@@ -98,7 +98,7 @@ public void velocityDrive(double velocity){
  m_pidControllerLeft.setFF(ff); //feed foward
 m_pidControllerLeft.setIZone(iz); //i zone
 
-double leftsetpoint = RobotContainer.LeftJoystick.getY()*Maxrpm;
+double leftsetpoint =leftVelocity*Maxrpm;
 m_pidControllerLeft.setReference(leftsetpoint, CANSparkMax.ControlType.kVelocity);
 
      // right side
@@ -109,7 +109,7 @@ m_pidControllerRight.setD(rightd);
 m_pidControllerRight.setOutputRange(rightminoutput, RightkMaxOutput);
 m_pidControllerRight.setFF(rightff);
 m_pidControllerRight.setIZone(rightd);
-double rightsetpoint = RobotContainer.RightJoystick.getY()*rightmaxrpm;
+double rightsetpoint = rightVelocity*rightmaxrpm;
 m_pidControllerRight.setReference(rightsetpoint, CANSparkMax.ControlType.kVelocity);
 
 
