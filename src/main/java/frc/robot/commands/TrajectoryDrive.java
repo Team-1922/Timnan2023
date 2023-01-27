@@ -72,7 +72,7 @@ public class TrajectoryDrive extends CommandBase {
     chassisSpeeds = (ramseteController.calculate(m_driveTrain.getRobotPose(), trajectory.sample(System.currentTimeMillis() - startingTime)));
     wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
 
-    // m_driveTrain.velocityDrive(wheelSpeeds.leftMetersPerSecond(), wheelsSpeeds.rightMetersPerSecond());
+   //  m_driveTrain.velocityDrive(wheelSpeeds.leftMetersPerSecond*metersPerSecondToRPM, wheelSpeeds.rightMetersPerSecond*metersPerSecondToRPM);
 
 
   }

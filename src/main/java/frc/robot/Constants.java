@@ -48,5 +48,7 @@ public final class Constants {
     public static final double kEncoderTicksToFeet = 0; //TBD
     // For trajectory differentialDriveKinematics
     public static final double distBetweenWheelsMeters = 0; //TBD
+    // Used in converting odometry wheel speeds to usable velocity units
+    public static final double metersPerSecondToRPM = 0; //TBD
  // }
 }
