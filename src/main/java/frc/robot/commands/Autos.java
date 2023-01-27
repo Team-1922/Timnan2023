@@ -20,5 +20,3 @@ String badabing = "badaboom";
     throw new UnsupportedOperationException("This is a utility class!");
   }
 }
-
-//Put in commented loop from EnEffector in this file
