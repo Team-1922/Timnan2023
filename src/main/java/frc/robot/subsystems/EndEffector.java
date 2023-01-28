@@ -18,19 +18,19 @@ public class EndEffector extends SubsystemBase {
   SparkMaxPIDController m_BottomPID = m_BottomIOMotor.getPIDController();
   SparkMaxPIDController m_TopPID = m_TopIOMotor.getPIDController();
   public static int m_valueRefCounter = 0;
-  private double eP, eI, eD;
+  private double eP = .1, eI = 1e-4, eD = 1;
 
   private boolean m_hasObject;
   /** Creates a new EndEffector. */
   public EndEffector() {
     m_BottomIOMotor.restoreFactoryDefaults();
     m_TopIOMotor.restoreFactoryDefaults();
-    m_BottomPID.setP(0);
-    m_BottomPID.setI(0);
-    m_BottomPID.setD(0);
-    m_TopPID.setP(0);
-    m_TopPID.setI(0);
-    m_TopPID.setD(0); //Probably will be set on controller or determined through testing later
+    m_BottomPID.setP(eP);
+    m_BottomPID.setI(eI);
+    m_BottomPID.setD(eD);
+    m_TopPID.setP(eP);
+    m_TopPID.setI(eI);
+    m_TopPID.setD(eD); //Probably will be set on controller or determined through testing later
     
     SmartDashboard.putNumber("P gain", eP);
     SmartDashboard.putNumber("I gain", eI);
@@ -80,15 +80,15 @@ public class EndEffector extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     if (m_valueRefCounter % Constants.eeRefRateMod == 0) {
-     double ioP = SmartDashboard.getNumber("P gain", 0);
+     double ioP = SmartDashboard.getNumber("P gain", eP);
      if (eP != ioP) {m_BottomPID.setP(eP); m_TopPID.setP(eP); eP = ioP;}
 
-    } else if (m_valueRefCounter % (Constants.eeRefRateMod + 1) == 0) {
-      double ioI = SmartDashboard.getNumber("I gain", 0);
+    } else if (m_valueRefCounter % (Constants.eeRefRateMod) == 1) {
+      double ioI = SmartDashboard.getNumber("I gain", eI);
       if (eI != ioI) {m_BottomPID.setI(eI); m_TopPID.setI(eI); eI = ioI;}
 
-    } else if (m_valueRefCounter % (Constants.eeRefRateMod + 2) == 0) {
-      double ioD = SmartDashboard.getNumber("D gain", 0);
+    } else if (m_valueRefCounter % (Constants.eeRefRateMod) == 2) {
+      double ioD = SmartDashboard.getNumber("D gain", eD);
       if (eD != ioD) {m_BottomPID.setD(eD); m_TopPID.setD(eD); eD = ioD;}
     }
     m_valueRefCounter++;
