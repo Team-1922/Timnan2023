@@ -6,6 +6,9 @@ package frc.robot.commands;
 
 import java.util.ArrayList;
 
+import org.photonvision.PhotonCamera;
+import org.photonvision.targeting.PhotonPipelineResult;
+
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -22,17 +25,17 @@ import frc.robot.subsystems.DriveTrainSubsystem;
 
 public class TrajectoryDrive extends CommandBase {
   private DriveTrainSubsystem m_driveTrain;
+  private PhotonCamera limelight = new PhotonCamera("gloworm");
+  private PhotonPipelineResult result;
 
   private Pose2d startingPose;
   private double startingTime;
-
 
   private Translation2d endPoseTranslation = new Translation2d(1, 2); 
   private Pose2d endPose = new Pose2d(endPoseTranslation, Rotation2d.fromDegrees(360));
   private ArrayList<Translation2d> waypoints = new ArrayList<Translation2d>();
 
   private TrajectoryConfig config = new TrajectoryConfig(1, 1);
-
   private Trajectory trajectory;
 
   private RamseteController ramseteController = new RamseteController();
@@ -69,6 +72,8 @@ public class TrajectoryDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    result = limelight.getLatestResult();
+    
     chassisSpeeds = (ramseteController.calculate(m_driveTrain.getRobotPose(), trajectory.sample(System.currentTimeMillis() - startingTime)));
     wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
 
