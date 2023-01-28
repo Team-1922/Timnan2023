@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.Arm;
 
@@ -12,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class Score extends CommandBase {
   EndEffector cubePositioner = new EndEffector();
   private Arm robotArm = new Arm();
+  private int scoreMode = EndEffector.m_ScoreMode;
   /** Creates a new Score. */
   public Score() {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -25,6 +27,9 @@ public class Score extends CommandBase {
   @Override
   public void execute() {
     robotArm.setNewFF();
+    if (scoreMode == 1) {robotArm.setAngle(Constants.kPivotMotorLowAngle);
+    } else if (scoreMode == 2) {robotArm.setAngle(Constants.kPivotMotorMidAngle);
+    } else if (scoreMode == 3) {robotArm.setAngle(Constants.kPivotMotorHighAngle);}
   }
 
   // Called once the command ends or is interrupted.

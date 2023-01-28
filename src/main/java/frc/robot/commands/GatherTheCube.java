@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.Arm;
+import frc.robot.Constants;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -25,6 +26,7 @@ public class GatherTheCube extends CommandBase {
   @Override
   public void execute() {
     robotArm.setNewFF();
+    if (EndEffector.m_ScoreMode == 0) robotArm.setAngle(Constants.kPivotMotorGatherAngle);
   }
 
   // Called once the command ends or is interrupted.
