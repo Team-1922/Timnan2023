@@ -41,7 +41,18 @@ public class DriveTrainSubsystem extends SubsystemBase {
   private DifferentialDriveOdometry m_odometry;
   
   double kp, ki, kd, kff, kiz, kmaxrpm, rightkp, rightki, rightkd, rightkff, rightkiz, krightmaxrpm, kMinOutput, kMaxOutput,RightkMinOutput, RightkMaxOutput;
-  double p,i,d,ff,iz,Maxrpm,rightp,righti,rightd,rightff,rightiz,rightmaxrpm, minoutput, maxoutput, rightminoutput, rightmaxoutput;
+  double p,i,d,ff,iz;
+  public double Maxrpm;
+  double rightp;
+  double righti;
+  double rightd;
+  double rightff;
+  double rightiz;
+ public double rightmaxrpm;
+  double minoutput;
+  double maxoutput;
+  double rightminoutput;
+  double rightmaxoutput;
   /** Creates a new DriveTrainSubsystem. */
   public DriveTrainSubsystem() {
 

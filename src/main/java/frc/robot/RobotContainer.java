@@ -8,6 +8,7 @@ package frc.robot;
 import frc.robot.Constants;
 import frc.robot.commands.AutoBalance;
 import frc.robot.commands.Autos;
+import frc.robot.commands.DriveStraight;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrainSubsystem;
@@ -15,6 +16,7 @@ import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
@@ -59,6 +61,7 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
 
   // drive commands 
   private final TankDrive m_TankDrive = new TankDrive();
+  private final DriveStraight m_DriveStraight = new DriveStraight();
   
 
   //other commands 
@@ -88,7 +91,10 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    new JoystickButton(LeftJoystick, 1).whileTrue(m_DriveStraight);
+  
   }
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
