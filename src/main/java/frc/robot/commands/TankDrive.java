@@ -17,8 +17,7 @@ public class TankDrive extends CommandBase {
    Joystick m_LeftJoystick = RobotContainer.LeftJoystick;
    
    Joystick m_RightJoystick = RobotContainer.RightJoystick;
-   double m_LeftX = m_LeftJoystick.getX();
-   double m_RightX= m_RightJoystick.getX();
+  
   /** Creates a new TankDrive. */
   public TankDrive(
 
@@ -41,15 +40,17 @@ public class TankDrive extends CommandBase {
   @Override
   public void execute() {
     
+ double m_LeftY = m_LeftJoystick.getY();
+   double m_RightY= m_RightJoystick.getY();
 
-
-   //m_DriveTrainSubsystem.drive( m_LeftX,  m_RightX);
+   m_DriveTrainSubsystem.Drive( m_LeftY,  m_RightY);
    //change the number after the * to adjust the output or whatever 
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override
