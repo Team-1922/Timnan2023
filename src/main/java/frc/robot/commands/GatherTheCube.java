@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class GatherTheCube extends CommandBase {
   EndEffector cubeHarvester = new EndEffector();
   private Arm robotArm = new Arm();
+  private int scoreMode = EndEffector.m_ScoreMode;
   /** Creates a new GatherTheCube. */
   private GatherTheCube() {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -26,7 +27,7 @@ public class GatherTheCube extends CommandBase {
   @Override
   public void execute() {
     robotArm.setNewFF();
-    if (EndEffector.m_ScoreMode == 0) robotArm.setAngle(Constants.kPivotMotorGatherAngle);
+    if (scoreMode == 0) robotArm.setAngle(Constants.kPivotMotorGatherAngle);
   }
 
   // Called once the command ends or is interrupted.
