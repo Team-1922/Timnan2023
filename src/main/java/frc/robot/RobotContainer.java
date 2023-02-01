@@ -60,7 +60,7 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
 
 
   // drive commands 
-  private final TankDrive m_TankDrive = new TankDrive();
+  private final TankDrive m_TankDrive = new TankDrive(m_DriveTrainSubsystem);
   private final DriveStraight m_DriveStraight = new DriveStraight();
   
 
@@ -70,6 +70,7 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
   public RobotContainer() {
 
 
+    m_DriveTrainSubsystem.setDefaultCommand(m_TankDrive);
     // Configure the trigger bindings
     configureBindings();
   }

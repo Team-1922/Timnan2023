@@ -19,11 +19,12 @@ public class TankDrive extends CommandBase {
    Joystick m_RightJoystick = RobotContainer.RightJoystick;
   
   /** Creates a new TankDrive. */
-  public TankDrive(
+  public TankDrive(DriveTrainSubsystem driveTrain
 
   ) {
-  
+  m_DriveTrainSubsystem = driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(m_DriveTrainSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -40,10 +41,9 @@ public class TankDrive extends CommandBase {
   @Override
   public void execute() {
     
- double m_LeftY = m_LeftJoystick.getY();
-   double m_RightY= m_RightJoystick.getY();
 
-   m_DriveTrainSubsystem.Drive( m_LeftY,  m_RightY);
+    //Something isnt connecting here -- look into why no get input
+   m_DriveTrainSubsystem.Drive( m_LeftJoystick.getY(),  m_RightJoystick.getY());
    //change the number after the * to adjust the output or whatever 
   }
 
