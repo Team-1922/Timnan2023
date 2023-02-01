@@ -18,6 +18,7 @@ public final class Constants {
     public static final int kLeftFollow = 0;
     public static final int kRightLead = 0;
     public static final int kRightFollow = 0;
+    public static final int kPigeon = 0;
     public static final double kVeolcityRPMConversion = 0;
     public static final double kIOMotorRPM = 0;
     public static final double kHoldingMotorPower = 0;

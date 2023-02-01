@@ -18,6 +18,7 @@ import frc.robot.RobotContainer;
 
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.ctre.phoenixpro.hardware.Pigeon2;
 import com.kauailabs.navx.frc.AHRS;
 
 
@@ -25,11 +26,16 @@ public class DriveTrainSubsystem extends SubsystemBase {
   private CANSparkMax m_leftLead = new CANSparkMax(Constants.kLeftLead, MotorType.kBrushless);
   private RelativeEncoder m_leftEncoder;
   private CANSparkMax m_leftFollow = new CANSparkMax(Constants.kLeftFollow, MotorType.kBrushless);
+
   private CANSparkMax m_rightLead = new CANSparkMax(Constants.kRightLead, MotorType.kBrushless);
   private RelativeEncoder m_rightEncoder;
   private CANSparkMax m_rightFollow = new CANSparkMax(Constants.kRightFollow, MotorType.kBrushless);
+
   private SparkMaxPIDController m_pidControllerLeft;
   private SparkMaxPIDController m_pidControllerRight;
+
+  private Pigeon2 m_pigeon = new Pigeon2(Constants.kPigeon);
+
   private AHRS m_navX;
   private DifferentialDriveOdometry m_odometry;
   
@@ -39,6 +45,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   public DriveTrainSubsystem() {
 
 
+    m_pigeon.calibrate();
 
     SmartDashboard.putNumber("left p gain", kp);
     SmartDashboard.putNumber("left i gain", ki);
@@ -68,6 +75,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
     m_rightFollow.follow(m_rightLead);
     m_pidControllerLeft = m_leftLead.getPIDController();
     m_pidControllerRight = m_rightLead.getPIDController();}
+
+
 
 
   private double krightMinOutput; 
@@ -169,11 +178,13 @@ if (Maxrpm != kmaxrpm) {Maxrpm = SmartDashboard.getNumber("left max rpm", 10);}
 
   // Returns the navX Yaw, it's up and down like the way your neck moves 
   public double robotYaw(){
-    return m_navX.getYaw();
+  //  return m_navX.getYaw();
+      return m_pigeon.getYaw().getValue();
   }
   // Returns the navX Pitch, it's side to side like the way a turntable rotates
   public double robotPitch(){
-    return m_navX.getPitch();
+  //  return m_navX.getPitch();
+      return m_pigeon.getPitch().getValue();
   }
 
 
