@@ -14,15 +14,17 @@ import frc.robot.subsystems.DriveTrainSubsystem;
 public class TankDrive extends CommandBase {
  
    DriveTrainSubsystem m_DriveTrainSubsystem;
-   Joystick m_LeftJoystick = RobotContainer.LeftJoystick;
-   
-   Joystick m_RightJoystick = RobotContainer.RightJoystick;
-  
+   Joystick LeftJoystick;
+   Joystick RightJoystick;
   /** Creates a new TankDrive. */
-  public TankDrive(DriveTrainSubsystem driveTrain
+  public TankDrive(DriveTrainSubsystem driveTrain, Joystick m_LeftJoystick, Joystick m_RightJoystick
 
   ) {
   m_DriveTrainSubsystem = driveTrain;
+     LeftJoystick = m_LeftJoystick;
+     RightJoystick = m_RightJoystick;
+   
+  
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_DriveTrainSubsystem);
   }
@@ -43,7 +45,7 @@ public class TankDrive extends CommandBase {
     
 
     //Something isnt connecting here -- look into why no get input
-   m_DriveTrainSubsystem.Drive( m_LeftJoystick.getY(),  m_RightJoystick.getY());
+   m_DriveTrainSubsystem.Drive( LeftJoystick.getY(),  RightJoystick.getY());
    //change the number after the * to adjust the output or whatever 
   }
 

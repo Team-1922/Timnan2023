@@ -60,7 +60,7 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
 
 
   // drive commands 
-  private final TankDrive m_TankDrive = new TankDrive(m_DriveTrainSubsystem);
+  private final TankDrive m_TankDrive = new TankDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick);
   private final DriveStraight m_DriveStraight = new DriveStraight();
   
 
