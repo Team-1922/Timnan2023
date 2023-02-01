@@ -11,6 +11,8 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.subsystems.EndEffector;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -41,6 +43,8 @@ public class RobotContainer {
   private final AHRS m_navX = new AHRS(SPI.Port.kMXP);
 
 // Subsystems, put them here or code might not work 
+  public static EndEffector m_CubeEffector = new EndEffector();
+  public static Arm m_PivotArm = new Arm();
 
 private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();

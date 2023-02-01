@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.Arm;
 import frc.robot.Constants;
@@ -11,23 +12,30 @@ import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class GatherTheCube extends CommandBase {
-  EndEffector cubeHarvester = new EndEffector();
-  private Arm robotArm = new Arm();
-  private int scoreMode = EndEffector.m_ScoreMode;
+  private Arm m_RobotArm;
+  private EndEffector m_CubeHarvester;
   /** Creates a new GatherTheCube. */
-  private GatherTheCube() {
+  private GatherTheCube(Arm pivotArm, EndEffector cubeEffector) {
     // Use addRequirements() here to declare subsystem dependencies.
+    m_RobotArm = pivotArm;
+    m_CubeHarvester = cubeEffector;
+
+    addRequirements(pivotArm);
+    addRequirements(cubeEffector);
   }
   
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_RobotArm.setNewFF();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    robotArm.setNewFF();
-    if (scoreMode == 0) robotArm.setAngle(Constants.kPivotMotorGatherAngle);
+    m_RobotArm.setNewFF();
+    m_RobotArm.setAngle(Constants.kPivotMotorGatherAngle);
+    m_CubeHarvester.gatherTheCube();
   }
 
   // Called once the command ends or is interrupted.
@@ -37,6 +45,7 @@ public class GatherTheCube extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return cubeHarvester.getHasObject();
+    m_RobotArm.setAngle(Constants.kPivotMotorStowAngle);
+    return m_CubeHarvester.getHasObject();
   }
 }

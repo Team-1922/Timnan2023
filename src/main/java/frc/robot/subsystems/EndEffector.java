@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import frc.robot.commands.Score;
+import frc.robot.commands.GatherTheCube;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
@@ -43,29 +45,26 @@ public class EndEffector extends SubsystemBase {
   }
 
   public void gatherTheCube() {
-    m_ScoreMode = 0;
     m_TopPID.setReference(Constants.kIOMotorGatherPower, ControlType.kVoltage);
     m_BottomPID.setReference(Constants.kIOMotorGatherPower, ControlType.kVoltage);
     //Add some sensor stuff and conditionals
     m_hasObject = true;
-    m_ScoreMode = -1;
+    m_TopPID.setReference(0, ControlType.kVoltage);
+    m_BottomPID.setReference(0, ControlType.kVoltage);
   }
 
   public void Score(String scoreMode) {
     //Also needs some arm movement and calculations
     switch (scoreMode) {
       case "low":
-      m_ScoreMode = 1;
       m_TopPID.setReference(Constants.kIOMotorLowPower, ControlType.kVoltage);
       m_BottomPID.setReference(Constants.kIOMotorLowPower, ControlType.kVoltage);
       ;
       case "mid":
-      m_ScoreMode = 2;
       m_TopPID.setReference(Constants.kIOMotorMidPower, ControlType.kVoltage);
       m_BottomPID.setReference(Constants.kIOMotorMidPower, ControlType.kVoltage);
       ;
       case "high":
-      m_ScoreMode = 3;
       m_TopPID.setReference(Constants.kIOMotorHighPower, ControlType.kVoltage);
       m_BottomPID.setReference(Constants.kIOMotorHighPower, ControlType.kVoltage);
         //Avoiding the code for mid and high as of now since physical testing will be required to get accurate results
@@ -74,8 +73,9 @@ public class EndEffector extends SubsystemBase {
         System.out.println("Invalid Input")
       ;
       //more sensor stuff
-      m_ScoreMode = -1;
       m_hasObject = false;
+      m_TopPID.setReference(0, ControlType.kVoltage);
+      m_BottomPID.setReference(0, ControlType.kVoltage);
     }
 
   }

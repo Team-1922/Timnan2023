@@ -7,6 +7,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import com.revrobotics.CANSparkMax;
@@ -69,8 +70,9 @@ public class Arm extends SubsystemBase {
     
   }
 
-  public void setAngle(double finalAngle /* Use degrees */)  {
+  public double setAngle(double finalAngle /* Use degrees */)  {
     double currentAngle = m_ArmEncoder.getPosition();
     if (currentAngle != (finalAngle / 360)) m_ArmPID.setReference(finalAngle, ControlType.kPosition);
+    return finalAngle;
   }
 }
