@@ -93,12 +93,15 @@ public class DriveTrainSubsystem extends SubsystemBase {
   public DriveTrainSubsystem(AHRS navX) {
     //Motor controlers
     m_leftLead.restoreFactoryDefaults();
+    m_leftLead.setInverted(false);
     m_leftFollow.restoreFactoryDefaults();
     m_leftEncoder = m_leftLead.getEncoder();
 
-    m_rightLead.restoreFactoryDefaults();
+    m_rightLead.restoreFactoryDefaults(); 
+    m_rightLead.setInverted(true);
     m_rightFollow.restoreFactoryDefaults();
     m_rightEncoder = m_rightLead.getEncoder();
+   
 
     m_leftFollow.follow(m_leftLead);
     m_rightFollow.follow(m_rightLead);
@@ -155,8 +158,8 @@ m_pidControllerRight.setReference(rightsetpoint, CANSparkMax.ControlType.kVeloci
 Drive( RobotContainer.LeftJoystick.getY()*MaxVelocity*OutputScale, RobotContainer.RightJoystick.getY()*MaxVelocity*OutputScale); */
 
 }
-
-public void timedpid( )   {
+/*
+public void timedpid( )    {
 
 
 Timer.delay(2);
@@ -184,13 +187,13 @@ Timer.delay(2);
   krightmaxrpm = SmartDashboard.getNumber("right max rpm", 10); 
 
 };
-
+*/
 @Override
 public void periodic()   {
 
     // This method will be called once per scheduler run
 
-timedpid();
+//timedpid();
     //left pid
 
   if (p != kp){  m_pidControllerLeft.setP(SmartDashboard.getNumber( "left p gain" , 0)); }

@@ -95,9 +95,9 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
     
     new JoystickButton(LeftJoystick, 1)
       .whileTrue(m_DriveStraight);
-
+/* 
     new JoystickButton(LeftJoystick, 5)
-      .whileTrue(m_TankDrive);
+      .whileTrue(m_TankDrive);*/
   }
 
 
