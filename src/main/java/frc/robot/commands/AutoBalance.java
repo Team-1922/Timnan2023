@@ -27,7 +27,7 @@ public class AutoBalance extends PIDCommand {
         // This uses the output
         output -> {
           // Use the output here
-          driveTrain.Drive(output, output);
+          driveTrain.Drive(output, output); // Pitch down is pos, wheels need to go same sign as pitch
         });
 
         m_driveTrain = driveTrain;

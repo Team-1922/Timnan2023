@@ -172,6 +172,9 @@ if (Maxrpm != kmaxrpm) {Maxrpm = SmartDashboard.getNumber("left max rpm", 10);}
    if (rightmaxrpm != krightmaxrpm) {rightmaxrpm = SmartDashboard.getNumber("right max rpm", 10);}
 
 
+   //TEMP
+   SmartDashboard.putNumber("RobotYaw", m_pigeon.getYaw().getValue());
+   SmartDashboard.putNumber("RobotPitch", m_pigeon.getPitch().getValue());
 
   }
 
