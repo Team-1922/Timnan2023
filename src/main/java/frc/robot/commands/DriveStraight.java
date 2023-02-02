@@ -27,7 +27,7 @@ public class DriveStraight extends CommandBase {
   public void execute() {
     
 
-    m_DriveTrainSubsystem.velocityDrive(m_LeftJoystick.getY()*m_DriveTrainSubsystem.Maxrpm,m_LeftJoystick.getY()*m_DriveTrainSubsystem.rightmaxrpm);
+    m_DriveTrainSubsystem.velocityDrive(m_LeftJoystick.getRawAxis(1)*m_DriveTrainSubsystem.Maxrpm,m_LeftJoystick.getRawAxis(1)*m_DriveTrainSubsystem.rightmaxrpm);
 
 
   }

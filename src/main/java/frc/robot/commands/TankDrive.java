@@ -26,7 +26,7 @@ public class TankDrive extends CommandBase {
      RightJoystick = m_RightJoystick;
    
   SmartDashboard.putNumber("leftjoystick", LeftJoystick.getY());
-  SmartDashboard.putNumber("Rightjoystick", RightJoystick.getRawAxis(2));
+  SmartDashboard.putNumber("Rightjoystick", RightJoystick.getRawAxis(1));
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_DriveTrainSubsystem);
   }
@@ -46,10 +46,10 @@ public class TankDrive extends CommandBase {
   public void execute() {
     
   SmartDashboard.putNumber("leftjoystick", LeftJoystick.getY());
-  SmartDashboard.putNumber("Rightjoystick", RightJoystick.getRawAxis(2));
+  SmartDashboard.putNumber("Rightjoystick", RightJoystick.getRawAxis(1));
 
     //Something isnt connecting here -- look into why no get input
-   m_DriveTrainSubsystem.Drive( LeftJoystick.getRawAxis(2),  RightJoystick.getRawAxis(2));
+   m_DriveTrainSubsystem.Drive( LeftJoystick.getRawAxis(1),  RightJoystick.getRawAxis(1));
    //change the number after the * to adjust the output or whatever 
   }
 
