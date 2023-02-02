@@ -45,11 +45,11 @@ public class TankDrive extends CommandBase {
   @Override
   public void execute() {
     
-    if ( Math.abs(LeftJoystick.getY()) < 0.1 && Math.abs(LeftJoystick.getY()) > -0.1 ) {
+    if ( Math.abs(LeftJoystick.getY()) < 0.125 && Math.abs(LeftJoystick.getY()) > -0.125 ) {
      m_LeftDeadZoneOnOff= 0;
     } else {m_LeftDeadZoneOnOff = 1;}
    
-    if ( Math.abs(RightJoystick.getY()) < 0.1 && Math.abs(RightJoystick.getY()) > -0.1 ) {
+    if ( Math.abs(RightJoystick.getY()) < 0.125 && Math.abs(RightJoystick.getY()) > -0.125 ) {
       m_RightDeadZoneOnOff= 0;
      } else {m_RightDeadZoneOnOff = 1;}
   SmartDashboard.putNumber("leftjoystick", LeftJoystick.getY());
