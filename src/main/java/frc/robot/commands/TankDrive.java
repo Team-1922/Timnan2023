@@ -25,8 +25,6 @@ public class TankDrive extends CommandBase {
      LeftJoystick = m_LeftJoystick;
      RightJoystick = m_RightJoystick;
    
-  SmartDashboard.putNumber("leftjoystick", LeftJoystick.getY());
-  SmartDashboard.putNumber("Rightjoystick", RightJoystick.getRawAxis(1));
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_DriveTrainSubsystem);
   }
