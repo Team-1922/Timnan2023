@@ -17,6 +17,8 @@ public class TankDrive extends CommandBase {
    DriveTrainSubsystem m_DriveTrainSubsystem;
    Joystick LeftJoystick;
    Joystick RightJoystick;
+   double m_LeftDeadZoneOnOff;
+   double m_RightDeadZoneOnOff;
   /** Creates a new TankDrive. */
   public TankDrive(DriveTrainSubsystem m_driveTrain, Joystick m_LeftJoystick, Joystick m_RightJoystick
 
@@ -43,11 +45,18 @@ public class TankDrive extends CommandBase {
   @Override
   public void execute() {
     
+    if ( Math.abs(LeftJoystick.getY()) < 0.1 || Math.abs(LeftJoystick.getY()) > -0.1 ) {
+     m_LeftDeadZoneOnOff= 0;
+    } else {m_LeftDeadZoneOnOff = 1;}
+   
+    if ( Math.abs(RightJoystick.getY()) < 0.1 || Math.abs(RightJoystick.getY()) > -0.1 ) {
+      m_RightDeadZoneOnOff= 0;
+     } else {m_RightDeadZoneOnOff = 1;}
   SmartDashboard.putNumber("leftjoystick", LeftJoystick.getY());
   SmartDashboard.putNumber("Rightjoystick", RightJoystick.getRawAxis(1));
 
     //Something isnt connecting here -- look into why no get input
-   m_DriveTrainSubsystem.Drive( LeftJoystick.getRawAxis(1),  RightJoystick.getRawAxis(1));
+   m_DriveTrainSubsystem.Drive( LeftJoystick.getRawAxis(1)*m_LeftDeadZoneOnOff,  RightJoystick.getRawAxis(1)*m_RightDeadZoneOnOff);
    //change the number after the * to adjust the output or whatever 
   }
 
