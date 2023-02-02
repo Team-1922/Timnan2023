@@ -14,11 +14,13 @@ package frc.robot;
 public final class Constants {
  // public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
-    public static final int kLeftLead = 0;
-    public static final int kLeftFollow = 0;
-    public static final int kRightLead = 0;
-    public static final int kRightFollow = 0;
+    public static final int kLeftLead = 5;
+    public static final int kLeftFollow = 4;
+    public static final int kRightLead = 3;
+    public static final int kRightFollow = 6;
     public static final int kPigeon = 0;
+    public static final int kPDB = 63;
+    public static final int kArm = 7;
     public static final double kVeolcityRPMConversion = 0;
     public static final double kIOMotorRPM = 0;
     public static final double kHoldingMotorPower = 0;

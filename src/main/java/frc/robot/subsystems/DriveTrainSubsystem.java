@@ -4,12 +4,17 @@
 
 package frc.robot.subsystems;
 
+
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.util.Units;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 
@@ -40,7 +45,18 @@ public class DriveTrainSubsystem extends SubsystemBase {
   private DifferentialDriveOdometry m_odometry;
   
   double kp, ki, kd, kff, kiz, kmaxrpm, rightkp, rightki, rightkd, rightkff, rightkiz, krightmaxrpm, kMinOutput, kMaxOutput,RightkMinOutput, RightkMaxOutput;
-  double p,i,d,ff,iz,Maxrpm,rightp,righti,rightd,rightff,rightiz,rightmaxrpm, minoutput, maxoutput, rightminoutput, rightmaxoutput;
+  double p,i,d,ff,iz;
+  public double Maxrpm;
+  double rightp;
+  double righti;
+  double rightd;
+  double rightff;
+  double rightiz;
+ public double rightmaxrpm;
+  double minoutput;
+  double maxoutput;
+  double rightminoutput;
+  double rightmaxoutput;
   /** Creates a new DriveTrainSubsystem. */
   public DriveTrainSubsystem() {
 
@@ -84,12 +100,15 @@ public class DriveTrainSubsystem extends SubsystemBase {
   public DriveTrainSubsystem(AHRS navX) {
     //Motor controlers
     m_leftLead.restoreFactoryDefaults();
+    m_leftLead.setInverted(false);
     m_leftFollow.restoreFactoryDefaults();
     m_leftEncoder = m_leftLead.getEncoder();
 
-    m_rightLead.restoreFactoryDefaults();
+    m_rightLead.restoreFactoryDefaults(); 
+    m_rightLead.setInverted(true);
     m_rightFollow.restoreFactoryDefaults();
     m_rightEncoder = m_rightLead.getEncoder();
+   
 
     m_leftFollow.follow(m_leftLead);
     m_rightFollow.follow(m_rightLead);
@@ -105,11 +124,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(robotPitch()), Units.feetToMeters(getRightEncoderFeet()), Units.feetToMeters(getLeftEncoderFeet()));
   }
   
-public void Drive(double leftSpeed, double rightSpeed){
-  m_leftLead.set(leftSpeed);
-  m_rightLead.set(rightSpeed);
 
-}
 public void velocityDrive(double velocity){
 //  m_pidControllerLeft.setRefrence();
 //  m_pidControllerRight.setRefrence();
@@ -122,19 +137,30 @@ public void velocityDrive(double velocity){
  m_pidControllerLeft.setOutputRange(minoutput,maxoutput); 
  m_pidControllerLeft.setFF(ff); //feed foward
 m_pidControllerLeft.setIZone(iz); //i zone
-
-double leftsetpoint = RobotContainer.LeftJoystick.getY()*Maxrpm;
-m_pidControllerLeft.setReference(leftsetpoint, CANSparkMax.ControlType.kVelocity);
-
-     // right side
 m_pidControllerRight.setP(rightp);
-
 m_pidControllerRight.setI(righti);
 m_pidControllerRight.setD(rightd);
 m_pidControllerRight.setOutputRange(rightminoutput, RightkMaxOutput);
 m_pidControllerRight.setFF(rightff);
 m_pidControllerRight.setIZone(rightd);
-double rightsetpoint = RobotContainer.RightJoystick.getY()*rightmaxrpm;
+
+    // Setting up the odometry object in the constructor--A little sketchy? No errors and it builds though
+    m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(robotPitch()), Units.feetToMeters(getRightEncoderFeet()), Units.feetToMeters(getLeftEncoderFeet()));
+
+  }
+  
+public void Drive(double leftSpeed, double rightSpeed){
+  m_leftLead.set(leftSpeed);
+  m_rightLead.set(rightSpeed);
+
+}
+public void velocityDrive(double LeftRPM, double rightRPM){
+
+
+
+double leftsetpoint =LeftRPM;
+m_pidControllerLeft.setReference(leftsetpoint, CANSparkMax.ControlType.kVelocity);
+double rightsetpoint = rightRPM;
 m_pidControllerRight.setReference(rightsetpoint, CANSparkMax.ControlType.kVelocity);
 
 
@@ -145,11 +171,70 @@ m_pidControllerRight.setReference(rightsetpoint, CANSparkMax.ControlType.kVeloci
 Drive( RobotContainer.LeftJoystick.getY()*MaxVelocity*OutputScale, RobotContainer.RightJoystick.getY()*MaxVelocity*OutputScale); */
 
 }
-  @Override
-  public void periodic() {
+/*
+public void timedpid( )    {
+
+
+Timer.delay(2);
+
+    kp = SmartDashboard.getNumber("left p gain", 0);
+    ki= SmartDashboard.getNumber("left i gain", 0);
+    kd = SmartDashboard.getNumber("left d gain", 0);
+    kmaxrpm = SmartDashboard.getNumber("left max rpm", 10);
+
+Timer.delay(2);
+ kff = SmartDashboard.getNumber("left feed foward", 0);
+ kiz = SmartDashboard.getNumber("left i zone", 0);
+kMinOutput = SmartDashboard.getNumber("left min output", 0);
+kMaxOutput = SmartDashboard.getNumber("left max output", 1);
+Timer.delay(2);
+
+rightkp = SmartDashboard.getNumber("right p gain", 0);
+rightki = SmartDashboard.getNumber("right i gain", 0);
+rightkd = SmartDashboard.getNumber("right d gain", 0);
+Timer.delay(2);
+  rightkff = SmartDashboard.getNumber("right feed foward", 0);
+  rightkiz = SmartDashboard.getNumber("right iz", 0);
+  RightkMaxOutput = SmartDashboard.getNumber("right max output", 1);
+  RightkMinOutput = SmartDashboard.getNumber("right min output", 0);
+  krightmaxrpm = SmartDashboard.getNumber("right max rpm", 10); 
+
+};
+*/
+@Override
+public void periodic()   {
+
     // This method will be called once per scheduler run
     m_odometry.update(Rotation2d.fromDegrees(robotPitch()), Units.feetToMeters(getRightEncoderFeet()), Units.feetToMeters(getLeftEncoderFeet()));
   
+
+//timedpid();
+    //left pid
+
+  if (p != kp){  m_pidControllerLeft.setP(SmartDashboard.getNumber( "left p gain" , 0)); }
+if (i != ki) {  m_pidControllerLeft.setI(SmartDashboard.getNumber("left i gain", 0)); }
+ if (d != kd){ m_pidControllerLeft.setD(SmartDashboard.getNumber("left d gain", 0));}
+  if (ff != kff) {m_pidControllerLeft.setFF(SmartDashboard.getNumber("left feed foward", 0)); } //feed foward
+   if (iz != kiz) {m_pidControllerLeft.setIZone(SmartDashboard.getNumber("left i zone", 0));}
+  if (minoutput != kMinOutput){minoutput = SmartDashboard.getNumber("left min output", 0);}
+  if (maxoutput != kMaxOutput){maxoutput = SmartDashboard.getNumber("left max output", 1);}
+if (Maxrpm != kmaxrpm) {Maxrpm = SmartDashboard.getNumber("left max rpm", 10);}
+
+   // right pid
+   if (rightp != rightkp){ m_pidControllerRight.setP(SmartDashboard.getNumber("right p gain", 0));}
+   if (righti != rightki) m_pidControllerRight.setI(SmartDashboard.getNumber("right i gain", 0));
+   if (rightd != rightkd) { m_pidControllerRight.setD(SmartDashboard.getNumber("right d gain", 0));}
+   if (rightff != rightkff){ m_pidControllerRight.setFF(SmartDashboard.getNumber("right feed foward", 0));}
+   if (rightiz != rightkiz){ m_pidControllerRight.setIZone(SmartDashboard.getNumber("right i zone", 0));}
+   if (RightkMaxOutput != rightmaxoutput) {rightmaxoutput =SmartDashboard.getNumber("right max output", 1);}
+   if (rightminoutput != krightMinOutput) {krightMinOutput = SmartDashboard.getNumber("right min output", 0);}
+   if (rightmaxrpm != krightmaxrpm) {rightmaxrpm = SmartDashboard.getNumber("right max rpm", 10);}
+
+
+
+    m_odometry.update(Rotation2d.fromDegrees(robotPitch()), Units.feetToMeters(getRightEncoderFeet()), Units.feetToMeters(getLeftEncoderFeet()));
+  
+
 
     //left pid
   if (p != kp){  m_pidControllerLeft.setP(SmartDashboard.getNumber( "left p gain" , 0)); }
