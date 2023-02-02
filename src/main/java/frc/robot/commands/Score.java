@@ -49,6 +49,6 @@ public class Score extends CommandBase {
   public boolean isFinished() {
     m_ScoreMode = -1;
     m_RobotArm.setAngle(Constants.kPivotMotorStowAngle);
-    return m_CubePositioner.getHasObject();
+    return (!m_CubePositioner.getHasObject());
   }
 }

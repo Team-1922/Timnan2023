@@ -5,25 +5,30 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.ScoreMode;
 
 public class AdjustScoreMode extends CommandBase {
-  public static int m_ScoreMode = 0;
   /** Creates a new increaseScoreMode. */
-  public AdjustScoreMode() {
+  public int scoreMode = ScoreMode.m_ScoreMode;
+  private ScoreMode m_Score;
+  public AdjustScoreMode(ScoreMode Score) {
     // Use addRequirements() here to declare subsystem dependencies.
+    m_Score = Score;
+
+    addRequirements(Score);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    if (scoreMode == 3) {
+      scoreMode = 1;
+    } else scoreMode++;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    if (m_ScoreMode == 3) {
-      m_ScoreMode = 0;
-    } else m_ScoreMode++;
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
@@ -32,6 +37,6 @@ public class AdjustScoreMode extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
