@@ -6,10 +6,13 @@ package frc.robot;
 
 
 import frc.robot.Constants;
+import frc.robot.commands.AdjustScoreMode;
 import frc.robot.commands.AutoBalance;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TankDrive;
+import frc.robot.commands.GatherTheCube;
+import frc.robot.commands.Score;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.Arm;
@@ -49,6 +52,9 @@ public class RobotContainer {
 private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   //arm commands
+  private final GatherTheCube m_GatherCube = new GatherTheCube(m_PivotArm, m_CubeEffector);
+  private final Score m_Score = new Score(m_PivotArm, m_CubeEffector);
+  private final AdjustScoreMode m_ScoreModeIncrement = new AdjustScoreMode();
 
 
   
@@ -92,6 +98,9 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    m_driverController.rightBumper().onTrue(m_ScoreModeIncrement);
+    m_driverController.leftTrigger().onTrue(m_GatherCube);
+    m_driverController.rightTrigger().onTrue(m_Score);
   }
 
   /**

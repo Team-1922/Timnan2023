@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import frc.robot.RobotContainer;
+import frc.robot.commands.AdjustScoreMode;
 import frc.robot.Constants;
 import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.Arm;
@@ -28,7 +29,7 @@ public class Score extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {m_ScoreMode = AdjustScoreMode.m_ScoreMode;}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

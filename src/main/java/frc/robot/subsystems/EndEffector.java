@@ -54,7 +54,6 @@ public class EndEffector extends SubsystemBase {
   }
 
   public void Score(String scoreMode) {
-    //Also needs some arm movement and calculations
     switch (scoreMode) {
       case "low":
       m_TopPID.setReference(Constants.kIOMotorLowPower, ControlType.kVoltage);

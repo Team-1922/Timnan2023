@@ -15,7 +15,7 @@ public class GatherTheCube extends CommandBase {
   private Arm m_RobotArm;
   private EndEffector m_CubeHarvester;
   /** Creates a new GatherTheCube. */
-  private GatherTheCube(Arm pivotArm, EndEffector cubeEffector) {
+  public GatherTheCube(Arm pivotArm, EndEffector cubeEffector) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_RobotArm = pivotArm;
     m_CubeHarvester = cubeEffector;
