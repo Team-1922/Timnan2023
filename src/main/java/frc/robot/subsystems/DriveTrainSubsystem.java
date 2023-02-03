@@ -23,7 +23,7 @@ import frc.robot.RobotContainer;
 
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.ctre.phoenixpro.hardware.Pigeon2;
+import com.ctre.phoenix.sensors.Pigeon2;
 import com.kauailabs.navx.frc.AHRS;
 
 
@@ -61,7 +61,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   public DriveTrainSubsystem() {
 
 
-    m_pigeon.calibrate();
+   // m_pigeon.calibrate();
 
     SmartDashboard.putNumber("left p gain", kp);
     SmartDashboard.putNumber("left i gain", ki);
@@ -258,8 +258,8 @@ if (Maxrpm != kmaxrpm) {Maxrpm = SmartDashboard.getNumber("left max rpm", 10);}
 
 
    //TEMP
-   SmartDashboard.putNumber("RobotYaw", m_pigeon.getYaw().getValue());
-   SmartDashboard.putNumber("RobotPitch", m_pigeon.getPitch().getValue());
+   SmartDashboard.putNumber("RobotYaw", m_pigeon.getYaw());
+   SmartDashboard.putNumber("RobotPitch", m_pigeon.getPitch());
 
   }
 
@@ -267,12 +267,12 @@ if (Maxrpm != kmaxrpm) {Maxrpm = SmartDashboard.getNumber("left max rpm", 10);}
   // Returns the navX Yaw, it's up and down like the way your neck moves 
   public double robotYaw(){
   //  return m_navX.getYaw();
-      return m_pigeon.getYaw().getValue();
+      return m_pigeon.getYaw();
   }
   // Returns the navX Pitch, it's side to side like the way a turntable rotates
   public double robotPitch(){
   //  return m_navX.getPitch();
-      return m_pigeon.getPitch().getValue();
+      return m_pigeon.getPitch();
   }
 
 
