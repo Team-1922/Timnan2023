@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrainSubsystem;
@@ -13,6 +14,7 @@ public class DriveStraight extends CommandBase {
 
   DriveTrainSubsystem  m_DriveTrainSubsystem;
  Joystick m_LeftJoystick = RobotContainer.LeftJoystick;
+ 
   /** Creates a new DriveStraight. */
   public DriveStraight() {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -26,9 +28,9 @@ public class DriveStraight extends CommandBase {
   @Override
   public void execute() {
     
-
+if (m_LeftJoystick.getY()> SmartDashboard.getNumber("Deadzone", 0.125)){
     m_DriveTrainSubsystem.velocityDrive(m_LeftJoystick.getRawAxis(1)*m_DriveTrainSubsystem.Maxrpm,m_LeftJoystick.getRawAxis(1)*m_DriveTrainSubsystem.rightmaxrpm);
-
+}
 
   }
 
