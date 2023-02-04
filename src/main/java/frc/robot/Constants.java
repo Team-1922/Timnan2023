@@ -13,28 +13,39 @@ package frc.robot;
  */
 public final class Constants {
  // public static class OperatorConstants {
+    public static final int eeRefRateMod = 5;
     public static final int kDriverControllerPort = 0;
-    public static final int kLeftLead = 0;
-    public static final int kLeftFollow = 0;
-    public static final int kRightLead = 0;
-    public static final int kRightFollow = 0;
+    public static final int kLeftLead = 5;
+    public static final int kLeftFollow = 4;
+    public static final int kRightLead = 3;
+    public static final int kRightFollow = 6;
+    public static final int kPDB = 63;
+    public static final int kArm = 7;
     public static final double kVeolcityRPMConversion = 0;
-    public static final double kIOMotorRPM = 0;
-    public static final double kHoldingMotorPower = 0;
-    public static final double kIOEjectRPM = 0;
+    public static final double kIOMotorGatherPower = 0;
+    public static final double kIOMotorLowPower = 0;
+    public static final double kIOMotorMidPower = 0;
+    public static final double kIOMotorHighPower = 0;
+    public static final double kIOMotorMaxPower = 0;
     public static final double kPivotMotorVelocity = 0;
+    //Do NOT set this above one
+    public static final double kCOMRadius = 0; //Beginning of the arm to its center of mass (end effector included)
     public static final double kPivotMotorPower = 0;
+    public static final double kPivotMotorStowAngle = 0;
+    public static final double kPivotMotorGatherAngle = 0;
+    public static final double kPivotMotorLowAngle = 0;
+    public static final double kPivotMotorMidAngle = 0;
+    public static final double kPivotMotorHighAngle = 0;
     public static final double kPivotMotorMinAngle = 0;
     public static final double kPivotMotorMaxAngle = 0;
-    // kPivotMotorMinAngle should be kept at zero, as it is not absolute, but a representation of the furthest back the arm is capable of extending.
+    // Min and Max angle represent the angles at which the arm contacts the ground or its frame
     public static final int kPivotMotorID = 0;
-    public static final int kLeftIOMotorID = 1;
-    public static final int kRightIOMotorID = 2;
+    public static final int kTopIOMotorID = 1;
+    public static final int kBottomIOMotorID = 2;
     public static final int kLeftHoldingMotorID = 3;
     public static final int kRightHoldingMotorID = 4;
     public static final int kLeftJoystickID = 100;
     public static final int kRightJoystickID = 101;
-
     public static final double veolcityRPMConversion = 0;
     public static final int ArmMotorID = 0;
     public static final int LeftIOMotorID = 1;
