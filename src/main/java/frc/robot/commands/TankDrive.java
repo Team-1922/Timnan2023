@@ -7,24 +7,27 @@ package frc.robot.commands;
 import java.util.concurrent.atomic.DoubleAccumulator;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrainSubsystem;
 
 public class TankDrive extends CommandBase {
  
    DriveTrainSubsystem m_DriveTrainSubsystem;
-   Joystick m_LeftJoystick = RobotContainer.LeftJoystick;
-   
-   Joystick m_RightJoystick = RobotContainer.RightJoystick;
-   double m_LeftX = m_LeftJoystick.getX();
-   double m_RightX= m_RightJoystick.getX();
+   Joystick LeftJoystick;
+   Joystick RightJoystick;
+   double m_LeftDeadZoneOnOff;
+   double m_RightDeadZoneOnOff;
   /** Creates a new TankDrive. */
-  public TankDrive(
+  public TankDrive(DriveTrainSubsystem m_driveTrain, Joystick m_LeftJoystick, Joystick m_RightJoystick
 
   ) {
-  
+  m_DriveTrainSubsystem = m_driveTrain;
+     LeftJoystick = m_LeftJoystick;
+     RightJoystick = m_RightJoystick;
+   
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(m_DriveTrainSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -41,15 +44,25 @@ public class TankDrive extends CommandBase {
   @Override
   public void execute() {
     
+    if ( Math.abs(LeftJoystick.getY()) < 0.125 && Math.abs(LeftJoystick.getY()) > -0.125 ) {
+     m_LeftDeadZoneOnOff= 0;
+    } else {m_LeftDeadZoneOnOff = 1;}
+   
+    if ( Math.abs(RightJoystick.getY()) < 0.125 && Math.abs(RightJoystick.getY()) > -0.125 ) {
+      m_RightDeadZoneOnOff= 0;
+     } else {m_RightDeadZoneOnOff = 1;}
+  SmartDashboard.putNumber("leftjoystick", LeftJoystick.getY());
+  SmartDashboard.putNumber("Rightjoystick", RightJoystick.getRawAxis(1));
 
-
-   //m_DriveTrainSubsystem.drive( m_LeftX,  m_RightX);
+    //Something isnt connecting here -- look into why no get input
+   m_DriveTrainSubsystem.Drive( LeftJoystick.getRawAxis(1)*m_LeftDeadZoneOnOff,  RightJoystick.getRawAxis(1)*m_RightDeadZoneOnOff);
    //change the number after the * to adjust the output or whatever 
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override
