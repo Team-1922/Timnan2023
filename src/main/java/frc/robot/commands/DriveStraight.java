@@ -14,7 +14,8 @@ public class DriveStraight extends CommandBase {
 
   DriveTrainSubsystem  m_DriveTrainSubsystem;
  Joystick m_LeftJoystick = RobotContainer.LeftJoystick;
- 
+ double Maxrpm= 2000;
+ double rightmaxrpm= 2000;
   /** Creates a new DriveStraight. */
   public DriveStraight() {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -29,14 +30,19 @@ public class DriveStraight extends CommandBase {
   public void execute() {
     
 if (m_LeftJoystick.getY()> SmartDashboard.getNumber("Deadzone", 0.125)){
-    m_DriveTrainSubsystem.velocityDrive(m_LeftJoystick.getRawAxis(1)*m_DriveTrainSubsystem.Maxrpm,m_LeftJoystick.getRawAxis(1)*m_DriveTrainSubsystem.rightmaxrpm);
+    m_DriveTrainSubsystem.velocityDrive(
+      m_LeftJoystick.getRawAxis(1)
+    *Maxrpm,m_LeftJoystick.getRawAxis(1)
+    *Maxrpm);
 }
 
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    
+  }
 
   // Returns true when the command should end.
   @Override

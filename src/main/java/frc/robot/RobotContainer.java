@@ -29,8 +29,8 @@ import edu.wpi.first.wpilibj.SPI;
  */
 public class RobotContainer {
   // joysticks and xboxcontrollers 
- public final static Joystick LeftJoystick = new Joystick(0);
- public final static Joystick RightJoystick = new Joystick(1);
+ public final static Joystick LeftJoystick = new Joystick(1);
+ public final static Joystick RightJoystick = new Joystick(0);
 
 
  
