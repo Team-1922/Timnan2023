@@ -9,14 +9,14 @@ import frc.robot.subsystems.ScoreMode;
 
 public class AdjustScoreMode extends CommandBase {
   /** Creates a new increaseScoreMode. */
-  public int scoreMode = ScoreMode.m_ScoreMode;
   private ScoreMode m_Score;
   public AdjustScoreMode(ScoreMode Score) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_Score = Score;
-
+    
     addRequirements(Score);
   }
+  public int scoreMode = m_Score.getScoreMode();
 
   // Called when the command is initially scheduled.
   @Override

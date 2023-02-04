@@ -14,21 +14,24 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class Score extends CommandBase {
   private EndEffector m_CubePositioner;
   private Arm m_RobotArm;
+  private ScoreMode m_ScoreMode;
   private int scoreMode;
   
   /** Creates a new Score. */
-  public Score(Arm pivotArm, EndEffector cubeEffector) {
+  public Score(Arm pivotArm, EndEffector cubeEffector, ScoreMode score) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_RobotArm = pivotArm;
     m_CubePositioner = cubeEffector;
+    m_ScoreMode = score;
     
     addRequirements(pivotArm);
     addRequirements(cubeEffector);
+    addRequirements(score);
   }
-
+  
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {scoreMode = ScoreMode.m_ScoreMode;}
+  public void initialize() {scoreMode = m_ScoreMode.getScoreMode();}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

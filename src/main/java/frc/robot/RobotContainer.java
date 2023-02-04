@@ -56,7 +56,7 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   //arm commands
   private final GatherTheCube m_GatherCube = new GatherTheCube(m_PivotArm, m_CubeEffector);
-  private final Score m_Score = new Score(m_PivotArm, m_CubeEffector);
+  private final Score m_Score = new Score(m_PivotArm, m_CubeEffector, m_ScoringMode);
   private final AdjustScoreMode m_ScoreModeIncrement = new AdjustScoreMode(m_ScoringMode);
 
 
