@@ -4,7 +4,7 @@
 
 package frc.robot;
 
-
+import frc.robot.subsystems.ScoreMode;
 import frc.robot.Constants;
 import frc.robot.commands.AdjustScoreMode;
 import frc.robot.commands.AutoBalance;
@@ -50,13 +50,14 @@ public class RobotContainer {
 // Subsystems, put them here or code might not work 
   public static EndEffector m_CubeEffector = new EndEffector();
   public static Arm m_PivotArm = new Arm();
+  public static ScoreMode m_ScoringMode = new ScoreMode();
 
 private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   //arm commands
   private final GatherTheCube m_GatherCube = new GatherTheCube(m_PivotArm, m_CubeEffector);
   private final Score m_Score = new Score(m_PivotArm, m_CubeEffector);
-  private final AdjustScoreMode m_ScoreModeIncrement = new AdjustScoreMode();
+  private final AdjustScoreMode m_ScoreModeIncrement = new AdjustScoreMode(m_ScoringMode);
 
 
   
