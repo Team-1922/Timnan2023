@@ -16,7 +16,7 @@ public class CollectLedCommand extends CommandBase {
 
   private int m_counter;
   private int m_minCount = 100;
-  private int m_maxCount = 400;
+  private int m_maxCount = 100; //400
   private boolean m_done;
 
   private Random m_random;
@@ -47,7 +47,7 @@ public class CollectLedCommand extends CommandBase {
 
     ++m_counter;
     if ((m_minCount <= m_counter 
-         && m_random.nextInt(0, m_maxCount-m_minCount) == 0)
+         && m_random.nextInt(0, m_maxCount-m_minCount+1) == 0)
         || m_maxCount < m_counter) {
       m_done = true;
       m_ledSubsystem.setCollectDone();

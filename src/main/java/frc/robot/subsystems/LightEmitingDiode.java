@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.led.CANdle;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -44,6 +46,9 @@ public class LightEmitingDiode extends SubsystemBase {
     m_collectMode = COLLECT_INACTIVE;
 // we can either use the leds as a status indicator, or as just a decoration, both if we can figure that out in our spare line.
 
+    SmartDashboard.putNumber("LED collect mode", m_collectMode);
+    SmartDashboard.putNumber("LED score mode", m_scoreMode);
+    SmartDashboard.putNumber("LED score state", m_scoreState);
 
   }
 
@@ -85,30 +90,37 @@ public class LightEmitingDiode extends SubsystemBase {
   public void incrementScoreState() {
     ++m_scoreState;
     if (SCORE_HIGH < m_scoreState) {m_scoreState = SCORE_LOW;}
+    SmartDashboard.putNumber("LED score state", m_scoreState);
   }
 
   public void setScoreActive() {
     m_scoreMode = SCORE_ACTIVE;
+    SmartDashboard.putNumber("LED score mode", m_scoreMode);
   }
 
   public void setScoreDone() {
     m_scoreMode = SCORE_DONE;
+    SmartDashboard.putNumber("LED score mode", m_scoreMode);
   }
 
   public void setScoreInactive() {
     m_scoreMode = SCORE_INACTIVE;
+    SmartDashboard.putNumber("LED score mode", m_scoreMode);
   }
 
   public void setCollectActive() {
     m_collectMode = COLLECT_ACTIVE;
+    SmartDashboard.putNumber("LED collect mode", m_collectMode);
   }
 
   public void setCollectDone() {
     m_collectMode = COLLECT_DONE;
+    SmartDashboard.putNumber("LED collect mode", m_collectMode);
   }
 
   public void setCollecInactive() {
     m_collectMode = COLLECT_INACTIVE;
+    SmartDashboard.putNumber("LED collect mode", m_collectMode);
   }
 
 }
