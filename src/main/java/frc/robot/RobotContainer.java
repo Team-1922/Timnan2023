@@ -9,6 +9,7 @@ import frc.robot.Constants;
 import frc.robot.commands.AdjustScoreMode;
 import frc.robot.commands.AutoBalance;
 import frc.robot.commands.Autos;
+import frc.robot.commands.DriveStraight;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.GatherTheCube;
@@ -20,6 +21,7 @@ import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
@@ -68,7 +70,8 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
 
 
   // drive commands 
-  private final TankDrive m_TankDrive = new TankDrive();
+  private final TankDrive m_TankDrive = new TankDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick);
+  private final DriveStraight m_DriveStraight = new DriveStraight();
   
 
   //other commands 
@@ -77,6 +80,7 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
   public RobotContainer() {
 
 
+    m_DriveTrainSubsystem.setDefaultCommand(m_TankDrive);
     // Configure the trigger bindings
     configureBindings();
   }
@@ -101,7 +105,14 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
     m_driverController.rightBumper().onTrue(m_ScoreModeIncrement);
     m_driverController.leftTrigger().onTrue(m_GatherCube);
     m_driverController.rightTrigger().onTrue(m_Score);
+    
+    new JoystickButton(LeftJoystick, 1)
+      .whileTrue(m_DriveStraight);
+/* 
+    new JoystickButton(LeftJoystick, 5)
+      .whileTrue(m_TankDrive);*/
   }
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
