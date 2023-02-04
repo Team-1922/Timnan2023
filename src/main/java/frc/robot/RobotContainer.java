@@ -7,16 +7,17 @@ package frc.robot;
 import frc.robot.subsystems.ScoreMode;
 import frc.robot.Constants;
 import frc.robot.commands.AdjustScoreMode;
+import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.AutoBalance;
 import frc.robot.commands.Autos;
 import frc.robot.commands.DriveStraight;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TankDrive;
-import frc.robot.commands.GatherTheCube;
-import frc.robot.commands.Score;
+//import frc.robot.commands.GatherTheCube;
+//import frc.robot.commands.Score;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.EndEffector;
-import frc.robot.subsystems.Arm;
+//import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -48,15 +49,15 @@ public class RobotContainer {
   private final AHRS m_navX = new AHRS(SPI.Port.kMXP);
 
 // Subsystems, put them here or code might not work 
-  public static EndEffector m_CubeEffector = new EndEffector();
-  public static Arm m_PivotArm = new Arm();
+  // public static EndEffector m_CubeEffector = new EndEffector();
+  //public static Arm m_PivotArm = new Arm();
   public static ScoreMode m_ScoringMode = new ScoreMode();
 
 private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   //arm commands
-  private final GatherTheCube m_GatherCube = new GatherTheCube(m_PivotArm, m_CubeEffector);
-  private final Score m_Score = new Score(m_PivotArm, m_CubeEffector);
+  //private final GatherTheCube m_GatherCube = new GatherTheCube(m_PivotArm, m_CubeEffector);
+  //private final Score m_Score = new Score(m_PivotArm, m_CubeEffector);
   private final AdjustScoreMode m_ScoreModeIncrement = new AdjustScoreMode(m_ScoringMode);
 
 
@@ -73,7 +74,7 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
   // drive commands 
   private final TankDrive m_TankDrive = new TankDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick);
   private final DriveStraight m_DriveStraight = new DriveStraight();
-  
+  private final ArcadeDrive m_ArcadeDrive = new ArcadeDrive(m_DriveTrainSubsystem, LeftJoystick);  
 
   //other commands 
 
@@ -108,11 +109,13 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
     m_driverController.rightBumper().onTrue(m_ScoreModeIncrement);
-    m_driverController.leftTrigger().onTrue(m_GatherCube);
-    m_driverController.rightTrigger().onTrue(m_Score);
+   // m_driverController.leftTrigger().onTrue(m_GatherCube);
+    //m_driverController.rightTrigger().onTrue(m_Score);
     
-    new JoystickButton(LeftJoystick, 1)
-      .whileTrue(m_DriveStraight);
+    //new JoystickButton(LeftJoystick, 1)
+      //.whileTrue(m_DriveStraight);
+      new JoystickButton(LeftJoystick, 1)
+        .whileTrue(m_ArcadeDrive);
 /* 
     new JoystickButton(LeftJoystick, 5)
       .whileTrue(m_TankDrive);*/

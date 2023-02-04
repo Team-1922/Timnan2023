@@ -4,7 +4,7 @@
 
 package frc.robot;
 
-import frc.robot.subsystems.Arm;
+//import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.EndEffector;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,9 +27,6 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   public boolean inAuto;
-  MotorControllerGroup m_rightside = new MotorControllerGroup(DriveTrainSubsystem.m_rightFollow , DriveTrainSubsystem.m_rightLead);
-  MotorControllerGroup m_leftside = new MotorControllerGroup(DriveTrainSubsystem.m_leftLead, DriveTrainSubsystem.m_leftFollow);
- DifferentialDrive m_DifferentialDrive = new DifferentialDrive(m_leftside, m_rightside);
 
   /**
    * This function is run when the robot is first started up and should be used for any

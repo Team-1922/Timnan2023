@@ -30,6 +30,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 
 public class DriveTrainSubsystem extends SubsystemBase { 
+  
   public static CANSparkMax m_leftLead = new CANSparkMax(Constants.kLeftLead, MotorType.kBrushless);
   private RelativeEncoder m_leftEncoder;
   public static CANSparkMax m_leftFollow = new CANSparkMax(Constants.kLeftFollow, MotorType.kBrushless);
@@ -38,6 +39,11 @@ public class DriveTrainSubsystem extends SubsystemBase {
   public static CANSparkMax m_rightFollow = new CANSparkMax(Constants.kRightFollow, MotorType.kBrushless);
   private SparkMaxPIDController m_pidControllerLeft;
   private SparkMaxPIDController m_pidControllerRight;
+
+  
+  MotorControllerGroup m_rightside = new MotorControllerGroup(DriveTrainSubsystem.m_rightFollow , DriveTrainSubsystem.m_rightLead);
+  MotorControllerGroup m_leftside = new MotorControllerGroup(DriveTrainSubsystem.m_leftLead, DriveTrainSubsystem.m_leftFollow);
+ DifferentialDrive m_DifferentialDrive = new DifferentialDrive(m_leftside, m_rightside);
 
 
   private AHRS m_navX;
