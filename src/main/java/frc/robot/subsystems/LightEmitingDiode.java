@@ -41,14 +41,8 @@ public class LightEmitingDiode extends SubsystemBase {
 
   /** Creates a new LED. */
   public LightEmitingDiode() {
-    m_scoreState = SCORE_LOW;
-    m_scoreMode = SCORE_INACTIVE;
-    m_collectMode = COLLECT_INACTIVE;
-// we can either use the leds as a status indicator, or as just a decoration, both if we can figure that out in our spare line.
-
-    SmartDashboard.putNumber("LED collect mode", m_collectMode);
-    SmartDashboard.putNumber("LED score mode", m_scoreMode);
-    SmartDashboard.putNumber("LED score state", m_scoreState);
+    reset();
+    // we can either use the leds as a status indicator, or as just a decoration, both if we can figure that out in our spare line.
 
   }
 
@@ -85,6 +79,17 @@ public class LightEmitingDiode extends SubsystemBase {
       m_candle.setLEDs(m_yellowR, m_yellowG, m_yellowB, 0, 0, endIdx);
       m_candle.setLEDs(0, 0, 0, 0, endIdx, Constants.kLedCount);
     }
+  }
+
+  public void reset() {
+    m_scoreState = SCORE_LOW;
+    m_scoreMode = SCORE_INACTIVE;
+    m_collectMode = COLLECT_INACTIVE;
+
+    SmartDashboard.putNumber("LED collect mode", m_collectMode);
+    SmartDashboard.putNumber("LED score mode", m_scoreMode);
+    SmartDashboard.putNumber("LED score state", m_scoreState);
+
   }
 
   public void incrementScoreState() {

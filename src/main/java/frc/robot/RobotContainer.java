@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.SPI;
 import frc.robot.commands.IncrementLedCommand;
 import frc.robot.commands.ScoreLedCommand;
 import frc.robot.commands.CollectLedCommand;
+import frc.robot.commands.ResetLedCommand;
 import com.ctre.phoenix.led.CANdle;
 import com.fasterxml.jackson.databind.ser.std.CalendarSerializer;;
 
@@ -84,6 +85,8 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
       new ScoreLedCommand(m_ledSubsystem);
   private final CollectLedCommand m_collectLed = 
     new CollectLedCommand(m_ledSubsystem);
+  private final ResetLedCommand m_resetLed =
+    new ResetLedCommand(m_ledSubsystem);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -124,6 +127,7 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
       m_driverController.rightBumper().onTrue(m_incrementScoreLed);
       m_driverController.rightTrigger(0.5).whileTrue(m_scoreLed);
       m_driverController.leftTrigger(0.5).whileTrue(m_collectLed);
+      m_driverController.a().onTrue(m_resetLed);
   }
 
 
