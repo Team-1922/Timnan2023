@@ -13,6 +13,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.LightEmitingDiode;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -20,6 +21,13 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
+
+// tryout temp imports
+import frc.robot.commands.IncrementLedCommand;
+import frc.robot.commands.ScoreLedCommand;
+import frc.robot.commands.CollectLedCommand;
+import com.ctre.phoenix.led.CANdle;
+import com.fasterxml.jackson.databind.ser.std.CalendarSerializer;;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -66,6 +74,17 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
 
   //other commands 
 
+
+
+  // tryouts temp commands
+  private final LightEmitingDiode m_ledSubsystem = new LightEmitingDiode();
+  private final IncrementLedCommand m_incrementScoreLed = 
+      new IncrementLedCommand(m_ledSubsystem);
+  private final ScoreLedCommand m_scoreLed = 
+      new ScoreLedCommand(m_ledSubsystem);
+  private final CollectLedCommand m_collectLed = 
+    new CollectLedCommand(m_ledSubsystem);
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
@@ -98,6 +117,13 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
 /* 
     new JoystickButton(LeftJoystick, 5)
       .whileTrue(m_TankDrive);*/
+
+
+
+      // tryouts temp button bindings
+      m_driverController.rightBumper().onTrue(m_incrementScoreLed);
+      m_driverController.rightTrigger(0.5).whileTrue(m_scoreLed);
+      m_driverController.leftTrigger(0.5).whileTrue(m_collectLed);
   }
 
 
