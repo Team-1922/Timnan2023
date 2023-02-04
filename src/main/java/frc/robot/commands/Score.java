@@ -49,7 +49,6 @@ public class Score extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    scoreMode = 0;
     m_RobotArm.setAngle(Constants.kPivotMotorStowAngle);
     return (!m_CubePositioner.getHasObject());
   }
