@@ -40,19 +40,36 @@ public class DriveTrainSubsystem extends SubsystemBase {
   private AHRS m_navX;
   private DifferentialDriveOdometry m_odometry;
   
-  double kp, ki, kd, kff, kiz, kmaxrpm, rightkp, rightki, rightkd, rightkff, rightkiz, krightmaxrpm, kMinOutput, kMaxOutput,RightkMinOutput, RightkMaxOutput;
-  double p,i,d,ff,iz;
-  public double Maxrpm;
-  double rightp;
-  double righti;
-  double rightd;
-  double rightff;
-  double rightiz;
- public double rightmaxrpm;
-  double minoutput;
-  double maxoutput;
-  double rightminoutput;
-  double rightmaxoutput;
+  double kp=6e-5;
+  double ki=0;
+  double kd=0;
+  double kff=0.000015;
+  double kiz=0;
+  double kmaxrpm=2000 ;
+  double rightkp= 6e-5;
+  double rightki =0;
+  double rightkd, rightkff, rightkiz;
+   double krightmaxrpm=2000 ;
+  double  kMinOutput=-1; 
+  double kMaxOutput =1;
+   double RightkMinOutput=-1;
+  double RightkMaxOutput = 1;
+  double p=6e-5;
+   double i=0;
+   double d =0;
+   double ff=0.000015;
+   double iz = 0;
+  public double Maxrpm = 2000;
+  double rightp =  6e-5;
+  double righti = 0;
+  double rightd = 0;
+  double rightff = 0.000015;
+  double rightiz = 0;
+ public double rightmaxrpm = 2000 ;
+  double minoutput = -1;
+  double maxoutput = 1;
+  double rightminoutput = -1;
+  double rightmaxoutput =1;
   /** Creates a new DriveTrainSubsystem. */
   public DriveTrainSubsystem() {
 
