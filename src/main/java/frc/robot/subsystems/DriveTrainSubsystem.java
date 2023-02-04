@@ -281,14 +281,14 @@ if (Maxrpm != kmaxrpm) {Maxrpm = SmartDashboard.getNumber("left max rpm", 10);}
     return m_leftEncoder.getPosition();
   }
   public double getLeftEncoderFeet(){
-    return m_leftEncoder.getPosition() * Constants.kEncoderTicksToFeet;
+    return m_leftEncoder.getPosition() * Constants.kEncoderRotationsToFeet;
   }
 
   public double getRightEncoderRaw(){
     return m_rightEncoder.getPosition();
   }
   public double getRightEncoderFeet(){
-    return m_rightEncoder.getPosition() * Constants.kEncoderTicksToFeet;
+    return m_rightEncoder.getPosition() * Constants.kEncoderRotationsToFeet;
   }
 
 

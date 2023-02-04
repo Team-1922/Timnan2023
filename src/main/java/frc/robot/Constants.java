@@ -48,9 +48,9 @@ public final class Constants {
     public static final double HoldingMorerPower = 0;
 
     // Multiply raw encoder output by this to convert that to feet travelled
-    public static final double kEncoderTicksToFeet = 0; //TBD
+    public static final double kEncoderRotationsToFeet = .38; 
     // For trajectory differentialDriveKinematics
-    public static final double distBetweenWheelsMeters = 0; //TBD
+    public static final double distBetweenWheelsMeters = 0.46355; 
     // Used in converting odometry wheel speeds to usable velocity units
     public static final double metersPerSecondToRPM = 0; //TBD
  // }
