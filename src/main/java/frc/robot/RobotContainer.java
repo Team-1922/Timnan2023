@@ -6,7 +6,9 @@ package frc.robot;
 
 
 import frc.robot.Constants;
+import frc.robot.commands.AutoBalance;
 import frc.robot.commands.Autos;
+import frc.robot.commands.DriveStraight;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrainSubsystem;
@@ -14,7 +16,10 @@ import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -23,22 +28,49 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem();
-  private final TankDrive m_TankDrive = new TankDrive();
-  
+  // joysticks and xboxcontrollers 
  public final static Joystick LeftJoystick = new Joystick(0);
  public final static Joystick RightJoystick = new Joystick(1);
 
+
+ 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(Constants.kDriverControllerPort);
+
+
+
+  private final AHRS m_navX = new AHRS(SPI.Port.kMXP);
+
+// Subsystems, put them here or code might not work 
+
+private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
+  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  //arm commands
+
+
+  
+
+    // Auto drive commands
+    private final AutoBalance m_autoBalance = new AutoBalance(m_DriveTrainSubsystem);
+
+
+    
+
+
+
+  // drive commands 
+  private final TankDrive m_TankDrive = new TankDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick);
+  private final DriveStraight m_DriveStraight = new DriveStraight();
+  
+
+  //other commands 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
 
+    m_DriveTrainSubsystem.setDefaultCommand(m_TankDrive);
     // Configure the trigger bindings
     configureBindings();
   }
@@ -60,7 +92,14 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    
+    new JoystickButton(LeftJoystick, 1)
+      .whileTrue(m_DriveStraight);
+/* 
+    new JoystickButton(LeftJoystick, 5)
+      .whileTrue(m_TankDrive);*/
   }
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
