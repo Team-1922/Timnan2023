@@ -52,6 +52,6 @@ public final class Constants {
     // For trajectory differentialDriveKinematics
     public static final double distBetweenWheelsMeters = 0.46355; 
     // Used in converting odometry wheel speeds to usable velocity units
-    public static final double metersPerSecondToRPM = 0; //TBD
+    public static final double metersPerSecondToRPM = .0019304; 
  // }
 }
