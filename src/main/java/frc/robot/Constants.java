@@ -15,7 +15,7 @@ import java.lang.Math;
  */
 public final class Constants {
  // public static class OperatorConstants {
-    public static final int kDriverControllerPort = 0;
+    public static final int kDriverControllerPort = 2;
     public static final int kLeftLead = 5;
     public static final int kLeftFollow = 4;
     public static final int kRightLead = 3;
@@ -57,10 +57,10 @@ public final class Constants {
 
     // trypout temp constants
     public static final int kCandleId = 10;
-    public static final int kCollectLedCount = 10;
-    public static final int kLowLedCount = 10;
-    public static final int kMedLedCount = 10;
-    public static final int kHighLedCount = 10;
+    public static final int kCollectLedCount = 2;
+    public static final int kLowLedCount = 2;
+    public static final int kMedLedCount = 2;
+    public static final int kHighLedCount = 2;
     public static final int kLedCount = 
          Math.min(40, kCollectLedCount + kLowLedCount + kMedLedCount + kHighLedCount);
  // }

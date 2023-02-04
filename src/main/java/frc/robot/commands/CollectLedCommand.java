@@ -19,7 +19,7 @@ public class CollectLedCommand extends CommandBase {
   private int m_maxCount = 100; //400
   private boolean m_done;
 
-  private Random m_random;
+  private Random m_random = new Random();
 
   /**
    * Creates a new ExampleCommand.

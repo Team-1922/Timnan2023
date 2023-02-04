@@ -4,7 +4,12 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.led.Animation;
 import com.ctre.phoenix.led.CANdle;
+import com.ctre.phoenix.led.CANdleConfiguration;
+import com.ctre.phoenix.led.RainbowAnimation;
+import com.ctre.phoenix.led.CANdle.LEDStripType;
+import com.ctre.phoenix.led.CANdle.VBatOutputMode;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -12,9 +17,9 @@ import frc.robot.Constants;
 
 
 public class LightEmitingDiode extends SubsystemBase {
-  private int SCORE_LOW = 0;
-  private int SCORE_MED = 1;
-  private int SCORE_HIGH = 2;
+  private int SCORE_LOW = 1;
+  private int SCORE_MED = 2;
+  private int SCORE_HIGH = 3;
 
   private int SCORE_INACTIVE = 0;
   private int SCORE_ACTIVE = 1;
@@ -29,7 +34,7 @@ public class LightEmitingDiode extends SubsystemBase {
 
   private int m_collectMode;
 
-  private final CANdle m_candle = new CANdle(Constants.kCandleId);
+  private final CANdle m_candle = new CANdle(Constants.kCandleId, "rio");
 
   private final int m_yellowR = 255;
   private final int m_yellowG = 255;
@@ -38,9 +43,23 @@ public class LightEmitingDiode extends SubsystemBase {
   private final int m_greenG = 255;
   private final int m_greenB = 0;
 
+  private int m_counter;
 
+  // private Animation m_animation = new RainbowAnimation();
   /** Creates a new LED. */
   public LightEmitingDiode() {
+    // CANdleConfiguration configAll = new CANdleConfiguration();
+    // configAll.statusLedOffWhenActive = false;
+    // configAll.disableWhenLOS = false;
+    // configAll.stripType = LEDStripType.GRB;
+    // configAll.brightnessScalar = 0.1;
+    // configAll.vBatOutputMode = VBatOutputMode.Modulated;
+    // m_candle.configAllSettings(configAll, 100);
+
+    // m_candle.configFactoryDefault();
+
+    m_counter = 0;
+
     reset();
     // we can either use the leds as a status indicator, or as just a decoration, both if we can figure that out in our spare line.
 
@@ -48,6 +67,8 @@ public class LightEmitingDiode extends SubsystemBase {
 
   @Override
   public void periodic() {
+    // ++m_counter;
+    SmartDashboard.putNumber("led counter", m_counter);
     // This method will be called once per scheduler run
     if (m_collectMode != COLLECT_INACTIVE) {
       if (m_collectMode == COLLECT_ACTIVE) {
@@ -61,11 +82,11 @@ public class LightEmitingDiode extends SubsystemBase {
     }
     
     if (m_scoreState == SCORE_LOW) {
-      setLeds(m_scoreMode == SCORE_DONE, Constants.kLowLedCount);
+      setLeds(m_scoreMode == SCORE_DONE, Constants.kCollectLedCount + Constants.kLowLedCount);
     } else if (m_scoreState == SCORE_MED) {
-      setLeds(m_scoreMode == SCORE_DONE, Constants.kMedLedCount);
+      setLeds(m_scoreMode == SCORE_DONE, Constants.kCollectLedCount + Constants.kLowLedCount + Constants.kMedLedCount);
     } else if (m_scoreState == SCORE_HIGH) {
-      setLeds(m_scoreMode == SCORE_DONE, Constants.kHighLedCount);
+      setLeds(m_scoreMode == SCORE_DONE, Constants.kCollectLedCount + Constants.kLowLedCount + Constants.kMedLedCount + Constants.kHighLedCount);
     } else {
       setLeds(false, 0);
     }
@@ -90,40 +111,48 @@ public class LightEmitingDiode extends SubsystemBase {
     SmartDashboard.putNumber("LED score mode", m_scoreMode);
     SmartDashboard.putNumber("LED score state", m_scoreState);
 
+    m_candle.clearAnimation(0);
   }
 
   public void incrementScoreState() {
+    ++m_counter;
     ++m_scoreState;
     if (SCORE_HIGH < m_scoreState) {m_scoreState = SCORE_LOW;}
     SmartDashboard.putNumber("LED score state", m_scoreState);
   }
 
   public void setScoreActive() {
+    ++m_counter;
     m_scoreMode = SCORE_ACTIVE;
     SmartDashboard.putNumber("LED score mode", m_scoreMode);
   }
 
   public void setScoreDone() {
+    ++m_counter;
     m_scoreMode = SCORE_DONE;
     SmartDashboard.putNumber("LED score mode", m_scoreMode);
   }
 
   public void setScoreInactive() {
+    ++m_counter;
     m_scoreMode = SCORE_INACTIVE;
     SmartDashboard.putNumber("LED score mode", m_scoreMode);
   }
 
   public void setCollectActive() {
+    ++m_counter;
     m_collectMode = COLLECT_ACTIVE;
     SmartDashboard.putNumber("LED collect mode", m_collectMode);
   }
 
   public void setCollectDone() {
+    ++m_counter;
     m_collectMode = COLLECT_DONE;
     SmartDashboard.putNumber("LED collect mode", m_collectMode);
   }
 
   public void setCollecInactive() {
+    ++m_counter;
     m_collectMode = COLLECT_INACTIVE;
     SmartDashboard.putNumber("LED collect mode", m_collectMode);
   }
