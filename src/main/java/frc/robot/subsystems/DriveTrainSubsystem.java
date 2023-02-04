@@ -125,7 +125,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   }
   
 
-public void velocityDrive(double velocity){
+public void oldVelocityDrive(double velocity){ //What's this
 //  m_pidControllerLeft.setRefrence();
 //  m_pidControllerRight.setRefrence();
 
@@ -144,8 +144,6 @@ m_pidControllerRight.setOutputRange(rightminoutput, RightkMaxOutput);
 m_pidControllerRight.setFF(rightff);
 m_pidControllerRight.setIZone(rightd);
 
-    // Setting up the odometry object in the constructor--A little sketchy? No errors and it builds though
-    m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(robotPitch()), Units.feetToMeters(getRightEncoderFeet()), Units.feetToMeters(getLeftEncoderFeet()));
 
   }
   
@@ -260,6 +258,8 @@ if (Maxrpm != kmaxrpm) {Maxrpm = SmartDashboard.getNumber("left max rpm", 10);}
    //TEMP
    SmartDashboard.putNumber("RobotYaw", m_pigeon.getYaw());
    SmartDashboard.putNumber("RobotPitch", m_pigeon.getPitch());
+
+   SmartDashboard.putNumber("EncoderLeft", m_leftEncoder.getPosition());
 
   }
 
