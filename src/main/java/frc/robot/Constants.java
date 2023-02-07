@@ -51,7 +51,7 @@ public final class Constants {
     public static final double kEncoderRotationsToFeet = .38; 
     // For trajectory differentialDriveKinematics
     public static final double distBetweenWheelsMeters = 0.46355; 
-    // Used in converting odometry wheel speeds to usable velocity units
+    // Used in converting odometry wheel speeds to usable velocity units // It's a multiply
     public static final double metersPerSecondToRPM = .0019304; 
  // }
 }
