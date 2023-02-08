@@ -29,8 +29,8 @@ import edu.wpi.first.wpilibj.SPI;
  */
 public class RobotContainer {
   // joysticks and xboxcontrollers 
- public final static Joystick LeftJoystick = new Joystick(1);
- public final static Joystick RightJoystick = new Joystick(0);
+ public final static Joystick LeftJoystick = new Joystick(0);
+ public final static Joystick RightJoystick = new Joystick(1);
 
 
  
@@ -61,7 +61,7 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
 
   // drive commands 
   private final TankDrive m_TankDrive = new TankDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick);
-  private final DriveStraight m_DriveStraight = new DriveStraight();
+  private final DriveStraight m_DriveStraight = new DriveStraight(m_DriveTrainSubsystem, LeftJoystick);
   
 
   //other commands 

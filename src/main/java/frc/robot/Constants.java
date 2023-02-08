@@ -46,6 +46,8 @@ public final class Constants {
     public static final double IOMotorRPM = 0;
     public static final double HoldingMorerPower = 0;
 
+    public static final double maxRPM = 5700;
+
     // Multiply raw encoder output by this to convert that to feet travelled
     public static final double kEncoderTicksToFeet = 0; //TBD
     // For trajectory differentialDriveKinematics

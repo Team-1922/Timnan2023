@@ -7,33 +7,40 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrainSubsystem;
 
 public class DriveStraight extends CommandBase {
 
   DriveTrainSubsystem  m_DriveTrainSubsystem;
- Joystick m_LeftJoystick = RobotContainer.LeftJoystick;
- double Maxrpm= 2000;
+ Joystick m_LeftJoystick;
+ double Maxrpm= Constants.maxRPM;
  double rightmaxrpm= 2000;
+
+ double deadzone;
   /** Creates a new DriveStraight. */
-  public DriveStraight() {
+  public DriveStraight(DriveTrainSubsystem driveTrain, Joystick leftJoystick) {
+    m_DriveTrainSubsystem = driveTrain;
+    m_LeftJoystick = leftJoystick;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(m_DriveTrainSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    deadzone = SmartDashboard.getNumber("Deadzone", 0.125);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     
-if (m_LeftJoystick.getY()> SmartDashboard.getNumber("Deadzone", 0.125)){
+if (m_LeftJoystick.getY() > deadzone || m_LeftJoystick.getY() < deadzone){
     m_DriveTrainSubsystem.velocityDrive(
-      m_LeftJoystick.getRawAxis(1)
-    *Maxrpm,m_LeftJoystick.getRawAxis(1)
-    *Maxrpm);
+      m_LeftJoystick.getY() * Maxrpm,
+      m_LeftJoystick.getY() * Maxrpm);
 }
 
   }
