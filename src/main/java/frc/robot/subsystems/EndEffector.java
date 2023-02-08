@@ -13,10 +13,10 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
 
 public class EndEffector extends SubsystemBase {
-  private CANSparkMax m_BottomIOMotor = new CANSparkMax(Constants.kBottomIOMotorID, MotorType.kBrushless);
-  private CANSparkMax m_TopIOMotor = new CANSparkMax(Constants.kTopIOMotorID, MotorType.kBrushless);
-  SparkMaxPIDController m_BottomPID = m_BottomIOMotor.getPIDController();
-  SparkMaxPIDController m_TopPID = m_TopIOMotor.getPIDController();
+  private static CANSparkMax m_BottomIOMotor = new CANSparkMax(Constants.kBottomIOMotorID, MotorType.kBrushless);
+  private static CANSparkMax m_TopIOMotor = new CANSparkMax(Constants.kTopIOMotorID, MotorType.kBrushless);
+  public static SparkMaxPIDController m_BottomPID = m_BottomIOMotor.getPIDController();
+  public static SparkMaxPIDController m_TopPID = m_TopIOMotor.getPIDController();
   public static int m_valueRefCounter = 0;
   private double eP = .1, eI = 1e-4, eD = 1;
   public static int m_ScoreMode = -1;
@@ -42,26 +42,28 @@ public class EndEffector extends SubsystemBase {
     return m_hasObject;
   }
 
-  public void gatherTheCube() {
-    m_TopPID.setReference(Constants.kIOMotorGatherPower, ControlType.kVoltage);
-    m_BottomPID.setReference(Constants.kIOMotorGatherPower, ControlType.kVoltage);
-    //Add some sensor stuff and conditionals
+  public void stopMotors() {
     m_TopPID.setReference(0, ControlType.kVoltage);
     m_BottomPID.setReference(0, ControlType.kVoltage);
+  }
+
+  public void gatherTheCube() {
+    m_TopPID.setReference(Constants.kIOMotorGatherPower*Constants.kIOBottomToTopVoltageConversion, ControlType.kVoltage);
+    m_BottomPID.setReference(Constants.kIOMotorGatherPower, ControlType.kVoltage);
   }
 
   public void Score(String scoreMode) {
     switch (scoreMode) {
       case "low":
-      m_TopPID.setReference(Constants.kIOMotorLowPower, ControlType.kVoltage);
+      m_TopPID.setReference(Constants.kIOMotorLowPower*Constants.kIOBottomToTopVoltageConversion, ControlType.kVoltage);
       m_BottomPID.setReference(Constants.kIOMotorLowPower, ControlType.kVoltage);
       ;
       case "mid":
-      m_TopPID.setReference(Constants.kIOMotorMidPower, ControlType.kVoltage);
+      m_TopPID.setReference(Constants.kIOMotorMidPower*Constants.kIOBottomToTopVoltageConversion, ControlType.kVoltage);
       m_BottomPID.setReference(Constants.kIOMotorMidPower, ControlType.kVoltage);
       ;
       case "high":
-      m_TopPID.setReference(Constants.kIOMotorHighPower, ControlType.kVoltage);
+      m_TopPID.setReference(Constants.kIOMotorHighPower*Constants.kIOBottomToTopVoltageConversion, ControlType.kVoltage);
       m_BottomPID.setReference(Constants.kIOMotorHighPower, ControlType.kVoltage);
         //Avoiding the code for mid and high as of now since physical testing will be required to get accurate results
       ;

@@ -27,6 +27,7 @@ public final class Constants {
     public static final double kIOMotorMidPower = 0;
     public static final double kIOMotorHighPower = 0;
     public static final double kIOMotorMaxPower = 0;
+    public static final double kIOBottomToTopVoltageConversion = 0;
     public static final double kPivotMotorVelocity = 0;
     //Do NOT set this above one
     public static final double kCOMRadius = 0; //Beginning of the arm to its center of mass (end effector included)

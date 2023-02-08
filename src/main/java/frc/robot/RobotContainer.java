@@ -48,15 +48,15 @@ public class RobotContainer {
   private final AHRS m_navX = new AHRS(SPI.Port.kMXP);
 
 // Subsystems, put them here or code might not work 
-  public static EndEffector m_CubeEffector = new EndEffector();
-  public static Arm m_PivotArm = new Arm();
+  public static EndEffector m_EndEffector = new EndEffector();
+  public static Arm m_Arm = new Arm();
   public static ScoreMode m_ScoringMode = new ScoreMode();
 
 private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   //arm commands
-  private final GatherTheCube m_GatherCube = new GatherTheCube(m_PivotArm, m_CubeEffector);
-  private final Score m_Score = new Score(m_PivotArm, m_CubeEffector, m_ScoringMode);
+  private final GatherTheCube m_GatherCube = new GatherTheCube(m_Arm, m_EndEffector);
+  private final Score m_Score = new Score(m_Arm, m_EndEffector, m_ScoringMode);
   private final AdjustScoreMode m_ScoreModeIncrement = new AdjustScoreMode(m_ScoringMode);
 
 
@@ -104,8 +104,8 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
     m_driverController.rightBumper().onTrue(m_ScoreModeIncrement);
-    m_driverController.leftTrigger().onTrue(m_GatherCube);
-    m_driverController.rightTrigger().onTrue(m_Score);
+    m_driverController.leftTrigger().whileTrue(m_GatherCube);
+    m_driverController.rightTrigger().whileTrue(m_Score);
     
     new JoystickButton(LeftJoystick, 1)
       .whileTrue(m_DriveStraight);

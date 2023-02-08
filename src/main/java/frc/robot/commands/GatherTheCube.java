@@ -12,13 +12,13 @@ import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class GatherTheCube extends CommandBase {
-  private Arm m_RobotArm;
-  private EndEffector m_CubeHarvester;
+  private Arm m_Arm;
+  private EndEffector m_EndEffector;
   /** Creates a new GatherTheCube. */
   public GatherTheCube(Arm pivotArm, EndEffector cubeEffector) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_RobotArm = pivotArm;
-    m_CubeHarvester = cubeEffector;
+    m_Arm = pivotArm;
+    m_EndEffector = cubeEffector;
 
     addRequirements(pivotArm);
     addRequirements(cubeEffector);
@@ -27,29 +27,30 @@ public class GatherTheCube extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_RobotArm.setNewFF();
+    m_Arm.setNewFF();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_RobotArm.setNewFF();
-    m_RobotArm.setAngle(Constants.kPivotMotorGatherAngle);
-    m_CubeHarvester.gatherTheCube();
-    while (!EndEffector.m_hasObject) {
+    m_Arm.setNewFF();
+    m_Arm.setAngle(Constants.kPivotMotorGatherAngle);
+    m_EndEffector.gatherTheCube();
       //sensor stuff
       EndEffector.m_hasObject = true;
-    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_EndEffector.stopMotors();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    m_RobotArm.setAngle(Constants.kPivotMotorStowAngle);
-    return m_CubeHarvester.getHasObject();
+    m_EndEffector.stopMotors();
+    m_Arm.setAngle(Constants.kPivotMotorStowAngle);
+    return m_EndEffector.getHasObject();
   }
 }
