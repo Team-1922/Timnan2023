@@ -21,7 +21,7 @@ public class EndEffector extends SubsystemBase {
   private double eP = .1, eI = 1e-4, eD = 1;
   public static int m_ScoreMode = -1;
 
-  private boolean m_hasObject;
+  public static boolean m_hasObject;
   /** Creates a new EndEffector. */
   public EndEffector() {
     m_BottomIOMotor.restoreFactoryDefaults();
@@ -46,7 +46,6 @@ public class EndEffector extends SubsystemBase {
     m_TopPID.setReference(Constants.kIOMotorGatherPower, ControlType.kVoltage);
     m_BottomPID.setReference(Constants.kIOMotorGatherPower, ControlType.kVoltage);
     //Add some sensor stuff and conditionals
-    m_hasObject = true;
     m_TopPID.setReference(0, ControlType.kVoltage);
     m_BottomPID.setReference(0, ControlType.kVoltage);
   }
@@ -69,12 +68,7 @@ public class EndEffector extends SubsystemBase {
       default:
         System.out.println("Invalid Input")
       ;
-      //more sensor stuff
-      m_hasObject = false;
-      m_TopPID.setReference(0, ControlType.kVoltage);
-      m_BottomPID.setReference(0, ControlType.kVoltage);
     }
-
   }
 
   @Override

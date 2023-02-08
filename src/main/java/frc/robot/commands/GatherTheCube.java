@@ -36,6 +36,10 @@ public class GatherTheCube extends CommandBase {
     m_RobotArm.setNewFF();
     m_RobotArm.setAngle(Constants.kPivotMotorGatherAngle);
     m_CubeHarvester.gatherTheCube();
+    while (!EndEffector.m_hasObject) {
+      //sensor stuff
+      EndEffector.m_hasObject = true;
+    }
   }
 
   // Called once the command ends or is interrupted.

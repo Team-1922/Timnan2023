@@ -40,6 +40,10 @@ public class Score extends CommandBase {
     if (scoreMode == 1) {m_RobotArm.setAngle(Constants.kPivotMotorLowAngle); m_CubePositioner.Score("low");
     } else if (scoreMode == 2) {m_RobotArm.setAngle(Constants.kPivotMotorMidAngle); m_CubePositioner.Score("mid");
     } else if (scoreMode == 3) {m_RobotArm.setAngle(Constants.kPivotMotorHighAngle); m_CubePositioner.Score("high");}
+    while (EndEffector.m_hasObject) {
+      //sensor stuff
+      EndEffector.m_hasObject = false;
+    }
   }
 
   // Called once the command ends or is interrupted.
