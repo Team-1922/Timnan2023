@@ -4,8 +4,8 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Timer;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
@@ -23,6 +23,7 @@ import frc.robot.RobotContainer;
 
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.ctre.phoenix.sensors.Pigeon2;
 import com.kauailabs.navx.frc.AHRS;
 
 
@@ -30,12 +31,15 @@ public class DriveTrainSubsystem extends SubsystemBase {
   private CANSparkMax m_leftLead = new CANSparkMax(Constants.kLeftLead, MotorType.kBrushless);
   private RelativeEncoder m_leftEncoder;
   private CANSparkMax m_leftFollow = new CANSparkMax(Constants.kLeftFollow, MotorType.kBrushless);
+
   private CANSparkMax m_rightLead = new CANSparkMax(Constants.kRightLead, MotorType.kBrushless);
   private RelativeEncoder m_rightEncoder;
   private CANSparkMax m_rightFollow = new CANSparkMax(Constants.kRightFollow, MotorType.kBrushless);
+
   private SparkMaxPIDController m_pidControllerLeft;
   private SparkMaxPIDController m_pidControllerRight;
 
+  private Pigeon2 m_pigeon = new Pigeon2(Constants.kPigeon);
 
   private AHRS m_navX;
   private DifferentialDriveOdometry m_odometry;
@@ -57,6 +61,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   public DriveTrainSubsystem() {
 
 
+   // m_pigeon.calibrate();
 
     SmartDashboard.putNumber("left p gain", kp);
     SmartDashboard.putNumber("left i gain", ki);
@@ -88,6 +93,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
     m_pidControllerRight = m_rightLead.getPIDController();}
 
 
+
+
   private double krightMinOutput; 
   /** Creates a new DriveTrainSubsystem. */
   public DriveTrainSubsystem(AHRS navX) {
@@ -110,11 +117,19 @@ public class DriveTrainSubsystem extends SubsystemBase {
     m_pidControllerRight = m_rightLead.getPIDController();
 
 
-    m_navX = navX; 
     
-    
-    //pid stuff that we need
-    //m_pidControllerLeft.setRefrence();
+    m_navX = navX;
+
+    // Setting up the odometry object 
+    m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(robotPitch()), Units.feetToMeters(getRightEncoderFeet()), Units.feetToMeters(getLeftEncoderFeet()));
+  }
+  
+
+public void oldVelocityDrive(double velocity){ //What's this
+//  m_pidControllerLeft.setRefrence();
+//  m_pidControllerRight.setRefrence();
+
+ //m_pidControllerLeft.setRefrence();
   //m_pidControllerRight.setRefrence();
   m_pidControllerLeft.setP(p);
   m_pidControllerLeft.setI(i);
@@ -129,10 +144,6 @@ m_pidControllerRight.setOutputRange(rightminoutput, RightkMaxOutput);
 m_pidControllerRight.setFF(rightff);
 m_pidControllerRight.setIZone(rightd);
 
-    m_navX = navX;
-
-    // Setting up the odometry object in the constructor--A little sketchy? No errors and it builds though
-    m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(robotPitch()), Units.feetToMeters(getRightEncoderFeet()), Units.feetToMeters(getLeftEncoderFeet()));
 
   }
   
@@ -192,6 +203,8 @@ Timer.delay(2);
 public void periodic()   {
 
     // This method will be called once per scheduler run
+    m_odometry.update(Rotation2d.fromDegrees(robotPitch()), Units.feetToMeters(getRightEncoderFeet()), Units.feetToMeters(getLeftEncoderFeet()));
+  
 
 //timedpid();
     //left pid
@@ -242,24 +255,24 @@ if (Maxrpm != kmaxrpm) {Maxrpm = SmartDashboard.getNumber("left max rpm", 10);}
    if (rightmaxrpm != krightmaxrpm) {rightmaxrpm = SmartDashboard.getNumber("right max rpm", 10);}
 
 
+   //TEMP
+   SmartDashboard.putNumber("RobotYaw", m_pigeon.getYaw());
+   SmartDashboard.putNumber("RobotPitch", m_pigeon.getPitch());
+
+   SmartDashboard.putNumber("EncoderLeft", m_leftEncoder.getPosition());
 
   }
 
-
-
-  private void WaitCommand(int j)
-   {
-    new WaitCommand(j);
-  }
 
   // Returns the navX Yaw, it's up and down like the way your neck moves 
-
   public double robotYaw(){
-    return m_navX.getYaw();
+  //  return m_navX.getYaw();
+      return m_pigeon.getYaw();
   }
   // Returns the navX Pitch, it's side to side like the way a turntable rotates
   public double robotPitch(){
-    return m_navX.getPitch();
+  //  return m_navX.getPitch();
+      return m_pigeon.getPitch();
   }
 
 
@@ -268,14 +281,14 @@ if (Maxrpm != kmaxrpm) {Maxrpm = SmartDashboard.getNumber("left max rpm", 10);}
     return m_leftEncoder.getPosition();
   }
   public double getLeftEncoderFeet(){
-    return m_leftEncoder.getPosition() * Constants.kEncoderTicksToFeet;
+    return m_leftEncoder.getPosition() * Constants.kEncoderRotationsToFeet;
   }
 
   public double getRightEncoderRaw(){
     return m_rightEncoder.getPosition();
   }
   public double getRightEncoderFeet(){
-    return m_rightEncoder.getPosition() * Constants.kEncoderTicksToFeet;
+    return m_rightEncoder.getPosition() * Constants.kEncoderRotationsToFeet;
   }
 
 
