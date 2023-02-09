@@ -11,12 +11,16 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
+import com.playingwithfusion.TimeOfFlight;
 
 public class EndEffector extends SubsystemBase {
   private static CANSparkMax m_BottomIOMotor = new CANSparkMax(Constants.kBottomIOMotorID, MotorType.kBrushless);
   private static CANSparkMax m_TopIOMotor = new CANSparkMax(Constants.kTopIOMotorID, MotorType.kBrushless);
-  public static SparkMaxPIDController m_BottomPID = m_BottomIOMotor.getPIDController();
-  public static SparkMaxPIDController m_TopPID = m_TopIOMotor.getPIDController();
+  private static SparkMaxPIDController m_BottomPID = m_BottomIOMotor.getPIDController();
+  private static SparkMaxPIDController m_TopPID = m_TopIOMotor.getPIDController();
+  private static TimeOfFlight m_LeftSensor = new TimeOfFlight(Constants.kLeftSensorID);
+  private static TimeOfFlight m_RightSensor = new TimeOfFlight(Constants.kRightSensorID);
+  //Two motors needed on opposite sides, one higher up and one lower down.
   public static int m_valueRefCounter = 0;
   private double eP = .1, eI = 1e-4, eD = 1;
   public static int m_ScoreMode = -1;
@@ -36,6 +40,8 @@ public class EndEffector extends SubsystemBase {
     SmartDashboard.putNumber("P gain", eP);
     SmartDashboard.putNumber("I gain", eI);
     SmartDashboard.putNumber("D gain", eD);
+
+    m_LeftSensor.getRange();
   }
 
   public boolean getHasObject() {
@@ -72,6 +78,8 @@ public class EndEffector extends SubsystemBase {
       ;
     }
   }
+
+  //Add in some stuff to detect how far the cube is
 
   @Override
   public void periodic() {

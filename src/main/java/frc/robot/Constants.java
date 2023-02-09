@@ -22,12 +22,12 @@ public final class Constants {
     public static final int kPDB = 63;
     public static final int kArm = 7;
     public static final double kVeolcityRPMConversion = 0;
-    public static final double kIOMotorGatherPower = 0;
+    public static final double kIOMotorGatherPower = 1;
     public static final double kIOMotorLowPower = 0;
     public static final double kIOMotorMidPower = 0;
     public static final double kIOMotorHighPower = 0;
     public static final double kIOMotorMaxPower = 0;
-    public static final double kIOBottomToTopVoltageConversion = 0;
+    public static final double kIOBottomToTopVoltageConversion = 1;
     public static final double kPivotMotorVelocity = 0;
     //Do NOT set this above one
     public static final double kCOMRadius = 0; //Beginning of the arm to its center of mass (end effector included)
@@ -49,12 +49,11 @@ public final class Constants {
     public static final int kRightJoystickID = 101;
     public static final double veolcityRPMConversion = 0;
     public static final int ArmMotorID = 0;
-    public static final int LeftIOMotorID = 1;
-    public static final int RightIOMotorID = 2;
-    public static final int LeftHoldingMotorID = 3;
-    public static final int RightHoldingMotorID = 4;
     public static final double IOMotorRPM = 0;
     public static final double HoldingMorerPower = 0;
+
+    public static final int kLeftSensorID = 11;
+    public static final int kRightSensorID = 12;
 
     // Multiply raw encoder output by this to convert that to feet travelled
     public static final double kEncoderTicksToFeet = 0; //TBD
