@@ -12,6 +12,7 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.DriveStraight;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TankDrive;
+import frc.robot.commands.TrajectoryDrive;
 import frc.robot.commands.GatherTheCube;
 import frc.robot.commands.Score;
 import frc.robot.subsystems.DriveTrainSubsystem;
@@ -25,6 +26,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -64,6 +66,7 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
 
     // Auto drive commands
     private final AutoBalance m_autoBalance = new AutoBalance(m_DriveTrainSubsystem);
+    private final TrajectoryDrive m_trajectoryDrive = new TrajectoryDrive(m_DriveTrainSubsystem);
 
 
     
@@ -88,6 +91,14 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
     m_DriveTrainSubsystem.setDefaultCommand(m_TankDrive);
     // Configure the trigger bindings
     configureBindings();
+
+
+
+
+    SmartDashboard.putNumber("Deadzone", .1);
+
+    SmartDashboard.putNumber("Balance P", .015);
+    SmartDashboard.putNumber("Balance D", .01);
   }
 
   /**
@@ -113,9 +124,12 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
     
     new JoystickButton(LeftJoystick, 1)
       .whileTrue(m_DriveStraight);
-/* 
+ 
     new JoystickButton(LeftJoystick, 5)
-      .whileTrue(m_TankDrive);*/
+      .onTrue(m_autoBalance);
+
+    new JoystickButton(LeftJoystick, 6)
+      .onTrue(m_trajectoryDrive);
   }
 
 

@@ -221,7 +221,8 @@ public void periodic()   {
 
     // This method will be called once per scheduler run
     m_odometry.update(Rotation2d.fromDegrees(robotPitch()), Units.feetToMeters(getRightEncoderFeet()), Units.feetToMeters(getLeftEncoderFeet()));
-  
+
+    SmartDashboard.putNumber("LeftVelocity", m_leftEncoder.getVelocity());
 
 
 //timedpid();
@@ -245,10 +246,6 @@ if (Maxrpm != kmaxrpm) {Maxrpm = SmartDashboard.getNumber("left max rpm", 10);}
    if (RightkMaxOutput != rightmaxoutput) {rightmaxoutput =SmartDashboard.getNumber("right max output", 1);}
    if (rightminoutput != krightMinOutput) {krightMinOutput = SmartDashboard.getNumber("right min output", 0);}
    if (rightmaxrpm != krightmaxrpm) {rightmaxrpm = SmartDashboard.getNumber("right max rpm", 10);}
-
-
-
-    m_odometry.update(Rotation2d.fromDegrees(robotPitch()), Units.feetToMeters(getRightEncoderFeet()), Units.feetToMeters(getLeftEncoderFeet()));
   
 
 
@@ -275,7 +272,7 @@ if (Maxrpm != kmaxrpm) {Maxrpm = SmartDashboard.getNumber("left max rpm", 10);}
 
    //TEMP
    SmartDashboard.putNumber("RobotYaw", m_pigeon.getYaw());
-   SmartDashboard.putNumber("RobotPitch", m_pigeon.getPitch());
+   SmartDashboard.putNumber("RobotPitch", m_pigeon.getRoll());
 
    SmartDashboard.putNumber("EncoderLeft", m_leftEncoder.getPosition());
 
@@ -290,7 +287,7 @@ if (Maxrpm != kmaxrpm) {Maxrpm = SmartDashboard.getNumber("left max rpm", 10);}
   // Returns the navX Pitch, it's side to side like the way a turntable rotates
   public double robotPitch(){
   //  return m_navX.getPitch();
-      return m_pigeon.getPitch();
+      return m_pigeon.getRoll();
   }
 
 
