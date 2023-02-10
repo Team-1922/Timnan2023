@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.ScoreMode;
 import frc.robot.Constants;
 import frc.robot.subsystems.EndEffector;
@@ -40,21 +41,20 @@ public class Score extends CommandBase {
     if (scoreMode == 1) {m_Arm.setAngle(Constants.kPivotMotorLowAngle); m_EndEffector.Score("low");
     } else if (scoreMode == 2) {m_Arm.setAngle(Constants.kPivotMotorMidAngle); m_EndEffector.Score("mid");
     } else if (scoreMode == 3) {m_Arm.setAngle(Constants.kPivotMotorHighAngle); m_EndEffector.Score("high");}
-      //sensor stuff
-      EndEffector.m_hasObject = false;
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    Timer.delay(1);
+    //May use start command
     m_EndEffector.stopMotors();
+    m_Arm.setAngle(Constants.kPivotMotorStowAngle);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    m_EndEffector.stopMotors();
-    m_Arm.setAngle(Constants.kPivotMotorStowAngle);
-    return m_EndEffector.getHasObject();
+    return !m_EndEffector.hasCube();
   }
 }

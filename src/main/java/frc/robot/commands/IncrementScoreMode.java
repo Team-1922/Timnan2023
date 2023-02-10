@@ -7,23 +7,21 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ScoreMode;
 
-public class AdjustScoreMode extends CommandBase {
+public class IncrementScoreMode extends CommandBase {
   /** Creates a new increaseScoreMode. */
   private ScoreMode m_Score;
-  public AdjustScoreMode(ScoreMode Score) {
+  public IncrementScoreMode(ScoreMode Score) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_Score = Score;
     
     addRequirements(Score);
   }
-  public int scoreMode = m_Score.getScoreMode();
 
+  
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (scoreMode == 3) {
-      scoreMode = 1;
-    } else scoreMode++;
+    m_Score.incrementScoreMode();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -50,10 +50,13 @@ public final class Constants {
     public static final double veolcityRPMConversion = 0;
     public static final int ArmMotorID = 0;
     public static final double IOMotorRPM = 0;
-    public static final double HoldingMorerPower = 0;
+    public static final double kVelocityConversionFactor = 0;
+    public static final double kPositionConversionFactor = 0;
 
-    public static final int kLeftSensorID = 11;
-    public static final int kRightSensorID = 12;
+    public static final int kFrontSensorID = 11;
+    public static final int kBackSensorID = 12;
+    public static final double kMMToInches = 0.039;
+    public static final double kDetectionThreshold = 13;
 
     // Multiply raw encoder output by this to convert that to feet travelled
     public static final double kEncoderTicksToFeet = 0; //TBD

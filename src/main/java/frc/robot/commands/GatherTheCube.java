@@ -4,7 +4,7 @@
 
 package frc.robot.commands;
 
-import frc.robot.RobotContainer;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.Arm;
 import frc.robot.Constants;
@@ -36,21 +36,20 @@ public class GatherTheCube extends CommandBase {
     m_Arm.setNewFF();
     m_Arm.setAngle(Constants.kPivotMotorGatherAngle);
     m_EndEffector.gatherTheCube();
-      //sensor stuff
-      EndEffector.m_hasObject = true;
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    Timer.delay(.2);
+    //May use start command if delay causes problems.
     m_EndEffector.stopMotors();
+    m_Arm.setAngle(Constants.kPivotMotorStowAngle);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    m_EndEffector.stopMotors();
-    m_Arm.setAngle(Constants.kPivotMotorStowAngle);
-    return m_EndEffector.getHasObject();
+    return m_EndEffector.hasCube();
   }
 }

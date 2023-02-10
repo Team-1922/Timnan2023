@@ -6,18 +6,16 @@ package frc.robot;
 
 import frc.robot.subsystems.ScoreMode;
 import frc.robot.Constants;
-import frc.robot.commands.AdjustScoreMode;
+import frc.robot.commands.IncrementScoreMode;
 import frc.robot.commands.AutoBalance;
 import frc.robot.commands.Autos;
 import frc.robot.commands.DriveStraight;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.GatherTheCube;
 import frc.robot.commands.Score;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -50,14 +48,13 @@ public class RobotContainer {
 // Subsystems, put them here or code might not work 
   public static EndEffector m_EndEffector = new EndEffector();
   public static Arm m_Arm = new Arm();
-  public static ScoreMode m_ScoringMode = new ScoreMode();
+  public static ScoreMode m_ScoreMode = new ScoreMode();
 
-private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
   //arm commands
   private final GatherTheCube m_GatherCube = new GatherTheCube(m_Arm, m_EndEffector);
-  private final Score m_Score = new Score(m_Arm, m_EndEffector, m_ScoringMode);
-  private final AdjustScoreMode m_ScoreModeIncrement = new AdjustScoreMode(m_ScoringMode);
+  private final Score m_Score = new Score(m_Arm, m_EndEffector, m_ScoreMode);
+  private final IncrementScoreMode m_ScoreModeIncrement = new IncrementScoreMode(m_ScoreMode);
 
 
   
@@ -97,12 +94,9 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
     m_driverController.rightBumper().onTrue(m_ScoreModeIncrement);
     m_driverController.leftTrigger().whileTrue(m_GatherCube);
     m_driverController.rightTrigger().whileTrue(m_Score);
@@ -122,6 +116,6 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    return Autos.exampleAuto(null);
   }
 }

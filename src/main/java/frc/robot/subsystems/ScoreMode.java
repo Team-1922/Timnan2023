@@ -7,10 +7,18 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ScoreMode extends SubsystemBase {
-    public static int m_ScoreMode = 1;
-    public ScoreMode() {}
+    private int m_ScoreMode;
+    public ScoreMode() {
+        m_ScoreMode = 1;
+    }
 
     public int getScoreMode() {
         return m_ScoreMode;
+    }
+
+    public void incrementScoreMode() {
+        if (m_ScoreMode == 3) {
+            m_ScoreMode = 1;
+        } else m_ScoreMode++;
     }
 }

@@ -7,25 +7,25 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 import com.revrobotics.SparkMaxAbsoluteEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
 
 public class Arm extends SubsystemBase {
-  private static CANSparkMax m_PivotArm = new CANSparkMax(Constants.kPivotMotorID, MotorType.kBrushless);
-  private static SparkMaxAbsoluteEncoder m_ArmEncoder = m_PivotArm.getAbsoluteEncoder(null);
-  private static SparkMaxPIDController m_ArmPID = m_PivotArm.getPIDController();
-  private static int m_valueRefCounter = EndEffector.m_valueRefCounter;
+  private static CANSparkMax m_Arm = new CANSparkMax(Constants.kPivotMotorID, MotorType.kBrushless);
+  private static SparkMaxAbsoluteEncoder m_ArmEncoder = m_Arm.getAbsoluteEncoder(Type.kDutyCycle);
+  private static SparkMaxPIDController m_ArmPID = m_Arm.getPIDController();
+  private int m_valueRefCounter;
   public double aP = .1, aI = 1e-4, aD = 1, aFF = 1;
   //Put some encoder stuff in the future
   /** Creates a new ARM. */
   public Arm() {
-    m_PivotArm.restoreFactoryDefaults();
+    m_Arm.restoreFactoryDefaults();
     m_ArmPID.setOutputRange(Constants.kPivotMotorMinAngle, Constants.kPivotMotorMaxAngle);
     m_ArmPID.setP(aP);
     m_ArmPID.setI(aI);
@@ -34,6 +34,12 @@ public class Arm extends SubsystemBase {
     m_ArmPID.getIZone();
     m_ArmEncoder.setZeroOffset(0);
     m_ArmEncoder.setInverted(false);
+    m_ArmPID.setFeedbackDevice(m_ArmEncoder);
+    m_ArmEncoder.setPositionConversionFactor(Constants.kPositionConversionFactor);
+    m_ArmEncoder.setVelocityConversionFactor(Constants.kVelocityConversionFactor);
+    //PID wrapping stuff
+
+    m_valueRefCounter = 0;
   }
 
   @Override
