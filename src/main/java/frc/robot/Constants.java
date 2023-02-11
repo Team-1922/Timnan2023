@@ -23,10 +23,10 @@ public final class Constants {
     public static final int kArm = 7;
     public static final double kVeolcityRPMConversion = 0;
     public static final double kIOMotorGatherPower = 1;
-    public static final double kIOMotorLowPower = 0;
-    public static final double kIOMotorMidPower = 0;
-    public static final double kIOMotorHighPower = 0;
-    public static final double kIOMotorMaxPower = 0;
+    public static final double kIOMotorLowPower = 1;
+    public static final double kIOMotorMidPower = 1;
+    public static final double kIOMotorHighPower = 1;
+    public static final double kIOMotorMaxPower = 1;
     public static final double kIOBottomToTopVoltageConversion = 1;
     public static final double kPivotMotorVelocity = 0;
     //Do NOT set this above one
@@ -52,6 +52,8 @@ public final class Constants {
     public static final double IOMotorRPM = 0;
     public static final double kVelocityConversionFactor = 0;
     public static final double kPositionConversionFactor = 0;
+    public static final double kWrappedPIDMinInput = 0;
+    public static final double kWrappedPIDMaxInput = 0;
 
     public static final int kFrontSensorID = 11;
     public static final int kBackSensorID = 12;

@@ -38,6 +38,9 @@ public class Arm extends SubsystemBase {
     m_ArmEncoder.setPositionConversionFactor(Constants.kPositionConversionFactor);
     m_ArmEncoder.setVelocityConversionFactor(Constants.kVelocityConversionFactor);
     //PID wrapping stuff
+    m_ArmPID.setPositionPIDWrappingEnabled(true);
+    m_ArmPID.setPositionPIDWrappingMinInput(Constants.kWrappedPIDMinInput);
+    m_ArmPID.setPositionPIDWrappingMaxInput(Constants.kWrappedPIDMaxInput);
 
     m_valueRefCounter = 0;
   }
