@@ -35,7 +35,7 @@ public class TrajectoryDrive extends CommandBase {
   private Pose2d endPose = new Pose2d(endPoseTranslation, Rotation2d.fromDegrees(0));
   private ArrayList<Translation2d> waypoints = new ArrayList<Translation2d>();
 
-  private TrajectoryConfig config = new TrajectoryConfig((Constants.maxRPM/Constants.metersPerSecondToRPM)/2, (Constants.maxRPM/Constants.metersPerSecondToRPM)/2);
+  private TrajectoryConfig config = new TrajectoryConfig((Constants.maxRPM*Constants.metersPerSecondToRPM), (Constants.maxRPM*Constants.metersPerSecondToRPM)/2);
   private Trajectory trajectory;
 
   private RamseteController ramseteController = new RamseteController();
