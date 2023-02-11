@@ -54,7 +54,7 @@ JoystickDeadzone = SmartDashboard.getNumber("Deadzone", 0.125);
       m_RightDeadZoneOnOff= 0;
      } else {m_RightDeadZoneOnOff = 1;}
     //Something isnt connecting here -- look into why no get input
-   m_DriveTrainSubsystem.Drive( LeftJoystick.getRawAxis(1)*m_LeftDeadZoneOnOff,  RightJoystick.getRawAxis(1)*m_RightDeadZoneOnOff);
+   m_DriveTrainSubsystem.Drive( -LeftJoystick.getRawAxis(1)*m_LeftDeadZoneOnOff,  -RightJoystick.getRawAxis(1)*m_RightDeadZoneOnOff);
    //change the number after the * to adjust the output or whatever 
   }
 

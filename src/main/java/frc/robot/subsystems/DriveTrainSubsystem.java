@@ -138,7 +138,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     m_navX = navX;
 
     // Setting up the odometry object 
-    m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(robotPitch()), Units.feetToMeters(getRightEncoderFeet()), Units.feetToMeters(getLeftEncoderFeet()));
+    m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(robotYaw()), Units.feetToMeters(getRightEncoderFeet()), Units.feetToMeters(getLeftEncoderFeet()));
   }
   
 
@@ -220,7 +220,7 @@ Timer.delay(2);
 public void periodic()   {
 
     // This method will be called once per scheduler run
-    m_odometry.update(Rotation2d.fromDegrees(robotPitch()), Units.feetToMeters(getRightEncoderFeet()), Units.feetToMeters(getLeftEncoderFeet()));
+    m_odometry.update(Rotation2d.fromDegrees(robotYaw()), Units.feetToMeters(getRightEncoderFeet()), Units.feetToMeters(getLeftEncoderFeet()));
 
     SmartDashboard.putNumber("LeftVelocity", m_leftEncoder.getVelocity());
 
