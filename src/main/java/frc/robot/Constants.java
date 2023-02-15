@@ -14,10 +14,10 @@ package frc.robot;
 public final class Constants {
  // public static class OperatorConstants {
     public static final int eeRefRateMod = 5;
-    public static final int kDriverControllerPort = 0;
-    public static final int kLeftLead = 5;
-    public static final int kLeftFollow = 4;
+    public static final int kDriverControllerPort = 2;
     public static final int kRightLead = 3;
+    public static final int kLeftFollow = 4;
+    public static final int kLeftLead = 5;
     public static final int kRightFollow = 6;
     public static final int kPDB = 63;
     public static final int kArm = 7;
@@ -30,7 +30,7 @@ public final class Constants {
     public static final double kIOBottomToTopVoltageConversion = 1;
     public static final double kPivotMotorVelocity = 0;
     //Do NOT set this above one
-    public static final double kCOMRadius = 0; //Beginning of the arm to its center of mass (end effector included)
+    public static final double kCOMRadius = 7; //Beginning of the arm to its center of mass (end effector included)
     public static final double kPivotMotorPower = 0;
     public static final double kPivotMotorStowAngle = 0;
     public static final double kPivotMotorGatherAngle = 0;
@@ -40,23 +40,22 @@ public final class Constants {
     public static final double kPivotMotorMinAngle = 0;
     public static final double kPivotMotorMaxAngle = 0;
     // Min and Max angle represent the angles at which the arm contacts the ground or its frame
-    public static final int kPivotMotorID = 0;
+    public static final int kPivotMotorID = 2;
     public static final int kTopIOMotorID = 1;
-    public static final int kBottomIOMotorID = 2;
-    public static final int kLeftHoldingMotorID = 3;
-    public static final int kRightHoldingMotorID = 4;
+    public static final int kBottomIOMotorID = 7;
+    public static final int kLeftHoldingMotorID = 23;
+    public static final int kRightHoldingMotorID = 24;
     public static final int kLeftJoystickID = 100;
     public static final int kRightJoystickID = 101;
     public static final double veolcityRPMConversion = 0;
     public static final int ArmMotorID = 0;
-    public static final double IOMotorRPM = 0;
-    public static final double kVelocityConversionFactor = 0;
-    public static final double kPositionConversionFactor = 0;
-    public static final double kWrappedPIDMinInput = 0;
-    public static final double kWrappedPIDMaxInput = 0;
+    public static final double kVelocityConversionFactor = 1;
+    public static final double kPositionConversionFactor = 1;
+    public static final double kWrappedPIDMinInput = -1;
+    public static final double kWrappedPIDMaxInput = 1;
 
-    public static final int kFrontSensorID = 11;
-    public static final int kBackSensorID = 12;
+    public static final int kFrontSensorID = 10;
+    public static final int kBackSensorID = 11;
     public static final double kMMToInches = 0.039;
     public static final double kDetectionThreshold = 13;
 
