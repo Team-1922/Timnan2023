@@ -74,12 +74,21 @@ public class DriveTrainSubsystem extends SubsystemBase {
   double maxoutput = 1;
   double rightminoutput = -1;
   double rightmaxoutput =1;
+  Timer m_Timer;
   /** Creates a new DriveTrainSubsystem. */
-  public DriveTrainSubsystem() {
+  
 
 
    // m_pigeon.calibrate();
 
+
+
+
+  private double krightMinOutput; 
+  /** Creates a new DriveTrainSubsystem. */
+  public DriveTrainSubsystem(AHRS navX) {
+    
+    
     SmartDashboard.putNumber("left p gain", kp);
     SmartDashboard.putNumber("left i gain", ki);
     SmartDashboard.putNumber("left d gain", kd); 
@@ -101,22 +110,6 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     //Motor controlers
     m_leftLead.restoreFactoryDefaults();
-    m_leftFollow.restoreFactoryDefaults();
-    m_rightLead.restoreFactoryDefaults();
-    m_rightFollow.restoreFactoryDefaults();
-    m_leftFollow.follow(m_leftLead);
-    m_rightFollow.follow(m_rightLead);
-    m_pidControllerLeft = m_leftLead.getPIDController();
-    m_pidControllerRight = m_rightLead.getPIDController();}
-
-
-
-
-  private double krightMinOutput; 
-  /** Creates a new DriveTrainSubsystem. */
-  public DriveTrainSubsystem(AHRS navX) {
-    //Motor controlers
-    m_leftLead.restoreFactoryDefaults();
     m_leftLead.setInverted(false);
     m_leftFollow.restoreFactoryDefaults();
     m_leftEncoder = m_leftLead.getEncoder();
@@ -134,7 +127,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     m_pidControllerRight = m_rightLead.getPIDController();
 
 
-    
+    m_Timer = new Timer();
     m_navX = navX;
 
     // Setting up the odometry object 
@@ -180,42 +173,36 @@ m_pidControllerRight.setReference(rightsetpoint, CANSparkMax.ControlType.kVeloci
 
 
 
-
  /* double MaxVelocity = 250; // the max velocity of the motor , test this when the drivebase is done
  double OutputScale = .9 ; //scale the output 
 Drive( RobotContainer.LeftJoystick.getY()*MaxVelocity*OutputScale, RobotContainer.RightJoystick.getY()*MaxVelocity*OutputScale); */
 
 }
-/*
 public void timedpid( )    {
+if (m_Timer.hasElapsed(5)){
+  //left
+  if (p != kp){  m_pidControllerLeft.setP(SmartDashboard.getNumber( "left p gain" , 0)); }
+if (i != ki) {  m_pidControllerLeft.setI(SmartDashboard.getNumber("left i gain", 0)); }
+ if (d != kd){ m_pidControllerLeft.setD(SmartDashboard.getNumber("left d gain", 0));}
+  if (ff != kff) {m_pidControllerLeft.setFF(SmartDashboard.getNumber("left feed foward", 0)); } //feed foward
+   if (iz != kiz) {m_pidControllerLeft.setIZone(SmartDashboard.getNumber("left i zone", 0));}
+  if (minoutput != kMinOutput){minoutput = SmartDashboard.getNumber("left min output", 0);}
+  if (maxoutput != kMaxOutput){maxoutput = SmartDashboard.getNumber("left max output", 1);}
+if (Maxrpm != kmaxrpm) {Maxrpm = SmartDashboard.getNumber("left max rpm", 10);}
 
 
-Timer.delay(2);
-
-    kp = SmartDashboard.getNumber("left p gain", 0);
-    ki= SmartDashboard.getNumber("left i gain", 0);
-    kd = SmartDashboard.getNumber("left d gain", 0);
-    kmaxrpm = SmartDashboard.getNumber("left max rpm", 10);
-
-Timer.delay(2);
- kff = SmartDashboard.getNumber("left feed foward", 0);
- kiz = SmartDashboard.getNumber("left i zone", 0);
-kMinOutput = SmartDashboard.getNumber("left min output", 0);
-kMaxOutput = SmartDashboard.getNumber("left max output", 1);
-Timer.delay(2);
-
-rightkp = SmartDashboard.getNumber("right p gain", 0);
-rightki = SmartDashboard.getNumber("right i gain", 0);
-rightkd = SmartDashboard.getNumber("right d gain", 0);
-Timer.delay(2);
-  rightkff = SmartDashboard.getNumber("right feed foward", 0);
-  rightkiz = SmartDashboard.getNumber("right iz", 0);
-  RightkMaxOutput = SmartDashboard.getNumber("right max output", 1);
-  RightkMinOutput = SmartDashboard.getNumber("right min output", 0);
-  krightmaxrpm = SmartDashboard.getNumber("right max rpm", 10); 
-
+//right
+if (rightp != rightkp){ m_pidControllerRight.setP(SmartDashboard.getNumber("right p gain", 0));}
+if (righti != rightki) m_pidControllerRight.setI(SmartDashboard.getNumber("right i gain", 0));
+if (rightd != rightkd) { m_pidControllerRight.setD(SmartDashboard.getNumber("right d gain", 0));}
+if (rightff != rightkff){ m_pidControllerRight.setFF(SmartDashboard.getNumber("right feed foward", 0));}
+if (rightiz != rightkiz){ m_pidControllerRight.setIZone(SmartDashboard.getNumber("right i zone", 0));}
+if (RightkMaxOutput != rightmaxoutput) {rightmaxoutput =SmartDashboard.getNumber("right max output", 1);}
+if (rightminoutput != krightMinOutput) {krightMinOutput = SmartDashboard.getNumber("right min output", 0);}
+if (rightmaxrpm != krightmaxrpm) {rightmaxrpm = SmartDashboard.getNumber("right max rpm", 10);}
+m_Timer.reset();}
 };
-*/
+
 @Override
 public void periodic()   {
 
@@ -225,51 +212,9 @@ public void periodic()   {
     SmartDashboard.putNumber("LeftVelocity", m_leftEncoder.getVelocity());
 
 
-//timedpid();
-    //left pid
+timedpid();
 
-  if (p != kp){  m_pidControllerLeft.setP(SmartDashboard.getNumber( "left p gain" , 0)); }
-if (i != ki) {  m_pidControllerLeft.setI(SmartDashboard.getNumber("left i gain", 0)); }
- if (d != kd){ m_pidControllerLeft.setD(SmartDashboard.getNumber("left d gain", 0));}
-  if (ff != kff) {m_pidControllerLeft.setFF(SmartDashboard.getNumber("left feed foward", 0)); } //feed foward
-   if (iz != kiz) {m_pidControllerLeft.setIZone(SmartDashboard.getNumber("left i zone", 0));}
-  if (minoutput != kMinOutput){minoutput = SmartDashboard.getNumber("left min output", 0);}
-  if (maxoutput != kMaxOutput){maxoutput = SmartDashboard.getNumber("left max output", 1);}
-if (Maxrpm != kmaxrpm) {Maxrpm = SmartDashboard.getNumber("left max rpm", 10);}
-
-   // right pid
-   if (rightp != rightkp){ m_pidControllerRight.setP(SmartDashboard.getNumber("right p gain", 0));}
-   if (righti != rightki) m_pidControllerRight.setI(SmartDashboard.getNumber("right i gain", 0));
-   if (rightd != rightkd) { m_pidControllerRight.setD(SmartDashboard.getNumber("right d gain", 0));}
-   if (rightff != rightkff){ m_pidControllerRight.setFF(SmartDashboard.getNumber("right feed foward", 0));}
-   if (rightiz != rightkiz){ m_pidControllerRight.setIZone(SmartDashboard.getNumber("right i zone", 0));}
-   if (RightkMaxOutput != rightmaxoutput) {rightmaxoutput =SmartDashboard.getNumber("right max output", 1);}
-   if (rightminoutput != krightMinOutput) {krightMinOutput = SmartDashboard.getNumber("right min output", 0);}
-   if (rightmaxrpm != krightmaxrpm) {rightmaxrpm = SmartDashboard.getNumber("right max rpm", 10);}
   
-
-
-    //left pid
-  if (p != kp){  m_pidControllerLeft.setP(SmartDashboard.getNumber( "left p gain" , 0)); }
-if (i != ki) {  m_pidControllerLeft.setI(SmartDashboard.getNumber("left i gain", 0)); }
- if (d != kd){ m_pidControllerLeft.setD(SmartDashboard.getNumber("left d gain", 0));}
-  if (ff != kff) {m_pidControllerLeft.setFF(SmartDashboard.getNumber("left feed foward", 0)); } //feed foward
-   if (iz != kiz) {m_pidControllerLeft.setIZone(SmartDashboard.getNumber("left i zone", 0));}
-  if (minoutput != kMinOutput){minoutput = SmartDashboard.getNumber("left min output", 0);}
-  if (maxoutput != kMaxOutput){maxoutput = SmartDashboard.getNumber("left max output", 1);}
-if (Maxrpm != kmaxrpm) {Maxrpm = SmartDashboard.getNumber("left max rpm", 10);}
-
-   // right pid
-   if (rightp != rightkp){ m_pidControllerRight.setP(SmartDashboard.getNumber("right p gain", 0));}
-   if (righti != rightki) m_pidControllerRight.setI(SmartDashboard.getNumber("right i gain", 0));
-   if (rightd != rightkd) { m_pidControllerRight.setD(SmartDashboard.getNumber("right d gain", 0));}
-   if (rightff != rightkff){ m_pidControllerRight.setFF(SmartDashboard.getNumber("right feed foward", 0));}
-   if (rightiz != rightkiz){ m_pidControllerRight.setIZone(SmartDashboard.getNumber("right i zone", 0));}
-   if (RightkMaxOutput != rightmaxoutput) {rightmaxoutput =SmartDashboard.getNumber("right max output", 1);}
-   if (krightMinOutput != rightminoutput) {krightMinOutput = SmartDashboard.getNumber("right min output", 0);}
-   if (rightmaxrpm != krightmaxrpm) {rightmaxrpm = SmartDashboard.getNumber("right max rpm", 10);}
-
-
    //TEMP
    SmartDashboard.putNumber("RobotYaw", m_pigeon.getYaw());
    SmartDashboard.putNumber("RobotPitch", m_pigeon.getRoll());
