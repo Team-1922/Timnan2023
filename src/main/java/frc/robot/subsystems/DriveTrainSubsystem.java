@@ -126,8 +126,27 @@ public class DriveTrainSubsystem extends SubsystemBase {
     m_pidControllerLeft = m_leftLead.getPIDController();
     m_pidControllerRight = m_rightLead.getPIDController();
 
+    m_pidControllerLeft.setP(p);
+    m_pidControllerLeft.setI(i);
+    m_pidControllerLeft.setD(d);
+   m_pidControllerLeft.setOutputRange(minoutput,maxoutput); 
+   m_pidControllerLeft.setFF(ff); //feed foward
+  m_pidControllerLeft.setIZone(iz); //i zone
+  m_pidControllerRight.setP(rightp);
+  m_pidControllerRight.setI(righti);
+  m_pidControllerRight.setD(rightd);
+  m_pidControllerRight.setOutputRange(rightminoutput, RightkMaxOutput);
+  m_pidControllerRight.setFF(rightff);
+  m_pidControllerRight.setIZone(rightd);
+
+  
+
+
+  
+
 
     m_Timer = new Timer();
+    m_Timer.start();
     m_navX = navX;
 
     // Setting up the odometry object 
@@ -141,18 +160,6 @@ public void oldVelocityDrive(double velocity){ //What's this
 
  //m_pidControllerLeft.setRefrence();
   //m_pidControllerRight.setRefrence();
-  m_pidControllerLeft.setP(p);
-  m_pidControllerLeft.setI(i);
-  m_pidControllerLeft.setD(d);
- m_pidControllerLeft.setOutputRange(minoutput,maxoutput); 
- m_pidControllerLeft.setFF(ff); //feed foward
-m_pidControllerLeft.setIZone(iz); //i zone
-m_pidControllerRight.setP(rightp);
-m_pidControllerRight.setI(righti);
-m_pidControllerRight.setD(rightd);
-m_pidControllerRight.setOutputRange(rightminoutput, RightkMaxOutput);
-m_pidControllerRight.setFF(rightff);
-m_pidControllerRight.setIZone(rightd);
 
 
   }
@@ -163,13 +170,9 @@ public void Drive(double leftSpeed, double rightSpeed){
 
 }
 public void velocityDrive(double LeftRPM, double rightRPM){
+m_pidControllerLeft.setReference(LeftRPM, CANSparkMax.ControlType.kVelocity);
+m_pidControllerRight.setReference(rightRPM, CANSparkMax.ControlType.kVelocity);
 
-
-
-double leftsetpoint =LeftRPM;
-m_pidControllerLeft.setReference(leftsetpoint, CANSparkMax.ControlType.kVelocity);
-double rightsetpoint = rightRPM;
-m_pidControllerRight.setReference(rightsetpoint, CANSparkMax.ControlType.kVelocity);
 
 
 
@@ -200,6 +203,7 @@ if (rightiz != rightkiz){ m_pidControllerRight.setIZone(SmartDashboard.getNumber
 if (RightkMaxOutput != rightmaxoutput) {rightmaxoutput =SmartDashboard.getNumber("right max output", 1);}
 if (rightminoutput != krightMinOutput) {krightMinOutput = SmartDashboard.getNumber("right min output", 0);}
 if (rightmaxrpm != krightmaxrpm) {rightmaxrpm = SmartDashboard.getNumber("right max rpm", 10);}
+
 m_Timer.reset();}
 };
 
@@ -211,7 +215,7 @@ public void periodic()   {
 
     SmartDashboard.putNumber("LeftVelocity", m_leftEncoder.getVelocity());
 
-
+    SmartDashboard.putNumber("PID Timer", m_Timer.get());
 timedpid();
 
   
