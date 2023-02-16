@@ -44,20 +44,6 @@ public class DriveTrainSubsystem extends SubsystemBase {
   private AHRS m_navX;
   private DifferentialDriveOdometry m_odometry;
   
-  double kp=6e-5;
-  double ki=0;
-  double kd=0;
-  double kff=0.000015;
-  double kiz=0;
-  double kmaxrpm=2000 ;
-  double rightkp= 6e-5;
-  double rightki =0;
-  double rightkd, rightkff, rightkiz;
-   double krightmaxrpm=2000 ;
-  double  kMinOutput=-1; 
-  double kMaxOutput =1;
-   double RightkMinOutput=-1;
-  double RightkMaxOutput = 1;
   double p=6e-5;
    double i=0;
    double d =0;
@@ -89,24 +75,24 @@ public class DriveTrainSubsystem extends SubsystemBase {
   public DriveTrainSubsystem(AHRS navX) {
     
     
-    SmartDashboard.putNumber("left p gain", kp);
-    SmartDashboard.putNumber("left i gain", ki);
-    SmartDashboard.putNumber("left d gain", kd); 
-    SmartDashboard.putNumber("left feed foward ", kff);
-    SmartDashboard.putNumber("left i zone", kiz);
-    SmartDashboard.putNumber("left max rpm", kmaxrpm);
-    SmartDashboard.putNumber("left max output", kMaxOutput);
-    SmartDashboard.putNumber("left min output", kMinOutput);
+    SmartDashboard.putNumber("left p gain", p);
+    SmartDashboard.putNumber("left i gain", i);
+    SmartDashboard.putNumber("left d gain", d); 
+    SmartDashboard.putNumber("left feed foward ", ff);
+    SmartDashboard.putNumber("left i zone", iz);
+    SmartDashboard.putNumber("left max rpm", Maxrpm);
+    SmartDashboard.putNumber("left max output", maxoutput);
+    SmartDashboard.putNumber("left min output", minoutput);
 
     
-    SmartDashboard.putNumber("right p gain", rightkp);
-    SmartDashboard.putNumber("right i gain", rightki);
-    SmartDashboard.putNumber("right d gain", rightkd); 
-    SmartDashboard.putNumber("right feed foward ", rightkff);
-    SmartDashboard.putNumber("right i zone", rightkiz);
-    SmartDashboard.putNumber("right max rpm", krightmaxrpm);
-    SmartDashboard.putNumber("right max output", RightkMaxOutput);
-    SmartDashboard.putNumber("right min output", RightkMinOutput);
+    SmartDashboard.putNumber("right p gain", rightp);
+    SmartDashboard.putNumber("right i gain", righti);
+    SmartDashboard.putNumber("right d gain", rightd); 
+    SmartDashboard.putNumber("right feed foward ", rightff);
+    SmartDashboard.putNumber("right i zone", rightiz);
+    SmartDashboard.putNumber("right max rpm", rightmaxrpm);
+    SmartDashboard.putNumber("right max output", rightmaxoutput);
+    SmartDashboard.putNumber("right min output", rightminoutput);
 
     //Motor controlers
     m_leftLead.restoreFactoryDefaults();
@@ -135,7 +121,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   m_pidControllerRight.setP(rightp);
   m_pidControllerRight.setI(righti);
   m_pidControllerRight.setD(rightd);
-  m_pidControllerRight.setOutputRange(rightminoutput, RightkMaxOutput);
+  m_pidControllerRight.setOutputRange(rightminoutput, rightmaxoutput);
   m_pidControllerRight.setFF(rightff);
   m_pidControllerRight.setIZone(rightd);
 
@@ -183,26 +169,71 @@ Drive( RobotContainer.LeftJoystick.getY()*MaxVelocity*OutputScale, RobotContaine
 }
 public void timedpid( )    {
 if (m_Timer.hasElapsed(5)){
-  //left
-  if (p != kp){  m_pidControllerLeft.setP(SmartDashboard.getNumber( "left p gain" , 0)); }
-if (i != ki) {  m_pidControllerLeft.setI(SmartDashboard.getNumber("left i gain", 0)); }
- if (d != kd){ m_pidControllerLeft.setD(SmartDashboard.getNumber("left d gain", 0));}
-  if (ff != kff) {m_pidControllerLeft.setFF(SmartDashboard.getNumber("left feed foward", 0)); } //feed foward
-   if (iz != kiz) {m_pidControllerLeft.setIZone(SmartDashboard.getNumber("left i zone", 0));}
-  if (minoutput != kMinOutput){minoutput = SmartDashboard.getNumber("left min output", 0);}
-  if (maxoutput != kMaxOutput){maxoutput = SmartDashboard.getNumber("left max output", 1);}
-if (Maxrpm != kmaxrpm) {Maxrpm = SmartDashboard.getNumber("left max rpm", 10);}
+
+  //left pid
+  if (p != SmartDashboard.getNumber("left p gain", 6e-5)){ 
+  p = SmartDashboard.getNumber("left p gain", 6e-5);
+   m_pidControllerLeft.setP(p);
+}
+  if (i != SmartDashboard.getNumber("left i gain", 0)) { 
+   i = SmartDashboard.getNumber("left i gain", 0); 
+   m_pidControllerLeft.setI(i); }
+
+  if (d != SmartDashboard.getNumber("left d gain", 0)){ 
+   d = SmartDashboard.getNumber("left d gain", 0);
+   m_pidControllerLeft.setD(d);}
+
+  if (ff != SmartDashboard.getNumber("left feed foward", 0.000015)) {
+    ff = SmartDashboard.getNumber("left feed foward", 0.000015);
+    m_pidControllerLeft.setFF(ff); } 
+
+   if (iz != SmartDashboard.getNumber("left i zone", 0)) {
+    iz = SmartDashboard.getNumber("left i zone", 0);
+    m_pidControllerLeft.setIZone(iz);}
+
+  if (minoutput != SmartDashboard.getNumber("left min output", -1)){
+    minoutput = SmartDashboard.getNumber("left min output", 0);
+    m_pidControllerLeft.setOutputRange(minoutput, maxoutput);}
+
+  if (maxoutput != SmartDashboard.getNumber("left max output", 1)){
+    maxoutput = SmartDashboard.getNumber("left max output", 1);
+    m_pidControllerLeft.setOutputRange(minoutput, maxoutput);}
+
+  if (Maxrpm != SmartDashboard.getNumber("left max rpm", 10)) {
+    Maxrpm = SmartDashboard.getNumber("left max rpm", 5700);}
 
 
-//right
-if (rightp != rightkp){ m_pidControllerRight.setP(SmartDashboard.getNumber("right p gain", 0));}
-if (righti != rightki) m_pidControllerRight.setI(SmartDashboard.getNumber("right i gain", 0));
-if (rightd != rightkd) { m_pidControllerRight.setD(SmartDashboard.getNumber("right d gain", 0));}
-if (rightff != rightkff){ m_pidControllerRight.setFF(SmartDashboard.getNumber("right feed foward", 0));}
-if (rightiz != rightkiz){ m_pidControllerRight.setIZone(SmartDashboard.getNumber("right i zone", 0));}
-if (RightkMaxOutput != rightmaxoutput) {rightmaxoutput =SmartDashboard.getNumber("right max output", 1);}
-if (rightminoutput != krightMinOutput) {krightMinOutput = SmartDashboard.getNumber("right min output", 0);}
-if (rightmaxrpm != krightmaxrpm) {rightmaxrpm = SmartDashboard.getNumber("right max rpm", 10);}
+//right pid 
+  if (rightp != SmartDashboard.getNumber("right p gain", 6e-5)){
+    rightp = SmartDashboard.getNumber("right p gain", 6e-5);  
+    m_pidControllerRight.setP(rightp);}
+  
+  if (righti != SmartDashboard.getNumber("right i gain", 0)) {
+    righti = SmartDashboard.getNumber("right i gain", 0);
+    m_pidControllerRight.setI(righti);}
+  
+  if (rightd != SmartDashboard.getNumber("right d gain", 0)) {
+    rightd = SmartDashboard.getNumber("right d gain", 0);
+    m_pidControllerRight.setD(rightd);}
+  
+  if (rightff != SmartDashboard.getNumber("right feed foward", 0.000015)){
+    rightff = SmartDashboard.getNumber("right feed foward", 0.000015);
+    m_pidControllerRight.setFF(rightff);}
+  
+  if (rightiz != SmartDashboard.getNumber("right i zone", 0)){
+    rightiz = SmartDashboard.getNumber("right i zone", 0);
+    m_pidControllerRight.setIZone(rightiz);}
+  
+  if (rightmaxoutput != SmartDashboard.getNumber("right max output", 1)) {
+    rightmaxoutput = SmartDashboard.getNumber("right max output", 1);
+    m_pidControllerRight.setOutputRange(rightminoutput, rightmaxoutput);}
+  
+  if (rightminoutput != SmartDashboard.getNumber("right min output", -1)) {
+    krightMinOutput = SmartDashboard.getNumber("right min output", -1);
+    m_pidControllerRight.setOutputRange(rightminoutput, rightmaxoutput);}
+
+  if (rightmaxrpm != SmartDashboard.getNumber("right max rpm",5700 )) {
+    rightmaxrpm = SmartDashboard.getNumber("right max rpm", 5700);}
 
 m_Timer.reset();}
 };
