@@ -26,19 +26,20 @@ public class Arm extends SubsystemBase {
   /** Creates a new ARM. */
   public Arm() {
     m_Arm.restoreFactoryDefaults();
+    m_Arm.setInverted(true);
     m_ArmPID.setOutputRange(Constants.kPivotMotorMinAngle, Constants.kPivotMotorMaxAngle);
     m_ArmPID.setP(aP);
     m_ArmPID.setI(aI);
     m_ArmPID.setD(aD);
     m_ArmPID.setFF(aFF); //Probably will be set on controller or determined through testing later
     m_ArmPID.getIZone();
-    m_ArmEncoder.setZeroOffset(0);
-    m_ArmEncoder.setInverted(false);
+    m_ArmEncoder.setZeroOffset(Constants.kZeroOffset);
+    m_ArmEncoder.setInverted(true);
     m_ArmPID.setFeedbackDevice(m_ArmEncoder);
     m_ArmEncoder.setPositionConversionFactor(Constants.kPositionConversionFactor);
     m_ArmEncoder.setVelocityConversionFactor(Constants.kVelocityConversionFactor);
     //PID wrapping stuff
-    m_ArmPID.setPositionPIDWrappingEnabled(true);
+    m_ArmPID.setPositionPIDWrappingEnabled(false);
     m_ArmPID.setPositionPIDWrappingMinInput(Constants.kWrappedPIDMinInput);
     m_ArmPID.setPositionPIDWrappingMaxInput(Constants.kWrappedPIDMaxInput);
 

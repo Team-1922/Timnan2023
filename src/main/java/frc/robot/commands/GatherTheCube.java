@@ -28,14 +28,15 @@ public class GatherTheCube extends CommandBase {
   @Override
   public void initialize() {
     System.out.println("Initialized");
-    m_Arm.setNewFF();
+    m_Arm.setNewFF();  
+    m_Arm.setAngle(Constants.kPivotMotorGatherAngle);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     m_Arm.setNewFF();
-    m_Arm.setAngle(Constants.kPivotMotorGatherAngle);
+  
     m_EndEffector.gatherTheCube();
   }
 
