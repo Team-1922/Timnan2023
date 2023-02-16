@@ -192,14 +192,14 @@ if (m_Timer.hasElapsed(5)){
     m_pidControllerLeft.setIZone(iz);}
 
   if (minoutput != SmartDashboard.getNumber("left min output", -1)){
-    minoutput = SmartDashboard.getNumber("left min output", 0);
+    minoutput = SmartDashboard.getNumber("left min output", -1);
     m_pidControllerLeft.setOutputRange(minoutput, maxoutput);}
 
   if (maxoutput != SmartDashboard.getNumber("left max output", 1)){
     maxoutput = SmartDashboard.getNumber("left max output", 1);
     m_pidControllerLeft.setOutputRange(minoutput, maxoutput);}
 
-  if (Maxrpm != SmartDashboard.getNumber("left max rpm", 10)) {
+  if (Maxrpm != SmartDashboard.getNumber("left max rpm", 5700)) {
     Maxrpm = SmartDashboard.getNumber("left max rpm", 5700);}
 
 
