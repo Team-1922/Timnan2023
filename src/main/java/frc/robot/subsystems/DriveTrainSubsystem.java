@@ -61,6 +61,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   double rightminoutput = -1;
   double rightmaxoutput =1;
   Timer m_Timer;
+  double JoystickDeadzone = 0.125;
   /** Creates a new DriveTrainSubsystem. */
   
 
@@ -74,6 +75,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   /** Creates a new DriveTrainSubsystem. */
   public DriveTrainSubsystem(AHRS navX) {
     
+    SmartDashboard.putNumber("joystick deadzone", JoystickDeadzone);
     
     SmartDashboard.putNumber("left p gain", p);
     SmartDashboard.putNumber("left i gain", i);

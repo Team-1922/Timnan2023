@@ -30,7 +30,7 @@ public class DriveStraight extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    deadzone = SmartDashboard.getNumber("Deadzone", 0.125);
+    deadzone = SmartDashboard.getNumber("joystick deadzone", 0.125);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

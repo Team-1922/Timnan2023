@@ -18,7 +18,8 @@ public class TankDrive extends CommandBase {
    Joystick RightJoystick;
    double m_LeftDeadZoneOnOff;
    double m_RightDeadZoneOnOff;
-   double JoystickDeadzone;
+   double deadzone;
+   
   /** Creates a new TankDrive. */
   public TankDrive(DriveTrainSubsystem m_driveTrain, Joystick m_LeftJoystick, Joystick m_RightJoystick
 
@@ -36,9 +37,7 @@ public class TankDrive extends CommandBase {
   public void initialize() {
 
 
-SmartDashboard.putNumber("Deadzone", JoystickDeadzone);
-
-JoystickDeadzone = SmartDashboard.getNumber("Deadzone", 0.125);
+deadzone = SmartDashboard.getNumber("joystick deadzone", 0.125);
  
   }
 
@@ -46,11 +45,11 @@ JoystickDeadzone = SmartDashboard.getNumber("Deadzone", 0.125);
   @Override
   public void execute() {
     
-    if ( Math.abs(LeftJoystick.getY()) < JoystickDeadzone) {
+    if ( Math.abs(LeftJoystick.getY()) < deadzone) {
      m_LeftDeadZoneOnOff= 0;
     } else {m_LeftDeadZoneOnOff = 1;}
    
-    if ( Math.abs(RightJoystick.getY()) < JoystickDeadzone) {
+    if ( Math.abs(RightJoystick.getY()) < deadzone) {
       m_RightDeadZoneOnOff= 0;
      } else {m_RightDeadZoneOnOff = 1;}
     //Something isnt connecting here -- look into why no get input
