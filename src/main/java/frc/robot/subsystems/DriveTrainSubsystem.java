@@ -253,7 +253,7 @@ timedpid();
 
   
    //TEMP
-   SmartDashboard.putNumber("RobotYaw", m_pigeon.getYaw());
+   SmartDashboard.putNumber("RobotYaw", m_pigeon.getYaw() % 360);
    SmartDashboard.putNumber("RobotPitch", m_pigeon.getRoll());
 
    SmartDashboard.putNumber("EncoderLeft", m_leftEncoder.getPosition());
@@ -264,7 +264,7 @@ timedpid();
   // Returns the navX Yaw, it's up and down like the way your neck moves 
   public double robotYaw(){
   //  return m_navX.getYaw();
-      return m_pigeon.getYaw();
+      return m_pigeon.getYaw() % 360;
   }
   // Returns the navX Pitch, it's side to side like the way a turntable rotates
   public double robotPitch(){

@@ -34,8 +34,8 @@ public class TrajectoryDrive extends CommandBase {
   private double startingTime;
   private Timer timer = new Timer();
 
-  private Translation2d endPoseTranslation = new Translation2d(3, 3); 
-  private Pose2d endPose = new Pose2d(endPoseTranslation, Rotation2d.fromDegrees(0));
+  private Translation2d endPoseTranslation = new Translation2d(2, 2); 
+  private Pose2d endPose = new Pose2d(endPoseTranslation, Rotation2d.fromDegrees(-90));
   private ArrayList<Translation2d> waypoints = new ArrayList<Translation2d>();
 
   private TrajectoryConfig config = new TrajectoryConfig(((Constants.maxRPM/5)*Constants.metersPerSecondToRPM), (Constants.maxRPM*Constants.metersPerSecondToRPM)/4);
