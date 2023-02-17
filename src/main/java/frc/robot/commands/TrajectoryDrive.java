@@ -19,6 +19,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -31,12 +32,13 @@ public class TrajectoryDrive extends CommandBase {
 
   private Pose2d startingPose;
   private double startingTime;
+  private Timer timer = new Timer();
 
   private Translation2d endPoseTranslation = new Translation2d(3, 3); 
   private Pose2d endPose = new Pose2d(endPoseTranslation, Rotation2d.fromDegrees(0));
   private ArrayList<Translation2d> waypoints = new ArrayList<Translation2d>();
 
-  private TrajectoryConfig config = new TrajectoryConfig((Constants.maxRPM*Constants.metersPerSecondToRPM), (Constants.maxRPM*Constants.metersPerSecondToRPM)/2);
+  private TrajectoryConfig config = new TrajectoryConfig((Constants.maxRPM*Constants.metersPerSecondToRPM/2), (Constants.maxRPM*Constants.metersPerSecondToRPM)/4);
   private Trajectory trajectory;
 
   private RamseteController ramseteController = new RamseteController();
@@ -59,6 +61,7 @@ public class TrajectoryDrive extends CommandBase {
   public void initialize() {
     startingPose = m_driveTrain.getRobotPose();
     startingTime = System.currentTimeMillis();
+    timer.start();
 
     waypoints.add(new Translation2d(.5, 1.5));
     waypoints.add(new Translation2d(1.5, 1.5));
@@ -77,14 +80,16 @@ public class TrajectoryDrive extends CommandBase {
   public void execute() {
  //   result = limelight.getLatestResult();
 
-    trajectoryState = trajectory.sample(System.currentTimeMillis() - startingTime);
+    trajectoryState = trajectory.sample(timer.get());
     
     chassisSpeeds = (ramseteController.calculate(m_driveTrain.getRobotPose(), trajectoryState));
     wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
 
+
+    double test = 0;
     m_driveTrain.velocityDrive(wheelSpeeds.leftMetersPerSecond/Constants.metersPerSecondToRPM, wheelSpeeds.rightMetersPerSecond/Constants.metersPerSecondToRPM);
 
-    SmartDashboard.putNumber("LeftTrajectorySpeed", trajectoryState.poseMeters.getX());
+    SmartDashboard.putNumber("TrajectoryTest", test);
     // Code thinks at any given time the pose Should be the endPose value
     // That means the code IMMEDIATELY THINKS it should be done
     // which I don't know how to fix but I think that's our problem
