@@ -32,7 +32,7 @@ public final class Constants {
     public static final double kCOMRadius = 7; //Beginning of the arm to its center of mass (end effector included)
     public static final double kPivotMotorPower = 0;
     public static final double kZeroOffset = .7619509;
-    public static final double kPivotMotorStowAngle = 0;
+    public static final double kPivotMotorStowAngle = 0.01;
     public static final double kPivotMotorGatherAngle = .5;
     public static final double kPivotMotorLowAngle = .05;
     public static final double kPivotMotorMidAngle = .1;

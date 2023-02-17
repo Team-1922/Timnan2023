@@ -37,7 +37,6 @@ public class Score extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Arm.setNewFF();
     if (scoreMode == 1) {m_Arm.setAngle(Constants.kPivotMotorLowAngle); m_EndEffector.Score("low");
     } else if (scoreMode == 2) {m_Arm.setAngle(Constants.kPivotMotorMidAngle); m_EndEffector.Score("mid");
     } else if (scoreMode == 3) {m_Arm.setAngle(Constants.kPivotMotorHighAngle); m_EndEffector.Score("high");}
