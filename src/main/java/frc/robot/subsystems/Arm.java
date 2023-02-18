@@ -21,7 +21,7 @@ public class Arm extends SubsystemBase {
   private static SparkMaxAbsoluteEncoder m_ArmEncoder = m_Arm.getAbsoluteEncoder(Type.kDutyCycle);
   private static SparkMaxPIDController m_ArmPID = m_Arm.getPIDController();
   private int m_valueRefCounter;
-  public double aP = .1, aI = 1e-4, aD = 1, aFF = 0;
+  public double aP = 1, aI = 1e-4, aD = 1, aFF = 0;
   //Put some encoder stuff in the future
   /** Creates a new ARM. */
   public Arm() {

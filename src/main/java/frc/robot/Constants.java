@@ -21,24 +21,20 @@ public final class Constants {
     public static final int kRightFollow = 6;
     public static final int kPDB = 63;
     public static final double kVeolcityRPMConversion = 0;
-    public static final double kIOMotorGatherPower = 1;
-    public static final double kIOMotorLowPower = 1;
-    public static final double kIOMotorMidPower = 1;
-    public static final double kIOMotorHighPower = 1;
-    public static final double kIOMotorMaxPower = 1;
+    public static final double kIOMotorGatherPower = -1.3;
+    public static final double kIOMotorLowPower = 2;
+    public static final double kIOMotorMidPower = 4;
+    public static final double kIOMotorHighPower = 7.5;
+    public static final double kIOMotorMaxPower = 12;
     public static final double kIOBottomToTopVoltageConversion = 1;
-    public static final double kPivotMotorVelocity = 0;
-    //Do NOT set this above one
-    public static final double kCOMRadius = 7; //Beginning of the arm to its center of mass (end effector included)
-    public static final double kPivotMotorPower = 0;
-    public static final double kZeroOffset = .7619509;
-    public static final double kPivotMotorStowAngle = 0.01;
+    public static final double kZeroOffset = 350.28;
+    public static final double kPivotMotorStowAngle = 1;
     public static final double kPivotMotorGatherAngle = .5;
-    public static final double kPivotMotorLowAngle = .05;
-    public static final double kPivotMotorMidAngle = .1;
-    public static final double kPivotMotorHighAngle = .15;
+    public static final double kPivotMotorLowAngle = 2;
+    public static final double kPivotMotorMidAngle = 11;
+    public static final double kPivotMotorHighAngle = 40;
     public static final double kPivotMotorMinAngle = 0;
-    public static final double kPivotMotorMaxAngle = .5;
+    public static final double kPivotMotorMaxAngle = 500;
     // Min and Max angle represent the angles at which the arm contacts the ground or its frame
     public static final int kPivotMotorID = 2;
     public static final int kTopIOMotorID = 1;
@@ -49,7 +45,7 @@ public final class Constants {
     public static final int kRightJoystickID = 101;
     public static final double veolcityRPMConversion = 0;
     public static final double kVelocityConversionFactor = 1;
-    public static final double kPositionConversionFactor = 1;
+    public static final double kPositionConversionFactor = 1000;
     public static final double kWrappedPIDMinInput = -1;
     public static final double kWrappedPIDMaxInput = 1;
 
