@@ -31,7 +31,7 @@ public class AutoBalance extends PIDCommand {
         output -> {
           // Use the output here
           SmartDashboard.putNumber("output", output);
-          driveTrain.Drive(-output, -output); // Pitch down is pos, wheels need to go same sign as pitch
+          driveTrain.Drive(-output/2, -output/2); // Pitch down is pos, wheels need to go same sign as pitch
         });
 
         m_driveTrain = driveTrain;
@@ -45,6 +45,6 @@ public class AutoBalance extends PIDCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false; //getController().atSetpoint(); 
+    return false;//getController().atSetpoint(); 
   }
 }

@@ -34,7 +34,7 @@ public class TrajectoryDrive extends CommandBase {
   private double startingTime;
   private Timer timer = new Timer();
 
-  private Translation2d endPoseTranslation = new Translation2d(2, 2); 
+  private Translation2d endPoseTranslation = new Translation2d(-2, 0); 
   private Pose2d endPose = new Pose2d(endPoseTranslation, Rotation2d.fromDegrees(-90));
   private ArrayList<Translation2d> waypoints = new ArrayList<Translation2d>();
 
@@ -63,8 +63,8 @@ public class TrajectoryDrive extends CommandBase {
     startingTime = System.currentTimeMillis();
     timer.start();
 
-    waypoints.add(new Translation2d(.5, 1.5));
-    waypoints.add(new Translation2d(1.5, 1.5));
+    waypoints.add(new Translation2d(-1, 0));
+    waypoints.add(new Translation2d(-1, 0));
  
     trajectory = TrajectoryGenerator.generateTrajectory(
       startingPose,
@@ -86,10 +86,12 @@ public class TrajectoryDrive extends CommandBase {
     wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
 
 
-    double test = 0;
     m_driveTrain.velocityDrive(wheelSpeeds.leftMetersPerSecond/Constants.metersPerSecondToRPM, wheelSpeeds.rightMetersPerSecond/Constants.metersPerSecondToRPM);
 
+
+    double test = trajectoryState.poseMeters.getY();
     SmartDashboard.putNumber("TrajectoryTest", test);
+    SmartDashboard.putNumber("TrajecWheelDifference", (wheelSpeeds.leftMetersPerSecond/Constants.metersPerSecondToRPM - wheelSpeeds.rightMetersPerSecond/Constants.metersPerSecondToRPM));
     // Code thinks at any given time the pose Should be the endPose value
     // That means the code IMMEDIATELY THINKS it should be done
     // which I don't know how to fix but I think that's our problem
