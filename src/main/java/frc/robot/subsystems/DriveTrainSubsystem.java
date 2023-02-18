@@ -62,6 +62,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
   double rightmaxoutput =1;
   Timer m_Timer;
   double JoystickDeadzone = 0.125;
+
+  Timer balanceTimer = new Timer();
   /** Creates a new DriveTrainSubsystem. */
   
 
@@ -270,6 +272,18 @@ timedpid();
   public double robotPitch(){
   //  return m_navX.getPitch();
       return m_pigeon.getRoll();
+  }
+
+
+  public boolean balanceTimer(double seconds){
+    SmartDashboard.putNumber("Balance timer", balanceTimer.get());
+    return balanceTimer.get() >= seconds;
+  }
+
+  public void startBalance(){
+    balanceTimer.start();
+    balanceTimer.reset();
+
   }
 
 
