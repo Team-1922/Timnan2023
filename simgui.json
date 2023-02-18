@@ -1,18 +1,65 @@
 {
+  "HALProvider": {
+    "Other Devices": {
+      "SPARK MAX [3]": {
+        "header": {
+          "open": true
+        }
+      }
+    }
+  },
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/LiveWindow/Ungrouped/PIDController[1]": "PIDController",
+      "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
+      "/SmartDashboard/Field": "Field2d",
       "/SmartDashboard/Scheduler": "Scheduler"
+    },
+    "windows": {
+      "/SmartDashboard/Field": {
+        "Robot": {
+          "arrowSize": 67,
+          "color": [
+            0.0063437195494771,
+            0.014705896377563477,
+            0.0063437195494771,
+            255.0
+          ],
+          "image": "C:\\Users\\FRC1922\\Downloads\\54.png",
+          "style": "Line"
+        },
+        "image": "C:\\Users\\FRC1922\\Downloads\\2023-field.png",
+        "units": "meters",
+        "window": {
+          "visible": true
+        }
+      }
     }
   },
   "NetworkTables": {
+    "Retained Values": {
+      "open": false
+    },
     "transitory": {
       "Shuffleboard": {
+        ".metadata": {
+          "open": true
+        },
+        ".recording": {
+          "open": true
+        },
         "open": true
       },
       "SmartDashboard": {
+        "Field": {
+          "open": true
+        },
         "open": true
       }
     }
+  },
+  "NetworkTables View": {
+    "visible": false
   }
 }

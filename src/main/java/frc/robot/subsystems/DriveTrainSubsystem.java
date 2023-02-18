@@ -10,7 +10,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.util.Units;
-
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -20,6 +20,7 @@ import com.revrobotics.RelativeEncoder;
 
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.TrajectoryDrive;
 
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -28,6 +29,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 
 public class DriveTrainSubsystem extends SubsystemBase { 
+  public final static Field2d m_Field2d = new Field2d();
   private CANSparkMax m_leftLead = new CANSparkMax(Constants.kLeftLead, MotorType.kBrushless);
   private RelativeEncoder m_leftEncoder;
   private CANSparkMax m_leftFollow = new CANSparkMax(Constants.kLeftFollow, MotorType.kBrushless);
@@ -38,8 +40,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   private SparkMaxPIDController m_pidControllerLeft;
   private SparkMaxPIDController m_pidControllerRight;
-
-  private Pigeon2 m_pigeon = new Pigeon2(Constants.kPigeon);
+ private TrajectoryDrive m_TrajectoryDrive;
+  private Pigeon2 m_pigeon = new Pigeon2(Constants.kPigeon); 
 
   private AHRS m_navX;
   private DifferentialDriveOdometry m_odometry;
@@ -96,6 +98,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("right max output", rightmaxoutput);
     SmartDashboard.putNumber("right min output", rightminoutput);
 
+    SmartDashboard.putData(m_Field2d);
     //Motor controlers
     m_leftLead.restoreFactoryDefaults();
     m_leftLead.setInverted(false);
@@ -245,6 +248,7 @@ public void periodic()   {
 
     // This method will be called once per scheduler run
     m_odometry.update(Rotation2d.fromDegrees(robotYaw()), Units.feetToMeters(getRightEncoderFeet()), Units.feetToMeters(getLeftEncoderFeet()));
+ m_Field2d.setRobotPose(getRobotPose());
 
     SmartDashboard.putNumber("LeftVelocity", m_leftEncoder.getVelocity());
 
