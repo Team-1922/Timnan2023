@@ -50,7 +50,7 @@ public class RobotContainer {
   public static Arm m_Arm = new Arm();
   public static ScoreMode m_ScoreMode = new ScoreMode();
 
-  private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
+  //private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
   //arm commands
   private final GatherTheCube m_GatherCube = new GatherTheCube(m_Arm, m_EndEffector);
   private final Score m_Score = new Score(m_Arm, m_EndEffector, m_ScoreMode);
@@ -60,7 +60,7 @@ public class RobotContainer {
   
 
     // Auto drive commands
-    private final AutoBalance m_autoBalance = new AutoBalance(m_DriveTrainSubsystem);
+    //private final AutoBalance m_autoBalance = new AutoBalance(m_DriveTrainSubsystem);
 
 
     
@@ -68,8 +68,8 @@ public class RobotContainer {
 
 
   // drive commands 
-  private final TankDrive m_TankDrive = new TankDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick);
-  private final DriveStraight m_DriveStraight = new DriveStraight();
+  //private final TankDrive m_TankDrive = new TankDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick);
+  //private final DriveStraight m_DriveStraight = new DriveStraight();
   
 
   //other commands 
@@ -78,7 +78,7 @@ public class RobotContainer {
   public RobotContainer() {
 
 
-    m_DriveTrainSubsystem.setDefaultCommand(m_TankDrive);
+    //m_DriveTrainSubsystem.setDefaultCommand(m_TankDrive);
     // Configure the trigger bindings
     configureBindings();
   }
@@ -103,10 +103,10 @@ public class RobotContainer {
     new JoystickButton(LeftJoystick, 2).whileTrue(m_GatherCube); //Need to find the button number for the trigger
     new JoystickButton(RightJoystick, 2).whileTrue(m_Score); //Same as previous line
     new JoystickButton(RightJoystick, 3).onTrue(m_ScoreModeIncrement); //Not sure what button to map it to
-    new JoystickButton(LeftJoystick, 1)
-      .whileTrue(m_DriveStraight);
-    new JoystickButton(LeftJoystick, 5)
-      .whileTrue(m_TankDrive);
+    //new JoystickButton(LeftJoystick, 1)
+      //.whileTrue(m_DriveStraight);
+    //new JoystickButton(LeftJoystick, 5)
+      //.whileTrue(m_TankDrive);
   }
 
 
