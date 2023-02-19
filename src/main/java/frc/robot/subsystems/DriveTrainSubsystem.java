@@ -13,7 +13,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -40,12 +40,12 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   private SparkMaxPIDController m_pidControllerLeft;
   private SparkMaxPIDController m_pidControllerRight;
- private TrajectoryDrive m_TrajectoryDrive;
+
   private Pigeon2 m_pigeon = new Pigeon2(Constants.kPigeon); 
 
   private AHRS m_navX;
   private DifferentialDriveOdometry m_odometry;
-  
+  private Pose2d SpotOne;
   double p=6e-5;
    double i=0;
    double d =0;
@@ -145,7 +145,6 @@ public class DriveTrainSubsystem extends SubsystemBase {
     // Setting up the odometry object 
     m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(robotYaw()), Units.feetToMeters(getRightEncoderFeet()), Units.feetToMeters(getLeftEncoderFeet()));
   }
-  
 
 public void oldVelocityDrive(double velocity){ //What's this
 //  m_pidControllerLeft.setRefrence();
@@ -250,7 +249,12 @@ public void periodic()   {
 
     // This method will be called once per scheduler run
     m_odometry.update(Rotation2d.fromDegrees(robotYaw()), Units.feetToMeters(getRightEncoderFeet()), Units.feetToMeters(getLeftEncoderFeet()));
- m_Field2d.setRobotPose(getRobotPose());
+    //this sets the starting position for the field image on the computer 
+    // it still tracks the robot, but it seems to be off when it spins. 
+    // also shuffleboard doesn't have this years game as an option to set the image as
+    SpotOne = new Pose2d(-5, -5, Rotation2d.fromDegrees(0)).relativeTo(getRobotPose());
+    // this puts it near the middle of the field
+    m_Field2d.setRobotPose(getRobotPose().relativeTo(SpotOne));
 
     SmartDashboard.putNumber("LeftVelocity", m_leftEncoder.getVelocity());
 

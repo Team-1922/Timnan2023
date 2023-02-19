@@ -4,7 +4,7 @@
 
 package frc.robot.commands;
 
-import java.util.concurrent.atomic.DoubleAccumulator;
+
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -37,7 +37,7 @@ public class TankDrive extends CommandBase {
   public void initialize() {
 
 
-deadzone = SmartDashboard.getNumber("joystick deadzone", 0.125);
+deadzone = SmartDashboard.getNumber("Deadzone", 0.125);
  
   }
 

@@ -95,7 +95,7 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
 
 
 
-    SmartDashboard.putNumber("Deadzone", .1);
+    SmartDashboard.putNumber("Deadzone", .125);
 
     SmartDashboard.putNumber("Balance P", .015);
     SmartDashboard.putNumber("Balance D", .01);
