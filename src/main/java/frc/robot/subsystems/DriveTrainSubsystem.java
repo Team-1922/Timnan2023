@@ -162,8 +162,8 @@ public void Drive(double leftSpeed, double rightSpeed){
 
 }
 public void velocityDrive(double LeftRPM, double rightRPM){
-m_pidControllerLeft.setReference(LeftRPM, CANSparkMax.ControlType.kVelocity);
-m_pidControllerRight.setReference(rightRPM, CANSparkMax.ControlType.kVelocity);
+m_pidControllerLeft.setReference(Math.pow(LeftRPM,2), CANSparkMax.ControlType.kVelocity);
+m_pidControllerRight.setReference(Math.pow(rightRPM,2), CANSparkMax.ControlType.kVelocity);
 
 
 
