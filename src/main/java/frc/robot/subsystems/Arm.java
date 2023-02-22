@@ -21,7 +21,7 @@ public class Arm extends SubsystemBase {
   private static SparkMaxAbsoluteEncoder m_ArmEncoder = m_Arm.getAbsoluteEncoder(Type.kDutyCycle);
   private static SparkMaxPIDController m_ArmPID = m_Arm.getPIDController();
   private int m_valueRefCounter;
-  public double aP = 1, aI = 1e-4, aD = 1, aFF = 0;
+  public double aP = .0025, aI = 1e-6, aD = 1, aFF = 0;
   //Put some encoder stuff in the future
   /** Creates a new ARM. */
   public Arm() {
@@ -29,19 +29,23 @@ public class Arm extends SubsystemBase {
     m_Arm.setInverted(true);
     m_ArmPID.setOutputRange(Constants.kPivotMotorMinAngle, Constants.kPivotMotorMaxAngle);
     m_ArmPID.setP(aP);
+    SmartDashboard.putNumber("P gain", aP);
     m_ArmPID.setI(aI);
+    SmartDashboard.putNumber("I gain", aI);
     m_ArmPID.setD(aD);
-    m_ArmPID.setFF(aFF); //Probably will be set on controller or determined through testing later
+    SmartDashboard.putNumber("D gain", aD);
+    m_ArmPID.setFF(aFF);
+    SmartDashboard.putNumber("FF gain", aFF);
     m_ArmPID.getIZone();
-    m_ArmEncoder.setZeroOffset(Constants.kZeroOffset);
-    m_ArmEncoder.setInverted(true);
     m_ArmPID.setFeedbackDevice(m_ArmEncoder);
+    m_ArmEncoder.setInverted(true);
     m_ArmEncoder.setPositionConversionFactor(Constants.kPositionConversionFactor);
+    m_ArmEncoder.setZeroOffset(Constants.kZeroOffset);
     m_ArmEncoder.setVelocityConversionFactor(Constants.kVelocityConversionFactor);
     //PID wrapping stuff
     m_ArmPID.setPositionPIDWrappingEnabled(false);
-    m_ArmPID.setPositionPIDWrappingMinInput(Constants.kWrappedPIDMinInput);
-    m_ArmPID.setPositionPIDWrappingMaxInput(Constants.kWrappedPIDMaxInput);
+    //m_ArmPID.setPositionPIDWrappingMinInput(Constants.kWrappedPIDMinInput);
+    //m_ArmPID.setPositionPIDWrappingMaxInput(Constants.kWrappedPIDMaxInput);
 
     m_valueRefCounter = 0;
   }
@@ -68,9 +72,10 @@ public class Arm extends SubsystemBase {
   }
 
   public double setAngle(double finalAngle)  {
-    double currentAngle = m_ArmEncoder.getPosition();
-    if (currentAngle != finalAngle) m_ArmPID.setReference(finalAngle, ControlType.kPosition);
+    m_ArmPID.setReference(finalAngle, ControlType.kPosition);
     System.out.println("Angle is now being set.");
+    System.out.println(m_ArmEncoder.getPosition());
+    System.out.println(finalAngle);
     return finalAngle;
   }
 }

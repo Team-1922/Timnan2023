@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.commands.TestArm;
 import frc.robot.subsystems.ScoreMode;
 import frc.robot.Constants;
 import frc.robot.commands.IncrementScoreMode;
@@ -55,6 +56,7 @@ public class RobotContainer {
   private final GatherTheCube m_GatherCube = new GatherTheCube(m_Arm, m_EndEffector);
   private final Score m_Score = new Score(m_Arm, m_EndEffector, m_ScoreMode);
   private final IncrementScoreMode m_ScoreModeIncrement = new IncrementScoreMode(m_ScoreMode);
+  private final TestArm m_TestArm = new TestArm(m_Arm);
 
 
   
@@ -103,6 +105,7 @@ public class RobotContainer {
     new JoystickButton(RightJoystick, 2).whileTrue(m_GatherCube); //Need to find the button number for the trigger
     new JoystickButton(RightJoystick, 4).whileTrue(m_Score);
     new JoystickButton(RightJoystick, 3).onTrue(m_ScoreModeIncrement);
+    new JoystickButton(LeftJoystick, 4).whileTrue(m_TestArm);
     //new JoystickButton(LeftJoystick, 1)
       //.whileTrue(m_DriveStraight);
     //new JoystickButton(LeftJoystick, 5)
