@@ -121,6 +121,8 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
     //m_driverController.rightBumper().onTrue(m_ScoreModeIncrement);
     //m_driverController.leftTrigger().onTrue(m_GatherCube);
     //m_driverController.rightTrigger().onTrue(m_Score);
+
+    m_driverController.a().onTrue(m_trajectoryDrive);
     
     new JoystickButton(LeftJoystick, 1)
       .whileTrue(m_DriveStraight);

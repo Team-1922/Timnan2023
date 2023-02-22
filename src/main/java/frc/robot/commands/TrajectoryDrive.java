@@ -12,6 +12,7 @@ import org.photonvision.targeting.PhotonPipelineResult;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
@@ -31,14 +32,16 @@ public class TrajectoryDrive extends CommandBase {
  // private PhotonPipelineResult result;
 
   private Pose2d startingPose;
-  private double startingTime;
   private Timer timer = new Timer();
 
-  private Translation2d endPoseTranslation = new Translation2d(-2, 0); 
-  private Pose2d endPose = new Pose2d(endPoseTranslation, Rotation2d.fromDegrees(-90));
+  private Translation2d endPoseTranslation;
+  private Transform2d endTransform;
+  private Pose2d endPose;
+
   private ArrayList<Translation2d> waypoints = new ArrayList<Translation2d>();
 
   private TrajectoryConfig config = new TrajectoryConfig(((Constants.maxRPM/5)*Constants.metersPerSecondToRPM), (Constants.maxRPM*Constants.metersPerSecondToRPM)/4);
+
   private Trajectory trajectory;
 
   private RamseteController ramseteController = new RamseteController();
@@ -54,14 +57,21 @@ public class TrajectoryDrive extends CommandBase {
     m_driveTrain = driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_driveTrain);
+
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     startingPose = m_driveTrain.getRobotPose();
-    startingTime = System.currentTimeMillis();
     timer.start();
+
+    endPoseTranslation = new Translation2d(1, 1);
+    endTransform = new Transform2d(endPoseTranslation, Rotation2d.fromDegrees(0));
+    endPose = startingPose.plus(endTransform);
+    // Note start and end pose on smartdashboard
+    //teddy stuff thinks it starts at 5, 5
+
 
     waypoints.add(new Translation2d(-1, 0));
     waypoints.add(new Translation2d(-1, 0));
@@ -72,6 +82,8 @@ public class TrajectoryDrive extends CommandBase {
       endPose,
       config
     ); 
+
+    m_driveTrain.setTrajectory(trajectory);
  
   }
 
