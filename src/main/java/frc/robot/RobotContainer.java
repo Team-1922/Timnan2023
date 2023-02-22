@@ -100,9 +100,9 @@ public class RobotContainer {
     m_driverController.rightBumper().onTrue(m_ScoreModeIncrement);
     m_driverController.leftTrigger().whileTrue(m_GatherCube);
     m_driverController.rightTrigger().whileTrue(m_Score);
-    new JoystickButton(LeftJoystick, 2).whileTrue(m_GatherCube); //Need to find the button number for the trigger
-    new JoystickButton(RightJoystick, 2).whileTrue(m_Score); //Same as previous line
-    new JoystickButton(RightJoystick, 3).onTrue(m_ScoreModeIncrement); //Not sure what button to map it to
+    new JoystickButton(RightJoystick, 2).whileTrue(m_GatherCube); //Need to find the button number for the trigger
+    new JoystickButton(RightJoystick, 4).whileTrue(m_Score);
+    new JoystickButton(RightJoystick, 3).onTrue(m_ScoreModeIncrement);
     //new JoystickButton(LeftJoystick, 1)
       //.whileTrue(m_DriveStraight);
     //new JoystickButton(LeftJoystick, 5)
