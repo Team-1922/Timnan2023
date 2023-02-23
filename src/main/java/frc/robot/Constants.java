@@ -27,7 +27,7 @@ public final class Constants {
     public static final double kIOMotorHighPower = 7.5;
     public static final double kIOMotorMaxPower = 12;
     public static final double kIOBottomToTopVoltageConversion = 1;
-    public static final double kZeroOffset = 673.72314453125-562.4014282226562;
+    public static final double kZeroOffset = 673.72314453125-562.4014282226562+100;
     public static final double kPivotMotorStowAngle = 1;
     public static final double kPivotMotorGatherAngle = 430;
     public static final double kPivotMotorLowAngle = 20;

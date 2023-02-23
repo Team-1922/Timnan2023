@@ -16,7 +16,7 @@ public class TestArm extends CommandBase{
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_Arm.setAngle(.3);
+    m_Arm.setAngle(300);
   }
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -25,7 +25,9 @@ public class TestArm extends CommandBase{
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_Arm.setAngle(Constants.kPivotMotorStowAngle);
+    m_Arm.setAngle(
+      Constants.kPivotMotorStowAngle
+    );
   }
 
   // Returns true when the command should end.

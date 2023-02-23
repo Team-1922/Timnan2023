@@ -69,6 +69,7 @@ public class Arm extends SubsystemBase {
 
      }
      m_valueRefCounter++;
+     SmartDashboard.putNumber("Arm angle",m_ArmEncoder.getPosition());
   }
 
   public double setAngle(double finalAngle)  {
@@ -76,6 +77,7 @@ public class Arm extends SubsystemBase {
     System.out.println("Angle is now being set.");
     System.out.println(m_ArmEncoder.getPosition());
     System.out.println(finalAngle);
+    SmartDashboard.putNumber("Target angle", finalAngle);
     return finalAngle;
   }
 }
