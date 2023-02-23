@@ -261,7 +261,8 @@ public void periodic()   {
     // also shuffleboard doesn't have this years game as an option to set the image as
     SpotOne = new Pose2d(-5, -5, Rotation2d.fromDegrees(0)).relativeTo(getRobotPose());
     // this puts it near the middle of the field
-    m_Field2d.setRobotPose(getRobotPose().relativeTo(SpotOne));
+    //m_Field2d.setRobotPose(getRobotPose().relativeTo(SpotOne));
+    m_Field2d.setRobotPose(getRobotPose());
 
     SmartDashboard.putNumber("LeftVelocity", m_leftEncoder.getVelocity());
 

@@ -18,6 +18,15 @@
     },
     "windows": {
       "/SmartDashboard/Field": {
+        "Robot": {
+          "style": "Line"
+        },
+        "height": 5.0,
+        "traj": {
+          "arrows": false,
+          "style": "Line"
+        },
+        "width": 5.0,
         "window": {
           "visible": true
         }

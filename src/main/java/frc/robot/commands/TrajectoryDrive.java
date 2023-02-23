@@ -40,7 +40,7 @@ public class TrajectoryDrive extends CommandBase {
 
   private ArrayList<Translation2d> waypoints = new ArrayList<Translation2d>();
 
-  private TrajectoryConfig config = new TrajectoryConfig(((Constants.maxRPM/5)*Constants.metersPerSecondToRPM), (Constants.maxRPM*Constants.metersPerSecondToRPM)/4);
+  private TrajectoryConfig config = new TrajectoryConfig(((Constants.maxRPM/3)*Constants.metersPerSecondToRPM), (Constants.maxRPM*Constants.metersPerSecondToRPM)/2);
 
   private Trajectory trajectory;
 
@@ -66,15 +66,27 @@ public class TrajectoryDrive extends CommandBase {
     startingPose = m_driveTrain.getRobotPose();
     timer.start();
 
-    endPoseTranslation = new Translation2d(1, 1);
-    endTransform = new Transform2d(endPoseTranslation, Rotation2d.fromDegrees(0));
+    endPoseTranslation = new Translation2d(1, 3);
+    endTransform = new Transform2d(endPoseTranslation, Rotation2d.fromDegrees(-90));
     endPose = startingPose.plus(endTransform);
+
     // Note start and end pose on smartdashboard
-    //teddy stuff thinks it starts at 5, 5
+    SmartDashboard.putNumber("StartPoseX", startingPose.getX());
+    SmartDashboard.putNumber("StartPoseY", startingPose.getY());
+    SmartDashboard.putNumber("EndPoseX", endPose.getX());
+    SmartDashboard.putNumber("EndPoseY", endPose.getY());
 
 
-    waypoints.add(new Translation2d(-1, 0));
-    waypoints.add(new Translation2d(-1, 0));
+    waypoints.add(new Translation2d(.5, 1));
+    waypoints.add(new Translation2d(.99, 2.99));
+
+  //***NOTE***//
+  // All mid-points are generated relative to the (0, 0) made on startup, 
+  // even in a new instance of the command.
+
+  // So then if I had constant waypoints and just kept
+  // repeating TrajectoryDrive, it would find its way back 
+  // to the same spots. (But from a NEW startingPose, interesting)
  
     trajectory = TrajectoryGenerator.generateTrajectory(
       startingPose,
@@ -98,10 +110,10 @@ public class TrajectoryDrive extends CommandBase {
     wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
 
 
-    m_driveTrain.velocityDrive(wheelSpeeds.leftMetersPerSecond/Constants.metersPerSecondToRPM, wheelSpeeds.rightMetersPerSecond/Constants.metersPerSecondToRPM);
+    m_driveTrain.velocityDrive((wheelSpeeds.leftMetersPerSecond/Constants.metersPerSecondToRPM), (wheelSpeeds.rightMetersPerSecond/Constants.metersPerSecondToRPM));
 
 
-    double test = trajectoryState.poseMeters.getY();
+    double test = wheelSpeeds.leftMetersPerSecond/Constants.metersPerSecondToRPM;
     SmartDashboard.putNumber("TrajectoryTest", test);
     SmartDashboard.putNumber("TrajecWheelDifference", (wheelSpeeds.leftMetersPerSecond/Constants.metersPerSecondToRPM - wheelSpeeds.rightMetersPerSecond/Constants.metersPerSecondToRPM));
     // Code thinks at any given time the pose Should be the endPose value
@@ -114,6 +126,7 @@ public class TrajectoryDrive extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_driveTrain.Drive(0, 0);
+    timer.stop();
   }
 
   // Returns true when the command should end.
