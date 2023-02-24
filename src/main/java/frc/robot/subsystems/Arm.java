@@ -27,7 +27,6 @@ public class Arm extends SubsystemBase {
   public Arm() {
     m_Arm.restoreFactoryDefaults();
     m_Arm.setInverted(true);
-    m_ArmPID.setOutputRange(Constants.kPivotMotorMinAngle, Constants.kPivotMotorMaxAngle);
     m_ArmPID.setP(aP);
     SmartDashboard.putNumber("P gain", aP);
     m_ArmPID.setI(aI);
@@ -41,12 +40,6 @@ public class Arm extends SubsystemBase {
     m_ArmEncoder.setInverted(true);
     m_ArmEncoder.setPositionConversionFactor(Constants.kPositionConversionFactor);
     m_ArmEncoder.setZeroOffset(Constants.kZeroOffset);
-    m_ArmEncoder.setVelocityConversionFactor(Constants.kVelocityConversionFactor);
-    //PID wrapping stuff
-    m_ArmPID.setPositionPIDWrappingEnabled(false);
-    //m_ArmPID.setPositionPIDWrappingMinInput(Constants.kWrappedPIDMinInput);
-    //m_ArmPID.setPositionPIDWrappingMaxInput(Constants.kWrappedPIDMaxInput);
-
     m_valueRefCounter = 0;
   }
 

@@ -49,6 +49,7 @@ public class GatherTheCube extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_EndEffector.hasCube();
+    return false;
+    // return m_EndEffector.hasCube();
   }
 }

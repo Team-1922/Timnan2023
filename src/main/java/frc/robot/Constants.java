@@ -27,15 +27,15 @@ public final class Constants {
     public static final double kIOMotorHighPower = 7.5;
     public static final double kIOMotorMaxPower = 12;
     public static final double kIOBottomToTopVoltageConversion = 1;
-    public static final double kZeroOffset = 673.72314453125-562.4014282226562+100;
-    public static final double kPivotMotorStowAngle = 1;
+    public static final double kZeroOffset = 100;
+    public static final double kPivotMotorStowAngle = 100;
     public static final double kPivotMotorGatherAngle = 430;
-    public static final double kPivotMotorLowAngle = 20;
-    public static final double kPivotMotorMidAngle = 110;
-    public static final double kPivotMotorHighAngle = 400;
+    public static final double kPivotMotorLowAngle = 2;
+    public static final double kPivotMotorMidAngle = 11;
+    public static final double kPivotMotorHighAngle = 40;
     public static final double kPivotMotorMinAngle = 0;
     public static final double kPivotMotorMaxAngle = 500;
-    // Min and Max angle represent the angles at which the arm contacts the ground or its frame
+    // Min and Max angle represent the angles at which the armontacts the ground or its frame
     public static final int kPivotMotorID = 2;
     public static final int kTopIOMotorID = 1;
     public static final int kBottomIOMotorID = 7;
@@ -44,16 +44,12 @@ public final class Constants {
     public static final int kLeftJoystickID = 100;
     public static final int kRightJoystickID = 101;
     public static final double veolcityRPMConversion = 0;
-    public static final double kVelocityConversionFactor = 1;
     public static final double kPositionConversionFactor = 1000;
-    public static final double kWrappedPIDMinInput = -1;
-    public static final double kWrappedPIDMaxInput = 1;
 
     public static final int kFrontSensorID = 10;
     public static final int kBackSensorID = 11;
-    public static final double kMMToInches = 0.039;
     public static final double kDetectionThreshold = 13;
-
+    public static final double kMMToInches = 0.039;
     // Multiply raw encoder output by this to convert that to feet travelled
     public static final double kEncoderTicksToFeet = 0; //TBD
     // For trajectory differentialDriveKinematics
