@@ -21,7 +21,8 @@ public class Arm extends SubsystemBase {
   private static SparkMaxAbsoluteEncoder m_ArmEncoder = m_Arm.getAbsoluteEncoder(Type.kDutyCycle);
   private static SparkMaxPIDController m_ArmPID = m_Arm.getPIDController();
   private int m_valueRefCounter;
-  public double aP = .0025, aI = 1e-6, aD = 1, aFF = 0;
+  public double aP = .0025, aI = 16e-7, aD = 0.016, aFF = 2e-6;
+  public static double m_FinalAngle;
   //Put some encoder stuff in the future
   /** Creates a new ARM. */
   public Arm() {
@@ -65,12 +66,17 @@ public class Arm extends SubsystemBase {
      SmartDashboard.putNumber("Arm angle",m_ArmEncoder.getPosition());
   }
 
+  public double getPosition() {
+    return m_ArmEncoder.getPosition();
+  }
+
   public double setAngle(double finalAngle)  {
+    m_FinalAngle = finalAngle;
     m_ArmPID.setReference(finalAngle, ControlType.kPosition);
     System.out.println("Angle is now being set.");
     System.out.println(m_ArmEncoder.getPosition());
     System.out.println(finalAngle);
     SmartDashboard.putNumber("Target angle", finalAngle);
-    return finalAngle;
+    return m_FinalAngle;
   }
 }

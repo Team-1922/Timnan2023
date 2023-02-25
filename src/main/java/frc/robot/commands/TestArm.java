@@ -26,7 +26,7 @@ public class TestArm extends CommandBase{
   @Override
   public void end(boolean interrupted) {
     m_Arm.setAngle(
-      Constants.kPivotMotorStowAngle
+      Constants.kPivotMotorLowAngle
     );
   }
 

@@ -21,21 +21,20 @@ public final class Constants {
     public static final int kRightFollow = 6;
     public static final int kPDB = 63;
     public static final double kVeolcityRPMConversion = 0;
-    public static final double kIOMotorGatherPower = -1.3;
+    public static final double kIOMotorGatherPower = -1.2;
     public static final double kIOMotorLowPower = 2;
     public static final double kIOMotorMidPower = 4;
-    public static final double kIOMotorHighPower = 7.5;
+    public static final double kIOMotorHighPower = 5.8;
     public static final double kIOMotorMaxPower = 12;
-    public static final double kIOBottomToTopVoltageConversion = 1;
-    public static final double kZeroOffset = 100;
-    public static final double kPivotMotorStowAngle = 100;
-    public static final double kPivotMotorGatherAngle = 430;
-    public static final double kPivotMotorLowAngle = 2;
-    public static final double kPivotMotorMidAngle = 11;
-    public static final double kPivotMotorHighAngle = 40;
+    public static final double kIOBottomToTopVoltageConversion = 1.02;
+    public static final double kZeroOffset = 130;
+    public static final double kPivotMotorGatherAngle = 528;
+    public static final double kPivotMotorLowAngle = 100;
+    public static final double kPivotMotorMidAngle = 130;
+    public static final double kPivotMotorHighAngle = 155;
     public static final double kPivotMotorMinAngle = 0;
-    public static final double kPivotMotorMaxAngle = 500;
-    // Min and Max angle represent the angles at which the armontacts the ground or its frame
+    public static final double kPivotMotorMaxAngle = 540;
+    // Min and Max angle represent the angles at which the arm contacts the ground or its frame
     public static final int kPivotMotorID = 2;
     public static final int kTopIOMotorID = 1;
     public static final int kBottomIOMotorID = 7;
@@ -48,7 +47,7 @@ public final class Constants {
 
     public static final int kFrontSensorID = 10;
     public static final int kBackSensorID = 11;
-    public static final double kDetectionThreshold = 13;
+    public static final double kDetectionThreshold = 5;
     public static final double kMMToInches = 0.039;
     // Multiply raw encoder output by this to convert that to feet travelled
     public static final double kEncoderTicksToFeet = 0; //TBD

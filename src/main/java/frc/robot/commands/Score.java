@@ -17,6 +17,7 @@ public class Score extends CommandBase {
   private Arm m_Arm;
   private ScoreMode m_ScoreMode;
   private int scoreMode;
+  private double finalAngle;
   
   /** Creates a new Score. */
   public Score(Arm pivotArm, EndEffector cubeEffector, ScoreMode score) {
@@ -32,28 +33,34 @@ public class Score extends CommandBase {
   
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {scoreMode = m_ScoreMode.getScoreMode();}
+  public void initialize() {
+    scoreMode = m_ScoreMode.getScoreMode();
+    if (scoreMode == 1) {m_Arm.setAngle(Constants.kPivotMotorLowAngle);
+    } else if (scoreMode == 2) {m_Arm.setAngle(Constants.kPivotMotorMidAngle);
+    } else if (scoreMode == 3) {m_Arm.setAngle(Constants.kPivotMotorHighAngle);}
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    if (scoreMode == 1) {m_Arm.setAngle(Constants.kPivotMotorLowAngle); m_EndEffector.Score("low");
-    } else if (scoreMode == 2) {m_Arm.setAngle(Constants.kPivotMotorMidAngle); m_EndEffector.Score("mid");
-    } else if (scoreMode == 3) {m_Arm.setAngle(Constants.kPivotMotorHighAngle); m_EndEffector.Score("high");}
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    if (scoreMode == 1) {m_EndEffector.Score("low");
+    } else if (scoreMode == 2) {m_EndEffector.Score("mid");
+    } else if (scoreMode == 3) {m_EndEffector.Score("high");}
     Timer.delay(1);
     //May use start command
     m_EndEffector.stopMotors();
-    m_Arm.setAngle(Constants.kPivotMotorStowAngle);
+    m_Arm.setAngle(Constants.kPivotMotorLowAngle);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !m_EndEffector.hasCube();
+    Timer.delay(.2);
+    finalAngle = Arm.m_FinalAngle;
+    return (Math.abs(finalAngle - m_Arm.getPosition()) <= 3);
   }
 }

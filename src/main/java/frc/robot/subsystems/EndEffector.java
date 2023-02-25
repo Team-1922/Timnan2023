@@ -22,7 +22,7 @@ public class EndEffector extends SubsystemBase {
   private static TimeOfFlight m_BackSensor = new TimeOfFlight(Constants.kBackSensorID);
   //Two motors needed on opposite sides, one higher up and one lower down.
   public static int m_valueRefCounter;
-  private double eP = .1, eI = 1e-4, eD = 1;
+  private double eP = .09, eI = 1e-4, eD = 1;
 
   public static boolean m_hasObject;
   /** Creates a new EndEffector. */

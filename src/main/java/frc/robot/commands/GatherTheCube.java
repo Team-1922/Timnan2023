@@ -43,7 +43,9 @@ public class GatherTheCube extends CommandBase {
     Timer.delay(.2);
     //May use start command if delay causes problems.
     m_EndEffector.stopMotors();
-    m_Arm.setAngle(Constants.kPivotMotorStowAngle);
+    m_Arm.setAngle(Constants.kPivotMotorLowAngle);
+    Timer.delay(1.2);
+    m_Arm.setAngle(m_Arm.getPosition());
   }
 
   // Returns true when the command should end.
