@@ -61,7 +61,7 @@ public final class Constants {
     // Multiply raw encoder output by this to convert that to feet travelled
     public static final double kEncoderRotationsToFeet = .38; 
     // For trajectory differentialDriveKinematics
-    public static final double distBetweenWheelsMeters = 0.46355; 
+    public static final double distBetweenWheelsMeters = 0.4572; 
     // Used in converting odometry wheel speeds to usable velocity units // It's a multiply
     public static final double metersPerSecondToRPM = .0019304; 
  // }

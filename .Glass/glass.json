@@ -24,8 +24,10 @@
         "height": 5.0,
         "traj": {
           "arrows": false,
-          "style": "Line"
+          "style": "Line",
+          "weight": 3.0
         },
+        "units": "meters",
         "width": 5.0,
         "window": {
           "visible": true

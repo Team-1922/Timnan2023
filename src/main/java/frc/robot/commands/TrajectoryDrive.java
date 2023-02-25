@@ -28,6 +28,11 @@ import frc.robot.subsystems.DriveTrainSubsystem;
 
 public class TrajectoryDrive extends CommandBase {
   private DriveTrainSubsystem m_driveTrain;
+  private Translation2d m_waypoint1;
+  private Translation2d m_waypoint2;
+  private Translation2d m_waypoint3;
+  private Pose2d m_endingPose;
+
  // private PhotonCamera limelight = new PhotonCamera("gloworm");
  // private PhotonPipelineResult result;
 
@@ -40,7 +45,6 @@ public class TrajectoryDrive extends CommandBase {
 
   private ArrayList<Translation2d> waypoints = new ArrayList<Translation2d>();
 
-  private TrajectoryConfig config = new TrajectoryConfig(((Constants.maxRPM)*Constants.metersPerSecondToRPM), (Constants.maxRPM*Constants.metersPerSecondToRPM));
 
   private Trajectory trajectory;
 
@@ -51,10 +55,20 @@ public class TrajectoryDrive extends CommandBase {
 
   private Trajectory.State trajectoryState;
  
-  
+  private TrajectoryConfig config = new TrajectoryConfig(((Constants.maxRPM*Constants.metersPerSecondToRPM)/10), (Constants.maxRPM*Constants.metersPerSecondToRPM)).setKinematics(kinematics);
+
+
+
   /** Creates a new TrajectoryDrive. */
-  public TrajectoryDrive(DriveTrainSubsystem driveTrain) {
+  public TrajectoryDrive(DriveTrainSubsystem driveTrain, Translation2d waypoint1, Translation2d waypoint2, Translation2d waypoint3, Pose2d endingPose) {
     m_driveTrain = driveTrain;
+    m_waypoint1 = waypoint1;
+    m_waypoint2 = waypoint2;
+    m_waypoint3 = waypoint3;
+
+    m_endingPose = endingPose;
+
+    
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_driveTrain);
 
@@ -67,23 +81,22 @@ public class TrajectoryDrive extends CommandBase {
     timer.start();
     timer.reset(); //Incase the command doesn't end and stop timer
 
-    endPoseTranslation = new Translation2d(1, 3);
+  /*  
+    endPoseTranslation = new Translation2d(0, 2);
     endTransform = new Transform2d(endPoseTranslation, Rotation2d.fromDegrees(-90));
-    endPose = startingPose.plus(endTransform);
+    //endPose = startingPose.plus(endTransform);
+    endPose = new Pose2d(endPoseTranslation, Rotation2d.fromDegrees(180));
+  */
 
-    // Note start and end pose on smartdashboard
-    SmartDashboard.putNumber("StartPoseX", startingPose.getX());
-    SmartDashboard.putNumber("StartPoseY", startingPose.getY());
-    SmartDashboard.putNumber("EndPoseX", endPose.getX());
-    SmartDashboard.putNumber("EndPoseY", endPose.getY());
+    waypoints.clear();
 
-
-    waypoints.add(new Translation2d(.5, 1));
-    waypoints.add(new Translation2d(.99, 2.99));
+    waypoints.add(m_waypoint1);
+    waypoints.add(m_waypoint2);  
+    waypoints.add(m_waypoint3);
 
   //***NOTE***//
   // All mid-points are generated relative to the (0, 0) made on startup, 
-  // even in a new instance of the command.
+  // even in a new run of the command.
 
   // So then if I had constant waypoints and just kept
   // repeating TrajectoryDrive, it would find its way back 
@@ -92,7 +105,7 @@ public class TrajectoryDrive extends CommandBase {
     trajectory = TrajectoryGenerator.generateTrajectory(
       startingPose,
       waypoints,
-      endPose,
+      m_endingPose,
       config
     ); 
 
@@ -111,12 +124,12 @@ public class TrajectoryDrive extends CommandBase {
     wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
 
 
-    m_driveTrain.velocityDrive((wheelSpeeds.leftMetersPerSecond/Constants.metersPerSecondToRPM), (wheelSpeeds.rightMetersPerSecond/Constants.metersPerSecondToRPM));
+    m_driveTrain.velocityDrive((wheelSpeeds.leftMetersPerSecond/Constants.metersPerSecondToRPM)*1.2, (wheelSpeeds.rightMetersPerSecond/Constants.metersPerSecondToRPM)*1.2);
 
 
-    double test = wheelSpeeds.leftMetersPerSecond/Constants.metersPerSecondToRPM;
+    double test = 1;
     SmartDashboard.putNumber("TrajectoryTest", test);
-    SmartDashboard.putNumber("TrajecWheelDifference", (wheelSpeeds.leftMetersPerSecond/Constants.metersPerSecondToRPM - wheelSpeeds.rightMetersPerSecond/Constants.metersPerSecondToRPM));
+    SmartDashboard.putNumber("TrajecWheelDifference", (wheelSpeeds.leftMetersPerSecond/Constants.metersPerSecondToRPM));
 
   }
 
@@ -130,7 +143,7 @@ public class TrajectoryDrive extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(m_driveTrain.getRobotPose().getX() - endPose.getX() ) <.2
-        && Math.abs(m_driveTrain.getRobotPose().getY() - endPose.getY() ) <.2;  
+    return Math.abs(m_driveTrain.getRobotPose().getX() - m_endingPose.getX() ) <.2
+        && Math.abs(m_driveTrain.getRobotPose().getY() - m_endingPose.getY() ) <.2;  
     }
 }
