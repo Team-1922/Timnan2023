@@ -40,7 +40,7 @@ public class TrajectoryDrive extends CommandBase {
 
   private ArrayList<Translation2d> waypoints = new ArrayList<Translation2d>();
 
-  private TrajectoryConfig config = new TrajectoryConfig(((Constants.maxRPM/3)*Constants.metersPerSecondToRPM), (Constants.maxRPM*Constants.metersPerSecondToRPM)/2);
+  private TrajectoryConfig config = new TrajectoryConfig(((Constants.maxRPM)*Constants.metersPerSecondToRPM), (Constants.maxRPM*Constants.metersPerSecondToRPM));
 
   private Trajectory trajectory;
 
@@ -131,5 +131,6 @@ public class TrajectoryDrive extends CommandBase {
   @Override
   public boolean isFinished() {
     return Math.abs(m_driveTrain.getRobotPose().getX() - endPose.getX() ) <.2
-     && Math.abs(m_driveTrain.getRobotPose().getY() - endPose.getY() ) <.2 ;  }
+        && Math.abs(m_driveTrain.getRobotPose().getY() - endPose.getY() ) <.2;  
+    }
 }
