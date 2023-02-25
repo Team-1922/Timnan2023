@@ -130,6 +130,6 @@ public class TrajectoryDrive extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_driveTrain.getRobotPose() == endPose;
-  }
+    return Math.abs(m_driveTrain.getRobotPose().getX() - endPose.getX() ) <.2
+     && Math.abs(m_driveTrain.getRobotPose().getY() - endPose.getY() ) <.2 ;  }
 }
