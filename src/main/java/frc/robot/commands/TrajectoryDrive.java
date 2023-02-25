@@ -65,6 +65,7 @@ public class TrajectoryDrive extends CommandBase {
   public void initialize() {
     startingPose = m_driveTrain.getRobotPose();
     timer.start();
+    timer.reset(); //Incase the command doesn't end and stop timer
 
     endPoseTranslation = new Translation2d(1, 3);
     endTransform = new Transform2d(endPoseTranslation, Rotation2d.fromDegrees(-90));
@@ -116,9 +117,6 @@ public class TrajectoryDrive extends CommandBase {
     double test = wheelSpeeds.leftMetersPerSecond/Constants.metersPerSecondToRPM;
     SmartDashboard.putNumber("TrajectoryTest", test);
     SmartDashboard.putNumber("TrajecWheelDifference", (wheelSpeeds.leftMetersPerSecond/Constants.metersPerSecondToRPM - wheelSpeeds.rightMetersPerSecond/Constants.metersPerSecondToRPM));
-    // Code thinks at any given time the pose Should be the endPose value
-    // That means the code IMMEDIATELY THINKS it should be done
-    // which I don't know how to fix but I think that's our problem
 
   }
 
