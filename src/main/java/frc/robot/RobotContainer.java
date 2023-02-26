@@ -73,7 +73,7 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
   private LightEmitingDiode m_LightEmitingDiode = new LightEmitingDiode();
   //arm commands
   private final GatherTheCube m_GatherCube = new GatherTheCube(m_Arm, m_EndEffector);
-  private final Score m_Score = new Score(m_Arm, m_EndEffector, m_ScoreMode);
+  private final Score m_Score = new Score(m_Arm, m_EndEffector, m_ScoreMode, m_LightEmitingDiode);
   private final IncrementScoreMode m_ScoreModeIncrement = new IncrementScoreMode(m_ScoreMode);
   private final TestArm m_TestArm = new TestArm(m_Arm);
 

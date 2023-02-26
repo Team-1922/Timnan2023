@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.ScoreMode;
 import frc.robot.Constants;
 import frc.robot.subsystems.EndEffector;
+import frc.robot.subsystems.LightEmitingDiode;
 import frc.robot.subsystems.Arm;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -18,26 +19,27 @@ public class Score extends CommandBase {
   private ScoreMode m_ScoreMode;
   private int scoreMode;
   private double finalAngle;
-  
+  private  LightEmitingDiode m_LightEmitingDiode;
   /** Creates a new Score. */
-  public Score(Arm pivotArm, EndEffector cubeEffector, ScoreMode score) {
+  public Score(Arm pivotArm, EndEffector cubeEffector, ScoreMode score, LightEmitingDiode LED) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_Arm = pivotArm;
     m_EndEffector = cubeEffector;
     m_ScoreMode = score;
-    
+    m_LightEmitingDiode = LED;
     addRequirements(pivotArm);
     addRequirements(cubeEffector);
     addRequirements(score);
+    addRequirements(LED);
   }
   
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     scoreMode = m_ScoreMode.getScoreMode();
-    if (scoreMode == 1) {m_Arm.setAngle(Constants.kPivotMotorLowAngle);
-    } else if (scoreMode == 2) {m_Arm.setAngle(Constants.kPivotMotorMidAngle);
-    } else if (scoreMode == 3) {m_Arm.setAngle(Constants.kPivotMotorHighAngle);}
+    if (scoreMode == 1) {m_Arm.setAngle(Constants.kPivotMotorLowAngle); m_LightEmitingDiode.setColor(255, 0,0);
+    } else if (scoreMode == 2) {m_Arm.setAngle(Constants.kPivotMotorMidAngle); m_LightEmitingDiode.setColor(0,255,0);
+    } else if (scoreMode == 3) {m_Arm.setAngle(Constants.kPivotMotorHighAngle);  m_LightEmitingDiode.setColor(0, 0,255);}
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -47,9 +49,9 @@ public class Score extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    if (scoreMode == 1) {m_EndEffector.Score("low");
-    } else if (scoreMode == 2) {m_EndEffector.Score("mid");
-    } else if (scoreMode == 3) {m_EndEffector.Score("high");}
+    if (scoreMode == 1) {m_EndEffector.Score("low"); m_LightEmitingDiode.setColor(255,0,0);
+    } else if (scoreMode == 2) {m_EndEffector.Score("mid"); m_LightEmitingDiode.setColor(0,255,0);
+    } else if (scoreMode == 3) {m_EndEffector.Score("high"); m_LightEmitingDiode.setColor(0,0,255);}
     Timer.delay(1);
     //May use start command
     m_EndEffector.stopMotors();
