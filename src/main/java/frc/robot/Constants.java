@@ -15,48 +15,45 @@ public final class Constants {
  // public static class OperatorConstants {
     public static final int eeRefRateMod = 5;
     public static final int kDriverControllerPort = 2;
-    public static final int kLeftLead = 5;
-    public static final int kLeftFollow = 4;
     public static final int kRightLead = 3;
+    public static final int kLeftFollow = 4;
+    public static final int kLeftLead = 5;
     public static final int kRightFollow = 6;
     public static final int kPigeon = 0;
     public static final int kPDB = 63;
-    public static final int kArm = 7;
     public static final double kVeolcityRPMConversion = 0;
-    public static final double kIOMotorGatherPower = 0;
-    public static final double kIOMotorLowPower = 0;
-    public static final double kIOMotorMidPower = 0;
-    public static final double kIOMotorHighPower = 0;
-    public static final double kIOMotorMaxPower = 0;
-    public static final double kPivotMotorVelocity = 0;
-    //Do NOT set this above one
-    public static final double kCOMRadius = 0; //Beginning of the arm to its center of mass (end effector included)
-    public static final double kPivotMotorPower = 0;
-    public static final double kPivotMotorStowAngle = 0;
-    public static final double kPivotMotorGatherAngle = 0;
-    public static final double kPivotMotorLowAngle = 0;
-    public static final double kPivotMotorMidAngle = 0;
-    public static final double kPivotMotorHighAngle = 0;
+    public static final double kIOMotorGatherPower = -1.2;
+    public static final double kIOMotorLowPower = 2;
+    public static final double kIOMotorMidPower = 4;
+    public static final double kIOMotorHighPower = 5.8;
+    public static final double kIOMotorMaxPower = 12;
+    public static final double kIOBottomToTopVoltageConversion = 1.02;
+    public static final double kZeroOffset = 130;
+    public static final double kPivotMotorGatherAngle = 528;
+    public static final double kPivotMotorLowAngle = 100;
+    public static final double kPivotMotorMidAngle = 130;
+    public static final double kPivotMotorHighAngle = 155;
     public static final double kPivotMotorMinAngle = 0;
-    public static final double kPivotMotorMaxAngle = 0;
+    public static final double kPivotMotorMaxAngle = 540;
     // Min and Max angle represent the angles at which the arm contacts the ground or its frame
     public static final int kPivotMotorID = 2;
     public static final int kTopIOMotorID = 1;
     public static final int kBottomIOMotorID = 7;
-    public static final int kLeftHoldingMotorID = 3;
-    public static final int kRightHoldingMotorID = 4;
+    public static final int kLeftHoldingMotorID = 23;
+    public static final int kRightHoldingMotorID = 24;
     public static final int kLeftJoystickID = 100;
     public static final int kRightJoystickID = 101;
     public static final double veolcityRPMConversion = 0;
-    public static final int ArmMotorID = 0;
-    public static final int LeftIOMotorID = 1;
-    public static final int RightIOMotorID = 2;
-    public static final int LeftHoldingMotorID = 3;
-    public static final int RightHoldingMotorID = 4;
-    public static final double IOMotorRPM = 0;
-    public static final double HoldingMorerPower = 0;
+    public static final double kPositionConversionFactor = 1000;
+
 
     public static final double maxRPM = 5700;
+
+
+    public static final int kFrontSensorID = 10;
+    public static final int kBackSensorID = 11;
+    public static final double kDetectionThreshold = 5;
+    public static final double kMMToInches = 0.039;
 
     // Multiply raw encoder output by this to convert that to feet travelled
     public static final double kEncoderRotationsToFeet = .38; 

@@ -18,23 +18,31 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
 
 public class Arm extends SubsystemBase {
-  private static CANSparkMax m_PivotArm = new CANSparkMax(Constants.kPivotMotorID, MotorType.kBrushless);
-  private static SparkMaxAbsoluteEncoder m_ArmEncoder = m_PivotArm.getAbsoluteEncoder(Type.kDutyCycle);
-  private static SparkMaxPIDController m_ArmPID = m_PivotArm.getPIDController();
-  private static int m_valueRefCounter = EndEffector.m_valueRefCounter;
-  public double aP = .1, aI = 1e-4, aD = 1, aFF = 1;
+  private static CANSparkMax m_Arm = new CANSparkMax(Constants.kPivotMotorID, MotorType.kBrushless);
+  private static SparkMaxAbsoluteEncoder m_ArmEncoder = m_Arm.getAbsoluteEncoder(Type.kDutyCycle);
+  private static SparkMaxPIDController m_ArmPID = m_Arm.getPIDController();
+  private int m_valueRefCounter;
+  public double aP = .0025, aI = 16e-7, aD = 0.016, aFF = 2e-6;
+  public static double m_FinalAngle;
   //Put some encoder stuff in the future
   /** Creates a new ARM. */
   public Arm() {
-    m_PivotArm.restoreFactoryDefaults();
-    m_ArmPID.setOutputRange(Constants.kPivotMotorMinAngle, Constants.kPivotMotorMaxAngle);
+    m_Arm.restoreFactoryDefaults();
+    m_Arm.setInverted(true);
     m_ArmPID.setP(aP);
+    SmartDashboard.putNumber("P gain", aP);
     m_ArmPID.setI(aI);
+    SmartDashboard.putNumber("I gain", aI);
     m_ArmPID.setD(aD);
-    m_ArmPID.setFF(aFF); //Probably will be set on controller or determined through testing later
+    SmartDashboard.putNumber("D gain", aD);
+    m_ArmPID.setFF(aFF);
+    SmartDashboard.putNumber("FF gain", aFF);
     m_ArmPID.getIZone();
-    m_ArmEncoder.setZeroOffset(0);
-    m_ArmEncoder.setInverted(false);
+    m_ArmPID.setFeedbackDevice(m_ArmEncoder);
+    m_ArmEncoder.setInverted(true);
+    m_ArmEncoder.setPositionConversionFactor(Constants.kPositionConversionFactor);
+    m_ArmEncoder.setZeroOffset(Constants.kZeroOffset);
+    m_valueRefCounter = 0;
   }
 
   @Override
@@ -56,24 +64,20 @@ public class Arm extends SubsystemBase {
 
      }
      m_valueRefCounter++;
+     SmartDashboard.putNumber("Arm angle",m_ArmEncoder.getPosition());
   }
 
-  public double setNewFF() {
-    double newFF;
-    newFF = (Constants.kCOMRadius * Math.cos(m_ArmEncoder.getPosition()*2*Math.PI));  //one rotation is 2pi 
-    return newFF;
+  public double getPosition() {
+    return m_ArmEncoder.getPosition();
   }
 
-  public double getAngle(boolean inDeg) {
-    if (inDeg) {
-      return (m_ArmEncoder.getPosition()*360);
-    } else return (m_ArmEncoder.getPosition()*2*Math.PI);
-    
-  }
-
-  public double setAngle(double finalAngle /* Use degrees */)  {
-    double currentAngle = m_ArmEncoder.getPosition();
-    if (currentAngle != (finalAngle / 360)) m_ArmPID.setReference(finalAngle, ControlType.kPosition);
-    return finalAngle;
+  public double setAngle(double finalAngle)  {
+    m_FinalAngle = finalAngle;
+    m_ArmPID.setReference(finalAngle, ControlType.kPosition);
+    System.out.println("Angle is now being set.");
+    System.out.println(m_ArmEncoder.getPosition());
+    System.out.println(finalAngle);
+    SmartDashboard.putNumber("Target angle", finalAngle);
+    return m_FinalAngle;
   }
 }

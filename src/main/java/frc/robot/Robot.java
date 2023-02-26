@@ -4,9 +4,6 @@
 
 package frc.robot;
 
-import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.EndEffector;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
