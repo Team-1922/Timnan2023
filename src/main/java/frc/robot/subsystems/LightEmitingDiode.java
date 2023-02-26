@@ -34,7 +34,7 @@ public class LightEmitingDiode extends SubsystemBase {
 
   private int m_collectMode;
 
-  private final CANdle m_candle = new CANdle(Constants.kCandleId, "rio");
+  private final CANdle m_candle = new CANdle(Constants.kCandleId);
 
   private final int m_yellowR = 255;
   private final int m_yellowG = 255;
@@ -70,7 +70,7 @@ public class LightEmitingDiode extends SubsystemBase {
     // ++m_counter;
     SmartDashboard.putNumber("led counter", m_counter);
     // This method will be called once per scheduler run
-    if (m_collectMode != COLLECT_INACTIVE) {
+   /* if (m_collectMode != COLLECT_INACTIVE) {
       if (m_collectMode == COLLECT_ACTIVE) {
         setLeds(false, Constants.kCollectLedCount);
       } else if (m_collectMode == COLLECT_DONE) {
@@ -79,8 +79,8 @@ public class LightEmitingDiode extends SubsystemBase {
         setLeds(false, 0);
       }
       return;
-    }
-    
+    } */
+   /*  
     if (m_scoreState == SCORE_LOW) {
       setLeds(m_scoreMode == SCORE_DONE, Constants.kCollectLedCount + Constants.kLowLedCount);
     } else if (m_scoreState == SCORE_MED) {
@@ -90,8 +90,8 @@ public class LightEmitingDiode extends SubsystemBase {
     } else {
       setLeds(false, 0);
     }
-  }
   
+*/ }
   private void setLeds(boolean green, int endIdx) {
     if (green) {
       m_candle.setLEDs(m_greenR, m_greenG, m_greenB, 0, 0, endIdx);
@@ -101,6 +101,15 @@ public class LightEmitingDiode extends SubsystemBase {
       m_candle.setLEDs(0, 0, 0, 0, endIdx, Constants.kLedCount);
     }
   }
+public void setColor(int red, int green, int blue){
+m_candle.setLEDs(red, green, blue);
+
+}
+public void LedAnimate(Animation Animation){
+  m_candle.animate(Animation);
+  
+}
+
 
   public void reset() {
     m_scoreState = SCORE_LOW;

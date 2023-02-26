@@ -11,22 +11,28 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.DriveStraight;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TankDrive;
+import frc.robot.commands.resetLedCommand;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.LightEmitingDiode;
+import edu.wpi.first.cscore.raw.RawSink;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import com.ctre.phoenix.led.Animation;
+import com.ctre.phoenix.led.RainbowAnimation;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 
 // tryout temp imports
 import frc.robot.commands.IncrementLedCommand;
+import frc.robot.commands.LedAnimate;
+import frc.robot.commands.LedColors;
 import frc.robot.commands.ScoreLedCommand;
 import frc.robot.commands.CollectLedCommand;
-import frc.robot.commands.ResetLedCommand;
+import frc.robot.commands.resetLedCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -35,6 +41,8 @@ import frc.robot.commands.ResetLedCommand;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+ Animation RainbowAnimation = new RainbowAnimation(
+ );
   // joysticks and xboxcontrollers 
  public final static Joystick LeftJoystick = new Joystick(0);
  public final static Joystick RightJoystick = new Joystick(1);
@@ -53,6 +61,7 @@ public class RobotContainer {
 
 private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private LightEmitingDiode m_LightEmitingDiode = new LightEmitingDiode();
   //arm commands
 
 
@@ -72,8 +81,10 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
   
 
   //other commands 
-
-
+private final LedAnimate m_Rainbow = new LedAnimate(m_LightEmitingDiode, RainbowAnimation);
+private final LedColors m_Lightoff = new LedColors(m_LightEmitingDiode,0,0,0 );
+private final LedColors m_LightUpRed = new LedColors(m_LightEmitingDiode, 255,0,0);
+private final LedAnimate m_stopAnimate = new LedAnimate(m_LightEmitingDiode, null);
 
   // tryouts temp commands
   private final LightEmitingDiode m_ledSubsystem = new LightEmitingDiode();
@@ -83,8 +94,10 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
       new ScoreLedCommand(m_ledSubsystem);
   private final CollectLedCommand m_collectLed = 
     new CollectLedCommand(m_ledSubsystem);
-  private final ResetLedCommand m_resetLed =
-    new ResetLedCommand(m_ledSubsystem);
+  private final resetLedCommand m_resetLed =
+    new resetLedCommand(m_ledSubsystem);
+
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -115,6 +128,14 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
     
     new JoystickButton(LeftJoystick, 1)
       .whileTrue(m_DriveStraight);
+      new JoystickButton(RightJoystick, 12)
+      .onTrue(m_Rainbow);
+      new JoystickButton(RightJoystick, 11)
+      .onTrue(m_LightUpRed);
+      new JoystickButton(RightJoystick, 10)
+      .onTrue(m_Lightoff);
+      new JoystickButton(RightJoystick, 9)
+      .onTrue(m_stopAnimate);
 /* 
     new JoystickButton(LeftJoystick, 5)
       .whileTrue(m_TankDrive);*/
