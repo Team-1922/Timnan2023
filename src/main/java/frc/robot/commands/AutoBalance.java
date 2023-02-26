@@ -25,7 +25,7 @@ public class AutoBalance extends PIDCommand {
   public AutoBalance(DriveTrainSubsystem driveTrain) {
     super(
         // The controller that the command will use
-        new PIDController(.0001, .3, .0005), // Need to insert proper pid values here, waiting until testing
+        new PIDController(.001, .1, .0005), // Need to insert proper pid values here, waiting until testing
         // This should return the measurement
         () -> driveTrain.robotPitch(),
         // This should return the setpoint (can also be a constant)
@@ -34,7 +34,7 @@ public class AutoBalance extends PIDCommand {
         output -> {
           // Use the output here
           SmartDashboard.putNumber("output", output);
-          driveTrain.Drive(MathUtil.clamp((-output/2), -.075, .075), MathUtil.clamp((-output/2), -.075, .075)); // Pitch down is pos, wheels need to go same sign as pitch
+          driveTrain.Drive(MathUtil.clamp((-output), -.075, .075), MathUtil.clamp((-output), -.075, .075)); // Pitch down is pos, wheels need to go same sign as pitch
         });
 
         m_driveTrain = driveTrain;

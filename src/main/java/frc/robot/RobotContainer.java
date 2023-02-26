@@ -20,6 +20,7 @@ import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.LightEmitingDiode;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -54,9 +55,12 @@ public class RobotContainer {
   private final AHRS m_navX = new AHRS(SPI.Port.kMXP);
 
 // Subsystems, put them here or code might not work 
-  //public static EndEffector m_CubeEffector = new EndEffector();
- // public static Arm m_PivotArm = new Arm();
+  public static EndEffector m_CubeEffector = new EndEffector();
+ public static Arm m_PivotArm = new Arm();
   //public static ScoreMode m_ScoringMode = new ScoreMode();
+
+  private final LightEmitingDiode m_led = new LightEmitingDiode();
+
 
 private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
@@ -93,7 +97,7 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
   public RobotContainer() {
 
 
-    m_DriveTrainSubsystem.setDefaultCommand(m_xBoxTankDrive);
+    m_DriveTrainSubsystem.setDefaultCommand(m_TankDrive);
     // Configure the trigger bindings
     configureBindings();
 
@@ -120,15 +124,14 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
 
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-    //m_driverController.rightBumper().onTrue(m_ScoreModeIncrement);
-    //m_driverController.leftTrigger().onTrue(m_GatherCube);
-    //m_driverController.rightTrigger().onTrue(m_Score);
-
     m_driverController.a().onTrue(m_trajectoryDriveTest);
+    m_driverController.b().onTrue(m_autoBalance);
+
+    m_driverController.axisGreaterThan(2, .5).whileTrue(m_DriveStraight);
     
+
+
+
     new JoystickButton(LeftJoystick, 1)
       .whileTrue(m_DriveStraight);
  
