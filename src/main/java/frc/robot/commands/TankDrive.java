@@ -55,7 +55,7 @@ public class TankDrive extends CommandBase {
   SmartDashboard.putNumber("Rightjoystick", RightJoystick.getRawAxis(1));
 
     //Something isnt connecting here -- look into why no get input
-   m_DriveTrainSubsystem.Drive( LeftJoystick.getRawAxis(1)*m_LeftDeadZoneOnOff,  RightJoystick.getRawAxis(1)*m_RightDeadZoneOnOff);
+   m_DriveTrainSubsystem.Drive( -LeftJoystick.getRawAxis(1)*m_LeftDeadZoneOnOff*0.5,  -RightJoystick.getRawAxis(1)*m_RightDeadZoneOnOff*0.5);
    //change the number after the * to adjust the output or whatever 
   }
 

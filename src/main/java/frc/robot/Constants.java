@@ -3,6 +3,8 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+
+import java.lang.Math;
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -15,9 +17,11 @@ public final class Constants {
  // public static class OperatorConstants {
     public static final int eeRefRateMod = 5;
     public static final int kDriverControllerPort = 2;
-    public static final int kRightLead = 3;
-    public static final int kLeftFollow = 4;
+ 
     public static final int kLeftLead = 5;
+    public static final int kLeftFollow = 4;
+    public static final int kRightLead = 3;
+
     public static final int kRightFollow = 6;
     public static final int kPDB = 63;
     public static final double kVeolcityRPMConversion = 0;
@@ -53,5 +57,16 @@ public final class Constants {
     public static final double kEncoderTicksToFeet = 0; //TBD
     // For trajectory differentialDriveKinematics
     public static final double distBetweenWheelsMeters = 0; //TBD
+
+
+
+    // trypout temp constants
+    public static final int kCandleId = 10;
+    public static final int kCollectLedCount = 2;
+    public static final int kLowLedCount = 2;
+    public static final int kMedLedCount = 2;
+    public static final int kHighLedCount = 2;
+    public static final int kLedCount = 
+         Math.min(40, kCollectLedCount + kLowLedCount + kMedLedCount + kHighLedCount);
  // }
 }

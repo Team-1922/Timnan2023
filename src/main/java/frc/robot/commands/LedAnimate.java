@@ -4,17 +4,20 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
+import com.ctre.phoenix.led.Animation;
+import com.ctre.phoenix.led.RainbowAnimation;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.subsystems.LightEmitingDiode;
 
-public class DriveStraight extends CommandBase {
-
-  DriveTrainSubsystem  m_DriveTrainSubsystem;
- Joystick m_LeftJoystick = RobotContainer.LeftJoystick;
-  /** Creates a new DriveStraight. */
-  public DriveStraight() {
+public class LedAnimate extends CommandBase {
+  /** Creates a new LightUpGreen. */
+  private final LightEmitingDiode m_LED;
+  private final Animation m_Animation;
+  public LedAnimate(LightEmitingDiode LED, Animation Animation) {
+   m_LED = LED;
+   m_Animation = Animation;
+   addRequirements(m_LED);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -25,9 +28,8 @@ public class DriveStraight extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
 
-    // m_DriveTrainSubsystem.velocityDrive(m_LeftJoystick.getRawAxis(1)*m_DriveTrainSubsystem.Maxrpm,m_LeftJoystick.getRawAxis(1)*m_DriveTrainSubsystem.rightmaxrpm);
+m_LED.LedAnimate(m_Animation);
 
 
   }
