@@ -5,12 +5,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.LightEmitingDiode;
 import frc.robot.subsystems.ScoreMode;
 
 public class IncrementScoreMode extends CommandBase {
   /** Creates a new increaseScoreMode. */
   private ScoreMode m_Score;
   public IncrementScoreMode(ScoreMode Score) {
+  
     // Use addRequirements() here to declare subsystem dependencies.
     m_Score = Score;
     
@@ -30,7 +32,10 @@ public class IncrementScoreMode extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    if (m_Score.getScoreMode()== 1){}
+    
+  }
 
   // Returns true when the command should end.
   @Override

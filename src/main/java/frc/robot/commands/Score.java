@@ -37,6 +37,7 @@ public class Score extends CommandBase {
   @Override
   public void initialize() {
     scoreMode = m_ScoreMode.getScoreMode();
+    // do the led stuff in scoremodeincrement
     if (scoreMode == 1) {m_Arm.setAngle(Constants.kPivotMotorLowAngle); m_LightEmitingDiode.setColor(255, 0,0);
     } else if (scoreMode == 2) {m_Arm.setAngle(Constants.kPivotMotorMidAngle); m_LightEmitingDiode.setColor(0,255,0);
     } else if (scoreMode == 3) {m_Arm.setAngle(Constants.kPivotMotorHighAngle);  m_LightEmitingDiode.setColor(0, 0,255);}
