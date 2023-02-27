@@ -12,6 +12,8 @@ import frc.robot.commands.AutoBalance;
 import frc.robot.commands.Autos;
 import frc.robot.commands.DriveStraight;
 import frc.robot.commands.TankDrive;
+import frc.robot.commands.TrajectoryDrive;
+import frc.robot.commands.XBoxTankDrive;
 import frc.robot.commands.GatherTheCube;
 import frc.robot.commands.Score;
 import frc.robot.subsystems.DriveTrainSubsystem;
@@ -22,6 +24,10 @@ import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.LightEmitingDiode;
 import edu.wpi.first.cscore.raw.RawSink;
+import frc.robot.subsystems.ExampleSubsystem;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -31,6 +37,7 @@ import com.ctre.phoenix.led.Animation;
 import com.ctre.phoenix.led.RainbowAnimation;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // tryout temp imports
 
@@ -66,22 +73,20 @@ public class RobotContainer {
   public static EndEffector m_EndEffector = new EndEffector();
   public static Arm m_Arm = new Arm();
   public static ScoreMode m_ScoreMode = new ScoreMode();
-
-  //private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
-private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private LightEmitingDiode m_LightEmitingDiode = new LightEmitingDiode();
+  private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
+  private static LightEmitingDiode m_LightEmittingDiode = new LightEmitingDiode();
   //arm commands
   private final GatherTheCube m_GatherCube = new GatherTheCube(m_Arm, m_EndEffector);
-  private final Score m_Score = new Score(m_Arm, m_EndEffector, m_ScoreMode, m_LightEmitingDiode);
-  private final IncrementScoreMode m_ScoreModeIncrement = new IncrementScoreMode(m_ScoreMode, m_LightEmitingDiode);
+  private final Score m_Score = new Score(m_Arm, m_EndEffector, m_ScoreMode, m_LightEmittingDiode);
+  private final IncrementScoreMode m_ScoreModeIncrement = new IncrementScoreMode(m_ScoreMode, m_LightEmittingDiode);
   private final TestArm m_TestArm = new TestArm(m_Arm);
 
 
   
 
     // Auto drive commands
-    //private final AutoBalance m_autoBalance = new AutoBalance(m_DriveTrainSubsystem);
+    private final AutoBalance m_autoBalance = new AutoBalance(m_DriveTrainSubsystem);
+    private final TrajectoryDrive m_trajectoryDriveTest = new TrajectoryDrive(m_DriveTrainSubsystem, new Translation2d(1.5, 0), new Translation2d(1.5, 2), new Translation2d(-.2, 2), new Pose2d(new Translation2d(0, 2), Rotation2d.fromDegrees(180)));
 
 
     
@@ -89,28 +94,41 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
 
 
   // drive commands 
-  //private final TankDrive m_TankDrive = new TankDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick);
-  //private final DriveStraight m_DriveStraight = new DriveStraight();
+  private final TankDrive m_TankDrive = new TankDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick);
+  private final XBoxTankDrive m_xBoxTankDrive = new XBoxTankDrive(m_DriveTrainSubsystem, m_driverController);
+  private final DriveStraight m_DriveStraight = new DriveStraight(m_DriveTrainSubsystem, LeftJoystick);
   
 
   //other commands 
-private final LedAnimate m_Rainbow = new LedAnimate(m_LightEmitingDiode, RainbowAnimation);
-private final LedColors m_Lightoff = new LedColors(m_LightEmitingDiode,0,0,0 );
-private final LedColors m_LightUpRed = new LedColors(m_LightEmitingDiode, 255,0,0);
-private final LedAnimate m_stopAnimate = new LedAnimate(m_LightEmitingDiode, null);
+private final LedAnimate m_Rainbow = new LedAnimate(m_LightEmittingDiode, RainbowAnimation);
+private final LedColors m_Lightoff = new LedColors(m_LightEmittingDiode,0,0,0 );
+private final LedColors m_LightUpRed = new LedColors(m_LightEmittingDiode, 255,0,0);
+private final LedAnimate m_stopAnimate = new LedAnimate(m_LightEmittingDiode, null);
 
   // tryouts temp commands
   private final LightEmitingDiode m_ledSubsystem = new LightEmitingDiode();
 
 
 
+
+
+  
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
 
-    //m_DriveTrainSubsystem.setDefaultCommand(m_TankDrive);
+    m_DriveTrainSubsystem.setDefaultCommand(m_xBoxTankDrive);
     // Configure the trigger bindings
     configureBindings();
+
+
+
+
+    SmartDashboard.putNumber("Deadzone", .125);
+
+    SmartDashboard.putNumber("Balance P", .015);
+    SmartDashboard.putNumber("Balance D", .01);
   }
 
   /**
@@ -127,6 +145,20 @@ private final LedAnimate m_stopAnimate = new LedAnimate(m_LightEmitingDiode, nul
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
+    //m_driverController.rightBumper().onTrue(m_ScoreModeIncrement);
+    //m_driverController.leftTrigger().onTrue(m_GatherCube);
+    //m_driverController.rightTrigger().onTrue(m_Score);
+
+    m_driverController.a().onTrue(m_trajectoryDriveTest);
+    
+    new JoystickButton(LeftJoystick, 1)
+      .whileTrue(m_DriveStraight);
+ 
+    new JoystickButton(LeftJoystick, 5)
+      .onTrue(m_autoBalance);
+
+    new JoystickButton(LeftJoystick, 6)
+      .onTrue(m_trajectoryDriveTest);
    // m_driverController.rightBumper().onTrue(m_ScoreModeIncrement);
     //m_driverController.leftTrigger().whileTrue(m_GatherCube);
     //m_driverController.rightTrigger().whileTrue(m_Score);
@@ -138,7 +170,6 @@ private final LedAnimate m_stopAnimate = new LedAnimate(m_LightEmitingDiode, nul
       //.whileTrue(m_DriveStraight);
     //new JoystickButton(LeftJoystick, 5)
       //.whileTrue(m_TankDrive);
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
     
       new JoystickButton(RightJoystick, 12)
       .onTrue(m_Rainbow);

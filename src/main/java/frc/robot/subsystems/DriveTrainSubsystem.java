@@ -4,93 +4,110 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Timer;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.util.Units;
-
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.TrajectoryDrive;
 
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import java.util.ArrayList;
+
+import com.ctre.phoenix.sensors.Pigeon2;
 import com.kauailabs.navx.frc.AHRS;
 
 
 public class DriveTrainSubsystem extends SubsystemBase { 
+  public final static Field2d m_Field2d = new Field2d();
   private CANSparkMax m_leftLead = new CANSparkMax(Constants.kLeftLead, MotorType.kBrushless);
   private RelativeEncoder m_leftEncoder;
   private CANSparkMax m_leftFollow = new CANSparkMax(Constants.kLeftFollow, MotorType.kBrushless);
+
   private CANSparkMax m_rightLead = new CANSparkMax(Constants.kRightLead, MotorType.kBrushless);
   private RelativeEncoder m_rightEncoder;
   private CANSparkMax m_rightFollow = new CANSparkMax(Constants.kRightFollow, MotorType.kBrushless);
+
   private SparkMaxPIDController m_pidControllerLeft;
   private SparkMaxPIDController m_pidControllerRight;
 
+  private Pigeon2 m_pigeon = new Pigeon2(Constants.kPigeon); 
 
   private AHRS m_navX;
   private DifferentialDriveOdometry m_odometry;
-  
-  double kp, ki, kd, kff, kiz, kmaxrpm, rightkp, rightki, rightkd, rightkff, rightkiz, krightmaxrpm, kMinOutput, kMaxOutput,RightkMinOutput, RightkMaxOutput;
-  double p,i,d,ff,iz;
-  public double Maxrpm;
-  double rightp;
-  double righti;
-  double rightd;
-  double rightff;
-  double rightiz;
- public double rightmaxrpm;
-  double minoutput;
-  double maxoutput;
-  double rightminoutput;
-  double rightmaxoutput;
+  private Pose2d SpotOne;
+  double p=6e-5;
+   double i=0;
+   double d =0;
+   double ff=0.000015;
+   double iz = 0;
+  public double Maxrpm = 2000;
+  double rightp =  6e-5;
+  double righti = 0;
+  double rightd = 0;
+  double rightff = 0.000015;
+  double rightiz = 0;
+ public double rightmaxrpm = 2000 ;
+  double minoutput = -1;
+  double maxoutput = 1;
+  double rightminoutput = -1;
+  double rightmaxoutput =1;
+  Timer m_Timer;
+  double JoystickDeadzone = 0.125;
+
+  Timer balanceTimer = new Timer();
   /** Creates a new DriveTrainSubsystem. */
-  public DriveTrainSubsystem() {
+  
 
 
+   // m_pigeon.calibrate();
 
-    SmartDashboard.putNumber("left p gain", kp);
-    SmartDashboard.putNumber("left i gain", ki);
-    SmartDashboard.putNumber("left d gain", kd); 
-    SmartDashboard.putNumber("left feed foward ", kff);
-    SmartDashboard.putNumber("left i zone", kiz);
-    SmartDashboard.putNumber("left max rpm", kmaxrpm);
-    SmartDashboard.putNumber("left max output", kMaxOutput);
-    SmartDashboard.putNumber("left min output", kMinOutput);
 
-    
-    SmartDashboard.putNumber("right p gain", rightkp);
-    SmartDashboard.putNumber("right i gain", rightki);
-    SmartDashboard.putNumber("right d gain", rightkd); 
-    SmartDashboard.putNumber("right feed foward ", rightkff);
-    SmartDashboard.putNumber("right i zone", rightkiz);
-    SmartDashboard.putNumber("right max rpm", krightmaxrpm);
-    SmartDashboard.putNumber("right max output", RightkMaxOutput);
-    SmartDashboard.putNumber("right min output", RightkMinOutput);
-
-    //Motor controlers
-    m_leftLead.restoreFactoryDefaults();
-    m_leftFollow.restoreFactoryDefaults();
-    m_rightLead.restoreFactoryDefaults();
-    m_rightFollow.restoreFactoryDefaults();
-    m_leftFollow.follow(m_leftLead);
-    m_rightFollow.follow(m_rightLead);
-    m_pidControllerLeft = m_leftLead.getPIDController();
-    m_pidControllerRight = m_rightLead.getPIDController();}
 
 
   private double krightMinOutput; 
   /** Creates a new DriveTrainSubsystem. */
   public DriveTrainSubsystem(AHRS navX) {
+    
+    SmartDashboard.putNumber("joystick deadzone", JoystickDeadzone);
+    
+    SmartDashboard.putNumber("left p gain", p);
+    SmartDashboard.putNumber("left i gain", i);
+    SmartDashboard.putNumber("left d gain", d); 
+    SmartDashboard.putNumber("left feed foward ", ff);
+    SmartDashboard.putNumber("left i zone", iz);
+    SmartDashboard.putNumber("left max rpm", Maxrpm);
+    SmartDashboard.putNumber("left max output", maxoutput);
+    SmartDashboard.putNumber("left min output", minoutput);
+
+    
+    SmartDashboard.putNumber("right p gain", rightp);
+    SmartDashboard.putNumber("right i gain", righti);
+    SmartDashboard.putNumber("right d gain", rightd); 
+    SmartDashboard.putNumber("right feed foward ", rightff);
+    SmartDashboard.putNumber("right i zone", rightiz);
+    SmartDashboard.putNumber("right max rpm", rightmaxrpm);
+    SmartDashboard.putNumber("right max output", rightmaxoutput);
+    SmartDashboard.putNumber("right min output", rightminoutput);
+
+    SmartDashboard.putData(m_Field2d);
     //Motor controlers
     m_leftLead.restoreFactoryDefaults();
     m_leftLead.setInverted(false);
@@ -109,30 +126,40 @@ public class DriveTrainSubsystem extends SubsystemBase {
     m_pidControllerLeft = m_leftLead.getPIDController();
     m_pidControllerRight = m_rightLead.getPIDController();
 
+    m_pidControllerLeft.setP(p);
+    m_pidControllerLeft.setI(i);
+    m_pidControllerLeft.setD(d);
+   m_pidControllerLeft.setOutputRange(minoutput,maxoutput); 
+   m_pidControllerLeft.setFF(ff); //feed foward
+  m_pidControllerLeft.setIZone(iz); //i zone
+  m_pidControllerRight.setP(rightp);
+  m_pidControllerRight.setI(righti);
+  m_pidControllerRight.setD(rightd);
+  m_pidControllerRight.setOutputRange(rightminoutput, rightmaxoutput);
+  m_pidControllerRight.setFF(rightff);
+  m_pidControllerRight.setIZone(rightd);
 
-    m_navX = navX; 
-    
-    
-    //pid stuff that we need
-    //m_pidControllerLeft.setRefrence();
-  //m_pidControllerRight.setRefrence();
-  m_pidControllerLeft.setP(p);
-  m_pidControllerLeft.setI(i);
-  m_pidControllerLeft.setD(d);
- m_pidControllerLeft.setOutputRange(minoutput,maxoutput); 
- m_pidControllerLeft.setFF(ff); //feed foward
-m_pidControllerLeft.setIZone(iz); //i zone
-m_pidControllerRight.setP(rightp);
-m_pidControllerRight.setI(righti);
-m_pidControllerRight.setD(rightd);
-m_pidControllerRight.setOutputRange(rightminoutput, RightkMaxOutput);
-m_pidControllerRight.setFF(rightff);
-m_pidControllerRight.setIZone(rightd);
+  
 
+
+  
+
+
+    m_Timer = new Timer();
+    m_Timer.start();
     m_navX = navX;
 
-    // Setting up the odometry object in the constructor--A little sketchy? No errors and it builds though
-    m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(robotPitch()), Units.feetToMeters(getRightEncoderFeet()), Units.feetToMeters(getLeftEncoderFeet()));
+    // Setting up the odometry object 
+    m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(robotYaw()), Units.feetToMeters(getRightEncoderFeet()), Units.feetToMeters(getLeftEncoderFeet()));
+  }
+
+public void oldVelocityDrive(double velocity){ //What's this
+//  m_pidControllerLeft.setRefrence();
+//  m_pidControllerRight.setRefrence();
+
+ //m_pidControllerLeft.setRefrence();
+  //m_pidControllerRight.setRefrence();
+
 
   }
   
@@ -142,13 +169,8 @@ public void Drive(double leftSpeed, double rightSpeed){
 
 }
 public void velocityDrive(double LeftRPM, double rightRPM){
-
-
-
-double leftsetpoint =LeftRPM;
-m_pidControllerLeft.setReference(leftsetpoint, CANSparkMax.ControlType.kVelocity);
-double rightsetpoint = rightRPM;
-m_pidControllerRight.setReference(rightsetpoint, CANSparkMax.ControlType.kVelocity);
+m_pidControllerLeft.setReference(LeftRPM, CANSparkMax.ControlType.kVelocity);
+m_pidControllerRight.setReference(rightRPM, CANSparkMax.ControlType.kVelocity);
 
 
 
@@ -158,108 +180,126 @@ m_pidControllerRight.setReference(rightsetpoint, CANSparkMax.ControlType.kVeloci
 Drive( RobotContainer.LeftJoystick.getY()*MaxVelocity*OutputScale, RobotContainer.RightJoystick.getY()*MaxVelocity*OutputScale); */
 
 }
-/*
 public void timedpid( )    {
+if (m_Timer.hasElapsed(5)){
+
+  //left pid
+  if (p != SmartDashboard.getNumber("left p gain", 6e-5)){ 
+  p = SmartDashboard.getNumber("left p gain", 6e-5);
+   m_pidControllerLeft.setP(p);
+}
+  if (i != SmartDashboard.getNumber("left i gain", 0)) { 
+   i = SmartDashboard.getNumber("left i gain", 0); 
+   m_pidControllerLeft.setI(i); }
+
+  if (d != SmartDashboard.getNumber("left d gain", 0)){ 
+   d = SmartDashboard.getNumber("left d gain", 0);
+   m_pidControllerLeft.setD(d);}
+
+  if (ff != SmartDashboard.getNumber("left feed foward", 0.000015)) {
+    ff = SmartDashboard.getNumber("left feed foward", 0.000015);
+    m_pidControllerLeft.setFF(ff); } 
+
+   if (iz != SmartDashboard.getNumber("left i zone", 0)) {
+    iz = SmartDashboard.getNumber("left i zone", 0);
+    m_pidControllerLeft.setIZone(iz);}
+
+  if (minoutput != SmartDashboard.getNumber("left min output", -1)){
+    minoutput = SmartDashboard.getNumber("left min output", -1);
+    m_pidControllerLeft.setOutputRange(minoutput, maxoutput);}
+
+  if (maxoutput != SmartDashboard.getNumber("left max output", 1)){
+    maxoutput = SmartDashboard.getNumber("left max output", 1);
+    m_pidControllerLeft.setOutputRange(minoutput, maxoutput);}
+
+  if (Maxrpm != SmartDashboard.getNumber("left max rpm", 5700)) {
+    Maxrpm = SmartDashboard.getNumber("left max rpm", 5700);}
 
 
-Timer.delay(2);
+//right pid 
+  if (rightp != SmartDashboard.getNumber("right p gain", 6e-5)){
+    rightp = SmartDashboard.getNumber("right p gain", 6e-5);  
+    m_pidControllerRight.setP(rightp);}
+  
+  if (righti != SmartDashboard.getNumber("right i gain", 0)) {
+    righti = SmartDashboard.getNumber("right i gain", 0);
+    m_pidControllerRight.setI(righti);}
+  
+  if (rightd != SmartDashboard.getNumber("right d gain", 0)) {
+    rightd = SmartDashboard.getNumber("right d gain", 0);
+    m_pidControllerRight.setD(rightd);}
+  
+  if (rightff != SmartDashboard.getNumber("right feed foward", 0.000015)){
+    rightff = SmartDashboard.getNumber("right feed foward", 0.000015);
+    m_pidControllerRight.setFF(rightff);}
+  
+  if (rightiz != SmartDashboard.getNumber("right i zone", 0)){
+    rightiz = SmartDashboard.getNumber("right i zone", 0);
+    m_pidControllerRight.setIZone(rightiz);}
+  
+  if (rightmaxoutput != SmartDashboard.getNumber("right max output", 1)) {
+    rightmaxoutput = SmartDashboard.getNumber("right max output", 1);
+    m_pidControllerRight.setOutputRange(rightminoutput, rightmaxoutput);}
+  
+  if (rightminoutput != SmartDashboard.getNumber("right min output", -1)) {
+    krightMinOutput = SmartDashboard.getNumber("right min output", -1);
+    m_pidControllerRight.setOutputRange(rightminoutput, rightmaxoutput);}
 
-    kp = SmartDashboard.getNumber("left p gain", 0);
-    ki= SmartDashboard.getNumber("left i gain", 0);
-    kd = SmartDashboard.getNumber("left d gain", 0);
-    kmaxrpm = SmartDashboard.getNumber("left max rpm", 10);
+  if (rightmaxrpm != SmartDashboard.getNumber("right max rpm",5700 )) {
+    rightmaxrpm = SmartDashboard.getNumber("right max rpm", 5700);}
 
-Timer.delay(2);
- kff = SmartDashboard.getNumber("left feed foward", 0);
- kiz = SmartDashboard.getNumber("left i zone", 0);
-kMinOutput = SmartDashboard.getNumber("left min output", 0);
-kMaxOutput = SmartDashboard.getNumber("left max output", 1);
-Timer.delay(2);
-
-rightkp = SmartDashboard.getNumber("right p gain", 0);
-rightki = SmartDashboard.getNumber("right i gain", 0);
-rightkd = SmartDashboard.getNumber("right d gain", 0);
-Timer.delay(2);
-  rightkff = SmartDashboard.getNumber("right feed foward", 0);
-  rightkiz = SmartDashboard.getNumber("right iz", 0);
-  RightkMaxOutput = SmartDashboard.getNumber("right max output", 1);
-  RightkMinOutput = SmartDashboard.getNumber("right min output", 0);
-  krightmaxrpm = SmartDashboard.getNumber("right max rpm", 10); 
-
+m_Timer.reset();}
 };
-*/
+
 @Override
 public void periodic()   {
 
     // This method will be called once per scheduler run
+    m_odometry.update(Rotation2d.fromDegrees(robotYaw()), Units.feetToMeters(getRightEncoderFeet()), Units.feetToMeters(getLeftEncoderFeet()));
+    //this sets the starting position for the field image on the computer 
+    // it still tracks the robot, but it seems to be off when it spins. 
+    // also shuffleboard doesn't have this years game as an option to set the image as
+    SpotOne = new Pose2d(-5, -5, Rotation2d.fromDegrees(0)).relativeTo(getRobotPose());
+    // this puts it near the middle of the field
+    //m_Field2d.setRobotPose(getRobotPose().relativeTo(SpotOne));
+    m_Field2d.setRobotPose(getRobotPose());
 
-//timedpid();
-    //left pid
+    SmartDashboard.putNumber("LeftVelocity", m_leftEncoder.getVelocity());
 
-  if (p != kp){  m_pidControllerLeft.setP(SmartDashboard.getNumber( "left p gain" , 0)); }
-if (i != ki) {  m_pidControllerLeft.setI(SmartDashboard.getNumber("left i gain", 0)); }
- if (d != kd){ m_pidControllerLeft.setD(SmartDashboard.getNumber("left d gain", 0));}
-  if (ff != kff) {m_pidControllerLeft.setFF(SmartDashboard.getNumber("left feed foward", 0)); } //feed foward
-   if (iz != kiz) {m_pidControllerLeft.setIZone(SmartDashboard.getNumber("left i zone", 0));}
-  if (minoutput != kMinOutput){minoutput = SmartDashboard.getNumber("left min output", 0);}
-  if (maxoutput != kMaxOutput){maxoutput = SmartDashboard.getNumber("left max output", 1);}
-if (Maxrpm != kmaxrpm) {Maxrpm = SmartDashboard.getNumber("left max rpm", 10);}
+    SmartDashboard.putNumber("PID Timer", m_Timer.get());
+timedpid();
 
-   // right pid
-   if (rightp != rightkp){ m_pidControllerRight.setP(SmartDashboard.getNumber("right p gain", 0));}
-   if (righti != rightki) m_pidControllerRight.setI(SmartDashboard.getNumber("right i gain", 0));
-   if (rightd != rightkd) { m_pidControllerRight.setD(SmartDashboard.getNumber("right d gain", 0));}
-   if (rightff != rightkff){ m_pidControllerRight.setFF(SmartDashboard.getNumber("right feed foward", 0));}
-   if (rightiz != rightkiz){ m_pidControllerRight.setIZone(SmartDashboard.getNumber("right i zone", 0));}
-   if (RightkMaxOutput != rightmaxoutput) {rightmaxoutput =SmartDashboard.getNumber("right max output", 1);}
-   if (rightminoutput != krightMinOutput) {krightMinOutput = SmartDashboard.getNumber("right min output", 0);}
-   if (rightmaxrpm != krightmaxrpm) {rightmaxrpm = SmartDashboard.getNumber("right max rpm", 10);}
-
-
-
-    m_odometry.update(Rotation2d.fromDegrees(robotPitch()), Units.feetToMeters(getRightEncoderFeet()), Units.feetToMeters(getLeftEncoderFeet()));
   
+   //TEMP
+   SmartDashboard.putNumber("RobotYaw", m_pigeon.getYaw() % 360);
+   SmartDashboard.putNumber("RobotPitch", m_pigeon.getRoll());
 
-
-    //left pid
-  if (p != kp){  m_pidControllerLeft.setP(SmartDashboard.getNumber( "left p gain" , 0)); }
-if (i != ki) {  m_pidControllerLeft.setI(SmartDashboard.getNumber("left i gain", 0)); }
- if (d != kd){ m_pidControllerLeft.setD(SmartDashboard.getNumber("left d gain", 0));}
-  if (ff != kff) {m_pidControllerLeft.setFF(SmartDashboard.getNumber("left feed foward", 0)); } //feed foward
-   if (iz != kiz) {m_pidControllerLeft.setIZone(SmartDashboard.getNumber("left i zone", 0));}
-  if (minoutput != kMinOutput){minoutput = SmartDashboard.getNumber("left min output", 0);}
-  if (maxoutput != kMaxOutput){maxoutput = SmartDashboard.getNumber("left max output", 1);}
-if (Maxrpm != kmaxrpm) {Maxrpm = SmartDashboard.getNumber("left max rpm", 10);}
-
-   // right pid
-   if (rightp != rightkp){ m_pidControllerRight.setP(SmartDashboard.getNumber("right p gain", 0));}
-   if (righti != rightki) m_pidControllerRight.setI(SmartDashboard.getNumber("right i gain", 0));
-   if (rightd != rightkd) { m_pidControllerRight.setD(SmartDashboard.getNumber("right d gain", 0));}
-   if (rightff != rightkff){ m_pidControllerRight.setFF(SmartDashboard.getNumber("right feed foward", 0));}
-   if (rightiz != rightkiz){ m_pidControllerRight.setIZone(SmartDashboard.getNumber("right i zone", 0));}
-   if (RightkMaxOutput != rightmaxoutput) {rightmaxoutput =SmartDashboard.getNumber("right max output", 1);}
-   if (krightMinOutput != rightminoutput) {krightMinOutput = SmartDashboard.getNumber("right min output", 0);}
-   if (rightmaxrpm != krightmaxrpm) {rightmaxrpm = SmartDashboard.getNumber("right max rpm", 10);}
-
-
+   SmartDashboard.putNumber("EncoderLeft", m_leftEncoder.getPosition());
 
   }
 
-
-
-  private void WaitCommand(int j)
-   {
-    new WaitCommand(j);
-  }
 
   // Returns the navX Yaw, it's up and down like the way your neck moves 
-
   public double robotYaw(){
-    return m_navX.getYaw();
+  //  return m_navX.getYaw();
+      return m_pigeon.getYaw() % 360;
   }
   // Returns the navX Pitch, it's side to side like the way a turntable rotates
   public double robotPitch(){
-    return m_navX.getPitch();
+  //  return m_navX.getPitch();
+      return m_pigeon.getRoll();
+  }
+
+
+  public boolean balanceTimer(double seconds){
+    SmartDashboard.putNumber("Balance timer", balanceTimer.get());
+    return balanceTimer.get() >= seconds;
+  }
+
+  public void startBalance(){
+    balanceTimer.start();
+    balanceTimer.reset();
+
   }
 
 
@@ -268,20 +308,47 @@ if (Maxrpm != kmaxrpm) {Maxrpm = SmartDashboard.getNumber("left max rpm", 10);}
     return m_leftEncoder.getPosition();
   }
   public double getLeftEncoderFeet(){
-    return m_leftEncoder.getPosition() * Constants.kEncoderTicksToFeet;
+    return m_leftEncoder.getPosition() * Constants.kEncoderRotationsToFeet;
   }
 
   public double getRightEncoderRaw(){
     return m_rightEncoder.getPosition();
   }
   public double getRightEncoderFeet(){
-    return m_rightEncoder.getPosition() * Constants.kEncoderTicksToFeet;
+    return m_rightEncoder.getPosition() * Constants.kEncoderRotationsToFeet;
   }
 
 
   public Pose2d getRobotPose(){
     return m_odometry.getPoseMeters();
   }
+
+
+
+
+  public void setTrajectory(Trajectory traj){
+
+    m_Field2d.getObject("traj").setTrajectory(traj);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

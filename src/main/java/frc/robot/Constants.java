@@ -23,6 +23,7 @@ public final class Constants {
     public static final int kRightLead = 3;
 
     public static final int kRightFollow = 6;
+    public static final int kPigeon = 0;
     public static final int kPDB = 63;
     public static final double kVeolcityRPMConversion = 0;
     public static final double kIOMotorGatherPower = -1.2;
@@ -49,24 +50,20 @@ public final class Constants {
     public static final double veolcityRPMConversion = 0;
     public static final double kPositionConversionFactor = 1000;
 
+
+    public static final double maxRPM = 5700;
+
+
     public static final int kFrontSensorID = 10;
     public static final int kBackSensorID = 11;
     public static final double kDetectionThreshold = 5;
     public static final double kMMToInches = 0.039;
+
     // Multiply raw encoder output by this to convert that to feet travelled
-    public static final double kEncoderTicksToFeet = 0; //TBD
+    public static final double kEncoderRotationsToFeet = .38; 
     // For trajectory differentialDriveKinematics
-    public static final double distBetweenWheelsMeters = 0; //TBD
-
-
-
-    // trypout temp constants
-    public static final int kCandleId = 10;
-    public static final int kCollectLedCount = 2;
-    public static final int kLowLedCount = 2;
-    public static final int kMedLedCount = 2;
-    public static final int kHighLedCount = 2;
-    public static final int kLedCount = 
-         Math.min(40, kCollectLedCount + kLowLedCount + kMedLedCount + kHighLedCount);
+    public static final double distBetweenWheelsMeters = 0.4572; 
+    // Used in converting odometry wheel speeds to usable velocity units // It's a multiply
+    public static final double metersPerSecondToRPM = .0019304; 
  // }
 }
