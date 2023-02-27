@@ -11,12 +11,14 @@ import frc.robot.subsystems.ScoreMode;
 public class IncrementScoreMode extends CommandBase {
   /** Creates a new increaseScoreMode. */
   private ScoreMode m_Score;
-  public IncrementScoreMode(ScoreMode Score) {
+  private LightEmitingDiode m_LED;
+  public IncrementScoreMode(ScoreMode Score, LightEmitingDiode LED) {
   
     // Use addRequirements() here to declare subsystem dependencies.
     m_Score = Score;
-    
+    m_LED = LED;
     addRequirements(Score);
+    addRequirements(LED);
   }
 
   
@@ -33,8 +35,9 @@ public class IncrementScoreMode extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    if (m_Score.getScoreMode()== 1){}
-    
+    if (m_Score.getScoreMode()== 1){ m_LED.setColor(255, 0, 0);}
+    if (m_Score.getScoreMode()== 2){m_LED.setColor(0, 0, 255);}
+    if (m_Score.getScoreMode() == 3){m_LED.setColor(0, 255, 0);}
   }
 
   // Returns true when the command should end.

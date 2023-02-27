@@ -38,9 +38,9 @@ public class Score extends CommandBase {
   public void initialize() {
     scoreMode = m_ScoreMode.getScoreMode();
     // do the led stuff in scoremodeincrement
-    if (scoreMode == 1) {m_Arm.setAngle(Constants.kPivotMotorLowAngle); m_LightEmitingDiode.setColor(255, 0,0);
-    } else if (scoreMode == 2) {m_Arm.setAngle(Constants.kPivotMotorMidAngle); m_LightEmitingDiode.setColor(0,255,0);
-    } else if (scoreMode == 3) {m_Arm.setAngle(Constants.kPivotMotorHighAngle);  m_LightEmitingDiode.setColor(0, 0,255);}
+    if (scoreMode == 1) {m_Arm.setAngle(Constants.kPivotMotorLowAngle); 
+    } else if (scoreMode == 2) {m_Arm.setAngle(Constants.kPivotMotorMidAngle);
+    } else if (scoreMode == 3) {m_Arm.setAngle(Constants.kPivotMotorHighAngle); }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -50,14 +50,14 @@ public class Score extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    if (scoreMode == 1) {m_EndEffector.Score("low"); m_LightEmitingDiode.setColor(255,0,0);
-    } else if (scoreMode == 2) {m_EndEffector.Score("mid"); m_LightEmitingDiode.setColor(0,255,0);
-    } else if (scoreMode == 3) {m_EndEffector.Score("high"); m_LightEmitingDiode.setColor(0,0,255);}
+    if (scoreMode == 1) {m_EndEffector.Score("low");
+    } else if (scoreMode == 2) {m_EndEffector.Score("mid");
+    } else if (scoreMode == 3) {m_EndEffector.Score("high");
     Timer.delay(1);
     //May use start command
     m_EndEffector.stopMotors();
     m_Arm.setAngle(Constants.kPivotMotorLowAngle);
-  }
+  } }
 
   // Returns true when the command should end.
   @Override
