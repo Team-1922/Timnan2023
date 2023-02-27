@@ -4,7 +4,7 @@ package frc.robot.commands;
 // the WPILib BSD license file in the root directory of this project.
 
 
-import frc.robot.subsystems.LightEmitingDiode;
+import frc.robot.subsystems.LightEmittingDiode;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import java.util.Random;
@@ -12,7 +12,7 @@ import java.util.Random;
 /** An example command that uses an example subsystem. */
 public class CollectLedCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final LightEmitingDiode m_ledSubsystem;
+  private final LightEmittingDiode m_ledSubsystem;
 
   private int m_counter;
   private int m_minCount = 100;
@@ -26,7 +26,7 @@ public class CollectLedCommand extends CommandBase {
    *
    * @param ledSubsystem The subsystem used by this command.
    */
-  public CollectLedCommand(LightEmitingDiode ledSubsystem) {
+  public CollectLedCommand(LightEmittingDiode ledSubsystem) {
     m_ledSubsystem = ledSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     // addRequirements(ledSubsystem);

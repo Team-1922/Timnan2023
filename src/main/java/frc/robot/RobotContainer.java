@@ -22,7 +22,7 @@ import frc.robot.subsystems.Arm;
 
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.LightEmitingDiode;
+import frc.robot.subsystems.LightEmittingDiode;
 import edu.wpi.first.cscore.raw.RawSink;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -74,7 +74,7 @@ public class RobotContainer {
   public static Arm m_Arm = new Arm();
   public static ScoreMode m_ScoreMode = new ScoreMode();
   private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
-  private static LightEmitingDiode m_LightEmittingDiode = new LightEmitingDiode();
+  private static LightEmittingDiode m_LightEmittingDiode = new LightEmittingDiode();
   //arm commands
   private final GatherTheCube m_GatherCube = new GatherTheCube(m_Arm, m_EndEffector);
   private final Score m_Score = new Score(m_Arm, m_EndEffector, m_ScoreMode, m_LightEmittingDiode);
@@ -106,7 +106,7 @@ private final LedColors m_LightUpRed = new LedColors(m_LightEmittingDiode, 255,0
 private final LedAnimate m_stopAnimate = new LedAnimate(m_LightEmittingDiode, null);
 
   // tryouts temp commands
-  private final LightEmitingDiode m_ledSubsystem = new LightEmitingDiode();
+  private final LightEmittingDiode m_ledSubsystem = new LightEmittingDiode();
 
 
 

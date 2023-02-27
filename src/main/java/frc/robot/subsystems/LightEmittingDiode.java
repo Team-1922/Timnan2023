@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 
-public class LightEmitingDiode extends SubsystemBase {
+public class LightEmittingDiode extends SubsystemBase {
   private int SCORE_LOW = 1;
   private int SCORE_MED = 2;
   private int SCORE_HIGH = 3;
@@ -47,7 +47,7 @@ public class LightEmitingDiode extends SubsystemBase {
 
   // private Animation m_animation = new RainbowAnimation();
   /** Creates a new LED. */
-  public LightEmitingDiode() {
+  public LightEmittingDiode() {
     // CANdleConfiguration configAll = new CANdleConfiguration();
     // configAll.statusLedOffWhenActive = false;
     // configAll.disableWhenLOS = false;

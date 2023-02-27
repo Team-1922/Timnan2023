@@ -5,14 +5,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.LightEmitingDiode;
+import frc.robot.subsystems.LightEmittingDiode;
 import frc.robot.subsystems.ScoreMode;
 
 public class IncrementScoreMode extends CommandBase {
   /** Creates a new increaseScoreMode. */
   private ScoreMode m_Score;
-  private LightEmitingDiode m_LED;
-  public IncrementScoreMode(ScoreMode Score, LightEmitingDiode LED) {
+  private LightEmittingDiode m_LED;
+  public IncrementScoreMode(ScoreMode Score, LightEmittingDiode LED) {
   
     // Use addRequirements() here to declare subsystem dependencies.
     m_Score = Score;

@@ -5,15 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.LightEmitingDiode;
+import frc.robot.subsystems.LightEmittingDiode;
 
 public class LedColors extends CommandBase {
   /** Creates a new LightUpGreen. */
-  private final LightEmitingDiode m_LED;
+  private final LightEmittingDiode m_LED;
   int m_green;
   int m_blue;
   int m_red;
-  public LedColors(LightEmitingDiode LED, int red, int green, int blue) {
+  public LedColors(LightEmittingDiode LED, int red, int green, int blue) {
    m_LED = LED;
    m_blue = blue;
    m_green = green;

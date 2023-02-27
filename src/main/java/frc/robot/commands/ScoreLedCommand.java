@@ -5,7 +5,7 @@ package frc.robot.commands;
 
 
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.LightEmitingDiode;
+import frc.robot.subsystems.LightEmittingDiode;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import java.util.Random;
@@ -13,7 +13,7 @@ import java.util.Random;
 /** An example command that uses an example subsystem. */
 public class ScoreLedCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final LightEmitingDiode m_ledSubsystem;
+  private final LightEmittingDiode m_ledSubsystem;
 
   private int m_counter;
   private int m_minCount = 100;
@@ -27,7 +27,7 @@ public class ScoreLedCommand extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ScoreLedCommand(LightEmitingDiode ledSubsystem) {
+  public ScoreLedCommand(LightEmittingDiode ledSubsystem) {
     m_ledSubsystem = ledSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     // addRequirements(ledSubsystem);

@@ -8,13 +8,13 @@ import com.ctre.phoenix.led.Animation;
 import com.ctre.phoenix.led.RainbowAnimation;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.LightEmitingDiode;
+import frc.robot.subsystems.LightEmittingDiode;
 
 public class LedAnimate extends CommandBase {
   /** Creates a new LightUpGreen. */
-  private final LightEmitingDiode m_LED;
+  private final LightEmittingDiode m_LED;
   private final Animation m_Animation;
-  public LedAnimate(LightEmitingDiode LED, Animation Animation) {
+  public LedAnimate(LightEmittingDiode LED, Animation Animation) {
    m_LED = LED;
    m_Animation = Animation;
    addRequirements(m_LED);

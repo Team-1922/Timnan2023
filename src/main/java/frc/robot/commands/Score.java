@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.ScoreMode;
 import frc.robot.Constants;
 import frc.robot.subsystems.EndEffector;
-import frc.robot.subsystems.LightEmitingDiode;
+import frc.robot.subsystems.LightEmittingDiode;
 import frc.robot.subsystems.Arm;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -19,9 +19,9 @@ public class Score extends CommandBase {
   private ScoreMode m_ScoreMode;
   private int scoreMode;
   private double finalAngle;
-  private  LightEmitingDiode m_LightEmitingDiode;
+  private  LightEmittingDiode m_LightEmitingDiode;
   /** Creates a new Score. */
-  public Score(Arm pivotArm, EndEffector cubeEffector, ScoreMode score, LightEmitingDiode LED) {
+  public Score(Arm pivotArm, EndEffector cubeEffector, ScoreMode score, LightEmittingDiode LED) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_Arm = pivotArm;
     m_EndEffector = cubeEffector;
