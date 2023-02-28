@@ -8,6 +8,7 @@ import com.ctre.phoenix.led.Animation;
 import com.ctre.phoenix.led.CANdle;
 import com.ctre.phoenix.led.CANdleConfiguration;
 import com.ctre.phoenix.led.RainbowAnimation;
+import com.ctre.phoenix.led.RgbFadeAnimation;
 import com.ctre.phoenix.led.CANdle.LEDStripType;
 import com.ctre.phoenix.led.CANdle.VBatOutputMode;
 
@@ -39,7 +40,8 @@ public class LightEmittingDiode extends SubsystemBase {
  
   
 public void setColor(int red, int green, int blue){
-m_candle.setLEDs(red, green, blue);
+m_candle.setLEDs(red, green, blue,0,0,80);
+
 
 }
 public void LedAnimate(Animation Animation){
@@ -60,9 +62,9 @@ Tinman
                                  /    |    \
                            __/___|___\__
                           |                         |
-                          |     _    | |          |
-                          |    ||\_____|    |
-                          |    \_|_|_|_|     | 
+                          |     _    | |         |
+                          |    ||\_____|   |
+                          |    \_|_|_|_|   | 
                           |                         |
                           |____________|
                         

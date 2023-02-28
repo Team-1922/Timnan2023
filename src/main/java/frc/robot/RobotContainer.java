@@ -39,6 +39,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import com.ctre.phoenix.led.Animation;
 import com.ctre.phoenix.led.RainbowAnimation;
+import com.ctre.phoenix.led.RgbFadeAnimation;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -47,6 +48,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.commands.LedAnimate;
 import frc.robot.commands.LedColors;
+import frc.robot.commands.LedCoolAnimation;
 
 
 /**
@@ -56,8 +58,9 @@ import frc.robot.commands.LedColors;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
- Animation RainbowAnimation = new RainbowAnimation(
+ Animation RainbowAnimation = new RainbowAnimation(1,0.5,80
  );
+ Animation RgbFadeAnimation = new RgbFadeAnimation(1, 0.5, 80);
   // joysticks and xboxcontrollers 
  public final static Joystick LeftJoystick = new Joystick(0);
  public final static Joystick RightJoystick = new Joystick(1);
@@ -109,10 +112,11 @@ public class RobotContainer {
 
   //other commands 
 private final LedAnimate m_Rainbow = new LedAnimate(m_LightEmittingDiode, RainbowAnimation);
+private final LedAnimate m_RGBAnimation = new LedAnimate(m_LightEmittingDiode, RgbFadeAnimation);
 private final LedColors m_Lightoff = new LedColors(m_LightEmittingDiode,0,0,0 );
 private final LedColors m_LightUpRed = new LedColors(m_LightEmittingDiode, 255,0,0);
 private final LedAnimate m_stopAnimate = new LedAnimate(m_LightEmittingDiode, null);
-
+private final LedCoolAnimation m_CoolAnimation = new LedCoolAnimation(m_LightEmittingDiode);
   // tryouts temp commands
   private final LightEmittingDiode m_ledSubsystem = new LightEmittingDiode();
 
@@ -199,7 +203,11 @@ private final LedAnimate m_stopAnimate = new LedAnimate(m_LightEmittingDiode, nu
       .onTrue(m_Lightoff);
       new JoystickButton(RightJoystick, 9)
       .onTrue(m_stopAnimate);
-/* 
+      new JoystickButton(RightJoystick, 8)
+      .onTrue(m_RGBAnimation);
+      new JoystickButton(RightJoystick, 7)
+      .onTrue(m_CoolAnimation);
+      /* 
     new JoystickButton(LeftJoystick, 5)
       .whileTrue(m_TankDrive);*/
 
