@@ -39,20 +39,17 @@ public class Score extends CommandBase {
   public void initialize() {
     timer.start();
     scoreMode = m_ScoreMode.getScoreMode();
-    if (scoreMode == 1) {m_Arm.setAngle(Constants.kPivotMotorLowAngle);
-    } else if (scoreMode == 2) {m_Arm.setAngle(Constants.kPivotMotorMidAngle);
-    } else if (scoreMode == 3) {m_Arm.setAngle(Constants.kPivotMotorHighAngle);}
-    finalAngle = Arm.m_FinalAngle;
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+ 
+    if (scoreMode == 1) {m_Arm.setAngle(Constants.kPivotMotorLowAngle); finalAngle = Constants.kPivotMotorLowAngle;
+    } else if (scoreMode == 2) {m_Arm.setAngle(Constants.kPivotMotorMidAngle); finalAngle = Constants.kPivotMotorMidAngle;
+    } else if (scoreMode == 3) {m_Arm.setAngle(Constants.kPivotMotorHighAngle); finalAngle = Constants.kPivotMotorHighAngle;}
 
-
-       if (scoreMode == 1) {m_EndEffector.Score("low");
-       } else if (scoreMode == 2) {m_EndEffector.Score("mid");
-       } else if (scoreMode == 3) {m_EndEffector.Score("high");}
 
 
     if(Math.abs(finalAngle - m_Arm.getPosition()) <= 3){
@@ -64,6 +61,13 @@ public class Score extends CommandBase {
        SmartDashboard.putString("Arm?", "no");
 
     }
+
+       if (timer.get() >= 1){
+        if (scoreMode == 1) {m_EndEffector.Score("low");
+      } else if (scoreMode == 2) {m_EndEffector.Score("mid");
+      } else if (scoreMode == 3) {m_EndEffector.Score("high");}
+       }
+
 
   }
 
@@ -79,6 +83,6 @@ public class Score extends CommandBase {
   @Override
   public boolean isFinished() {
 
-    return (timer.get() >= 1);
+    return (false);
   }
 }
