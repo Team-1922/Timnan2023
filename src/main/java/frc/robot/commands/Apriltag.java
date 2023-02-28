@@ -8,11 +8,11 @@ import frc.robot.subsystems.vision;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Apriltag extends CommandBase {
-  public vision Camera;
+  public vision m_Camera;
   /** Creates a new Apriltag. */
   public Apriltag(vision LimelightCamera) {
     // Use addRequirements() here to declare subsystem dependencies.
-    Camera = LimelightCamera;
+    m_Camera = LimelightCamera;
 
     addRequirements(LimelightCamera);
   }

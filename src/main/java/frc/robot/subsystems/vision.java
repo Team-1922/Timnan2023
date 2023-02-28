@@ -6,12 +6,17 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import java.util.function.BooleanSupplier;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class vision extends SubsystemBase {
   /** Creates a new vision. */
+  boolean m_CubeSpotted;
+  boolean m_ApriltagSpotted;
   NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   NetworkTableEntry tx = table.getEntry("tx");
   NetworkTableEntry ty = table.getEntry("ty");
@@ -28,8 +33,21 @@ public class vision extends SubsystemBase {
     SmartDashboard.putNumber("LimelightArea", area);
   }
 
+  public boolean detectCube(boolean cubeFound) {
+    cubeFound = false;
+    return cubeFound;
+  }
+
+  public boolean detectApriltag(boolean apriltagFound) {
+    apriltagFound = false;
+    return apriltagFound;
+  }
+
   @Override
   public void periodic() {
+    detectCube(m_CubeSpotted);
+    detectApriltag(m_ApriltagSpotted);
     // This method will be called once per scheduler run
+    //putting a loop here would probably cause multiple problems, so a boolean supplier would work best
   }
 }
