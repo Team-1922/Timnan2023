@@ -4,7 +4,7 @@
 
 package frc.robot.commands;
 
-import frc.robot.RobotContainer;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.Arm;
 import frc.robot.Constants;
@@ -12,13 +12,13 @@ import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class GatherTheCube extends CommandBase {
-  private Arm m_RobotArm;
-  private EndEffector m_CubeHarvester;
+  private Arm m_Arm;
+  private EndEffector m_EndEffector;
   /** Creates a new GatherTheCube. */
   public GatherTheCube(Arm pivotArm, EndEffector cubeEffector) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_RobotArm = pivotArm;
-    m_CubeHarvester = cubeEffector;
+    m_Arm = pivotArm;
+    m_EndEffector = cubeEffector;
 
     addRequirements(pivotArm);
     addRequirements(cubeEffector);
@@ -27,25 +27,31 @@ public class GatherTheCube extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_RobotArm.setNewFF();
+    System.out.println("Initialized");  
+    m_Arm.setAngle(Constants.kPivotMotorGatherAngle);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_RobotArm.setNewFF();
-    m_RobotArm.setAngle(Constants.kPivotMotorGatherAngle);
-    m_CubeHarvester.gatherTheCube();
+    m_EndEffector.gatherTheCube();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    Timer.delay(.2);
+    //May use start command if delay causes problems.
+    m_EndEffector.stopMotors();
+    m_Arm.setAngle(Constants.kPivotMotorLowAngle);
+    Timer.delay(1.2);
+    m_Arm.setAngle(m_Arm.getPosition());
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    m_RobotArm.setAngle(Constants.kPivotMotorStowAngle);
-    return m_CubeHarvester.getHasObject();
+    return false;
+    // return m_EndEffector.hasCube();
   }
 }

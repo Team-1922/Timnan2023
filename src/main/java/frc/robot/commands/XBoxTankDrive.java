@@ -4,31 +4,33 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ScoreMode;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.subsystems.DriveTrainSubsystem;
 
-public class AdjustScoreMode extends CommandBase {
-  /** Creates a new increaseScoreMode. */
-  private ScoreMode m_Score;
-  public AdjustScoreMode(ScoreMode Score) {
+public class XBoxTankDrive extends CommandBase {
+  /** Creates a new XBoxTankDrive. */
+
+  private DriveTrainSubsystem m_driveTrain;
+  private CommandXboxController m_xbox;
+
+  public XBoxTankDrive(DriveTrainSubsystem driveTrain, CommandXboxController xbox) {
+    m_driveTrain = driveTrain;
+    m_xbox = xbox;
     // Use addRequirements() here to declare subsystem dependencies.
-    m_Score = Score;
-    
-    addRequirements(Score);
+    addRequirements(m_driveTrain);
   }
-  public int scoreMode = m_Score.getScoreMode();
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    if (scoreMode == 3) {
-      scoreMode = 1;
-    } else scoreMode++;
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_driveTrain.Drive(-m_xbox.getLeftY()*.35, -m_xbox.getRightY()*.35);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -37,6 +39,6 @@ public class AdjustScoreMode extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

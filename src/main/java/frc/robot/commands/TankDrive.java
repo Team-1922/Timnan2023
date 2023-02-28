@@ -4,7 +4,7 @@
 
 package frc.robot.commands;
 
-import java.util.concurrent.atomic.DoubleAccumulator;
+
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,6 +18,8 @@ public class TankDrive extends CommandBase {
    Joystick RightJoystick;
    double m_LeftDeadZoneOnOff;
    double m_RightDeadZoneOnOff;
+   double deadzone;
+   
   /** Creates a new TankDrive. */
   public TankDrive(DriveTrainSubsystem m_driveTrain, Joystick m_LeftJoystick, Joystick m_RightJoystick
 
@@ -35,27 +37,23 @@ public class TankDrive extends CommandBase {
   public void initialize() {
 
 
-
-
-
+deadzone = SmartDashboard.getNumber("Deadzone", 0.125);
+ 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     
-    if ( Math.abs(LeftJoystick.getY()) < 0.125 && Math.abs(LeftJoystick.getY()) > -0.125 ) {
+    if ( Math.abs(LeftJoystick.getY()) < deadzone) {
      m_LeftDeadZoneOnOff= 0;
     } else {m_LeftDeadZoneOnOff = 1;}
    
-    if ( Math.abs(RightJoystick.getY()) < 0.125 && Math.abs(RightJoystick.getY()) > -0.125 ) {
+    if ( Math.abs(RightJoystick.getY()) < deadzone) {
       m_RightDeadZoneOnOff= 0;
      } else {m_RightDeadZoneOnOff = 1;}
-  SmartDashboard.putNumber("leftjoystick", LeftJoystick.getY());
-  SmartDashboard.putNumber("Rightjoystick", RightJoystick.getRawAxis(1));
-
     //Something isnt connecting here -- look into why no get input
-   m_DriveTrainSubsystem.Drive( LeftJoystick.getRawAxis(1)*m_LeftDeadZoneOnOff,  RightJoystick.getRawAxis(1)*m_RightDeadZoneOnOff);
+   m_DriveTrainSubsystem.Drive( -LeftJoystick.getY()*.5*m_LeftDeadZoneOnOff,  -RightJoystick.getY()*.5*m_RightDeadZoneOnOff);
    //change the number after the * to adjust the output or whatever 
   }
 
