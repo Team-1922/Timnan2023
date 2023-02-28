@@ -47,8 +47,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.commands.LedAnimate;
 import frc.robot.commands.LedColors;
-import frc.robot.commands.ScoreLedCommand;
-import frc.robot.commands.CollectLedCommand;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a

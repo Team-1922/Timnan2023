@@ -26,5 +26,5 @@
     },
   ],
   "java.test.defaultConfig": "WPIlibUnitTests",
-  "editor.fontFamily": "Consolas, 'Courier New', monospace"
+  "editor.fontFamily": "comic sans ms,Consolas, 'Courier New', monospace"
 }
