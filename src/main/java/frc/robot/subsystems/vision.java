@@ -16,7 +16,8 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 public class vision extends SubsystemBase {
   /** Creates a new vision. */
   boolean m_CubeSpotted;
-  boolean m_ApriltagSpotted;
+  boolean m_ApriltagFound;
+  double m_ApriltagDistance;
   NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   NetworkTableEntry tx = table.getEntry("tx");
   NetworkTableEntry ty = table.getEntry("ty");
@@ -38,15 +39,16 @@ public class vision extends SubsystemBase {
     return cubeFound;
   }
 
-  public boolean detectApriltag(boolean apriltagFound) {
-    apriltagFound = false;
-    return apriltagFound;
+  public double detectApriltag(double apriltagDist) {
+    m_ApriltagFound = false;
+    apriltagDist = 999;
+    return apriltagDist;
   }
 
   @Override
   public void periodic() {
     detectCube(m_CubeSpotted);
-    detectApriltag(m_ApriltagSpotted);
+    detectApriltag(m_ApriltagDistance);
     // This method will be called once per scheduler run
     //putting a loop here would probably cause multiple problems, so a boolean supplier would work best
   }
