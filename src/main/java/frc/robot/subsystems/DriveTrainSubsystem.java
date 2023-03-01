@@ -264,7 +264,17 @@ public void periodic()   {
     //m_Field2d.setRobotPose(getRobotPose().relativeTo(SpotOne));
     m_Field2d.setRobotPose(getRobotPose());
 
+    SmartDashboard.putNumber("LeftVelocity", m_leftEncoder.getVelocity());
+
+    SmartDashboard.putNumber("PID Timer", m_Timer.get());
 timedpid();
+
+  
+   //TEMP
+   SmartDashboard.putNumber("RobotYaw", m_pigeon.getYaw() % 360);
+   SmartDashboard.putNumber("RobotPitch", m_pigeon.getRoll());
+
+   SmartDashboard.putNumber("EncoderLeft", m_leftEncoder.getPosition());
 
   }
 
@@ -281,6 +291,10 @@ timedpid();
   }
 
 
+  public boolean balanceTimer(double seconds){
+    SmartDashboard.putNumber("Balance timer", balanceTimer.get());
+    return balanceTimer.get() >= seconds;
+  }
 
   public void startBalance(){
     balanceTimer.start();

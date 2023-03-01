@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.ScoreMode;
 import frc.robot.Constants;
 import frc.robot.subsystems.EndEffector;
+import frc.robot.subsystems.LightEmittingDiode;
 import frc.robot.subsystems.Arm;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -19,19 +20,21 @@ public class Score extends CommandBase {
   private ScoreMode m_ScoreMode;
   private int scoreMode;
   private double finalAngle;
+  private  LightEmittingDiode m_LightEmitingDiode;
 
   private Timer timer =new Timer();
   
   /** Creates a new Score. */
-  public Score(Arm pivotArm, EndEffector cubeEffector, ScoreMode score) {
+  public Score(Arm pivotArm, EndEffector cubeEffector, ScoreMode score, LightEmittingDiode LED) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_Arm = pivotArm;
     m_EndEffector = cubeEffector;
     m_ScoreMode = score;
-    
+    m_LightEmitingDiode = LED;
     addRequirements(pivotArm);
     addRequirements(cubeEffector);
     addRequirements(score);
+    addRequirements(LED);
   }
   
   // Called when the command is initially scheduled.
@@ -39,7 +42,6 @@ public class Score extends CommandBase {
   public void initialize() {
     timer.start();
     scoreMode = m_ScoreMode.getScoreMode();
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -74,10 +76,9 @@ public class Score extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
     m_EndEffector.stopMotors();
     m_Arm.setAngle(Constants.kPivotMotorLowAngle);
-  }
+  } 
 
   // Returns true when the command should end.
   @Override
