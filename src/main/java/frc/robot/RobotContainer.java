@@ -68,10 +68,10 @@ public class RobotContainer {
  );
  Animation RgbFadeAnimation = new RgbFadeAnimation(1, 0.5, 80);
  Animation FireAnimation = new FireAnimation(1, 1, 8, 1, 0.1); // fire doesn't work atm, test it at another date
- Animation StrobeAnimation = new com.ctre.phoenix.led.StrobeAnimation(255, 0, 0, 0, 0.7, 8) ;
- Animation ColorFlowAnimation = new ColorFlowAnimation(255, 255, 0, 0, 0.1, 8, Direction.Backward);
- Animation TwinkleAnimation = new com.ctre.phoenix.led.TwinkleAnimation(255, 0, 0, 0, 0, 8, TwinklePercent.Percent42);
- Animation SingleFadeAnimation = new com.ctre.phoenix.led.SingleFadeAnimation(255, 255, 0, 0, 0.3, 8);
+ Animation StrobeAnimation = new com.ctre.phoenix.led.StrobeAnimation(255, 0, 0, 0, 0.1, 60) ;
+ Animation ColorFlowAnimation = new ColorFlowAnimation(255, 255, 0, 0, 0.1, 60, Direction.Backward);
+ Animation TwinkleAnimation = new com.ctre.phoenix.led.TwinkleAnimation(255, 0, 0, 0, 0, 60, TwinklePercent.Percent42);
+ Animation SingleFadeAnimation = new com.ctre.phoenix.led.SingleFadeAnimation(255, 255, 0, 0, 0.3, 60);
  // joysticks and xboxcontrollers 
  public final static Joystick LeftJoystick = new Joystick(0);
  public final static Joystick RightJoystick = new Joystick(1);
