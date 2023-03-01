@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LightEmittingDiode;
 
 public class LedCoolAnimation extends CommandBase {
-  Animation m_animationOne = new LarsonAnimation(255, 255, 0, 0, 0,4, BounceMode.Back, 1, 0);
-  Animation m_animationTwo = new LarsonAnimation(255,255, 0, 0, 0, 4, BounceMode.Back, 1, 4);
+  Animation m_animationOne = new LarsonAnimation(255, 255, 0, 0, 0,35, BounceMode.Back, 1, 0);
+  Animation m_animationTwo = new LarsonAnimation(255,255, 0, 0, 0, 35, BounceMode.Back, 1, 35);
   LightEmittingDiode m_LED = new LightEmittingDiode();
   /** Creates a new LedCoolAnimation. */
   public LedCoolAnimation(LightEmittingDiode LED) {
