@@ -180,76 +180,6 @@ m_pidControllerRight.setReference(rightRPM, CANSparkMax.ControlType.kVelocity);
 Drive( RobotContainer.LeftJoystick.getY()*MaxVelocity*OutputScale, RobotContainer.RightJoystick.getY()*MaxVelocity*OutputScale); */
 
 }
-public void timedpid( )    {
-if (m_Timer.hasElapsed(5)){
-
-  //left pid
-  if (p != SmartDashboard.getNumber("left p gain", 6e-5)){ 
-  p = SmartDashboard.getNumber("left p gain", 6e-5);
-   m_pidControllerLeft.setP(p);
-}
-  if (i != SmartDashboard.getNumber("left i gain", 0)) { 
-   i = SmartDashboard.getNumber("left i gain", 0); 
-   m_pidControllerLeft.setI(i); }
-
-  if (d != SmartDashboard.getNumber("left d gain", 0)){ 
-   d = SmartDashboard.getNumber("left d gain", 0);
-   m_pidControllerLeft.setD(d);}
-
-  if (ff != SmartDashboard.getNumber("left feed foward", 0.000015)) {
-    ff = SmartDashboard.getNumber("left feed foward", 0.000015);
-    m_pidControllerLeft.setFF(ff); } 
-
-   if (iz != SmartDashboard.getNumber("left i zone", 0)) {
-    iz = SmartDashboard.getNumber("left i zone", 0);
-    m_pidControllerLeft.setIZone(iz);}
-
-  if (minoutput != SmartDashboard.getNumber("left min output", -1)){
-    minoutput = SmartDashboard.getNumber("left min output", -1);
-    m_pidControllerLeft.setOutputRange(minoutput, maxoutput);}
-
-  if (maxoutput != SmartDashboard.getNumber("left max output", 1)){
-    maxoutput = SmartDashboard.getNumber("left max output", 1);
-    m_pidControllerLeft.setOutputRange(minoutput, maxoutput);}
-
-  if (Maxrpm != SmartDashboard.getNumber("left max rpm", 5700)) {
-    Maxrpm = SmartDashboard.getNumber("left max rpm", 5700);}
-
-
-//right pid 
-  if (rightp != SmartDashboard.getNumber("right p gain", 6e-5)){
-    rightp = SmartDashboard.getNumber("right p gain", 6e-5);  
-    m_pidControllerRight.setP(rightp);}
-  
-  if (righti != SmartDashboard.getNumber("right i gain", 0)) {
-    righti = SmartDashboard.getNumber("right i gain", 0);
-    m_pidControllerRight.setI(righti);}
-  
-  if (rightd != SmartDashboard.getNumber("right d gain", 0)) {
-    rightd = SmartDashboard.getNumber("right d gain", 0);
-    m_pidControllerRight.setD(rightd);}
-  
-  if (rightff != SmartDashboard.getNumber("right feed foward", 0.000015)){
-    rightff = SmartDashboard.getNumber("right feed foward", 0.000015);
-    m_pidControllerRight.setFF(rightff);}
-  
-  if (rightiz != SmartDashboard.getNumber("right i zone", 0)){
-    rightiz = SmartDashboard.getNumber("right i zone", 0);
-    m_pidControllerRight.setIZone(rightiz);}
-  
-  if (rightmaxoutput != SmartDashboard.getNumber("right max output", 1)) {
-    rightmaxoutput = SmartDashboard.getNumber("right max output", 1);
-    m_pidControllerRight.setOutputRange(rightminoutput, rightmaxoutput);}
-  
-  if (rightminoutput != SmartDashboard.getNumber("right min output", -1)) {
-    krightMinOutput = SmartDashboard.getNumber("right min output", -1);
-    m_pidControllerRight.setOutputRange(rightminoutput, rightmaxoutput);}
-
-  if (rightmaxrpm != SmartDashboard.getNumber("right max rpm",5700 )) {
-    rightmaxrpm = SmartDashboard.getNumber("right max rpm", 5700);}
-
-m_Timer.reset();}
-};
 
 @Override
 public void periodic()   {
@@ -267,7 +197,7 @@ public void periodic()   {
     SmartDashboard.putNumber("LeftVelocity", m_leftEncoder.getVelocity());
 
     SmartDashboard.putNumber("PID Timer", m_Timer.get());
-timedpid();
+
 
   
    //TEMP
