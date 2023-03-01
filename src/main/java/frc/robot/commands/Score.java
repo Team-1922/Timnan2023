@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.ScoreMode;
 import frc.robot.Constants;
 import frc.robot.subsystems.EndEffector;
@@ -20,6 +21,9 @@ public class Score extends CommandBase {
   private int scoreMode;
   private double finalAngle;
   private  LightEmittingDiode m_LightEmitingDiode;
+
+  private Timer timer =new Timer();
+  
   /** Creates a new Score. */
   public Score(Arm pivotArm, EndEffector cubeEffector, ScoreMode score, LightEmittingDiode LED) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -36,34 +40,50 @@ public class Score extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    timer.start();
     scoreMode = m_ScoreMode.getScoreMode();
-    // do the led stuff in scoremodeincrement
-    if (scoreMode == 1) {m_Arm.setAngle(Constants.kPivotMotorLowAngle); 
-    } else if (scoreMode == 2) {m_Arm.setAngle(Constants.kPivotMotorMidAngle);
-    } else if (scoreMode == 3) {m_Arm.setAngle(Constants.kPivotMotorHighAngle); }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+ 
+    if (scoreMode == 1) {m_Arm.setAngle(Constants.kPivotMotorLowAngle); finalAngle = Constants.kPivotMotorLowAngle;
+    } else if (scoreMode == 2) {m_Arm.setAngle(Constants.kPivotMotorMidAngle); finalAngle = Constants.kPivotMotorMidAngle;
+    } else if (scoreMode == 3) {m_Arm.setAngle(Constants.kPivotMotorHighAngle); finalAngle = Constants.kPivotMotorHighAngle;}
+
+
+
+    if(Math.abs(finalAngle - m_Arm.getPosition()) <= 3){
+       timer.start();
+       SmartDashboard.putString("Arm?", "Yes");
+
+    } else {
+       timer.reset();
+       SmartDashboard.putString("Arm?", "no");
+
+    }
+
+       if (timer.get() >= 1){
+        if (scoreMode == 1) {m_EndEffector.Score("low");
+      } else if (scoreMode == 2) {m_EndEffector.Score("mid");
+      } else if (scoreMode == 3) {m_EndEffector.Score("high");}
+       }
+
+
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    if (scoreMode == 1) {m_EndEffector.Score("low");
-    } else if (scoreMode == 2) {m_EndEffector.Score("mid");
-    } else if (scoreMode == 3) {m_EndEffector.Score("high");
-    Timer.delay(1);
-    //May use start command
     m_EndEffector.stopMotors();
     m_Arm.setAngle(Constants.kPivotMotorLowAngle);
-  } }
+  } 
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    Timer.delay(.2);
-    finalAngle = Arm.m_FinalAngle;
-    return (Math.abs(finalAngle - m_Arm.getPosition()) <= 3);
+
+    return (false);
   }
 }

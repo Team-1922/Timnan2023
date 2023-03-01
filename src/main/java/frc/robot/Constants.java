@@ -32,8 +32,10 @@ public final class Constants {
     public static final double kIOMotorHighPower = 5.8;
     public static final double kIOMotorMaxPower = 12;
     public static final double kIOBottomToTopVoltageConversion = 1.02;
-    public static final double kZeroOffset = 790;
-    public static final double kPivotMotorGatherAngle = 560; // 528
+
+    public static final double kZeroOffset = 797;
+    public static final double kPivotMotorGatherAngle = 588; // 528
+
     public static final double kPivotMotorLowAngle = 100;
     public static final double kPivotMotorMidAngle = 130;
     public static final double kPivotMotorHighAngle = 155;
@@ -67,4 +69,5 @@ public final class Constants {
     public static final double metersPerSecondToRPM = .0019304;
     public static final int kLedCount = 8;
     public static final int kCandleId = 10;
+ // }
 }

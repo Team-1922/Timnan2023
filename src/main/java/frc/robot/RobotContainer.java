@@ -46,6 +46,7 @@ import com.ctre.phoenix.led.RainbowAnimation;
 import com.ctre.phoenix.led.RgbFadeAnimation;
 import com.ctre.phoenix.led.ColorFlowAnimation.Direction;
 import com.ctre.phoenix.led.TwinkleAnimation.TwinklePercent;
+import com.ctre.phoenix.led.RainbowAnimation;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -55,7 +56,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.LedAnimate;
 import frc.robot.commands.LedColors;
 import frc.robot.commands.LedCoolAnimation;
-
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -201,6 +201,7 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
       .onTrue(m_trajectoryDriveTest);
    // m_driverController.rightBumper().onTrue(m_ScoreModeIncrement);
     //m_driverController.leftTrigger().whileTrue(m_GatherCube);
+    
     //m_driverController.rightTrigger().whileTrue(m_Score);
     new JoystickButton(RightJoystick, 2).whileTrue(m_GatherCube); //Need to find the button number for the trigger
 
