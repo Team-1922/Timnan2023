@@ -154,6 +154,7 @@ private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsyste
       .onTrue(m_trajectoryDriveTest);
    // m_driverController.rightBumper().onTrue(m_ScoreModeIncrement);
     //m_driverController.leftTrigger().whileTrue(m_GatherCube);
+    
     //m_driverController.rightTrigger().whileTrue(m_Score);
     new JoystickButton(RightJoystick, 2).whileTrue(m_GatherCube); //Need to find the button number for the trigger
 
