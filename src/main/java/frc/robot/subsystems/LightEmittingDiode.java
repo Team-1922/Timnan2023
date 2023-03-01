@@ -40,7 +40,7 @@ public class LightEmittingDiode extends SubsystemBase {
  
   
 public void setColor(int red, int green, int blue){
-m_candle.setLEDs(red, green, blue,0,0,80);
+m_candle.setLEDs(red, green, blue,0,0,108);
 
 
 }

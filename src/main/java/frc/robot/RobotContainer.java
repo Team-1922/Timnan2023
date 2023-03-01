@@ -64,14 +64,14 @@ import frc.robot.commands.LedCoolAnimation;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
- Animation RainbowAnimation = new RainbowAnimation(1,0.5,80
+ Animation RainbowAnimation = new RainbowAnimation(1,0.5,108
  );
- Animation RgbFadeAnimation = new RgbFadeAnimation(1, 0.5, 80);
- Animation FireAnimation = new FireAnimation(1, 1, 8, 1, 0.1); // fire doesn't work atm, test it at another date
- Animation StrobeAnimation = new com.ctre.phoenix.led.StrobeAnimation(255, 0, 0, 0, 0.1, 60) ;
- Animation ColorFlowAnimation = new ColorFlowAnimation(255, 255, 0, 0, 0.1, 60, Direction.Backward);
- Animation TwinkleAnimation = new com.ctre.phoenix.led.TwinkleAnimation(255, 0, 0, 0, 0, 60, TwinklePercent.Percent42);
- Animation SingleFadeAnimation = new com.ctre.phoenix.led.SingleFadeAnimation(255, 255, 0, 0, 0.3, 60);
+ Animation RgbFadeAnimation = new RgbFadeAnimation(1, 0.5, 108);
+ Animation FireAnimation = new FireAnimation(1, 1,108 , 1, 0); // fire doesn't work atm, test it at another date
+ Animation StrobeAnimation = new com.ctre.phoenix.led.StrobeAnimation(255, 0, 0, 0, 0.1, 108) ;
+ Animation ColorFlowAnimation = new ColorFlowAnimation(255, 255, 0, 0, 0.1, 108, Direction.Backward);
+ Animation TwinkleAnimation = new com.ctre.phoenix.led.TwinkleAnimation(255, 0, 0, 0, 0, 108, TwinklePercent.Percent42);
+ Animation SingleFadeAnimation = new com.ctre.phoenix.led.SingleFadeAnimation(255, 255, 0, 0, 0.3, 100);
  // joysticks and xboxcontrollers 
  public final static Joystick LeftJoystick = new Joystick(0);
  public final static Joystick RightJoystick = new Joystick(1);
@@ -216,7 +216,8 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
        .onTrue(m_SingleFadeAnimation);
        new JoystickButton(LeftJoystick, 8)
        .onTrue(m_AmericaAnimation);
-
+       new JoystickButton(LeftJoystick, 7)
+       .onTrue(m_FireAnimation); 
   }
 
 
