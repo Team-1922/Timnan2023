@@ -52,6 +52,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   private AHRS m_navX;
   private DifferentialDriveOdometry m_odometry;
+
+  boolean isFlipped = false;
+
   private Pose2d SpotOne;
   double p=6e-5;
    double i=0;
@@ -172,13 +175,33 @@ public void velocityDrive(double LeftRPM, double rightRPM){
 m_pidControllerLeft.setReference(LeftRPM, CANSparkMax.ControlType.kVelocity);
 m_pidControllerRight.setReference(rightRPM, CANSparkMax.ControlType.kVelocity);
 
+}
+
+public void flipDrive(double left, double right, boolean flipped){
+
+  if(flipped == false){
+    m_leftLead.set(left);
+    m_rightLead.set(right);
+  } else {
+    m_leftLead.set(-right);
+    m_rightLead.set(-left);
+  }
 
 
+}
 
- /* double MaxVelocity = 250; // the max velocity of the motor , test this when the drivebase is done
- double OutputScale = .9 ; //scale the output 
-Drive( RobotContainer.LeftJoystick.getY()*MaxVelocity*OutputScale, RobotContainer.RightJoystick.getY()*MaxVelocity*OutputScale); */
+public void toggleFlipped(){
+  if(isFlipped == true){
+    isFlipped = false;
+  } else if(isFlipped == false){
+    isFlipped = true;
+  }
+}
 
+
+public boolean getFlipped(){
+  return isFlipped;
+  
 }
 
 @Override

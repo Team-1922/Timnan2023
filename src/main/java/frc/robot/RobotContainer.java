@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.commands.TestArm;
+import frc.robot.commands.ToggleFlip;
 import frc.robot.subsystems.ScoreMode;
 import frc.robot.Constants;
 import frc.robot.commands.IncrementScoreMode;
@@ -15,6 +16,7 @@ import frc.robot.commands.AutoStraight;
 import frc.robot.commands.AutoStraightBack;
 import frc.robot.commands.Autos;
 import frc.robot.commands.DriveStraight;
+import frc.robot.commands.FlipTankDrive;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.TrajectoryDrive;
 import frc.robot.commands.XBoxTankDrive;
@@ -39,6 +41,9 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+
+import javax.swing.plaf.basic.BasicBorders.ToggleButtonBorder;
+
 import com.ctre.phoenix.led.Animation;
 import com.ctre.phoenix.led.ColorFlowAnimation;
 import com.ctre.phoenix.led.FireAnimation;
@@ -113,6 +118,8 @@ public class RobotContainer {
   private final TankDrive m_TankDrive = new TankDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick);
   private final XBoxTankDrive m_xBoxTankDrive = new XBoxTankDrive(m_DriveTrainSubsystem, m_driverController);
   private final DriveStraight m_DriveStraight = new DriveStraight(m_DriveTrainSubsystem, LeftJoystick);
+  private final FlipTankDrive m_flipDrive = new FlipTankDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick);
+    private final ToggleFlip m_toggleFlip = new ToggleFlip(m_DriveTrainSubsystem);
   
 
   //other commands 
@@ -143,7 +150,7 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
   public RobotContainer() {
 
 
-    m_DriveTrainSubsystem.setDefaultCommand(m_TankDrive);
+    m_DriveTrainSubsystem.setDefaultCommand(m_flipDrive);
     // Configure the trigger bindings
     configureBindings();
 
@@ -184,6 +191,8 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
     
     // Left Trigger
     new JoystickButton(LeftJoystick, 1).whileTrue(m_DriveStraight);
+    // Right Trigger
+    new JoystickButton(RightJoystick, 1).onTrue(m_toggleFlip);
 
 
 

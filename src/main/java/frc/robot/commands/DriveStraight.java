@@ -39,8 +39,9 @@ public class DriveStraight extends CommandBase {
     
 if (m_LeftJoystick.getY() > deadzone || m_LeftJoystick.getY() < deadzone){
     m_DriveTrainSubsystem.velocityDrive(
-      Math.pow(-m_LeftJoystick.getY(), 3) * Maxrpm,
-      Math.pow(-m_LeftJoystick.getY(), 3) * Maxrpm);}
+      (-m_LeftJoystick.getY() * Maxrpm),
+      (-m_LeftJoystick.getY() * Maxrpm));
+    }
 
   }
 
