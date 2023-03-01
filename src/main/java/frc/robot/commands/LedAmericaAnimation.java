@@ -17,9 +17,9 @@ public class LedAmericaAnimation extends CommandBase {
   /** Creates a new LightUpGreen. */
   private final LightEmittingDiode m_LED;
   
-  Animation m_PartOne = new SingleFadeAnimation(255,0,0,0,0.3,60);
-  Animation m_PartTwo = new SingleFadeAnimation(255,255,255,255,0.25,60);
-  Animation m_PartThree = new SingleFadeAnimation(0,0,255,0, 0.25,60);
+  Animation m_PartOne = new SingleFadeAnimation(255,0,0,0,0.3,160);
+  Animation m_PartTwo = new SingleFadeAnimation(255,255,255,255,0.25,160);
+  Animation m_PartThree = new SingleFadeAnimation(0,0,255,0, 0.25,160);
   Timer m_LedTImer = new Timer();
   public LedAmericaAnimation(LightEmittingDiode LED) {
    m_LED = LED;
