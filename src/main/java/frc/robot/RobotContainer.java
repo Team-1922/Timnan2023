@@ -8,6 +8,7 @@ import frc.robot.commands.TestArm;
 import frc.robot.subsystems.ScoreMode;
 import frc.robot.Constants;
 import frc.robot.commands.IncrementScoreMode;
+import frc.robot.commands.LedAmericaAnimation;
 import frc.robot.commands.AnimateStop;
 import frc.robot.commands.AutoBalance;
 import frc.robot.commands.AutoStraight;
@@ -67,7 +68,7 @@ public class RobotContainer {
  );
  Animation RgbFadeAnimation = new RgbFadeAnimation(1, 0.5, 80);
  Animation FireAnimation = new FireAnimation(1, 1, 8, 0.2, 0.1); // fire doesn't work atm, test it at another date
- Animation StrobeAnimation = new com.ctre.phoenix.led.StrobeAnimation(255, 255, 0, 0, 0.8, 8) ;
+ Animation StrobeAnimation = new com.ctre.phoenix.led.StrobeAnimation(255, 0, 0, 0, 0.7, 8) ;
  Animation ColorFlowAnimation = new ColorFlowAnimation(255, 255, 0, 0, 0.1, 8, Direction.Backward);
  Animation TwinkleAnimation = new com.ctre.phoenix.led.TwinkleAnimation(255, 0, 0, 0, 0, 8, TwinklePercent.Percent42);
  Animation SingleFadeAnimation = new com.ctre.phoenix.led.SingleFadeAnimation(255, 255, 0, 0, 0.3, 8);
@@ -133,7 +134,7 @@ private final LedAnimate m_StrobeAnimation = new LedAnimate(m_LightEmittingDiode
 private final LedAnimate m_ColorFlowAnimation = new LedAnimate(m_LightEmittingDiode, ColorFlowAnimation, 0);  
 private final LedAnimate m_TwinkleAnimation = new LedAnimate(m_LightEmittingDiode, TwinkleAnimation, 0);
 private final LedAnimate m_SingleFadeAnimation = new LedAnimate(m_LightEmittingDiode, SingleFadeAnimation, 0);
-
+private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m_LightEmittingDiode);
 
 //tryouts temp commands
   private final LightEmittingDiode m_ledSubsystem = new LightEmittingDiode();
@@ -236,6 +237,8 @@ private final LedAnimate m_SingleFadeAnimation = new LedAnimate(m_LightEmittingD
        .onTrue(m_TwinkleAnimation);
        new JoystickButton(LeftJoystick, 9)
        .onTrue(m_SingleFadeAnimation);
+       new JoystickButton(LeftJoystick, 8)
+       .onTrue(m_AmericaAnimation);
       /* 
     new JoystickButton(LeftJoystick, 5)
       .whileTrue(m_TankDrive);*/
