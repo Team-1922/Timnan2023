@@ -72,25 +72,22 @@ public class RobotContainer {
  Animation ColorFlowAnimation = new ColorFlowAnimation(255, 255, 0, 0, 0.1, 8, Direction.Backward);
  Animation TwinkleAnimation = new com.ctre.phoenix.led.TwinkleAnimation(255, 0, 0, 0, 0, 8, TwinklePercent.Percent42);
  Animation SingleFadeAnimation = new com.ctre.phoenix.led.SingleFadeAnimation(255, 255, 0, 0, 0.3, 8);
+
  // joysticks and xboxcontrollers 
  public final static Joystick LeftJoystick = new Joystick(0);
  public final static Joystick RightJoystick = new Joystick(1);
 
-
- 
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(Constants.kDriverControllerPort);
+ private final CommandXboxController m_driverController = new CommandXboxController(Constants.kDriverControllerPort);
 
 
 
-  private final AHRS m_navX = new AHRS(SPI.Port.kMXP);
+  private static final AHRS m_navX = new AHRS(SPI.Port.kMXP);
 
 // Subsystems, put them here or code might not work 
   public static EndEffector m_EndEffector = new EndEffector();
   public static Arm m_Arm = new Arm();
   public static ScoreMode m_ScoreMode = new ScoreMode();
-  private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
+  public static DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
   private static LightEmittingDiode m_LightEmittingDiode = new LightEmittingDiode();
   //arm commands
   private final GatherTheCube m_GatherCube = new GatherTheCube(m_Arm, m_EndEffector);
@@ -110,8 +107,6 @@ public class RobotContainer {
     private final TrajectoryDrive m_trajectoryDriveTest = new TrajectoryDrive(m_DriveTrainSubsystem, new Translation2d(1.5, 0), new Translation2d(1.5, 2), new Translation2d(-.2, 2), new Pose2d(new Translation2d(0, 2), Rotation2d.fromDegrees(180)));
 
 
-        // Auto Command Groups
-        private final SequentialCommandGroup m_autoStraightGroup = new SequentialCommandGroup(m_autoStraight, m_autoStraightBack, m_autoBalance2);
 
 
 
@@ -172,49 +167,31 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
    * joysticks}.
    */
   private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
-    //m_driverController.rightBumper().onTrue(m_ScoreModeIncrement);
-    //m_driverController.leftTrigger().onTrue(m_GatherCube);
-    //m_driverController.rightTrigger().onTrue(m_Score);
 
-    m_driverController.a().onTrue(m_trajectoryDriveTest);
-    m_driverController.b().onTrue(m_autoBalance);
 
-    m_driverController.axisGreaterThan(2, .5).whileTrue(m_DriveStraight);
+    //                       *** OPERATOR CONTROLS ***
+
+    // X Button
+    m_driverController.x().onTrue(m_ScoreModeIncrement);
+    // Left Bumper
+    m_driverController.button(5).whileTrue(m_GatherCube);
+    // RightBumper
+    m_driverController.button(6).whileTrue(m_Score);
+
+
+
+    //                       *** DRIVER CONTROLS ***
     
+    // Left Trigger
+    new JoystickButton(LeftJoystick, 1).whileTrue(m_DriveStraight);
 
 
 
-    new JoystickButton(LeftJoystick, 1)
-      .whileTrue(m_DriveStraight);
 
-    new JoystickButton(LeftJoystick, 3)
-      .onTrue(m_autoStraightGroup);
- 
-    new JoystickButton(LeftJoystick, 5)
-      .onTrue(m_autoBalance);
 
-    new JoystickButton(LeftJoystick, 6)
-      .onTrue(m_trajectoryDriveTest);
-   // m_driverController.rightBumper().onTrue(m_ScoreModeIncrement);
-    //m_driverController.leftTrigger().whileTrue(m_GatherCube);
-    
-    //m_driverController.rightTrigger().whileTrue(m_Score);
-    new JoystickButton(RightJoystick, 2).whileTrue(m_GatherCube); //Need to find the button number for the trigger
-
-    new JoystickButton(RightJoystick, 4).whileTrue(m_Score);
-
-    new JoystickButton(RightJoystick, 3).onTrue(m_ScoreModeIncrement);
-
-    new JoystickButton(LeftJoystick, 4).whileTrue(m_TestArm);
-    //new JoystickButton(LeftJoystick, 1)
-      //.whileTrue(m_DriveStraight);
-    //new JoystickButton(LeftJoystick, 5)
-      //.whileTrue(m_TankDrive);
-    
+      
+    //                       *** LED CONTROLS ***
 
       //LED buttons
       new JoystickButton(RightJoystick, 12)
@@ -240,11 +217,6 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
        .onTrue(m_SingleFadeAnimation);
        new JoystickButton(LeftJoystick, 8)
        .onTrue(m_AmericaAnimation);
-      /* 
-    new JoystickButton(LeftJoystick, 5)
-      .whileTrue(m_TankDrive);*/
-
-
 
   }
 
@@ -256,6 +228,7 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(null);
-  }
+    return Autos.m_autoStraightGroup;
+}
+
 }

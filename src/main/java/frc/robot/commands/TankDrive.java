@@ -52,9 +52,10 @@ deadzone = 0.125;
     if ( Math.abs(RightJoystick.getY()) < deadzone) {
       m_RightDeadZoneOnOff= 0;
      } else {m_RightDeadZoneOnOff = 1;}
-    //Something isnt connecting here -- look into why no get input
-   m_DriveTrainSubsystem.Drive( -LeftJoystick.getY()*.5*m_LeftDeadZoneOnOff,  -RightJoystick.getY()*.5*m_RightDeadZoneOnOff);
-   //change the number after the * to adjust the output or whatever 
+
+     
+   m_DriveTrainSubsystem.Drive( Math.pow(-LeftJoystick.getY()*.5, 3)*m_LeftDeadZoneOnOff,  Math.pow(-RightJoystick.getY()*.5, 3)*m_RightDeadZoneOnOff);
+
   }
 
   // Called once the command ends or is interrupted.
