@@ -67,7 +67,7 @@ public class RobotContainer {
  Animation RainbowAnimation = new RainbowAnimation(1,0.5,80
  );
  Animation RgbFadeAnimation = new RgbFadeAnimation(1, 0.5, 80);
- Animation FireAnimation = new FireAnimation(1, 1, 8, 0.2, 0.1); // fire doesn't work atm, test it at another date
+ Animation FireAnimation = new FireAnimation(1, 1, 8, 1, 0.1); // fire doesn't work atm, test it at another date
  Animation StrobeAnimation = new com.ctre.phoenix.led.StrobeAnimation(255, 0, 0, 0, 0.7, 8) ;
  Animation ColorFlowAnimation = new ColorFlowAnimation(255, 255, 0, 0, 0.1, 8, Direction.Backward);
  Animation TwinkleAnimation = new com.ctre.phoenix.led.TwinkleAnimation(255, 0, 0, 0, 0, 8, TwinklePercent.Percent42);
