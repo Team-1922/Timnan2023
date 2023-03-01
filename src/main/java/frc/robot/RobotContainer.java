@@ -8,6 +8,7 @@ import frc.robot.commands.TestArm;
 import frc.robot.subsystems.ScoreMode;
 import frc.robot.Constants;
 import frc.robot.commands.IncrementScoreMode;
+import frc.robot.commands.AnimateStop;
 import frc.robot.commands.AutoBalance;
 import frc.robot.commands.AutoStraight;
 import frc.robot.commands.AutoStraightBack;
@@ -38,8 +39,12 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import com.ctre.phoenix.led.Animation;
+import com.ctre.phoenix.led.ColorFlowAnimation;
+import com.ctre.phoenix.led.FireAnimation;
 import com.ctre.phoenix.led.RainbowAnimation;
 import com.ctre.phoenix.led.RgbFadeAnimation;
+import com.ctre.phoenix.led.ColorFlowAnimation.Direction;
+import com.ctre.phoenix.led.TwinkleAnimation.TwinklePercent;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -61,7 +66,12 @@ public class RobotContainer {
  Animation RainbowAnimation = new RainbowAnimation(1,0.5,80
  );
  Animation RgbFadeAnimation = new RgbFadeAnimation(1, 0.5, 80);
-  // joysticks and xboxcontrollers 
+ Animation FireAnimation = new FireAnimation(1, 1, 8, 0.2, 0.1); // fire doesn't work atm, test it at another date
+ Animation StrobeAnimation = new com.ctre.phoenix.led.StrobeAnimation(255, 255, 0, 0, 0.8, 8) ;
+ Animation ColorFlowAnimation = new ColorFlowAnimation(255, 255, 0, 0, 0.1, 8, Direction.Backward);
+ Animation TwinkleAnimation = new com.ctre.phoenix.led.TwinkleAnimation(255, 0, 0, 0, 0, 8, TwinklePercent.Percent42);
+ Animation SingleFadeAnimation = new com.ctre.phoenix.led.SingleFadeAnimation(255, 255, 0, 0, 0.3, 8);
+ // joysticks and xboxcontrollers 
  public final static Joystick LeftJoystick = new Joystick(0);
  public final static Joystick RightJoystick = new Joystick(1);
 
@@ -111,13 +121,21 @@ public class RobotContainer {
   
 
   //other commands 
-private final LedAnimate m_Rainbow = new LedAnimate(m_LightEmittingDiode, RainbowAnimation);
-private final LedAnimate m_RGBAnimation = new LedAnimate(m_LightEmittingDiode, RgbFadeAnimation);
+  //LED commands
+private final LedAnimate m_Rainbow = new LedAnimate(m_LightEmittingDiode, RainbowAnimation,1);
+private final LedAnimate m_RGBAnimation = new LedAnimate(m_LightEmittingDiode, RgbFadeAnimation, 1);
+private final LedAnimate m_FireAnimation = new LedAnimate(m_LightEmittingDiode, FireAnimation, 0);
 private final LedColors m_Lightoff = new LedColors(m_LightEmittingDiode,0,0,0 );
 private final LedColors m_LightUpRed = new LedColors(m_LightEmittingDiode, 255,0,0);
-private final LedAnimate m_stopAnimate = new LedAnimate(m_LightEmittingDiode, null);
 private final LedCoolAnimation m_CoolAnimation = new LedCoolAnimation(m_LightEmittingDiode);
-  // tryouts temp commands
+private final AnimateStop m_AnimateStop = new AnimateStop(m_LightEmittingDiode);
+private final LedAnimate m_StrobeAnimation = new LedAnimate(m_LightEmittingDiode, StrobeAnimation, 0);
+private final LedAnimate m_ColorFlowAnimation = new LedAnimate(m_LightEmittingDiode, ColorFlowAnimation, 0);  
+private final LedAnimate m_TwinkleAnimation = new LedAnimate(m_LightEmittingDiode, TwinkleAnimation, 0);
+private final LedAnimate m_SingleFadeAnimation = new LedAnimate(m_LightEmittingDiode, SingleFadeAnimation, 0);
+
+
+//tryouts temp commands
   private final LightEmittingDiode m_ledSubsystem = new LightEmittingDiode();
 
 
@@ -195,6 +213,8 @@ private final LedCoolAnimation m_CoolAnimation = new LedCoolAnimation(m_LightEmi
     //new JoystickButton(LeftJoystick, 5)
       //.whileTrue(m_TankDrive);
     
+
+      //LED buttons
       new JoystickButton(RightJoystick, 12)
       .onTrue(m_Rainbow);
       new JoystickButton(RightJoystick, 11)
@@ -202,11 +222,20 @@ private final LedCoolAnimation m_CoolAnimation = new LedCoolAnimation(m_LightEmi
       new JoystickButton(RightJoystick, 10)
       .onTrue(m_Lightoff);
       new JoystickButton(RightJoystick, 9)
-      .onTrue(m_stopAnimate);
+      .onTrue(m_AnimateStop);
       new JoystickButton(RightJoystick, 8)
       .onTrue(m_RGBAnimation);
       new JoystickButton(RightJoystick, 7)
       .onTrue(m_CoolAnimation);
+
+       new JoystickButton(LeftJoystick, 12) 
+       .onTrue(m_StrobeAnimation);
+       new JoystickButton(LeftJoystick, 11)
+      .onTrue(m_ColorFlowAnimation);
+       new JoystickButton(LeftJoystick, 10)
+       .onTrue(m_TwinkleAnimation);
+       new JoystickButton(LeftJoystick, 9)
+       .onTrue(m_SingleFadeAnimation);
       /* 
     new JoystickButton(LeftJoystick, 5)
       .whileTrue(m_TankDrive);*/
