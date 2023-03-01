@@ -23,6 +23,7 @@ public class Arm extends SubsystemBase {
   private static SparkMaxPIDController m_ArmPID = m_Arm.getPIDController();
   private int m_valueRefCounter;
   public double aP = .0025, aI = 12e-7, aD = 0.001, aFF = 0;
+
   // public double aP = .0025, aI = 16e-7, aD = 0.016, aFF = 2e-6;
   public static double m_FinalAngle;
   //Put some encoder stuff in the future
