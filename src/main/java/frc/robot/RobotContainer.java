@@ -9,6 +9,8 @@ import frc.robot.subsystems.ScoreMode;
 import frc.robot.Constants;
 import frc.robot.commands.IncrementScoreMode;
 import frc.robot.commands.AutoBalance;
+import frc.robot.commands.AutoStraight;
+import frc.robot.commands.AutoStraightBack;
 import frc.robot.commands.Autos;
 import frc.robot.commands.DriveStraight;
 import frc.robot.commands.TankDrive;
@@ -25,11 +27,14 @@ import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.LightEmittingDiode;
 import edu.wpi.first.cscore.raw.RawSink;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.LightEmitingDiode;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -86,10 +91,15 @@ public class RobotContainer {
 
     // Auto drive commands
     private final AutoBalance m_autoBalance = new AutoBalance(m_DriveTrainSubsystem);
+    private final AutoBalance m_autoBalance2 = new AutoBalance(m_DriveTrainSubsystem);
+
+    private final AutoStraight m_autoStraight = new AutoStraight(m_DriveTrainSubsystem, 3000);
+    private final  AutoStraightBack m_autoStraightBack = new AutoStraightBack(m_DriveTrainSubsystem, -2700);
     private final TrajectoryDrive m_trajectoryDriveTest = new TrajectoryDrive(m_DriveTrainSubsystem, new Translation2d(1.5, 0), new Translation2d(1.5, 2), new Translation2d(-.2, 2), new Pose2d(new Translation2d(0, 2), Rotation2d.fromDegrees(180)));
 
 
-    
+        // Auto Command Groups
+        private final SequentialCommandGroup m_autoStraightGroup = new SequentialCommandGroup(m_autoStraight, m_autoStraightBack, m_autoBalance2);
 
 
 
@@ -118,7 +128,7 @@ private final LedAnimate m_stopAnimate = new LedAnimate(m_LightEmittingDiode, nu
   public RobotContainer() {
 
 
-    m_DriveTrainSubsystem.setDefaultCommand(m_xBoxTankDrive);
+    m_DriveTrainSubsystem.setDefaultCommand(m_TankDrive);
     // Configure the trigger bindings
     configureBindings();
 
@@ -150,9 +160,18 @@ private final LedAnimate m_stopAnimate = new LedAnimate(m_LightEmittingDiode, nu
     //m_driverController.rightTrigger().onTrue(m_Score);
 
     m_driverController.a().onTrue(m_trajectoryDriveTest);
+    m_driverController.b().onTrue(m_autoBalance);
+
+    m_driverController.axisGreaterThan(2, .5).whileTrue(m_DriveStraight);
     
+
+
+
     new JoystickButton(LeftJoystick, 1)
       .whileTrue(m_DriveStraight);
+
+    new JoystickButton(LeftJoystick, 3)
+      .onTrue(m_autoStraightGroup);
  
     new JoystickButton(LeftJoystick, 5)
       .onTrue(m_autoBalance);
@@ -161,29 +180,15 @@ private final LedAnimate m_stopAnimate = new LedAnimate(m_LightEmittingDiode, nu
       .onTrue(m_trajectoryDriveTest);
    // m_driverController.rightBumper().onTrue(m_ScoreModeIncrement);
     //m_driverController.leftTrigger().whileTrue(m_GatherCube);
+    
     //m_driverController.rightTrigger().whileTrue(m_Score);
     new JoystickButton(RightJoystick, 2).whileTrue(m_GatherCube); //Need to find the button number for the trigger
+
     new JoystickButton(RightJoystick, 4).whileTrue(m_Score);
+
     new JoystickButton(RightJoystick, 3).onTrue(m_ScoreModeIncrement);
+
     new JoystickButton(LeftJoystick, 4).whileTrue(m_TestArm);
-    //new JoystickButton(LeftJoystick, 1)
-      //.whileTrue(m_DriveStraight);
-    //new JoystickButton(LeftJoystick, 5)
-      //.whileTrue(m_TankDrive);
-    
-      new JoystickButton(RightJoystick, 12)
-      .onTrue(m_Rainbow);
-      new JoystickButton(RightJoystick, 11)
-      .onTrue(m_LightUpRed);
-      new JoystickButton(RightJoystick, 10)
-      .onTrue(m_Lightoff);
-      new JoystickButton(RightJoystick, 9)
-      .onTrue(m_stopAnimate);
-/* 
-    new JoystickButton(LeftJoystick, 5)
-      .whileTrue(m_TankDrive);*/
-
-
 
   }
 

@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class GatherTheCube extends CommandBase {
   private Arm m_Arm;
   private EndEffector m_EndEffector;
+  private Timer timer = new Timer();
   /** Creates a new GatherTheCube. */
   public GatherTheCube(Arm pivotArm, EndEffector cubeEffector) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -35,23 +36,28 @@ public class GatherTheCube extends CommandBase {
   @Override
   public void execute() {
     m_EndEffector.gatherTheCube();
+
+    if(m_EndEffector.hasCube()){
+      timer.start();
+    } else {
+      timer.reset();
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Timer.delay(.2);
+    //Timer.delay(.2);
     //May use start command if delay causes problems.
+      // Delay causes problems. 
     m_EndEffector.stopMotors();
     m_Arm.setAngle(Constants.kPivotMotorLowAngle);
-    Timer.delay(1.2);
-    m_Arm.setAngle(m_Arm.getPosition());
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;
-    // return m_EndEffector.hasCube();
+    // return (timer.get() >= 1);
   }
 }

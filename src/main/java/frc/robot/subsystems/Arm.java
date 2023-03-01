@@ -22,7 +22,9 @@ public class Arm extends SubsystemBase {
   private static SparkMaxAbsoluteEncoder m_ArmEncoder = m_Arm.getAbsoluteEncoder(Type.kDutyCycle);
   private static SparkMaxPIDController m_ArmPID = m_Arm.getPIDController();
   private int m_valueRefCounter;
-  public double aP = .0025, aI = 16e-7, aD = 0.016, aFF = 2e-6;
+  public double aP = .0025, aI = 12e-7, aD = 0.001, aFF = 0;
+
+  // public double aP = .0025, aI = 16e-7, aD = 0.016, aFF = 2e-6;
   public static double m_FinalAngle;
   //Put some encoder stuff in the future
   /** Creates a new ARM. */
@@ -39,7 +41,7 @@ public class Arm extends SubsystemBase {
     SmartDashboard.putNumber("FF gain", aFF);
     m_ArmPID.getIZone();
     m_ArmPID.setFeedbackDevice(m_ArmEncoder);
-    m_ArmEncoder.setInverted(true);
+    m_ArmEncoder.setInverted(false);
     m_ArmEncoder.setPositionConversionFactor(Constants.kPositionConversionFactor);
     m_ArmEncoder.setZeroOffset(Constants.kZeroOffset);
     m_valueRefCounter = 0;
