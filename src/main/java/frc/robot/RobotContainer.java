@@ -69,10 +69,9 @@ import frc.robot.commands.LedCoolAnimation;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
- Animation RainbowAnimation = new RainbowAnimation(1,0.5,108
- );
+ Animation RainbowAnimation = new RainbowAnimation(1,0.5,108);
  Animation RgbFadeAnimation = new RgbFadeAnimation(1, 0.5, 108);
- Animation FireAnimation = new FireAnimation(1, 1,108 , 1, 0); // fire doesn't work atm, test it at another date
+ Animation FireAnimation = new FireAnimation(1, 1,108 , 1, 0); 
  Animation StrobeAnimation = new com.ctre.phoenix.led.StrobeAnimation(255, 0, 0, 0, 0.1, 108) ;
  Animation ColorFlowAnimation = new ColorFlowAnimation(255, 255, 0, 0, 0.1, 108, Direction.Backward);
  Animation TwinkleAnimation = new com.ctre.phoenix.led.TwinkleAnimation(255, 0, 0, 0, 0, 108, TwinklePercent.Percent42);
