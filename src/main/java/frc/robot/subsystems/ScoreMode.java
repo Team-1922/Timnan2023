@@ -17,8 +17,12 @@ public class ScoreMode extends SubsystemBase {
         return m_ScoreMode;
     }
 
+    public void setScoreMode(int mode){
+        m_ScoreMode = mode;
+    }
+
     public void incrementScoreMode() {
-        if (m_ScoreMode == 3) {
+        if (m_ScoreMode >= 3) {
             m_ScoreMode = 1;
         } else m_ScoreMode++;
         

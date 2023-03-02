@@ -92,7 +92,7 @@ public class RobotContainer {
   public static Arm m_Arm = new Arm();
   public static ScoreMode m_ScoreMode = new ScoreMode();
   public static DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
-  private static LightEmittingDiode m_LightEmittingDiode = new LightEmittingDiode();
+  public static LightEmittingDiode m_LightEmittingDiode = new LightEmittingDiode();
   //arm commands
   private final GatherTheCube m_GatherCube = new GatherTheCube(m_Arm, m_EndEffector);
   private final Score m_Score = new Score(m_Arm, m_EndEffector, m_ScoreMode, m_LightEmittingDiode);
