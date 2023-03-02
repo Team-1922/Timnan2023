@@ -53,8 +53,8 @@ deadzone = 0.125;
       m_RightDeadZoneOnOff= 0;
      } else {m_RightDeadZoneOnOff = 1;}
 
-     
-   m_DriveTrainSubsystem.Drive( Math.pow(-LeftJoystick.getY()*.5, 3)*m_LeftDeadZoneOnOff,  Math.pow(-RightJoystick.getY()*.5, 3)*m_RightDeadZoneOnOff);
+
+   m_DriveTrainSubsystem.Drive( Math.pow(-LeftJoystick.getY()*.35, 3)*m_LeftDeadZoneOnOff,  Math.pow(-RightJoystick.getY()*.35, 3)*m_RightDeadZoneOnOff);
 
   }
 
