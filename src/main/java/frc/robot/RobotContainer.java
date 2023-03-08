@@ -12,15 +12,16 @@ import frc.robot.Constants;
 import frc.robot.commands.IncrementScoreMode;
 import frc.robot.commands.LedAmericaAnimation;
 import frc.robot.commands.AnimateStop;
-import frc.robot.commands.AutoBalance;
-import frc.robot.commands.AutoStraight;
-import frc.robot.commands.AutoStraightBack;
-import frc.robot.commands.Autos;
+import frc.robot.commands.CurvyDrive;
 import frc.robot.commands.DriveStraight;
 import frc.robot.commands.FlipTankDrive;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.TrajectoryDrive;
 import frc.robot.commands.XBoxTankDrive;
+import frc.robot.commands.autocommands.AutoBalance;
+import frc.robot.commands.autocommands.AutoStraight;
+import frc.robot.commands.autocommands.AutoStraightBack;
+import frc.robot.commands.autocommands.Autos;
 import frc.robot.commands.GatherTheCube;
 import frc.robot.commands.Score;
 import frc.robot.commands.SwivelDrive;
@@ -118,6 +119,7 @@ public class RobotContainer {
   // drive commands 
   private final TankDrive m_TankDrive = new TankDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick);
   private final XBoxTankDrive m_xBoxTankDrive = new XBoxTankDrive(m_DriveTrainSubsystem, m_driverController);
+  private final CurvyDrive m_curvyDrive = new CurvyDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick);
   private final DriveStraight m_DriveStraight = new DriveStraight(m_DriveTrainSubsystem, LeftJoystick);
   private final FlipTankDrive m_flipDrive = new FlipTankDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick);
     private final ToggleFlip m_toggleFlip = new ToggleFlip(m_DriveTrainSubsystem);
@@ -153,7 +155,7 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
   public RobotContainer() {
 
 
-    m_DriveTrainSubsystem.setDefaultCommand(m_flipDrive);
+    m_DriveTrainSubsystem.setDefaultCommand(m_curvyDrive);
     // Configure the trigger bindings
     configureBindings();
 
@@ -247,8 +249,7 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.m_autoBackup;
-    //return Autos.m_autoStraightHalf;
+    return Autos.m_autoStraightHalf;
 }
 
 }

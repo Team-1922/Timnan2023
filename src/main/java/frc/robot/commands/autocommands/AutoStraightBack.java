@@ -2,49 +2,61 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.autocommands;
 
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrainSubsystem;
 
-public class AutoTimerDrive extends CommandBase {
-  DriveTrainSubsystem m_driveTrain;
-  double m_time;
+public class AutoStraightBack extends CommandBase {
+  private DriveTrainSubsystem m_driveTrain;
+  private double m_RPM;
+  private double startPitch;
+  private double newPitch;
 
-  Timer timer = new Timer();
-  /** Creates a new AutoTimerDrive. */
-  public AutoTimerDrive(DriveTrainSubsystem driveTrain, double time) {
+  private boolean check1;
+
+  /** Creates a new AutoStraightBack. */
+  public AutoStraightBack(DriveTrainSubsystem driveTrain, double RPM) {
     m_driveTrain = driveTrain;
-    m_time = time;
+    m_RPM = RPM;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_driveTrain);
-
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    timer.start();
-    timer.reset();
+    startPitch = m_driveTrain.robotPitch() + 2.4;
+    check1 = false;
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.velocityDrive(2800, 2800);
+    newPitch = m_driveTrain.robotPitch() + 2.4;
+
+    //If the change goes up (Up the ramp)
+    if(newPitch - startPitch >= 0 + 6){ // IT SHOULD BE -3, SET BACK LATER
+      check1 = true;
+    }
+
+    SmartDashboard.putBoolean("BACK Check1", check1);
+
+    m_driveTrain.velocityDrive(m_RPM, m_RPM);
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_driveTrain.Drive(0, 0);
-    timer.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return timer.get() >= m_time;
+    return (check1);
   }
 }

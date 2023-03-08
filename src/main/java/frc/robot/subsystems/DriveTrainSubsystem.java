@@ -5,7 +5,10 @@
 package frc.robot.subsystems;
 
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -17,7 +20,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -76,6 +79,10 @@ public class DriveTrainSubsystem extends SubsystemBase {
   double rightmaxoutput =1;
   Timer m_Timer;
   double JoystickDeadzone = 0.125;
+
+
+  
+  DifferentialDrive m_differentialDrive = new DifferentialDrive(m_leftLead, m_rightLead);
 
   Timer balanceTimer = new Timer();
   /** Creates a new DriveTrainSubsystem. */
@@ -152,7 +159,10 @@ public class DriveTrainSubsystem extends SubsystemBase {
   
 
 
-  
+  m_differentialDrive.setDeadband(.1);
+  m_differentialDrive.setMaxOutput(.35);
+
+
 
 
     m_Timer = new Timer();
@@ -182,6 +192,10 @@ public void velocityDrive(double LeftRPM, double rightRPM){
 m_pidControllerLeft.setReference(LeftRPM, CANSparkMax.ControlType.kVelocity);
 m_pidControllerRight.setReference(rightRPM, CANSparkMax.ControlType.kVelocity);
 
+}
+
+public void curvatureDrive(double left, double right, Joystick joystick){
+  m_differentialDrive.curvatureDrive(left, right, joystick.getRawButton(1));
 }
 
 public void flipDrive(double left, double right, boolean flipped){
