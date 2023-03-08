@@ -3,6 +3,8 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+
+import java.lang.Math;
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -15,23 +17,27 @@ public final class Constants {
  // public static class OperatorConstants {
     public static final int eeRefRateMod = 5;
     public static final int kDriverControllerPort = 2;
-    public static final int kRightLead = 3;
-    public static final int kLeftFollow = 4;
+ 
     public static final int kLeftLead = 5;
+    public static final int kLeftFollow = 4;
+    public static final int kRightLead = 3;
+
     public static final int kRightFollow = 6;
     public static final int kPigeon = 0;
     public static final int kPDB = 63;
     public static final double kVeolcityRPMConversion = 0;
     public static final double kIOMotorGatherPower = -1.2;
     public static final double kIOMotorLowPower = 2;
-    public static final double kIOMotorMidPower = 4;
-    public static final double kIOMotorHighPower = 5.8;
+    public static final double kIOMotorMidPower = 5;
+    public static final double kIOMotorHighPower = 8;
     public static final double kIOMotorMaxPower = 12;
     public static final double kIOBottomToTopVoltageConversion = 1.02;
-    public static final double kZeroOffset = 790;
-    public static final double kPivotMotorGatherAngle = 560; // 528
+
+    public static final double kZeroOffset = 797;
+    public static final double kPivotMotorGatherAngle = 588; // 528
+
     public static final double kPivotMotorLowAngle = 100;
-    public static final double kPivotMotorMidAngle = 130;
+    public static final double kPivotMotorMidAngle = 140;
     public static final double kPivotMotorHighAngle = 155;
     public static final double kPivotMotorMinAngle = 0;
     public static final double kPivotMotorMaxAngle = 540;
@@ -60,6 +66,8 @@ public final class Constants {
     // For trajectory differentialDriveKinematics
     public static final double distBetweenWheelsMeters = 0.4572; 
     // Used in converting odometry wheel speeds to usable velocity units // It's a multiply
-    public static final double metersPerSecondToRPM = .0019304; 
+    public static final double metersPerSecondToRPM = .0019304;
+    public static final int kLedCount = 8;
+    public static final int kCandleId = 10;
  // }
 }

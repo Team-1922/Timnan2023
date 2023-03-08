@@ -6,45 +6,45 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LightEmittingDiode;
-import frc.robot.subsystems.ScoreMode;
 
-public class IncrementScoreMode extends CommandBase {
-  /** Creates a new increaseScoreMode. */
-  private ScoreMode m_Score;
-  private LightEmittingDiode m_LED;
-  public IncrementScoreMode(ScoreMode Score, LightEmittingDiode LED) {
-  
+public class LedColors extends CommandBase {
+  /** Creates a new LightUpGreen. */
+  private final LightEmittingDiode m_LED;
+  int m_green;
+  int m_blue;
+  int m_red;
+  public LedColors(LightEmittingDiode LED, int red, int green, int blue) {
+   m_LED = LED;
+   m_blue = blue;
+   m_green = green;
+   m_red = red;
+   addRequirements(m_LED);
     // Use addRequirements() here to declare subsystem dependencies.
-    m_Score = Score;
-    m_LED = LED;
-    addRequirements(Score);
-    addRequirements(LED);
-
-    m_LED.setColor(0, 255, 0);
   }
 
-  
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_Score.incrementScoreMode();
+    m_LED.LedAnimate(null, 0);
+    m_LED.LedAnimate(null, 1);
+    m_LED.LedAnimate(null, 2);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+
+m_LED.setColor(m_red,m_green,m_blue);
+
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    if (m_Score.getScoreMode()== 1){ m_LED.setColor(0, 255, 0);}
-    if (m_Score.getScoreMode()== 2){m_LED.setColor(255, 255, 0);}
-    if (m_Score.getScoreMode() == 3){m_LED.setColor(255, 0, 0);}
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

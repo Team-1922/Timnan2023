@@ -4,9 +4,16 @@
 
 package frc.robot.commands;
 
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.LightEmittingDiode;
+import frc.robot.subsystems.ScoreMode;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 public final class Autos {
   /** Example static factory for an autonomous command. */
@@ -14,7 +21,22 @@ public final class Autos {
     return Commands.sequence(subsystem.exampleMethodCommand(), new ExampleCommand(subsystem));
   }
 
+  private static DriveTrainSubsystem m_driveTrain = RobotContainer.m_DriveTrainSubsystem;
+  private static ScoreMode m_scoreMode = RobotContainer.m_ScoreMode;
+  private static Arm m_arm = RobotContainer.m_Arm;
+  private static EndEffector m_endEffector = RobotContainer.m_EndEffector;
+  private static LightEmittingDiode m_LED = RobotContainer.m_LightEmittingDiode;
+
+  private static AutoStraight m_autoStraight = new AutoStraight(m_driveTrain, 3000);
+  private static AutoStraightBack m_autoStraightBack = new AutoStraightBack(m_driveTrain, -2700);
+  private static AutoBalance m_autoBalance = new AutoBalance(m_driveTrain);
+  private static AutoSetMode m_setMode3 = new AutoSetMode(m_scoreMode, 3);
+  private static Score m_score = new Score(m_arm, m_endEffector, m_scoreMode, m_LED);
+
   private Autos() {
     throw new UnsupportedOperationException("This is a utility class!");
   }
+
+
+  public static final SequentialCommandGroup m_autoStraightGroup = new SequentialCommandGroup(m_setMode3, m_score, m_autoStraight, m_autoStraightBack, m_autoBalance);
 }

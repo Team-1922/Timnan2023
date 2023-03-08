@@ -37,12 +37,12 @@ public class DriveStraight extends CommandBase {
   @Override
   public void execute() {
     
-    if (m_LeftJoystick.getY() > deadzone || m_LeftJoystick.getY() < deadzone){
-      m_DriveTrainSubsystem.velocityDrive(
-        -m_LeftJoystick.getY() * Maxrpm,
-        -m_LeftJoystick.getY() * Maxrpm);
-        SmartDashboard.putNumber("StraightLeftVelocity", m_LeftJoystick.getY()*.5);
+if (m_LeftJoystick.getY() > deadzone || m_LeftJoystick.getY() < deadzone){
+    m_DriveTrainSubsystem.velocityDrive(
+      (-m_LeftJoystick.getY() * Maxrpm),
+      (-m_LeftJoystick.getY() * Maxrpm));
     }
+
   }
 
 
