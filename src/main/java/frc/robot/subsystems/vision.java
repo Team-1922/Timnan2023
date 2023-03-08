@@ -45,6 +45,11 @@ public class vision extends SubsystemBase {
     return apriltagDist;
   }
 
+  public double[] calculateApriltagOffset(double[] Offset) {
+    //calculates the disposition and the angle of the robot relative to the apriltag
+    return Offset;
+  }
+
   @Override
   public void periodic() {
     detectCube(m_CubeSpotted);
