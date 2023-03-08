@@ -15,8 +15,8 @@ public class DriveStraight extends CommandBase {
 
   DriveTrainSubsystem  m_DriveTrainSubsystem;
  Joystick m_LeftJoystick;
- double Maxrpm= Constants.maxRPM;
- double rightmaxrpm= 2000;
+ double Maxrpm = Constants.maxRPM;
+ double rightmaxrpm = 2000;
 
  double deadzone;
   /** Creates a new DriveStraight. */

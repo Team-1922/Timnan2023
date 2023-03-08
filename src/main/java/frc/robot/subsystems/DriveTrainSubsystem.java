@@ -27,12 +27,14 @@ import frc.robot.RobotContainer;
 import frc.robot.commands.TrajectoryDrive;
 
 import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import java.util.ArrayList;
 
 import com.ctre.phoenix.sensors.Pigeon2;
 import com.kauailabs.navx.frc.AHRS;
+import com.playingwithfusion.CANVenom.BrakeCoastMode;
 
 
 public class DriveTrainSubsystem extends SubsystemBase { 
@@ -142,6 +144,11 @@ public class DriveTrainSubsystem extends SubsystemBase {
   m_pidControllerRight.setFF(rightff);
   m_pidControllerRight.setIZone(rightd);
 
+  m_leftLead.setIdleMode(IdleMode.kCoast);
+  m_rightLead.setIdleMode(IdleMode.kCoast);
+  m_leftFollow.setIdleMode(IdleMode.kCoast);
+  m_rightFollow.setIdleMode(IdleMode.kCoast);
+
   
 
 
@@ -193,8 +200,11 @@ public void flipDrive(double left, double right, boolean flipped){
 public void toggleFlipped(){
   if(isFlipped == true){
     isFlipped = false;
+    SmartDashboard.putBoolean("Flipped?", false);
   } else if(isFlipped == false){
     isFlipped = true;
+    SmartDashboard.putBoolean("Flipped?", true);
+
   }
 }
 
@@ -203,6 +213,28 @@ public boolean getFlipped(){
   return isFlipped;
   
 }
+
+
+
+public void toggleBrake(){
+  if(m_leftLead.getIdleMode() == IdleMode.kCoast){
+    m_leftLead.setIdleMode(IdleMode.kBrake);
+    m_rightLead.setIdleMode(IdleMode.kBrake);
+    m_leftFollow.setIdleMode(IdleMode.kBrake);
+    m_rightFollow.setIdleMode(IdleMode.kBrake);
+    SmartDashboard.putBoolean("Brake?", true);
+  } else {
+    m_leftLead.setIdleMode(IdleMode.kCoast);
+    m_rightLead.setIdleMode(IdleMode.kCoast);
+    m_leftFollow.setIdleMode(IdleMode.kCoast);
+    m_rightFollow.setIdleMode(IdleMode.kCoast);
+    SmartDashboard.putBoolean("Brake?", false);
+
+  }
+}
+
+
+
 
 @Override
 public void periodic()   {

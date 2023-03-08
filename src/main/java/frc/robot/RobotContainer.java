@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.commands.TestArm;
+import frc.robot.commands.ToggleBrake;
 import frc.robot.commands.ToggleFlip;
 import frc.robot.subsystems.ScoreMode;
 import frc.robot.Constants;
@@ -22,6 +23,7 @@ import frc.robot.commands.TrajectoryDrive;
 import frc.robot.commands.XBoxTankDrive;
 import frc.robot.commands.GatherTheCube;
 import frc.robot.commands.Score;
+import frc.robot.commands.SwivelDrive;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.Arm;
@@ -119,6 +121,8 @@ public class RobotContainer {
   private final DriveStraight m_DriveStraight = new DriveStraight(m_DriveTrainSubsystem, LeftJoystick);
   private final FlipTankDrive m_flipDrive = new FlipTankDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick);
     private final ToggleFlip m_toggleFlip = new ToggleFlip(m_DriveTrainSubsystem);
+  private final ToggleBrake m_toggleBrake = new ToggleBrake(m_DriveTrainSubsystem);
+  private final SwivelDrive m_swivelDrive = new SwivelDrive(m_DriveTrainSubsystem, RightJoystick);
   
 
   //other commands 
@@ -190,8 +194,13 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
     
     // Left Trigger
     new JoystickButton(LeftJoystick, 1).whileTrue(m_DriveStraight);
+    // Left 4
+    new JoystickButton(LeftJoystick, 4).onTrue(m_toggleFlip);
+
     // Right Trigger
-    new JoystickButton(RightJoystick, 1).onTrue(m_toggleFlip);
+    new JoystickButton(RightJoystick, 1).whileTrue(m_swivelDrive);
+    // Right Side
+    new JoystickButton(RightJoystick, 2).onTrue(m_toggleBrake);
 
 
 
@@ -201,6 +210,7 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
     //                       *** LED CONTROLS ***
 
       //LED buttons
+      /* 
       new JoystickButton(RightJoystick, 12)
       .onTrue(m_Rainbow);
       new JoystickButton(RightJoystick, 11)
@@ -226,6 +236,7 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
        .onTrue(m_AmericaAnimation);
        new JoystickButton(LeftJoystick, 7)
        .onTrue(m_FireAnimation); 
+       */
   }
 
 
@@ -236,7 +247,8 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.m_autoStraightGroup;
+    return Autos.m_autoBackup;
+    //return Autos.m_autoStraightHalf;
 }
 
 }

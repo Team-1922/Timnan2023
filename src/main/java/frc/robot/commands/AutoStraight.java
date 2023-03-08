@@ -19,6 +19,8 @@ public class AutoStraight extends CommandBase {
   private boolean check2;
 
   private Timer timer = new Timer();
+  private Timer timer2 = new Timer();
+
 
   /** Creates a new AutoStraight. */
   public AutoStraight(DriveTrainSubsystem driveTrain, double RPM) {
@@ -31,16 +33,20 @@ public class AutoStraight extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    startPitch = m_driveTrain.robotPitch();
+    startPitch = m_driveTrain.robotPitch() + 2.4;
     check1 = false;
     check2 = false;
+
+
+    timer2.stop();
+    timer2.reset();
 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    newPitch = m_driveTrain.robotPitch();
+    newPitch = m_driveTrain.robotPitch() + 2.4;
 
     //If the change goes up (Up the ramp)
     if(newPitch - startPitch >= 0 + 3){
@@ -50,6 +56,10 @@ public class AutoStraight extends CommandBase {
     // If the change goes down (Down the ramp)
     if(check1 == true && newPitch - startPitch <= 0 - 3){
       check2 = true; 
+    }
+
+    if(check2){
+      timer2.start();
     }
 
     m_driveTrain.velocityDrive(m_RPM, m_RPM);
@@ -75,6 +85,7 @@ public class AutoStraight extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (check2 && timer.get() >= .15);
+    return (check2 && timer.get() >= .15)// || timer2.get() >= 2;
+    ;
   }
 }

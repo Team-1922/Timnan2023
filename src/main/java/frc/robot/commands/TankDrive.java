@@ -37,7 +37,7 @@ public class TankDrive extends CommandBase {
   public void initialize() {
 
 
-deadzone = 0.125;
+deadzone = 0.1;
  
   }
 
