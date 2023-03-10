@@ -18,17 +18,13 @@ public class ScoreAlt extends CommandBase {
   private EndEffector m_EndEffector;
   private Arm m_Arm;
   private ScoreMode m_ScoreMode;
-  private int scoreMode;
-  private double finalAngle;
   private  LightEmittingDiode m_LightEmitingDiode;
-  public double[][] m_BaselineVectors;
+  public double[][] m_BaselineVectors = new double[3][2];
   public double m_CalculatedVoltage;
   public double m_Difference;
   public double m_ScoreAngle;
   public String m_ShootingSpeed;
-
-  private Timer timer = new Timer();
-  private double shootTimer;
+  public double m_Position;
   
   /** Creates a new Score. */
   public ScoreAlt(Arm pivotArm, EndEffector cubeEffector, ScoreMode score, LightEmittingDiode LED) {
@@ -46,29 +42,25 @@ public class ScoreAlt extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    switch(m_ScoreMode.getScoreMode()) {
-        case 1:
-        m_ScoreAngle = Constants.kPivotMotorLowAngle;
-        m_ShootingSpeed = "low";
-        case 2:
-        m_ScoreAngle = Constants.kPivotMotorMidAngle;
-        m_ShootingSpeed = "mid";
-        case 3:
-        m_ScoreAngle = Constants.kPivotMotorHighAngle;
-        m_ShootingSpeed = "high";
-        default:
-        System.out.println("that wasn't supposed to happen");
+    if (m_ScoreMode.getScoreMode() == 1) {m_Arm.calculateVoltage(Constants.kPivotMotorLowAngle, .5, m_BaselineVectors);
+      m_ShootingSpeed = "low";
     }
-    m_Arm.calculateVoltage(Constants.kPivotMotorHighAngle, .25, m_BaselineVectors);
+    else if (m_ScoreMode.getScoreMode() == 2) {m_Arm.calculateVoltage(Constants.kPivotMotorMidAngle, .5, m_BaselineVectors);
+      m_ShootingSpeed = "mid";
+    }
+    else {m_Arm.calculateVoltage(Constants.kPivotMotorHighAngle, .5, m_BaselineVectors);
+      m_ShootingSpeed = "high";
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    m_Position = m_Arm.getPosition();
     if (m_Arm.getPosition() <= m_BaselineVectors[1][0]) {
-        m_CalculatedVoltage = (.2+m_BaselineVectors[1][1] - m_BaselineVectors[1][1]*(m_BaselineVectors[1][0]-m_Arm.getPosition())/m_BaselineVectors[1][0]);
+        m_CalculatedVoltage = (.2+m_BaselineVectors[1][1] - m_BaselineVectors[1][1]*(m_BaselineVectors[1][0]-m_Position)/m_BaselineVectors[1][0]);
     } else {
-        m_CalculatedVoltage = (.2+m_BaselineVectors[1][1] - m_BaselineVectors[1][1]*(m_Arm.getPosition()-m_BaselineVectors[1][0])/m_Arm.getPosition());
+        m_CalculatedVoltage = (.2+m_BaselineVectors[1][1] - m_BaselineVectors[1][1]*(m_Position-m_BaselineVectors[1][0])/m_Position);
     }
     m_Arm.setVoltage(m_CalculatedVoltage);
   }
@@ -85,7 +77,7 @@ public class ScoreAlt extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-
-    return (Math.abs(m_BaselineVectors[1][0]-m_Arm.getPosition()) <= 1);
+    m_Position = m_Arm.getPosition();
+    return (Math.abs(m_BaselineVectors[2][0]-m_Position) <= 1);
   }
 }

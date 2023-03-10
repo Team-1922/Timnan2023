@@ -28,7 +28,6 @@ import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.LightEmittingDiode;
 import edu.wpi.first.cscore.raw.RawSink;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.LightEmitingDiode;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -186,7 +185,7 @@ private final LedAnimate m_stopAnimate = new LedAnimate(m_LightEmittingDiode, nu
     //m_driverController.rightTrigger().whileTrue(m_Score);
     new JoystickButton(RightJoystick, 2).whileTrue(m_GatherCube); //Need to find the button number for the trigger
 
-    new JoystickButton(RightJoystick, 4).whileTrue(m_Score);
+    new JoystickButton(RightJoystick, 4).whileTrue(m_ScoreAlt);
 
     new JoystickButton(RightJoystick, 3).onTrue(m_ScoreModeIncrement);
 

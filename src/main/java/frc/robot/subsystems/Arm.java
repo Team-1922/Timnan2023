@@ -25,7 +25,6 @@ public class Arm extends SubsystemBase {
   public double[] m_StartingVector = new double[2];
   public double[] m_TargetVector = new double[2];
   public double [] m_MidVector = new double[2];
-  public double[][] m_CombinedVectors = new double[3][2];
   public double m_CalculatedVoltage;
   private int m_valueRefCounter;
   public double aP = .0025, aI = 12e-7, aD = 0.001, aFF = 0;
@@ -105,7 +104,7 @@ public class Arm extends SubsystemBase {
     combinedVectors[2][0] = m_TargetVector[0];
     combinedVectors[2][1] = m_TargetVector[1];
     
-    return m_CombinedVectors;
+    return combinedVectors;
   }
 
   public void setVoltage(double Voltage) {
