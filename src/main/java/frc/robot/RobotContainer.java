@@ -36,6 +36,9 @@ import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -160,10 +163,29 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
 
 
 
+ initNetworkTable();
+   
+   
+   
+
+
+
     SmartDashboard.putNumber("Deadzone", .125);
 
     SmartDashboard.putNumber("Balance P", .015);
     SmartDashboard.putNumber("Balance D", .01);
+  }
+
+  private void initNetworkTable(){
+    NetworkTable table = NetworkTableInstance.getDefault().getTable("Ozram");
+NetworkTableEntry visionPGain = table.getEntry("visionPGain");
+visionPGain.setNumber(0.02);
+
+NetworkTableEntry visionDGain = table.getEntry("visionDGain");
+visionDGain.setNumber(0.002);
+
+
+
   }
 
   /**
