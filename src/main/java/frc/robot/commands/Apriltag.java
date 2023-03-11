@@ -37,8 +37,8 @@ double targetYaw;
   @Override
   public void initialize() {
     NetworkTable Ozram = NetworkTableInstance.getDefault().getTable("Ozram");
-    PGain = Ozram.getEntry("visionPGain").getDouble(0);
-    DGain = Ozram.getEntry("visionDGain").getDouble(0);
+    PGain = Constants.apriltagPGain; //Ozram.getEntry("visionPGain").getDouble();
+    DGain = Constants.apriltagDGain;    // Ozram.getEntry("visionDGain").getDouble(Constants.apriltagDGain);
     NetworkTable gloworm = NetworkTableInstance.getDefault().getTable("limelight");
   //  targetYaw = gloworm.getEntry("targetyaw");
 
@@ -55,12 +55,13 @@ m_tx = tx.getDouble(0.0);
  
 double turn = PGain*m_tx+ turnSpeed;
 SmartDashboard.putNumber("turn value", turn);
+
     
 
  
-m_driveTrain.velocityDrive(turn*.3*Constants.maxRPM, -turn*.3*Constants.maxRPM);
+m_driveTrain.velocityDrive((turn)*.3*Constants.maxRPM, -(turn)*.3*Constants.maxRPM);
   
-if(Math.abs(m_tx) <2.5){timer.start();}
+if(Math.abs(m_tx) <3.5){timer.start();}
  else{timer.reset();
 }
   }
