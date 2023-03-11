@@ -19,7 +19,7 @@ public class ScoreAlt extends CommandBase {
   private Arm m_Arm;
   private ScoreMode m_ScoreMode;
   private  LightEmittingDiode m_LightEmitingDiode;
-  public double[][] m_BaselineVectors = new double[3][2];
+  public double[][] m_BaselineVectors;
   public double m_CalculatedVoltage;
   public double m_Difference;
   public double m_ScoreAngle;
