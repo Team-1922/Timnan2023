@@ -88,10 +88,8 @@ public class Arm extends SubsystemBase {
     return m_FinalAngle;
   }
 
-  public double[][] calculateVoltage(double finalAngle, double voltageDialation /*Might want to set this low*/, double[][] combinedVectors) {
-    combinedVectors = new double[3][2];
+  public double[][] calculateVoltage(double finalAngle, double voltageDialation, double[][] combinedVectors) {
     m_Position = m_ArmEncoder.getPosition();
-    m_FinalAngle = finalAngle;
     m_StartingVector[0] = m_Position;
     m_StartingVector[1] = 0;
     m_MidVector[0] = (finalAngle-m_Position)/2;
