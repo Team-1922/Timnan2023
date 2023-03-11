@@ -2,9 +2,11 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.autocommands;
 
 import frc.robot.RobotContainer;
+import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.Score;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.EndEffector;
@@ -44,8 +46,8 @@ public final class Autos {
     throw new UnsupportedOperationException("This is a utility class!");
   }
 
-  //public static final SequentialCommandGroup m_autoStraightGroup = new SequentialCommandGroup(m_setMode1, m_score, m_autoStraight, m_autoStraightBack, m_autoBalance);
-  public static final SequentialCommandGroup m_autoStraightHalf = new SequentialCommandGroup(m_setMode1, m_score, m_autoStraightBack2, m_autoBalance);
+  public static final SequentialCommandGroup m_autoStraightGroup = new SequentialCommandGroup(m_setMode1, m_score, m_autoStraight, m_autoStraightBack, m_autoBalance);
+ // public static final SequentialCommandGroup m_autoStraightHalf = new SequentialCommandGroup(m_setMode1, m_score, m_autoStraightBack2, m_autoBalance);
 
   public static final SequentialCommandGroup m_autoBackup = new SequentialCommandGroup(m_setMode2, m_score2, m_timerDrive);
 }
