@@ -17,6 +17,7 @@ public class Apriltag extends CommandBase {
 DriveTrainSubsystem m_driveTrain;
 ;// set this to the tx of the limelight later
 Timer timer = new Timer();
+Timer failSafe = new Timer();
 double turnSpeed;
 double startingRotation;
 double Turn;
@@ -36,6 +37,7 @@ double targetYaw;
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    failSafe.reset();
     NetworkTable Ozram = NetworkTableInstance.getDefault().getTable("Ozram");
     PGain = Constants.apriltagPGain; //Ozram.getEntry("visionPGain").getDouble();
     DGain = Constants.apriltagDGain;    // Ozram.getEntry("visionDGain").getDouble(Constants.apriltagDGain);
@@ -50,6 +52,7 @@ startingRotation = tx.getDouble(0);
   public void execute() {
 // get the tx somewhere in execute as well
 //m_tx 
+failSafe.start();
 m_tx = tx.getDouble(0.0);
   turnSpeed = (startingRotation-m_tx)*DGain; 
  
@@ -69,12 +72,14 @@ if(Math.abs(m_tx) <3.5){timer.start();}
   @Override
   public void end(boolean interrupted) {
     m_driveTrain.Drive(0, 0);
+    failSafe.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() 
   { if(timer.get()>2){return true;}
+  if(failSafe.get()>=5){return true;}
     
     return false;
   }
