@@ -78,8 +78,8 @@ if(Math.abs(m_tx) <3.5){timer.start();}
   // Returns true when the command should end.
   @Override
   public boolean isFinished() 
-  { if(timer.get()>2){return true;}
-  if(failSafe.get()>=5){return true;}
+  { if(timer.get()>.25){return true;}
+  if(failSafe.get()>=2.5){return true;}
     
     return false;
   }
