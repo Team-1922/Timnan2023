@@ -12,6 +12,7 @@ import frc.robot.Constants;
 import frc.robot.commands.IncrementScoreMode;
 import frc.robot.commands.LedAmericaAnimation;
 import frc.robot.commands.AnimateStop;
+import frc.robot.commands.Apriltagcommand;
 import frc.robot.commands.AutoBalance;
 import frc.robot.commands.AutoStraight;
 import frc.robot.commands.AutoStraightBack;
@@ -31,6 +32,7 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.LightEmittingDiode;
+import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.cscore.raw.RawSink;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -147,7 +149,8 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
   private final LightEmittingDiode m_ledSubsystem = new LightEmittingDiode();
 
 
-
+//vision commands
+private final Apriltagcommand m_AprilTagCommand = new Apriltagcommand(m_DriveTrainSubsystem);
 
 
   
@@ -224,7 +227,9 @@ visionDGain.setNumber(0.002);
     // Right Side
     new JoystickButton(RightJoystick, 2).onTrue(m_toggleBrake);
 
-
+ 
+// map this to something else later,  this is just to test stuff at the moment
+    new JoystickButton(LeftJoystick, 5).onTrue(m_AprilTagCommand);
 
 
 
