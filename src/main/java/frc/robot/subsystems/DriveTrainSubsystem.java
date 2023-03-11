@@ -5,7 +5,10 @@
 package frc.robot.subsystems;
 
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -17,7 +20,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -27,12 +30,14 @@ import frc.robot.RobotContainer;
 import frc.robot.commands.TrajectoryDrive;
 
 import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import java.util.ArrayList;
 
 import com.ctre.phoenix.sensors.Pigeon2;
 import com.kauailabs.navx.frc.AHRS;
+import com.playingwithfusion.CANVenom.BrakeCoastMode;
 
 
 public class DriveTrainSubsystem extends SubsystemBase { 
@@ -52,6 +57,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   private AHRS m_navX;
   private DifferentialDriveOdometry m_odometry;
+
+  boolean isFlipped = false;
+
   private Pose2d SpotOne;
   double p=6e-5;
    double i=0;
@@ -71,6 +79,10 @@ public class DriveTrainSubsystem extends SubsystemBase {
   double rightmaxoutput =1;
   Timer m_Timer;
   double JoystickDeadzone = 0.125;
+
+
+  
+  DifferentialDrive m_differentialDrive = new DifferentialDrive(m_leftLead, m_rightLead);
 
   Timer balanceTimer = new Timer();
   /** Creates a new DriveTrainSubsystem. */
@@ -139,10 +151,18 @@ public class DriveTrainSubsystem extends SubsystemBase {
   m_pidControllerRight.setFF(rightff);
   m_pidControllerRight.setIZone(rightd);
 
+  m_leftLead.setIdleMode(IdleMode.kCoast);
+  m_rightLead.setIdleMode(IdleMode.kCoast);
+  m_leftFollow.setIdleMode(IdleMode.kCoast);
+  m_rightFollow.setIdleMode(IdleMode.kCoast);
+
   
 
 
-  
+  m_differentialDrive.setDeadband(.1);
+  m_differentialDrive.setMaxOutput(.35);
+
+
 
 
     m_Timer = new Timer();
@@ -172,14 +192,63 @@ public void velocityDrive(double LeftRPM, double rightRPM){
 m_pidControllerLeft.setReference(LeftRPM, CANSparkMax.ControlType.kVelocity);
 m_pidControllerRight.setReference(rightRPM, CANSparkMax.ControlType.kVelocity);
 
+}
 
+public void curvatureDrive(double left, double right, Joystick joystick){
+  m_differentialDrive.curvatureDrive(left, right, joystick.getRawButton(1));
+}
 
+public void flipDrive(double left, double right, boolean flipped){
 
- /* double MaxVelocity = 250; // the max velocity of the motor , test this when the drivebase is done
- double OutputScale = .9 ; //scale the output 
-Drive( RobotContainer.LeftJoystick.getY()*MaxVelocity*OutputScale, RobotContainer.RightJoystick.getY()*MaxVelocity*OutputScale); */
+  if(flipped == false){
+    m_leftLead.set(left);
+    m_rightLead.set(right);
+  } else {
+    m_leftLead.set(-right);
+    m_rightLead.set(-left);
+  }
+
 
 }
+
+public void toggleFlipped(){
+  if(isFlipped == true){
+    isFlipped = false;
+    SmartDashboard.putBoolean("Flipped?", false);
+  } else if(isFlipped == false){
+    isFlipped = true;
+    SmartDashboard.putBoolean("Flipped?", true);
+
+  }
+}
+
+
+public boolean getFlipped(){
+  return isFlipped;
+  
+}
+
+
+
+public void toggleBrake(){
+  if(m_leftLead.getIdleMode() == IdleMode.kCoast){
+    m_leftLead.setIdleMode(IdleMode.kBrake);
+    m_rightLead.setIdleMode(IdleMode.kBrake);
+    m_leftFollow.setIdleMode(IdleMode.kBrake);
+    m_rightFollow.setIdleMode(IdleMode.kBrake);
+    SmartDashboard.putBoolean("Brake?", true);
+  } else {
+    m_leftLead.setIdleMode(IdleMode.kCoast);
+    m_rightLead.setIdleMode(IdleMode.kCoast);
+    m_leftFollow.setIdleMode(IdleMode.kCoast);
+    m_rightFollow.setIdleMode(IdleMode.kCoast);
+    SmartDashboard.putBoolean("Brake?", false);
+
+  }
+}
+
+
+
 
 @Override
 public void periodic()   {

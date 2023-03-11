@@ -19,6 +19,8 @@ public class IncrementScoreMode extends CommandBase {
     m_LED = LED;
     addRequirements(Score);
     addRequirements(LED);
+
+    m_LED.setColor(0, 255, 0);
   }
 
   
@@ -35,9 +37,9 @@ public class IncrementScoreMode extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    if (m_Score.getScoreMode()== 1){ m_LED.setColor(255, 0, 0);}
-    if (m_Score.getScoreMode()== 2){m_LED.setColor(0, 0, 255);}
-    if (m_Score.getScoreMode() == 3){m_LED.setColor(0, 255, 0);}
+    if (m_Score.getScoreMode()== 1){ m_LED.setColor(0, 255, 0);}
+    if (m_Score.getScoreMode()== 2){m_LED.setColor(255, 255, 0);}
+    if (m_Score.getScoreMode() == 3){m_LED.setColor(255, 0, 0);}
   }
 
   // Returns true when the command should end.

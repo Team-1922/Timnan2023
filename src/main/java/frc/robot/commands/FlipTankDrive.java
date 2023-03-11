@@ -11,25 +11,27 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrainSubsystem;
 
-public class TankDrive extends CommandBase {
+public class FlipTankDrive extends CommandBase {
  
-   DriveTrainSubsystem m_DriveTrainSubsystem;
+   DriveTrainSubsystem m_driveTrain;
    Joystick LeftJoystick;
    Joystick RightJoystick;
    double m_LeftDeadZoneOnOff;
    double m_RightDeadZoneOnOff;
    double deadzone;
+
+   boolean flipped;
    
   /** Creates a new TankDrive. */
-  public TankDrive(DriveTrainSubsystem m_driveTrain, Joystick m_LeftJoystick, Joystick m_RightJoystick
+  public FlipTankDrive(DriveTrainSubsystem driveTrain, Joystick m_LeftJoystick, Joystick m_RightJoystick
 
   ) {
-  m_DriveTrainSubsystem = m_driveTrain;
+  m_driveTrain = driveTrain;
      LeftJoystick = m_LeftJoystick;
      RightJoystick = m_RightJoystick;
    
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_DriveTrainSubsystem);
+    addRequirements(m_driveTrain);
   }
 
   // Called when the command is initially scheduled.
@@ -37,7 +39,7 @@ public class TankDrive extends CommandBase {
   public void initialize() {
 
 
-deadzone = 0.1;
+deadzone = 0.125;
  
   }
 
@@ -53,8 +55,11 @@ deadzone = 0.1;
       m_RightDeadZoneOnOff= 0;
      } else {m_RightDeadZoneOnOff = 1;}
 
+     
+    flipped = m_driveTrain.getFlipped();
 
-   m_DriveTrainSubsystem.Drive( Math.pow(-LeftJoystick.getY()*.35, 3)*m_LeftDeadZoneOnOff,  Math.pow(-RightJoystick.getY()*.35, 3)*m_RightDeadZoneOnOff);
+
+   m_driveTrain.flipDrive( Math.pow(-LeftJoystick.getY()*.75, 3)*m_LeftDeadZoneOnOff,  Math.pow(-RightJoystick.getY()*.75, 3)*m_RightDeadZoneOnOff, flipped);
 
   }
 

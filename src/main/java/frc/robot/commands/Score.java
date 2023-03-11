@@ -22,7 +22,8 @@ public class Score extends CommandBase {
   private double finalAngle;
   private  LightEmittingDiode m_LightEmitingDiode;
 
-  private Timer timer =new Timer();
+  private Timer timer = new Timer();
+  private double shootTimer;
   
   /** Creates a new Score. */
   public Score(Arm pivotArm, EndEffector cubeEffector, ScoreMode score, LightEmittingDiode LED) {
@@ -42,6 +43,7 @@ public class Score extends CommandBase {
   public void initialize() {
     timer.start();
     scoreMode = m_ScoreMode.getScoreMode();
+    shootTimer = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -54,7 +56,7 @@ public class Score extends CommandBase {
 
 
 
-    if(Math.abs(finalAngle - m_Arm.getPosition()) <= 3){
+    if(Math.abs(finalAngle - m_Arm.getPosition()) <= 5){
        timer.start();
        SmartDashboard.putString("Arm?", "Yes");
 
@@ -68,6 +70,8 @@ public class Score extends CommandBase {
         if (scoreMode == 1) {m_EndEffector.Score("low");
       } else if (scoreMode == 2) {m_EndEffector.Score("mid");
       } else if (scoreMode == 3) {m_EndEffector.Score("high");}
+
+        shootTimer++;
        }
 
 
@@ -84,6 +88,6 @@ public class Score extends CommandBase {
   @Override
   public boolean isFinished() {
 
-    return (false);
+    return (shootTimer >= 50);
   }
 }

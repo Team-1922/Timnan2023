@@ -40,7 +40,10 @@ public class LightEmittingDiode extends SubsystemBase {
  
   
 public void setColor(int red, int green, int blue){
-m_candle.setLEDs(red, green, blue,0,0,80);
+m_candle.clearAnimation(0);
+m_candle.clearAnimation(1);
+m_candle.clearAnimation(2);
+m_candle.setLEDs(red, green, blue,0,0,108);
 
 
 }
@@ -58,15 +61,15 @@ public void LedAnimate(Animation Animation, int AnimationSlot){
 
 Tinman 
                                      
-                                     /|\
-                                   /  |  \
-                                 /    |    \
+                                /|\
+                               / | \
+                              /  |  \
                            __/___|___\__
-                          |                         |
-                          |     _    | |         |
-                          |    ||\_____|   |
-                          |    \_|_|_|_|   | 
-                          |                         |
+                          |            |
+                          |     _    | |         
+                          |    ||\_____|   
+                          |    \_|_|_|_|    
+                          |            |
                           |____________|
                         
 */
