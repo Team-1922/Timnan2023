@@ -33,7 +33,7 @@ public class AutoStraight extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    startPitch = m_driveTrain.robotPitch() + 2.4;
+    startPitch = m_driveTrain.robotPitch();
     check1 = false;
     check2 = false;
 
@@ -46,15 +46,15 @@ public class AutoStraight extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    newPitch = m_driveTrain.robotPitch() + 2.4;
+    newPitch = m_driveTrain.robotPitch();
 
     //If the change goes up (Up the ramp)
-    if(newPitch - startPitch >= 0 + 3){
+    if(newPitch - startPitch >= 3){
       check1 = true;
     }
 
     // If the change goes down (Down the ramp)
-    if(check1 == true && newPitch - startPitch <= 0 - 3){
+    if(check1 == true && newPitch - startPitch <= -3){
       check2 = true; 
     }
 
@@ -64,15 +64,11 @@ public class AutoStraight extends CommandBase {
 
     m_driveTrain.velocityDrive(m_RPM, m_RPM);
 
-    if(newPitch >= -2 && newPitch <= 2){
+    if(newPitch >= startPitch-2 && newPitch <= startPitch+2){
       timer.start();
     } else {
       timer.reset();
     }
-
-    SmartDashboard.putBoolean("GO Check1", check1);
-    SmartDashboard.putBoolean("GO Check2", check2);
-    SmartDashboard.putNumber("StraightTimer", timer.get());
 
   }
 
