@@ -21,7 +21,7 @@ double Turn;
 double PGain = Constants.apriltagPGain;
 double DGain = Constants.apriltagDGain;
 double m_tx;
-NetworkTable table = NetworkTableInstance.getDefault().getTable("gloworm"); // limelights name goes here 
+NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight-collect"); // limelights name goes here 
 NetworkTableEntry tx = table.getEntry("tx");
 double targetYaw;
   /** Creates a new Apriltag. */
@@ -37,7 +37,7 @@ double targetYaw;
     NetworkTable Ozram = NetworkTableInstance.getDefault().getTable("Ozram");
     PGain = Ozram.getEntry("visionPGain").getDouble(0);
     DGain = Ozram.getEntry("visionDGain").getDouble(0);
-    NetworkTable gloworm = NetworkTableInstance.getDefault().getTable("gloworm");
+    NetworkTable limelight = NetworkTableInstance.getDefault().getTable("limelight-collect");
   //  targetYaw = gloworm.getEntry("targetyaw");
 
 startingRotation = tx.getDouble(0);
