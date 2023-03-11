@@ -9,6 +9,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrainSubsystem;
 
 public class FlipTankDrive extends CommandBase {
@@ -59,7 +60,7 @@ deadzone = 0.125;
     flipped = m_driveTrain.getFlipped();
 
 
-   m_driveTrain.flipDrive( Math.pow(-LeftJoystick.getY()*.75, 3)*m_LeftDeadZoneOnOff,  Math.pow(-RightJoystick.getY()*.75, 3)*m_RightDeadZoneOnOff, flipped);
+   m_driveTrain.flipDrive( Math.pow(-LeftJoystick.getY()*.75*Constants.maxRPM, 3)*m_LeftDeadZoneOnOff,  Math.pow(-RightJoystick.getY()*.75*Constants.maxRPM, 3)*m_RightDeadZoneOnOff, flipped);
 
   }
 

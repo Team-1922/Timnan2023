@@ -155,7 +155,7 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
   public RobotContainer() {
 
 
-    m_DriveTrainSubsystem.setDefaultCommand(m_flipDrive);
+    m_DriveTrainSubsystem.setDefaultCommand(m_curvyDrive);
     // Configure the trigger bindings
     configureBindings();
 
