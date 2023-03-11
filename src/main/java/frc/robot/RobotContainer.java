@@ -10,6 +10,7 @@ import frc.robot.commands.ToggleFlip;
 import frc.robot.subsystems.ScoreMode;
 import frc.robot.Constants;
 import frc.robot.commands.IncrementScoreMode;
+import frc.robot.commands.IncrementScoreModeDown;
 import frc.robot.commands.LedAmericaAnimation;
 import frc.robot.commands.AnimateStop;
 import frc.robot.commands.Apriltag;
@@ -103,6 +104,7 @@ public class RobotContainer {
   private final GatherTheCube m_GatherCube = new GatherTheCube(m_Arm, m_EndEffector);
   private final Score m_Score = new Score(m_Arm, m_EndEffector, m_ScoreMode, m_LightEmittingDiode);
   private final IncrementScoreMode m_ScoreModeIncrement = new IncrementScoreMode(m_ScoreMode, m_LightEmittingDiode);
+  private final IncrementScoreModeDown m_ScoreModeIncrementDown = new IncrementScoreModeDown(m_ScoreMode, m_LightEmittingDiode);
   private final TestArm m_TestArm = new TestArm(m_Arm);
 
 
@@ -210,6 +212,8 @@ visionDGain.setNumber(0.002);
 
     // X Button
     m_driverController.x().onTrue(m_ScoreModeIncrement);
+
+    m_driverController.y().onTrue(m_ScoreModeIncrementDown);
     // Left Bumper
     m_driverController.button(5).whileTrue(m_GatherCube);
     // RightBumper

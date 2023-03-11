@@ -71,7 +71,7 @@ public final class Constants {
     public static final int kCandleId = 10;
 
 
-    public static final double apriltagPGain = 0.1;
+    public static final double apriltagPGain = 0.25;
     public static final double apriltagDGain = 0;
  // }
 }
