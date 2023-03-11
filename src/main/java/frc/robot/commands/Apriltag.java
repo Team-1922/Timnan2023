@@ -78,6 +78,7 @@ if(Math.abs(m_tx) <2.5){timer.start();}
   @Override
   public boolean isFinished() 
   { if(timer.get()>2){return true;}
+  if(failSafe.get()>=5){return true;}
     
     return false;
   }
