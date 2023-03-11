@@ -55,7 +55,7 @@ double turn = PGain*m_tx+ turnSpeed;
     
 
  
-m_driveTrain.velocityDrive(turn*.3, -turn*.3);
+m_driveTrain.velocityDrive(turn*.2, -turn*.2);
   }
 
   // Called once the command ends or is interrupted.
