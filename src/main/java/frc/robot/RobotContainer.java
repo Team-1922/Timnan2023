@@ -12,7 +12,6 @@ import frc.robot.Constants;
 import frc.robot.commands.IncrementScoreMode;
 import frc.robot.commands.LedAmericaAnimation;
 import frc.robot.commands.AnimateStop;
-import frc.robot.commands.Apriltag;
 import frc.robot.commands.AutoBalance;
 import frc.robot.commands.AutoStraight;
 import frc.robot.commands.AutoStraightBack;
@@ -128,7 +127,7 @@ public class RobotContainer {
   private final ToggleBrake m_toggleBrake = new ToggleBrake(m_DriveTrainSubsystem);
   private final SwivelDrive m_swivelDrive = new SwivelDrive(m_DriveTrainSubsystem, RightJoystick);
    
-  private final Apriltag m_Apriltag = new Apriltag(m_DriveTrainSubsystem);
+  //private final Apriltag m_Apriltag = new Apriltag(m_DriveTrainSubsystem);
 
   //other commands 
   //LED commands
@@ -227,7 +226,8 @@ visionDGain.setNumber(0.002);
     new JoystickButton(RightJoystick, 2).onTrue(m_toggleBrake);
 
 
-    new JoystickButton(LeftJoystick, 6).onTrue(m_Apriltag);
+
+    //new JoystickButton(LeftJoystick, 6).onTrue(m_Apriltag);
 
 
       
