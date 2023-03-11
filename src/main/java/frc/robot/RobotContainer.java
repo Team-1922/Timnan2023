@@ -83,7 +83,7 @@ public class RobotContainer {
   //arm commands
   private final GatherTheCube m_GatherCube = new GatherTheCube(m_Arm, m_EndEffector);
   private final Score m_Score = new Score(m_Arm, m_EndEffector, m_ScoreMode, m_LightEmittingDiode);
-  private final ScoreAlt m_ScoreAlt = new ScoreAlt(m_Arm, m_EndEffector, m_ScoreMode, m_LightEmittingDiode);
+  private final ScoreAlt m_ScoreAlt = new ScoreAlt(m_Arm, m_EndEffector, m_ScoreMode/* , m_LightEmittingDiode*/);
   private final IncrementScoreMode m_ScoreModeIncrement = new IncrementScoreMode(m_ScoreMode, m_LightEmittingDiode);
   private final TestArm m_TestArm = new TestArm(m_Arm);
 

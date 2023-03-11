@@ -18,7 +18,7 @@ public class ScoreAlt extends CommandBase {
   private EndEffector m_EndEffector;
   private Arm m_Arm;
   private ScoreMode m_ScoreMode;
-  private  LightEmittingDiode m_LightEmitingDiode;
+  private LightEmittingDiode m_LightEmitingDiode;
   public static double[][] m_BaselineVectors = new double[3][2];
   public double m_CalculatedVoltage;
   public double m_Difference;
@@ -27,29 +27,29 @@ public class ScoreAlt extends CommandBase {
   public double m_Position;
   
   /** Creates a new Score. */
-  public ScoreAlt(Arm pivotArm, EndEffector cubeEffector, ScoreMode score, LightEmittingDiode LED) {
+  public ScoreAlt(Arm pivotArm, EndEffector cubeEffector, ScoreMode score) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_Arm = pivotArm;
     m_EndEffector = cubeEffector;
     m_ScoreMode = score;
-    m_LightEmitingDiode = LED;
+    //m_LightEmitingDiode = LED;
     addRequirements(pivotArm);
     addRequirements(cubeEffector);
     addRequirements(score);
-    addRequirements(LED);
+    //addRequirements(LED);
   }
   
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     int m_SMode = m_ScoreMode.getScoreMode();
-    if (m_SMode == 1) {m_Arm.calculateVoltage(Constants.kPivotMotorLowAngle, .4, m_BaselineVectors);
+    if (m_SMode == 1) {m_Arm.calculateVoltage(Constants.kPivotMotorLowAngle, .25, m_BaselineVectors);
       m_ShootingSpeed = "low";
     }
-    else if (m_SMode == 2) {m_Arm.calculateVoltage(Constants.kPivotMotorMidAngle, .4, m_BaselineVectors);
+    else if (m_SMode == 2) {m_Arm.calculateVoltage(Constants.kPivotMotorMidAngle, .25, m_BaselineVectors);
       m_ShootingSpeed = "mid";
     }
-    else if ( m_SMode == 3) {m_Arm.calculateVoltage(Constants.kPivotMotorHighAngle, .4, m_BaselineVectors);
+    else if ( m_SMode == 3) {m_Arm.calculateVoltage(Constants.kPivotMotorHighAngle, .25, m_BaselineVectors);
       m_ShootingSpeed = "high";
     }
     System.out.println(m_BaselineVectors[2][0]);
