@@ -33,7 +33,7 @@ public class AutoStraight extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    startPitch = m_driveTrain.robotPitch() + 2.4;
+    startPitch = m_driveTrain.robotPitch();
     check1 = false;
     check2 = false;
 
@@ -46,7 +46,7 @@ public class AutoStraight extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    newPitch = m_driveTrain.robotPitch() + 2.4;
+    newPitch = m_driveTrain.robotPitch();
 
     //If the change goes up (Up the ramp)
     if(newPitch - startPitch >= 3){

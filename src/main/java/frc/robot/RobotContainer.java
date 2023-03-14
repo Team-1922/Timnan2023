@@ -163,7 +163,7 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
   public RobotContainer() {
 
 
-    m_DriveTrainSubsystem.setDefaultCommand(m_flipDrive);
+    m_DriveTrainSubsystem.setDefaultCommand(m_curvyDrive);
     // Configure the trigger bindings
     configureBindings();
 
@@ -281,9 +281,7 @@ visionDGain.setNumber(0.002);
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.m_autoBackup;
-    //return Autos.m_autoStraightHalf;
- //   return Autos.m_autoStraightGroup;
+    return Autos.m_autoStraightGroup;
 }
 
 }
