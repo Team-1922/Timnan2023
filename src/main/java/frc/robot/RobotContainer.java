@@ -211,13 +211,13 @@ visionDGain.setNumber(0.002);
     //                       *** OPERATOR CONTROLS ***
 
     // X Button
-    m_driverController.x().onTrue(m_ScoreModeIncrement);
+    m_driverController.button(1).onTrue(m_ScoreModeIncrement); 
 
-    m_driverController.y().onTrue(m_ScoreModeIncrementDown);
+    m_driverController.button(4).onTrue(m_ScoreModeIncrementDown);
     // Left Bumper
-    m_driverController.button(5).whileTrue(m_GatherCube);
+    m_driverController.button(7).whileTrue(m_GatherCube); // FIVE
     // RightBumper
-    m_driverController.button(6).whileTrue(m_Score);
+    m_driverController.button(8).whileTrue(m_Score); // SIX
 
 
 
@@ -281,7 +281,9 @@ visionDGain.setNumber(0.002);
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.m_autoStraightGroup;
+    return Autos.m_autoBackup;
+    //return Autos.m_autoStraightHalf;
+ //   return Autos.m_autoStraightGroup;
 }
 
 }

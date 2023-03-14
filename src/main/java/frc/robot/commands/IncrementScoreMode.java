@@ -27,9 +27,8 @@ public class IncrementScoreMode extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(m_Score.getScoreMode() ==1){m_Score.setScoreMode(3);}
-    if(m_Score.getScoreMode() ==2){m_Score.setScoreMode(1);} 
-    if(m_Score.getScoreMode() ==3){m_Score.setScoreMode(2);}
+    m_Score.incrementScoreMode();
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.

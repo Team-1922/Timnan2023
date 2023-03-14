@@ -26,8 +26,15 @@ public class ScoreMode extends SubsystemBase {
             m_ScoreMode = 1;
         } else m_ScoreMode++;
         
-        SmartDashboard.putNumber("ScoreMode", m_ScoreMode);
     }
+
+    public void incrementScoreModeDown(){
+        if(m_ScoreMode <= 1){
+            m_ScoreMode = 3;
+        } else m_ScoreMode--;
+    }
+
+
 
     
 }
