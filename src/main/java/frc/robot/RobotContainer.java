@@ -10,8 +10,10 @@ import frc.robot.commands.ToggleFlip;
 import frc.robot.subsystems.ScoreMode;
 import frc.robot.Constants;
 import frc.robot.commands.IncrementScoreMode;
+import frc.robot.commands.IncrementScoreModeDown;
 import frc.robot.commands.LedAmericaAnimation;
 import frc.robot.commands.AnimateStop;
+import frc.robot.commands.Apriltag;
 import frc.robot.commands.CurvyDrive;
 import frc.robot.commands.DriveStraight;
 import frc.robot.commands.FlipTankDrive;
@@ -37,6 +39,9 @@ import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -99,6 +104,7 @@ public class RobotContainer {
   private final GatherTheCube m_GatherCube = new GatherTheCube(m_Arm, m_EndEffector);
   private final Score m_Score = new Score(m_Arm, m_EndEffector, m_ScoreMode, m_LightEmittingDiode);
   private final IncrementScoreMode m_ScoreModeIncrement = new IncrementScoreMode(m_ScoreMode, m_LightEmittingDiode);
+  private final IncrementScoreModeDown m_ScoreModeIncrementDown = new IncrementScoreModeDown(m_ScoreMode, m_LightEmittingDiode);
   private final TestArm m_TestArm = new TestArm(m_Arm);
 
 
@@ -125,6 +131,8 @@ public class RobotContainer {
     private final ToggleFlip m_toggleFlip = new ToggleFlip(m_DriveTrainSubsystem);
   private final ToggleBrake m_toggleBrake = new ToggleBrake(m_DriveTrainSubsystem);
   private final SwivelDrive m_swivelDrive = new SwivelDrive(m_DriveTrainSubsystem, RightJoystick);
+   
+  private final Apriltag m_Apriltag = new Apriltag(m_DriveTrainSubsystem);
   
 
   //other commands 
@@ -162,11 +170,29 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
 
 
 
+ initNetworkTable();
+   
+   
+   
+
+
 
     SmartDashboard.putNumber("Deadzone", .125);
 
     SmartDashboard.putNumber("Balance P", .015);
     SmartDashboard.putNumber("Balance D", .01);
+  }
+
+  private void initNetworkTable(){
+    NetworkTable table = NetworkTableInstance.getDefault().getTable("Ozram");
+NetworkTableEntry visionPGain = table.getEntry("visionPGain");
+visionPGain.setNumber(0.02);
+
+NetworkTableEntry visionDGain = table.getEntry("visionDGain");
+visionDGain.setNumber(0.002);
+
+
+
   }
 
   /**
@@ -185,11 +211,13 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
     //                       *** OPERATOR CONTROLS ***
 
     // X Button
-    m_driverController.x().onTrue(m_ScoreModeIncrement);
+    m_driverController.button(1).onTrue(m_ScoreModeIncrement); 
+
+    m_driverController.button(4).onTrue(m_ScoreModeIncrementDown);
     // Left Bumper
-    m_driverController.button(5).whileTrue(m_GatherCube);
+    m_driverController.button(7).whileTrue(m_GatherCube); // FIVE
     // RightBumper
-    m_driverController.button(6).whileTrue(m_Score);
+    m_driverController.button(8).whileTrue(m_Score); // SIX
 
 
 
@@ -207,12 +235,14 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
 
 
 
+    new JoystickButton(LeftJoystick, 6).onTrue(m_Apriltag);
 
 
       
     //                       *** LED CONTROLS ***
 
       //LED buttons
+      
       /* 
       new JoystickButton(RightJoystick, 12)
       .onTrue(m_Rainbow);
@@ -239,6 +269,7 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
        .onTrue(m_AmericaAnimation);
        new JoystickButton(LeftJoystick, 7)
        .onTrue(m_FireAnimation); 
+       
        */
   }
 
@@ -250,7 +281,9 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.m_autoStraightGroup;
+    return Autos.m_autoBackup;
+    //return Autos.m_autoStraightHalf;
+ //   return Autos.m_autoStraightGroup;
 }
 
 }

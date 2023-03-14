@@ -8,11 +8,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LightEmittingDiode;
 import frc.robot.subsystems.ScoreMode;
 
-public class IncrementScoreMode extends CommandBase {
+public class IncrementScoreModeDown extends CommandBase {
   /** Creates a new increaseScoreMode. */
   private ScoreMode m_Score;
   private LightEmittingDiode m_LED;
-  public IncrementScoreMode(ScoreMode Score, LightEmittingDiode LED) {
+  public IncrementScoreModeDown(ScoreMode Score, LightEmittingDiode LED) {
   
     // Use addRequirements() here to declare subsystem dependencies.
     m_Score = Score;
@@ -27,8 +27,7 @@ public class IncrementScoreMode extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_Score.incrementScoreMode();
-
+     m_Score.incrementScoreModeDown();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -78,7 +78,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   double maxoutput = 1;
   double rightminoutput = -1;
   double rightmaxoutput =1;
-  Timer m_Timer;
+  //Timer m_Timer;
   double JoystickDeadzone = 0.125;
 
 
@@ -166,8 +166,10 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
 
 
-    m_Timer = new Timer();
-    m_Timer.start();
+
+
+    //m_Timer = new Timer();
+    //m_Timer.start();
     m_navX = navX;
 
     // Setting up the odometry object 
@@ -266,7 +268,7 @@ public void periodic()   {
 
     SmartDashboard.putNumber("LeftVelocity", m_leftEncoder.getVelocity());
 
-    SmartDashboard.putNumber("PID Timer", m_Timer.get());
+    //SmartDashboard.putNumber("PID Timer", m_Timer.get());
 
 
   
