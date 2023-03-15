@@ -44,6 +44,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -62,6 +63,7 @@ import com.ctre.phoenix.led.TwinkleAnimation.TwinklePercent;
 import com.ctre.phoenix.led.RainbowAnimation;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // tryout temp imports
@@ -77,6 +79,9 @@ import frc.robot.commands.LedCoolAnimation;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+
+
+  private final SendableChooser<CommandBase> m_autochooser = new SendableChooser<CommandBase>();
  Animation RainbowAnimation = new RainbowAnimation(1,0.5,108);
  Animation RgbFadeAnimation = new RgbFadeAnimation(1, 0.5, 108);
  Animation FireAnimation = new FireAnimation(1, 1,108 , 1, 0); 
@@ -194,6 +199,17 @@ visionDGain.setNumber(0.002);
 
 
   }
+  public void autochooser()[
+
+ m_autochooser.setDefaultOption("shoot, mobility, balence", Autos.m_autoStraightBack2);
+ m_autochooser.addoption("straightgroup" , Autos.m_autostraightgroup);
+ m_autochooser.addoption("shoot, mobility", Autos.m_autoStraightBack);
+
+
+ SmartDashboard.putData(" autochooser",m_autochooser); 
+ //("autochooser", m_autochoo
+
+ ]
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -280,8 +296,9 @@ visionDGain.setNumber(0.002);
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+    return m_autochooser.getselected();
     // An example command will be run in autonomous
-    return Autos.m_autoBackup;
+    //return Autos.m_autoBackup;
     //return Autos.m_autoStraightHalf;
  //   return Autos.m_autoStraightGroup;
 }

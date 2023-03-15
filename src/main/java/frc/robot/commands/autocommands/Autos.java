@@ -13,6 +13,7 @@ import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.LightEmittingDiode;
 import frc.robot.subsystems.ScoreMode;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -21,6 +22,7 @@ public final class Autos {
   /** Example static factory for an autonomous command. */
   public static CommandBase exampleAuto(ExampleSubsystem subsystem) {
     return Commands.sequence(subsystem.exampleMethodCommand(), new ExampleCommand(subsystem));
+ // final SendableChooser
   }
 
   private static DriveTrainSubsystem m_driveTrain = RobotContainer.m_DriveTrainSubsystem;
