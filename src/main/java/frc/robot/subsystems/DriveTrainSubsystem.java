@@ -5,7 +5,10 @@
 package frc.robot.subsystems;
 
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -17,7 +20,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -27,12 +30,14 @@ import frc.robot.RobotContainer;
 import frc.robot.commands.TrajectoryDrive;
 
 import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import java.util.ArrayList;
 
 import com.ctre.phoenix.sensors.Pigeon2;
 import com.kauailabs.navx.frc.AHRS;
+import com.playingwithfusion.CANVenom.BrakeCoastMode;
 
 
 public class DriveTrainSubsystem extends SubsystemBase { 
@@ -52,6 +57,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   private AHRS m_navX;
   private DifferentialDriveOdometry m_odometry;
+
+  boolean isFlipped = false;
+
   private Pose2d SpotOne;
   double p=6e-5;
    double i=0;
@@ -69,8 +77,12 @@ public class DriveTrainSubsystem extends SubsystemBase {
   double maxoutput = 1;
   double rightminoutput = -1;
   double rightmaxoutput =1;
-  Timer m_Timer;
+  //Timer m_Timer;
   double JoystickDeadzone = 0.125;
+
+
+  
+  DifferentialDrive m_differentialDrive = new DifferentialDrive(m_leftLead, m_rightLead);
 
   Timer balanceTimer = new Timer();
   /** Creates a new DriveTrainSubsystem. */
@@ -139,14 +151,22 @@ public class DriveTrainSubsystem extends SubsystemBase {
   m_pidControllerRight.setFF(rightff);
   m_pidControllerRight.setIZone(rightd);
 
+  m_leftLead.setIdleMode(IdleMode.kCoast);
+  m_rightLead.setIdleMode(IdleMode.kCoast);
+  m_leftFollow.setIdleMode(IdleMode.kCoast);
+  m_rightFollow.setIdleMode(IdleMode.kCoast);
+
   
 
 
-  
+  m_differentialDrive.setDeadband(.1);
+  m_differentialDrive.setMaxOutput(.35);
 
 
-    m_Timer = new Timer();
-    m_Timer.start();
+
+
+    //m_Timer = new Timer();
+    //m_Timer.start();
     m_navX = navX;
 
     // Setting up the odometry object 
@@ -172,84 +192,63 @@ public void velocityDrive(double LeftRPM, double rightRPM){
 m_pidControllerLeft.setReference(LeftRPM, CANSparkMax.ControlType.kVelocity);
 m_pidControllerRight.setReference(rightRPM, CANSparkMax.ControlType.kVelocity);
 
+}
 
+public void curvatureDrive(double left, double right, Joystick joystick){
+  m_differentialDrive.curvatureDrive(left, right, joystick.getRawButton(1));
+}
 
+public void flipDrive(double left, double right, boolean flipped){
 
- /* double MaxVelocity = 250; // the max velocity of the motor , test this when the drivebase is done
- double OutputScale = .9 ; //scale the output 
-Drive( RobotContainer.LeftJoystick.getY()*MaxVelocity*OutputScale, RobotContainer.RightJoystick.getY()*MaxVelocity*OutputScale); */
+  if(flipped == false){
+    m_leftLead.set(left);
+    m_rightLead.set(right);
+  } else {
+    m_leftLead.set(-right);
+    m_rightLead.set(-left);
+  }
+
 
 }
-public void timedpid( )    {
-if (m_Timer.hasElapsed(5)){
 
-  //left pid
-  if (p != SmartDashboard.getNumber("left p gain", 6e-5)){ 
-  p = SmartDashboard.getNumber("left p gain", 6e-5);
-   m_pidControllerLeft.setP(p);
+public void toggleFlipped(){
+  if(isFlipped == true){
+    isFlipped = false;
+    SmartDashboard.putBoolean("Flipped?", false);
+  } else if(isFlipped == false){
+    isFlipped = true;
+    SmartDashboard.putBoolean("Flipped?", true);
+
+  }
 }
-  if (i != SmartDashboard.getNumber("left i gain", 0)) { 
-   i = SmartDashboard.getNumber("left i gain", 0); 
-   m_pidControllerLeft.setI(i); }
-
-  if (d != SmartDashboard.getNumber("left d gain", 0)){ 
-   d = SmartDashboard.getNumber("left d gain", 0);
-   m_pidControllerLeft.setD(d);}
-
-  if (ff != SmartDashboard.getNumber("left feed foward", 0.000015)) {
-    ff = SmartDashboard.getNumber("left feed foward", 0.000015);
-    m_pidControllerLeft.setFF(ff); } 
-
-   if (iz != SmartDashboard.getNumber("left i zone", 0)) {
-    iz = SmartDashboard.getNumber("left i zone", 0);
-    m_pidControllerLeft.setIZone(iz);}
-
-  if (minoutput != SmartDashboard.getNumber("left min output", -1)){
-    minoutput = SmartDashboard.getNumber("left min output", -1);
-    m_pidControllerLeft.setOutputRange(minoutput, maxoutput);}
-
-  if (maxoutput != SmartDashboard.getNumber("left max output", 1)){
-    maxoutput = SmartDashboard.getNumber("left max output", 1);
-    m_pidControllerLeft.setOutputRange(minoutput, maxoutput);}
-
-  if (Maxrpm != SmartDashboard.getNumber("left max rpm", 5700)) {
-    Maxrpm = SmartDashboard.getNumber("left max rpm", 5700);}
 
 
-//right pid 
-  if (rightp != SmartDashboard.getNumber("right p gain", 6e-5)){
-    rightp = SmartDashboard.getNumber("right p gain", 6e-5);  
-    m_pidControllerRight.setP(rightp);}
+public boolean getFlipped(){
+  return isFlipped;
   
-  if (righti != SmartDashboard.getNumber("right i gain", 0)) {
-    righti = SmartDashboard.getNumber("right i gain", 0);
-    m_pidControllerRight.setI(righti);}
-  
-  if (rightd != SmartDashboard.getNumber("right d gain", 0)) {
-    rightd = SmartDashboard.getNumber("right d gain", 0);
-    m_pidControllerRight.setD(rightd);}
-  
-  if (rightff != SmartDashboard.getNumber("right feed foward", 0.000015)){
-    rightff = SmartDashboard.getNumber("right feed foward", 0.000015);
-    m_pidControllerRight.setFF(rightff);}
-  
-  if (rightiz != SmartDashboard.getNumber("right i zone", 0)){
-    rightiz = SmartDashboard.getNumber("right i zone", 0);
-    m_pidControllerRight.setIZone(rightiz);}
-  
-  if (rightmaxoutput != SmartDashboard.getNumber("right max output", 1)) {
-    rightmaxoutput = SmartDashboard.getNumber("right max output", 1);
-    m_pidControllerRight.setOutputRange(rightminoutput, rightmaxoutput);}
-  
-  if (rightminoutput != SmartDashboard.getNumber("right min output", -1)) {
-    krightMinOutput = SmartDashboard.getNumber("right min output", -1);
-    m_pidControllerRight.setOutputRange(rightminoutput, rightmaxoutput);}
+}
 
-  if (rightmaxrpm != SmartDashboard.getNumber("right max rpm",5700 )) {
-    rightmaxrpm = SmartDashboard.getNumber("right max rpm", 5700);}
 
-m_Timer.reset();}
-};
+
+public void toggleBrake(){
+  if(m_leftLead.getIdleMode() == IdleMode.kCoast){
+    m_leftLead.setIdleMode(IdleMode.kBrake);
+    m_rightLead.setIdleMode(IdleMode.kBrake);
+    m_leftFollow.setIdleMode(IdleMode.kBrake);
+    m_rightFollow.setIdleMode(IdleMode.kBrake);
+    SmartDashboard.putBoolean("Brake?", true);
+  } else {
+    m_leftLead.setIdleMode(IdleMode.kCoast);
+    m_rightLead.setIdleMode(IdleMode.kCoast);
+    m_leftFollow.setIdleMode(IdleMode.kCoast);
+    m_rightFollow.setIdleMode(IdleMode.kCoast);
+    SmartDashboard.putBoolean("Brake?", false);
+
+  }
+}
+
+
+
 
 @Override
 public void periodic()   {
@@ -266,10 +265,6 @@ public void periodic()   {
 
     SmartDashboard.putNumber("LeftVelocity", m_leftEncoder.getVelocity());
 
-    SmartDashboard.putNumber("PID Timer", m_Timer.get());
-timedpid();
-
-  
    //TEMP
    SmartDashboard.putNumber("RobotYaw", m_pigeon.getYaw() % 360);
    SmartDashboard.putNumber("RobotPitch", m_pigeon.getRoll());

@@ -5,21 +5,20 @@
 package frc.robot.commands;
 
 import com.ctre.phoenix.led.Animation;
-import com.ctre.phoenix.led.RainbowAnimation;
+import com.ctre.phoenix.led.LarsonAnimation;
+import com.ctre.phoenix.led.LarsonAnimation.BounceMode;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LightEmittingDiode;
 
-public class LedAnimate extends CommandBase {
-  /** Creates a new LightUpGreen. */
-  private final LightEmittingDiode m_LED;
-  private final Animation m_Animation;
-  int m_AnimationSlot; 
-  public LedAnimate(LightEmittingDiode LED, Animation Animation, int AnimationSlot) {
-   m_LED = LED;
-   m_Animation = Animation;
-   m_AnimationSlot = AnimationSlot;
-   addRequirements(m_LED);
+public class LedCoolAnimation extends CommandBase {
+  Animation m_animationOne = new LarsonAnimation(255, 255, 0, 0, 0,40, BounceMode.Back, 1, 0);
+  Animation m_animationTwo = new LarsonAnimation(255,255, 0, 0, 0, 30, BounceMode.Back, 1, 40);
+  LightEmittingDiode m_LED = new LightEmittingDiode();
+  /** Creates a new LedCoolAnimation. */
+  public LedCoolAnimation(LightEmittingDiode LED) {
+m_LED = LED;
+addRequirements(LED);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -34,15 +33,15 @@ public class LedAnimate extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-m_LED.LedAnimate(m_Animation, 1);
-
-
-  }
+    m_LED.LedAnimate(m_animationOne, 1);
+    m_LED.LedAnimate(m_animationTwo, 2);
+  } 
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+ 
+  }
 
   // Returns true when the command should end.
   @Override

@@ -4,40 +4,33 @@
 
 package frc.robot.commands;
 
-import com.ctre.phoenix.led.Animation;
-import com.ctre.phoenix.led.RainbowAnimation;
-
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.LightEmittingDiode;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.subsystems.DriveTrainSubsystem;
 
-public class LedAnimate extends CommandBase {
-  /** Creates a new LightUpGreen. */
-  private final LightEmittingDiode m_LED;
-  private final Animation m_Animation;
-  int m_AnimationSlot; 
-  public LedAnimate(LightEmittingDiode LED, Animation Animation, int AnimationSlot) {
-   m_LED = LED;
-   m_Animation = Animation;
-   m_AnimationSlot = AnimationSlot;
-   addRequirements(m_LED);
+public class CurvyDrive extends CommandBase {
+  DriveTrainSubsystem m_driveTrain;
+  Joystick m_left;
+  Joystick m_right;
+
+  /** Creates a new CurvyDrive. */
+  public CurvyDrive(DriveTrainSubsystem driveTrain, Joystick left, Joystick right) {
+    m_driveTrain = driveTrain;
+    m_left = left;
+    m_right = right;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(m_driveTrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    m_LED.LedAnimate(null, 0);
-    m_LED.LedAnimate(null, 1);
-    m_LED.LedAnimate(null, 2);
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-m_LED.LedAnimate(m_Animation, 1);
-
-
+    m_driveTrain.curvatureDrive(-m_left.getY(), -m_right.getX(), m_right);
   }
 
   // Called once the command ends or is interrupted.

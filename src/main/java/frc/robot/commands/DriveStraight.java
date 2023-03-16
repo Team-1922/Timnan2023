@@ -15,8 +15,8 @@ public class DriveStraight extends CommandBase {
 
   DriveTrainSubsystem  m_DriveTrainSubsystem;
  Joystick m_LeftJoystick;
- double Maxrpm= Constants.maxRPM;
- double rightmaxrpm= 2000;
+ double Maxrpm = Constants.maxRPM;
+ double rightmaxrpm = 2000;
 
  double deadzone;
   /** Creates a new DriveStraight. */
@@ -39,10 +39,9 @@ public class DriveStraight extends CommandBase {
     
 if (m_LeftJoystick.getY() > deadzone || m_LeftJoystick.getY() < deadzone){
     m_DriveTrainSubsystem.velocityDrive(
-      -m_LeftJoystick.getY() * Maxrpm,
-      -m_LeftJoystick.getY() * Maxrpm);
-      SmartDashboard.putNumber("StraightLeftVelocity", m_LeftJoystick.getY()*.5);
-}
+      (-m_LeftJoystick.getY() * Maxrpm),
+      (-m_LeftJoystick.getY() * Maxrpm));
+    }
 
   }
 

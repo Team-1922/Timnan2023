@@ -4,40 +4,29 @@
 
 package frc.robot.commands;
 
-import com.ctre.phoenix.led.Animation;
-import com.ctre.phoenix.led.RainbowAnimation;
-
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.LightEmittingDiode;
+import frc.robot.subsystems.DriveTrainSubsystem;
 
-public class LedAnimate extends CommandBase {
-  /** Creates a new LightUpGreen. */
-  private final LightEmittingDiode m_LED;
-  private final Animation m_Animation;
-  int m_AnimationSlot; 
-  public LedAnimate(LightEmittingDiode LED, Animation Animation, int AnimationSlot) {
-   m_LED = LED;
-   m_Animation = Animation;
-   m_AnimationSlot = AnimationSlot;
-   addRequirements(m_LED);
+public class SwivelDrive extends CommandBase {
+  DriveTrainSubsystem m_driveTrain;
+  Joystick m_joystick;
+  /** Creates a new SwivelDrive. */
+  public SwivelDrive(DriveTrainSubsystem driveTrain, Joystick rightJoystick) {
+    m_driveTrain = driveTrain;
+    m_joystick = rightJoystick;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(m_driveTrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    m_LED.LedAnimate(null, 0);
-    m_LED.LedAnimate(null, 1);
-    m_LED.LedAnimate(null, 2);
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-m_LED.LedAnimate(m_Animation, 1);
-
-
+    m_driveTrain.velocityDrive(m_joystick.getX()*2000, -m_joystick.getX()*2000);
   }
 
   // Called once the command ends or is interrupted.

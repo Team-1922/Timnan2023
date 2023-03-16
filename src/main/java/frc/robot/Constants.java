@@ -28,8 +28,8 @@ public final class Constants {
     public static final double kVeolcityRPMConversion = 0;
     public static final double kIOMotorGatherPower = -1.2;
     public static final double kIOMotorLowPower = 2;
-    public static final double kIOMotorMidPower = 4;
-    public static final double kIOMotorHighPower = 5.8;
+    public static final double kIOMotorMidPower = 5;
+    public static final double kIOMotorHighPower = 8;
     public static final double kIOMotorMaxPower = 12;
     public static final double kIOBottomToTopVoltageConversion = 1.02;
 
@@ -37,7 +37,7 @@ public final class Constants {
     public static final double kPivotMotorGatherAngle = 588; // 528
 
     public static final double kPivotMotorLowAngle = 100;
-    public static final double kPivotMotorMidAngle = 130;
+    public static final double kPivotMotorMidAngle = 140;
     public static final double kPivotMotorHighAngle = 155;
     public static final double kPivotMotorMinAngle = 0;
     public static final double kPivotMotorMaxAngle = 540;
@@ -69,5 +69,9 @@ public final class Constants {
     public static final double metersPerSecondToRPM = .0019304;
     public static final int kLedCount = 8;
     public static final int kCandleId = 10;
+
+
+    public static final double apriltagPGain = 0.035; //.02
+    public static final double apriltagDGain = 0.0;
  // }
 }
