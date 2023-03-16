@@ -27,7 +27,7 @@ public class IncrementScoreModeDown extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-     m_Score.incrementScoreMode();
+     m_Score.incrementScoreModeDown();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -35,6 +35,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import java.util.ArrayList;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.sensors.Pigeon2;
 import com.kauailabs.navx.frc.AHRS;
 import com.playingwithfusion.CANVenom.BrakeCoastMode;
@@ -165,6 +166,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
 
 
+
+
     //m_Timer = new Timer();
     //m_Timer.start();
     m_navX = navX;
@@ -201,11 +204,11 @@ public void curvatureDrive(double left, double right, Joystick joystick){
 public void flipDrive(double left, double right, boolean flipped){
 
   if(flipped == false){
-    m_leftLead.set(left);
-    m_rightLead.set(right);
+    m_pidControllerLeft.setReference(left, CANSparkMax.ControlType.kVelocity);
+    m_pidControllerRight.setReference(right, CANSparkMax.ControlType.kVelocity);
   } else {
-    m_leftLead.set(-right);
-    m_rightLead.set(-left);
+    m_pidControllerLeft.setReference(-right, CANSparkMax.ControlType.kVelocity);
+    m_pidControllerRight.setReference(-left, CANSparkMax.ControlType.kVelocity);
   }
 
 
