@@ -7,7 +7,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import edu.wpi.first.networktables.DoubleArrayEntry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import com.revrobotics.CANSparkMax;
@@ -21,6 +21,11 @@ public class Arm extends SubsystemBase {
   private static CANSparkMax m_Arm = new CANSparkMax(Constants.kPivotMotorID, MotorType.kBrushless);
   private static SparkMaxAbsoluteEncoder m_ArmEncoder = m_Arm.getAbsoluteEncoder(Type.kDutyCycle);
   private static SparkMaxPIDController m_ArmPID = m_Arm.getPIDController();
+  public double m_Position;
+  public double[] m_StartingVector = new double[2];
+  public double[] m_TargetVector = new double[2];
+  public double [] m_MidVector = new double[2];
+  public double m_CalculatedVoltage;
   private int m_valueRefCounter;
   public double aP = .0055, aI = 0, aD = 0.05, aFF = 0; //p .0055 d .08
 
@@ -78,5 +83,27 @@ public class Arm extends SubsystemBase {
     m_ArmPID.setReference(finalAngle, ControlType.kPosition);
     SmartDashboard.putNumber("Target angle", finalAngle);
     return m_FinalAngle;
+  }
+
+  public double[][] calculateVoltage(double finalAngle, double voltageDialation, double[][] combinedVectors) {
+    m_Position = m_ArmEncoder.getPosition();
+    m_StartingVector[0] = m_Position;
+    m_StartingVector[1] = 0;
+    m_MidVector[0] = (finalAngle-m_Position)/2;
+    m_MidVector[1] = (12*voltageDialation);
+    m_TargetVector[0] = finalAngle;
+    m_TargetVector[1] = 0;
+    combinedVectors[0][0] = m_StartingVector[0];
+    combinedVectors[0][1] = m_StartingVector[1];
+    combinedVectors[1][0] = m_MidVector[0];
+    combinedVectors[1][1] = m_MidVector[1];
+    combinedVectors[2][0] = m_TargetVector[0];
+    combinedVectors[2][1] = m_TargetVector[1];
+    
+    return combinedVectors;
+  }
+
+  public void setVoltage(double Voltage) {
+    m_ArmPID.setReference(Voltage, ControlType.kVoltage);
   }
 }

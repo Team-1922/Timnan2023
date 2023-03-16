@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.commands.ScoreAlt;
 import frc.robot.commands.TestArm;
 import frc.robot.commands.ToggleBrake;
 import frc.robot.commands.ToggleFlip;
@@ -44,6 +45,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -62,6 +64,7 @@ import com.ctre.phoenix.led.TwinkleAnimation.TwinklePercent;
 import com.ctre.phoenix.led.RainbowAnimation;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // tryout temp imports
@@ -77,6 +80,9 @@ import frc.robot.commands.LedCoolAnimation;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+
+
+  private final SendableChooser<CommandBase> m_autochooser = new SendableChooser<CommandBase>();
  Animation RainbowAnimation = new RainbowAnimation(1,0.5,108);
  Animation RgbFadeAnimation = new RgbFadeAnimation(1, 0.5, 108);
  Animation FireAnimation = new FireAnimation(1, 1,108 , 1, 0); 
@@ -111,12 +117,12 @@ public class RobotContainer {
   
 
     // Auto drive commands
-    private final AutoBalance m_autoBalance = new AutoBalance(m_DriveTrainSubsystem);
-    private final AutoBalance m_autoBalance2 = new AutoBalance(m_DriveTrainSubsystem);
+    //private final AutoBalance m_autoBalance = new AutoBalance(m_DriveTrainSubsystem);
+    //private final AutoBalance m_autoBalance2 = new AutoBalance(m_DriveTrainSubsystem);
 
-    private final AutoStraight m_autoStraight = new AutoStraight(m_DriveTrainSubsystem, 3000);
-    private final  AutoStraightBack m_autoStraightBack = new AutoStraightBack(m_DriveTrainSubsystem, -2700);
-    private final TrajectoryDrive m_trajectoryDriveTest = new TrajectoryDrive(m_DriveTrainSubsystem, new Translation2d(1.5, 0), new Translation2d(1.5, 2), new Translation2d(-.2, 2), new Pose2d(new Translation2d(0, 2), Rotation2d.fromDegrees(180)));
+    //private final AutoStraight m_autoStraight = new AutoStraight(m_DriveTrainSubsystem, 3000);
+    //private final  AutoStraightBack m_autoStraightBack = new AutoStraightBack(m_DriveTrainSubsystem, -2700);
+    //private final TrajectoryDrive m_trajectoryDriveTest = new TrajectoryDrive(m_DriveTrainSubsystem, new Translation2d(1.5, 0), new Translation2d(1.5, 2), new Translation2d(-.2, 2), new Pose2d(new Translation2d(0, 2), Rotation2d.fromDegrees(180)));
 
 
 
@@ -163,7 +169,9 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
   public RobotContainer() {
 
 
+
     m_DriveTrainSubsystem.setDefaultCommand(m_curvyDrive);
+
     // Configure the trigger bindings
     configureBindings();
 
@@ -172,7 +180,7 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
 
  initNetworkTable();
    
-   
+   autochooser();
    
 
 
@@ -194,6 +202,16 @@ visionDGain.setNumber(0.002);
 
 
   }
+  public void autochooser(){
+
+ m_autochooser.setDefaultOption("Balance w/ Mobility" , Autos.m_autoStraightGroup);
+ m_autochooser.addOption("Back Up", Autos.m_autoBackup);
+
+
+ SmartDashboard.putData(" autochooser",m_autochooser); }
+ 
+
+ 
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -280,8 +298,9 @@ visionDGain.setNumber(0.002);
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+    return m_autochooser.getSelected();
     // An example command will be run in autonomous
-    return Autos.m_autoBackup;
+    //return Autos.m_autoBackup;
     //return Autos.m_autoStraightHalf;
  //   return Autos.m_autoStraightGroup;
 }

@@ -4,7 +4,10 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.HIDType;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.DriveTrainSubsystem;
@@ -29,6 +32,7 @@ public class XBoxTankDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    m_xbox.getHID().setRumble(RumbleType.kBothRumble, MathUtil.clamp(m_xbox.getLeftY(), 0, 1));
     m_driveTrain.Drive(-m_xbox.getLeftY()*.35, -m_xbox.getRightY()*.35);
   }
 
