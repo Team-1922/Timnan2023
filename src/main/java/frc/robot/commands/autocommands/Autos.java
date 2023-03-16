@@ -22,7 +22,7 @@ public final class Autos {
   /** Example static factory for an autonomous command. */
   public static CommandBase exampleAuto(ExampleSubsystem subsystem) {
     return Commands.sequence(subsystem.exampleMethodCommand(), new ExampleCommand(subsystem));
- // final SendableChooser
+
   }
 
   private static DriveTrainSubsystem m_driveTrain = RobotContainer.m_DriveTrainSubsystem;

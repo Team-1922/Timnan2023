@@ -177,7 +177,7 @@ private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m
 
  initNetworkTable();
    
-   
+   autochooser();
    
 
 
@@ -199,17 +199,16 @@ visionDGain.setNumber(0.002);
 
 
   }
-  public void autochooser()[
+  public void autochooser(){
 
- m_autochooser.setDefaultOption("shoot, mobility, balence", Autos.m_autoStraightBack2);
- m_autochooser.addoption("straightgroup" , Autos.m_autostraightgroup);
- m_autochooser.addoption("shoot, mobility", Autos.m_autoStraightBack);
+ m_autochooser.setDefaultOption("Balance w/ Mobility" , Autos.m_autoStraightGroup);
+ m_autochooser.addOption("Back Up", Autos.m_autoBackup);
 
 
- SmartDashboard.putData(" autochooser",m_autochooser); 
- //("autochooser", m_autochoo
+ SmartDashboard.putData(" autochooser",m_autochooser); }
+ 
 
- ]
+ 
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -296,7 +295,7 @@ visionDGain.setNumber(0.002);
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return m_autochooser.getselected();
+    return m_autochooser.getSelected();
     // An example command will be run in autonomous
     //return Autos.m_autoBackup;
     //return Autos.m_autoStraightHalf;
