@@ -78,7 +78,7 @@ public class RobotContainer {
   public static EndEffector m_EndEffector = new EndEffector();
   public static Arm m_Arm = new Arm();
   public static ScoreMode m_ScoreMode = new ScoreMode();
-  private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
+  //private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
   private static LightEmittingDiode m_LightEmittingDiode = new LightEmittingDiode();
   //arm commands
   private final GatherTheCube m_GatherCube = new GatherTheCube(m_Arm, m_EndEffector);
@@ -91,23 +91,23 @@ public class RobotContainer {
   
 
     // Auto drive commands
-    private final AutoBalance m_autoBalance = new AutoBalance(m_DriveTrainSubsystem);
-    private final AutoBalance m_autoBalance2 = new AutoBalance(m_DriveTrainSubsystem);
+    //private final AutoBalance m_autoBalance = new AutoBalance(m_DriveTrainSubsystem);
+    //private final AutoBalance m_autoBalance2 = new AutoBalance(m_DriveTrainSubsystem);
 
-    private final AutoStraight m_autoStraight = new AutoStraight(m_DriveTrainSubsystem, 3000);
-    private final  AutoStraightBack m_autoStraightBack = new AutoStraightBack(m_DriveTrainSubsystem, -2700);
-    private final TrajectoryDrive m_trajectoryDriveTest = new TrajectoryDrive(m_DriveTrainSubsystem, new Translation2d(1.5, 0), new Translation2d(1.5, 2), new Translation2d(-.2, 2), new Pose2d(new Translation2d(0, 2), Rotation2d.fromDegrees(180)));
+    //private final AutoStraight m_autoStraight = new AutoStraight(m_DriveTrainSubsystem, 3000);
+    //private final  AutoStraightBack m_autoStraightBack = new AutoStraightBack(m_DriveTrainSubsystem, -2700);
+    //private final TrajectoryDrive m_trajectoryDriveTest = new TrajectoryDrive(m_DriveTrainSubsystem, new Translation2d(1.5, 0), new Translation2d(1.5, 2), new Translation2d(-.2, 2), new Pose2d(new Translation2d(0, 2), Rotation2d.fromDegrees(180)));
 
 
         // Auto Command Groups
-        private final SequentialCommandGroup m_autoStraightGroup = new SequentialCommandGroup(m_autoStraight, m_autoStraightBack, m_autoBalance2);
+        //private final SequentialCommandGroup m_autoStraightGroup = new SequentialCommandGroup(m_autoStraight, m_autoStraightBack, m_autoBalance2);
 
 
 
   // drive commands 
-  private final TankDrive m_TankDrive = new TankDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick);
-  private final XBoxTankDrive m_xBoxTankDrive = new XBoxTankDrive(m_DriveTrainSubsystem, m_driverController);
-  private final DriveStraight m_DriveStraight = new DriveStraight(m_DriveTrainSubsystem, LeftJoystick);
+  //private final TankDrive m_TankDrive = new TankDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick);
+  //private final XBoxTankDrive m_xBoxTankDrive = new XBoxTankDrive(m_DriveTrainSubsystem, m_driverController);
+  //private final DriveStraight m_DriveStraight = new DriveStraight(m_DriveTrainSubsystem, LeftJoystick);
   
 
   //other commands 
@@ -129,7 +129,7 @@ private final LedAnimate m_stopAnimate = new LedAnimate(m_LightEmittingDiode, nu
   public RobotContainer() {
 
 
-    m_DriveTrainSubsystem.setDefaultCommand(m_TankDrive);
+    //m_DriveTrainSubsystem.setDefaultCommand(m_TankDrive);
     // Configure the trigger bindings
     configureBindings();
 
@@ -160,14 +160,14 @@ private final LedAnimate m_stopAnimate = new LedAnimate(m_LightEmittingDiode, nu
     //m_driverController.leftTrigger().onTrue(m_GatherCube);
     //m_driverController.rightTrigger().onTrue(m_Score);
 
-    m_driverController.a().onTrue(m_trajectoryDriveTest);
-    m_driverController.b().onTrue(m_autoBalance);
+    //m_driverController.a().onTrue(m_trajectoryDriveTest);
+    //m_driverController.b().onTrue(m_autoBalance);
 
-    m_driverController.axisGreaterThan(2, .5).whileTrue(m_DriveStraight);
+    //m_driverController.axisGreaterThan(2, .5).whileTrue(m_DriveStraight);
     
 
 
-
+    /*
     new JoystickButton(LeftJoystick, 1)
       .whileTrue(m_DriveStraight);
 
@@ -179,10 +179,11 @@ private final LedAnimate m_stopAnimate = new LedAnimate(m_LightEmittingDiode, nu
 
     new JoystickButton(LeftJoystick, 6)
       .onTrue(m_trajectoryDriveTest);
-   // m_driverController.rightBumper().onTrue(m_ScoreModeIncrement);
-    //m_driverController.leftTrigger().whileTrue(m_GatherCube);
+    */
+   m_driverController.rightBumper().onTrue(m_ScoreModeIncrement);
+    m_driverController.leftTrigger().whileTrue(m_GatherCube);
     
-    //m_driverController.rightTrigger().whileTrue(m_Score);
+    m_driverController.rightTrigger().whileTrue(m_ScoreAlt);
     new JoystickButton(RightJoystick, 2).whileTrue(m_GatherCube); //Need to find the button number for the trigger
 
     new JoystickButton(RightJoystick, 4).whileTrue(m_ScoreAlt);

@@ -46,10 +46,10 @@ public class ScoreAlt extends CommandBase {
     if (m_SMode == 1) {m_Arm.calculateVoltage(Constants.kPivotMotorLowAngle, .25, m_BaselineVectors);
       m_ShootingSpeed = "low";
     }
-    else if (m_SMode == 2) {m_Arm.calculateVoltage(Constants.kPivotMotorMidAngle, .25, m_BaselineVectors);
+    else if (m_SMode == 2) {m_Arm.calculateVoltage(Constants.kPivotMotorMidAngle, .7, m_BaselineVectors);
       m_ShootingSpeed = "mid";
     }
-    else if ( m_SMode == 3) {m_Arm.calculateVoltage(Constants.kPivotMotorHighAngle, .25, m_BaselineVectors);
+    else if ( m_SMode == 3) {m_Arm.calculateVoltage(Constants.kPivotMotorHighAngle, .3, m_BaselineVectors);
       m_ShootingSpeed = "high";
     }
     System.out.println(m_BaselineVectors[2][0]);
@@ -60,9 +60,9 @@ public class ScoreAlt extends CommandBase {
   public void execute() {
     m_Position = m_Arm.getPosition();
     if (m_Arm.getPosition() <= m_BaselineVectors[1][0]) {
-        m_CalculatedVoltage = (.2+m_BaselineVectors[1][1] - m_BaselineVectors[1][1]*(m_BaselineVectors[1][0]-m_Position)/(m_BaselineVectors[1][0]*.9));
+        m_CalculatedVoltage = (.1+m_BaselineVectors[1][1] - m_BaselineVectors[1][1]*(m_BaselineVectors[1][0]-m_Position)/(m_BaselineVectors[1][0]*.9));
     } else {
-        m_CalculatedVoltage = (.2+m_BaselineVectors[1][1] - m_BaselineVectors[1][1]*(m_Position-m_BaselineVectors[1][0])/(m_Position*.9));
+        m_CalculatedVoltage = (.1+m_BaselineVectors[1][1] - m_BaselineVectors[1][1]*(m_Position-m_BaselineVectors[1][0])/(m_Position*.9));
     }
     m_Arm.setVoltage(m_CalculatedVoltage);
     System.out.println(m_Position);
@@ -71,7 +71,7 @@ public class ScoreAlt extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_EndEffector.Score(m_ShootingSpeed);
+    if (!interrupted) m_EndEffector.Score(m_ShootingSpeed);
     Timer.delay(.4);
     m_EndEffector.stopMotors();
     m_Arm.setAngle(Constants.kPivotMotorLowAngle);
@@ -86,6 +86,6 @@ public class ScoreAlt extends CommandBase {
   @Override
   public boolean isFinished() {
     m_Position = m_Arm.getPosition();
-    return (Math.abs(m_BaselineVectors[2][0]-m_Position) <= 5);
+    return (Math.abs(m_BaselineVectors[2][0]-m_Position) <= 6);
   }
 }
