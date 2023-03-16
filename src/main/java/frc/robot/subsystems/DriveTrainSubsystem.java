@@ -268,10 +268,6 @@ public void periodic()   {
 
     SmartDashboard.putNumber("LeftVelocity", m_leftEncoder.getVelocity());
 
-    //SmartDashboard.putNumber("PID Timer", m_Timer.get());
-
-
-  
    //TEMP
    SmartDashboard.putNumber("RobotYaw", m_pigeon.getYaw() % 360);
    SmartDashboard.putNumber("RobotPitch", m_pigeon.getRoll());

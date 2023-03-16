@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.commands.ScoreAlt;
 import frc.robot.commands.TestArm;
 import frc.robot.commands.ToggleBrake;
 import frc.robot.commands.ToggleFlip;
@@ -111,12 +112,12 @@ public class RobotContainer {
   
 
     // Auto drive commands
-    private final AutoBalance m_autoBalance = new AutoBalance(m_DriveTrainSubsystem);
-    private final AutoBalance m_autoBalance2 = new AutoBalance(m_DriveTrainSubsystem);
+    //private final AutoBalance m_autoBalance = new AutoBalance(m_DriveTrainSubsystem);
+    //private final AutoBalance m_autoBalance2 = new AutoBalance(m_DriveTrainSubsystem);
 
-    private final AutoStraight m_autoStraight = new AutoStraight(m_DriveTrainSubsystem, 3000);
-    private final  AutoStraightBack m_autoStraightBack = new AutoStraightBack(m_DriveTrainSubsystem, -2700);
-    private final TrajectoryDrive m_trajectoryDriveTest = new TrajectoryDrive(m_DriveTrainSubsystem, new Translation2d(1.5, 0), new Translation2d(1.5, 2), new Translation2d(-.2, 2), new Pose2d(new Translation2d(0, 2), Rotation2d.fromDegrees(180)));
+    //private final AutoStraight m_autoStraight = new AutoStraight(m_DriveTrainSubsystem, 3000);
+    //private final  AutoStraightBack m_autoStraightBack = new AutoStraightBack(m_DriveTrainSubsystem, -2700);
+    //private final TrajectoryDrive m_trajectoryDriveTest = new TrajectoryDrive(m_DriveTrainSubsystem, new Translation2d(1.5, 0), new Translation2d(1.5, 2), new Translation2d(-.2, 2), new Pose2d(new Translation2d(0, 2), Rotation2d.fromDegrees(180)));
 
 
 
