@@ -15,16 +15,17 @@ import frc.robot.commands.IncrementScoreModeDown;
 import frc.robot.commands.LedAmericaAnimation;
 import frc.robot.commands.AnimateStop;
 import frc.robot.commands.Apriltag;
+import frc.robot.commands.ControllerBuzz;
 import frc.robot.commands.CurvyDrive;
 import frc.robot.commands.DriveStraight;
 import frc.robot.commands.FlipTankDrive;
 import frc.robot.commands.TankDrive;
-import frc.robot.commands.TrajectoryDrive;
 import frc.robot.commands.XBoxTankDrive;
 import frc.robot.commands.autocommands.AutoBalance;
 import frc.robot.commands.autocommands.AutoStraight;
 import frc.robot.commands.autocommands.AutoStraightBack;
 import frc.robot.commands.autocommands.Autos;
+import frc.robot.commands.autocommands.TrajectoryDrive;
 import frc.robot.commands.GatherTheCube;
 import frc.robot.commands.Score;
 import frc.robot.commands.SwivelDrive;
@@ -122,7 +123,7 @@ public class RobotContainer {
 
     //private final AutoStraight m_autoStraight = new AutoStraight(m_DriveTrainSubsystem, 3000);
     //private final  AutoStraightBack m_autoStraightBack = new AutoStraightBack(m_DriveTrainSubsystem, -2700);
-    //private final TrajectoryDrive m_trajectoryDriveTest = new TrajectoryDrive(m_DriveTrainSubsystem, new Translation2d(1.5, 0), new Translation2d(1.5, 2), new Translation2d(-.2, 2), new Pose2d(new Translation2d(0, 2), Rotation2d.fromDegrees(180)));
+    private final TrajectoryDrive m_trajectoryDriveTest = new TrajectoryDrive(m_DriveTrainSubsystem, new Translation2d(2, 0), new Translation2d(5.6, 0), new Translation2d(4,0), new Pose2d(new Translation2d(5.7, 0), Rotation2d.fromDegrees(90)));
 
 
 
@@ -142,6 +143,7 @@ public class RobotContainer {
   
 
   //other commands 
+  private final ControllerBuzz m_buzz = new ControllerBuzz(m_driverController);
   //LED commands
 private final LedAnimate m_Rainbow = new LedAnimate(m_LightEmittingDiode, RainbowAnimation,1);
 private final LedAnimate m_RGBAnimation = new LedAnimate(m_LightEmittingDiode, RgbFadeAnimation, 1);
@@ -229,13 +231,14 @@ visionDGain.setNumber(0.002);
     //                       *** OPERATOR CONTROLS ***
 
     // X Button
-    m_driverController.button(1).onTrue(m_ScoreModeIncrement); 
-
+    m_driverController.button(3).onTrue(m_ScoreModeIncrement); 
+    // Y Button
     m_driverController.button(4).onTrue(m_ScoreModeIncrementDown);
     // Left Bumper
-    m_driverController.button(7).whileTrue(m_GatherCube); // FIVE
+    m_driverController.button(5).whileTrue(m_GatherCube); // FIVE
     // RightBumper
-    m_driverController.button(8).whileTrue(m_Score); // SIX
+    m_driverController.button(6).whileTrue(m_Score); // SIX
+
 
 
 
@@ -243,17 +246,24 @@ visionDGain.setNumber(0.002);
     
     // Left Trigger
     new JoystickButton(LeftJoystick, 1).whileTrue(m_DriveStraight);
+    // Left 3
+    new JoystickButton(LeftJoystick, 3).onTrue(m_toggleFlip);
     // Left 4
-    new JoystickButton(LeftJoystick, 4).onTrue(m_toggleFlip);
+    new JoystickButton(LeftJoystick, 4).onTrue(m_Apriltag);
+
 
     // Right Trigger
     new JoystickButton(RightJoystick, 1).whileTrue(m_swivelDrive);
     // Right Side
     new JoystickButton(RightJoystick, 2).onTrue(m_toggleBrake);
+    // Right 3
+    new JoystickButton(RightJoystick, 3).whileTrue(m_buzz);
+
+
+    new JoystickButton(RightJoystick, 5).onTrue(m_trajectoryDriveTest);
 
 
 
-    new JoystickButton(LeftJoystick, 6).onTrue(m_Apriltag);
 
 
       
@@ -261,7 +271,7 @@ visionDGain.setNumber(0.002);
 
       //LED buttons
       
-      /* 
+      
       new JoystickButton(RightJoystick, 12)
       .onTrue(m_Rainbow);
       new JoystickButton(RightJoystick, 11)
@@ -288,7 +298,7 @@ visionDGain.setNumber(0.002);
        new JoystickButton(LeftJoystick, 7)
        .onTrue(m_FireAnimation); 
        
-       */
+       
   }
 
 

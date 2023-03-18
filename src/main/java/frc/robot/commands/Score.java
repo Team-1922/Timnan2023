@@ -56,7 +56,7 @@ public class Score extends CommandBase {
 
 
 
-    if(Math.abs(finalAngle - m_Arm.getPosition()) <= 5){
+    if(Math.abs(finalAngle - m_Arm.getPosition()) <= 7.5){
        timer.start();
        SmartDashboard.putString("Arm?", "Yes");
 
@@ -66,7 +66,7 @@ public class Score extends CommandBase {
 
     }
 
-       if (timer.get() >= 1){
+       if (timer.get() >= .5){
         if (scoreMode == 1) {m_EndEffector.Score("low");
       } else if (scoreMode == 2) {m_EndEffector.Score("mid");
       } else if (scoreMode == 3) {m_EndEffector.Score("high");}
@@ -88,6 +88,6 @@ public class Score extends CommandBase {
   @Override
   public boolean isFinished() {
 
-    return (shootTimer >= 50);
+    return (shootTimer >= 30);
   }
 }

@@ -27,7 +27,7 @@ import com.revrobotics.RelativeEncoder;
 
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.commands.TrajectoryDrive;
+import frc.robot.commands.autocommands.TrajectoryDrive;
 
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -127,6 +127,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     m_leftFollow.restoreFactoryDefaults();
     m_leftEncoder = m_leftLead.getEncoder();
 
+
     m_rightLead.restoreFactoryDefaults(); 
     m_rightLead.setInverted(true);
     m_rightFollow.restoreFactoryDefaults();
@@ -162,6 +163,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   m_differentialDrive.setDeadband(.1);
   m_differentialDrive.setMaxOutput(.35);
+
+  m_differentialDrive.setSafetyEnabled(false);
 
 
 

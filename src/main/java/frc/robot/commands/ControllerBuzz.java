@@ -4,25 +4,17 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.HIDType;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.subsystems.DriveTrainSubsystem;
 
-public class XBoxTankDrive extends CommandBase {
-  /** Creates a new XBoxTankDrive. */
-
-  private DriveTrainSubsystem m_driveTrain;
+public class ControllerBuzz extends CommandBase {
   private CommandXboxController m_xbox;
-
-  public XBoxTankDrive(DriveTrainSubsystem driveTrain, CommandXboxController xbox) {
-    m_driveTrain = driveTrain;
+  /** Creates a new ControllerBuzz. */
+  public ControllerBuzz(CommandXboxController xbox) {
     m_xbox = xbox;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_driveTrain);
   }
 
   // Called when the command is initially scheduled.
@@ -32,12 +24,17 @@ public class XBoxTankDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.Drive(-m_xbox.getLeftY()*.35, -m_xbox.getRightY()*.35);
+
+    // Pavlov's dog but it's the operator
+    m_xbox.getHID().setRumble(RumbleType.kBothRumble, 1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_xbox.getHID().setRumble(RumbleType.kBothRumble, 0);
+
+  }
 
   // Returns true when the command should end.
   @Override
