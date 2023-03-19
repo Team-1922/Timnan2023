@@ -49,7 +49,5 @@ public final class Autos {
   }
 
   public static final SequentialCommandGroup m_autoStraightGroup = new SequentialCommandGroup(m_setMode1, m_score, m_autoStraight, m_autoStraightBack, m_autoBalance);
- // public static final SequentialCommandGroup m_autoStraightHalf = new SequentialCommandGroup(m_setMode1, m_score, m_autoStraightBack2, m_autoBalance);
-
   public static final SequentialCommandGroup m_autoBackup = new SequentialCommandGroup(m_setMode2, m_score2, m_timerDrive);
 }

@@ -86,9 +86,9 @@ public class RobotContainer {
   private final SendableChooser<CommandBase> m_autochooser = new SendableChooser<CommandBase>();
  Animation RainbowAnimation = new RainbowAnimation(1,0.5,108);
  Animation RgbFadeAnimation = new RgbFadeAnimation(1, 0.5, 108);
- Animation FireAnimation = new FireAnimation(1, 1,108 , 1, 0); 
+ Animation FireAnimation = new FireAnimation(1, 1,108 , .5, .5); 
  Animation StrobeAnimation = new com.ctre.phoenix.led.StrobeAnimation(255, 0, 0, 0, 0.1, 108) ;
- Animation ColorFlowAnimation = new ColorFlowAnimation(255, 255, 0, 0, 0.1, 108, Direction.Backward);
+ Animation ColorFlowAnimation = new ColorFlowAnimation(255, 255, 0, 0, 0.3, 108, Direction.Backward);
  Animation TwinkleAnimation = new com.ctre.phoenix.led.TwinkleAnimation(255, 0, 0, 0, 0, 108, TwinklePercent.Percent42);
  Animation SingleFadeAnimation = new com.ctre.phoenix.led.SingleFadeAnimation(255, 255, 0, 0, 0.3, 100);
  // joysticks and xboxcontrollers 
@@ -210,6 +210,7 @@ visionDGain.setNumber(0.002);
  m_autochooser.addOption("Back Up", Autos.m_autoBackup);
 
 
+
  SmartDashboard.putData(" autochooser",m_autochooser); }
  
 
@@ -234,10 +235,10 @@ visionDGain.setNumber(0.002);
     m_driverController.button(3).onTrue(m_ScoreModeIncrement); 
     // Y Button
     m_driverController.button(4).onTrue(m_ScoreModeIncrementDown);
-    // Left Bumper
-    m_driverController.button(5).whileTrue(m_GatherCube); // FIVE
-    // RightBumper
-    m_driverController.button(6).whileTrue(m_Score); // SIX
+    // Left Bumper - 5
+    m_driverController.button(5).whileTrue(m_GatherCube); 
+    // RightBumper - 6
+    m_driverController.button(6).whileTrue(m_Score); 
 
 
 
@@ -260,7 +261,7 @@ visionDGain.setNumber(0.002);
     new JoystickButton(RightJoystick, 3).whileTrue(m_buzz);
 
 
-    new JoystickButton(RightJoystick, 5).onTrue(m_trajectoryDriveTest);
+    // new JoystickButton(RightJoystick, 5).onTrue(m_trajectoryDriveTest);
 
 
 
