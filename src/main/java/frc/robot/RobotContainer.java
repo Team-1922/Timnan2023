@@ -3,9 +3,6 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
-
-import frc.robot.commands.TestArm;
 import frc.robot.commands.ToggleBrake;
 import frc.robot.commands.ToggleFlip;
 import frc.robot.subsystems.ScoreMode;
@@ -21,9 +18,6 @@ import frc.robot.commands.DriveStraight;
 import frc.robot.commands.FlipTankDrive;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.XBoxTankDrive;
-import frc.robot.commands.autocommands.AutoBalance;
-import frc.robot.commands.autocommands.AutoStraight;
-import frc.robot.commands.autocommands.AutoStraightBack;
 import frc.robot.commands.autocommands.Autos;
 import frc.robot.commands.autocommands.TrajectoryDrive;
 import frc.robot.commands.GatherTheCube;
@@ -104,7 +98,6 @@ public class RobotContainer {
   private final Score m_Score = new Score(m_Arm, m_EndEffector, m_ScoreMode);
   private final IncrementScoreMode m_ScoreModeIncrement = new IncrementScoreMode(m_ScoreMode, m_LightEmittingDiode);
   private final IncrementScoreModeDown m_ScoreModeIncrementDown = new IncrementScoreModeDown(m_ScoreMode, m_LightEmittingDiode);
-  private final TestArm m_TestArm = new TestArm(m_Arm);
 
 
   
@@ -149,9 +142,6 @@ private final LedAnimate m_ColorFlowAnimation = new LedAnimate(m_LightEmittingDi
 private final LedAnimate m_TwinkleAnimation = new LedAnimate(m_LightEmittingDiode, TwinkleAnimation, 0);
 private final LedAnimate m_SingleFadeAnimation = new LedAnimate(m_LightEmittingDiode, SingleFadeAnimation, 0);
 private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m_LightEmittingDiode);
-
-//tryouts temp commands
-  private final LightEmittingDiode m_ledSubsystem = new LightEmittingDiode();
 
 
 

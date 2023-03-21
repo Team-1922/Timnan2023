@@ -38,10 +38,9 @@ double targetYaw;
   @Override
   public void initialize() {
     failSafe.reset();
-    NetworkTable Ozram = NetworkTableInstance.getDefault().getTable("Ozram");
     PGain = Constants.apriltagPGain; //Ozram.getEntry("visionPGain").getDouble();
     DGain = Constants.apriltagDGain;    // Ozram.getEntry("visionDGain").getDouble(Constants.apriltagDGain);
-    NetworkTable gloworm = NetworkTableInstance.getDefault().getTable("limelight");
+
   //  targetYaw = gloworm.getEntry("targetyaw");
 
 startingRotation = tx.getDouble(0);
