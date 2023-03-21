@@ -7,38 +7,30 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.XboxController;
+
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
-import frc.robot.commands.autocommands.TrajectoryDrive;
+
 
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-import java.util.ArrayList;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.sensors.Pigeon2;
 import com.kauailabs.navx.frc.AHRS;
-import com.playingwithfusion.CANVenom.BrakeCoastMode;
+
 
 
 public class DriveTrainSubsystem extends SubsystemBase { 
@@ -56,7 +48,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   private Pigeon2 m_pigeon = new Pigeon2(Constants.kPigeon); 
 
-  private AHRS m_navX;
+
   private DifferentialDriveOdometry m_odometry;
 
   boolean isFlipped = false;
@@ -173,7 +165,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     //m_Timer = new Timer();
     //m_Timer.start();
-    m_navX = navX;
+
 
     // Setting up the odometry object 
     m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(robotYaw()), Units.feetToMeters(getRightEncoderFeet()), Units.feetToMeters(getLeftEncoderFeet()));

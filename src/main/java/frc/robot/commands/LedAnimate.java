@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import com.ctre.phoenix.led.Animation;
-import com.ctre.phoenix.led.RainbowAnimation;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LightEmittingDiode;

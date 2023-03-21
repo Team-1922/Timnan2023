@@ -11,9 +11,7 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.LightEmittingDiode;
 import frc.robot.subsystems.ScoreMode;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -29,7 +27,7 @@ public final class Autos {
   private static ScoreMode m_scoreMode = RobotContainer.m_ScoreMode;
   private static Arm m_arm = RobotContainer.m_Arm;
   private static EndEffector m_endEffector = RobotContainer.m_EndEffector;
-  private static LightEmittingDiode m_LED = RobotContainer.m_LightEmittingDiode;
+
 
   private static AutoStraight m_autoStraight = new AutoStraight(m_driveTrain, 3000);
   private static AutoStraightBack m_autoStraightBack = new AutoStraightBack(m_driveTrain, -2700);
@@ -39,10 +37,10 @@ public final class Autos {
   private static AutoSetMode m_setMode1 = new AutoSetMode(m_scoreMode, 3);
   private static AutoSetMode m_setMode2 = new AutoSetMode(m_scoreMode, 3);
 
-  private static Score m_score = new Score(m_arm, m_endEffector, m_scoreMode, m_LED);
+  private static Score m_score = new Score(m_arm, m_endEffector, m_scoreMode);
 
   private static AutoTimerDrive m_timerDrive = new AutoTimerDrive(m_driveTrain, 2.25);
-  private static Score m_score2 = new Score(m_arm, m_endEffector, m_scoreMode, m_LED);
+  private static Score m_score2 = new Score(m_arm, m_endEffector, m_scoreMode);
 
   private Autos() {
     throw new UnsupportedOperationException("This is a utility class!");

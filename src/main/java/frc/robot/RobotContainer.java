@@ -4,12 +4,12 @@
 
 package frc.robot;
 
-import frc.robot.commands.ScoreAlt;
+
 import frc.robot.commands.TestArm;
 import frc.robot.commands.ToggleBrake;
 import frc.robot.commands.ToggleFlip;
 import frc.robot.subsystems.ScoreMode;
-import frc.robot.Constants;
+
 import frc.robot.commands.IncrementScoreMode;
 import frc.robot.commands.IncrementScoreModeDown;
 import frc.robot.commands.LedAmericaAnimation;
@@ -32,12 +32,8 @@ import frc.robot.commands.SwivelDrive;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.Arm;
-
-import frc.robot.subsystems.DriveTrainSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.LightEmittingDiode;
-import edu.wpi.first.cscore.raw.RawSink;
-import frc.robot.subsystems.ExampleSubsystem;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -47,13 +43,10 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-
-import javax.swing.plaf.basic.BasicBorders.ToggleButtonBorder;
 
 import com.ctre.phoenix.led.Animation;
 import com.ctre.phoenix.led.ColorFlowAnimation;
@@ -62,7 +55,6 @@ import com.ctre.phoenix.led.RainbowAnimation;
 import com.ctre.phoenix.led.RgbFadeAnimation;
 import com.ctre.phoenix.led.ColorFlowAnimation.Direction;
 import com.ctre.phoenix.led.TwinkleAnimation.TwinklePercent;
-import com.ctre.phoenix.led.RainbowAnimation;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -109,7 +101,7 @@ public class RobotContainer {
   public static LightEmittingDiode m_LightEmittingDiode = new LightEmittingDiode();
   //arm commands
   private final GatherTheCube m_GatherCube = new GatherTheCube(m_Arm, m_EndEffector);
-  private final Score m_Score = new Score(m_Arm, m_EndEffector, m_ScoreMode, m_LightEmittingDiode);
+  private final Score m_Score = new Score(m_Arm, m_EndEffector, m_ScoreMode);
   private final IncrementScoreMode m_ScoreModeIncrement = new IncrementScoreMode(m_ScoreMode, m_LightEmittingDiode);
   private final IncrementScoreModeDown m_ScoreModeIncrementDown = new IncrementScoreModeDown(m_ScoreMode, m_LightEmittingDiode);
   private final TestArm m_TestArm = new TestArm(m_Arm);

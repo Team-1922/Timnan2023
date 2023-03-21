@@ -5,11 +5,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import frc.robot.subsystems.ScoreMode;
 import frc.robot.Constants;
 import frc.robot.subsystems.EndEffector;
-import frc.robot.subsystems.LightEmittingDiode;
+
 import frc.robot.subsystems.Arm;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -18,7 +18,7 @@ public class ScoreAlt extends CommandBase {
   private EndEffector m_EndEffector;
   private Arm m_Arm;
   private ScoreMode m_ScoreMode;
-  private LightEmittingDiode m_LightEmitingDiode;
+  
   public static double[][] m_BaselineVectors = new double[3][2];
   public double m_CalculatedVoltage;
   public double m_Difference;

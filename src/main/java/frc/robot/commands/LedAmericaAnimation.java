@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import com.ctre.phoenix.led.Animation;
-import com.ctre.phoenix.led.RainbowAnimation;
 import com.ctre.phoenix.led.SingleFadeAnimation;
 
 import edu.wpi.first.wpilibj.Timer;
