@@ -55,16 +55,7 @@ public void LedAnimate(Animation Animation, int AnimationSlot){
 /*
 
 Tinman 
-                                     
-                                     /|\
-                                   /  |  \
-                                 /    |    \
-                           __/___|___\__
-                          |                         |
-                          |     _    | |          |
-                          |    ||\_____|    |
-                          |    \_|_|_|_|     | 
-                          |                         |
+
                                 /|\
                                / | \
                               /  |  \
