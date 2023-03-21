@@ -26,6 +26,9 @@ public class Arm extends SubsystemBase {
   public double [] m_MidVector = new double[2];
   public double m_CalculatedVoltage;
   private int m_valueRefCounter;
+
+  private double zeroPosition;
+
   public double aP = .0055, aI = 0, aD = 0.05, aFF = 0; //p .0055 d .08
 
   // public double aP = .0025, aI = 16e-7, aD = 0.016, aFF = 2e-6;
@@ -49,6 +52,12 @@ public class Arm extends SubsystemBase {
     m_ArmEncoder.setPositionConversionFactor(Constants.kPositionConversionFactor);
     m_ArmEncoder.setZeroOffset(Constants.kZeroOffset);
     m_valueRefCounter = 0;
+
+
+
+    // Set the 'Zeroed' position on startup
+    zeroPosition = m_ArmEncoder.getPosition();
+
   }
 
   @Override
@@ -104,5 +113,25 @@ public class Arm extends SubsystemBase {
 
   public void setVoltage(double Voltage) {
     m_ArmPID.setReference(Voltage, ControlType.kVoltage);
+  }
+
+
+
+  // Get values for arm angle based on startup 'zero'
+
+  public double getLowAngle(){
+    return zeroPosition;
+  }
+
+  public double getMidAngle(){
+    return zeroPosition + 40;
+  }
+
+  public double getHighAngle(){
+    return zeroPosition + 55;
+  }
+
+  public double getGatherAngle(){
+    return zeroPosition + 488;
   }
 }

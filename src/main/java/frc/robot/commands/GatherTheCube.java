@@ -28,7 +28,7 @@ public class GatherTheCube extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_Arm.setAngle(Constants.kPivotMotorGatherAngle);
+    m_Arm.setAngle(m_Arm.getGatherAngle());
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -50,7 +50,7 @@ public class GatherTheCube extends CommandBase {
     //May use start command if delay causes problems.
       // Delay causes problems. 
     m_EndEffector.stopMotors();
-    m_Arm.setAngle(Constants.kPivotMotorLowAngle);
+    m_Arm.setAngle(m_Arm.getLowAngle());
   }
 
   // Returns true when the command should end.

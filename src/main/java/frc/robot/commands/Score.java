@@ -46,9 +46,9 @@ public class Score extends CommandBase {
   @Override
   public void execute() {
  
-    if (scoreMode == 1) {m_Arm.setAngle(Constants.kPivotMotorLowAngle); finalAngle = Constants.kPivotMotorLowAngle;
-    } else if (scoreMode == 2) {m_Arm.setAngle(Constants.kPivotMotorMidAngle); finalAngle = Constants.kPivotMotorMidAngle;
-    } else if (scoreMode == 3) {m_Arm.setAngle(Constants.kPivotMotorHighAngle); finalAngle = Constants.kPivotMotorHighAngle;}
+    if (scoreMode == 1) {m_Arm.setAngle(m_Arm.getLowAngle()); finalAngle = m_Arm.getLowAngle();
+    } else if (scoreMode == 2) {m_Arm.setAngle(m_Arm.getMidAngle()); finalAngle = m_Arm.getMidAngle();
+    } else if (scoreMode == 3) {m_Arm.setAngle(m_Arm.getHighAngle()); finalAngle = m_Arm.getHighAngle();}
 
 
 
@@ -77,7 +77,7 @@ public class Score extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_EndEffector.stopMotors();
-    m_Arm.setAngle(Constants.kPivotMotorLowAngle);
+    m_Arm.setAngle(m_Arm.getLowAngle());
   } 
 
   // Returns true when the command should end.
