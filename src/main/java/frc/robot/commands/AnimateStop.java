@@ -27,8 +27,8 @@ public class AnimateStop extends CommandBase {
   @Override
   public void execute() {
     m_LED.LedAnimate(null, 0);
-m_LED.LedAnimate(null, 1);
-m_LED.LedAnimate(null, 2);
+    m_LED.LedAnimate(null, 1);
+    m_LED.LedAnimate(null, 2);
 
 
   }
