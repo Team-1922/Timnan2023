@@ -3,8 +3,11 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
+
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
+
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -14,14 +17,21 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+
 import frc.robot.Constants;
+
+
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.ctre.phoenix.sensors.Pigeon2;
 import com.kauailabs.navx.frc.AHRS;
+
+
 
 public class DriveTrainSubsystem extends SubsystemBase { 
   public final static Field2d m_Field2d = new Field2d();
@@ -45,21 +55,22 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   private Pose2d SpotOne;
   double p=6e-5;
-  double i=0;
-  double d =0;
-  double ff=0.000015;
-  double iz = 0;
+   double i=0;
+   double d =0;
+   double ff=0.000015;
+   double iz = 0;
   public double Maxrpm = 2000;
   double rightp =  6e-5;
   double righti = 0;
   double rightd = 0;
   double rightff = 0.000015;
   double rightiz = 0;
-  public double rightmaxrpm = 2000 ;
+ public double rightmaxrpm = 2000 ;
   double minoutput = -1;
   double maxoutput = 1;
   double rightminoutput = -1;
   double rightmaxoutput =1;
+  //Timer m_Timer;
   double JoystickDeadzone = 0.125;
 
 
@@ -124,27 +135,28 @@ public class DriveTrainSubsystem extends SubsystemBase {
     m_pidControllerLeft.setP(p);
     m_pidControllerLeft.setI(i);
     m_pidControllerLeft.setD(d);
-    m_pidControllerLeft.setOutputRange(minoutput,maxoutput); 
-    m_pidControllerLeft.setFF(ff); //feed foward
-    m_pidControllerLeft.setIZone(iz); //i zone
-    m_pidControllerRight.setP(rightp);
-    m_pidControllerRight.setI(righti);
-    m_pidControllerRight.setD(rightd);
-    m_pidControllerRight.setOutputRange(rightminoutput, rightmaxoutput);
-    m_pidControllerRight.setFF(rightff);
-    m_pidControllerRight.setIZone(rightd);
+   m_pidControllerLeft.setOutputRange(minoutput,maxoutput); 
+   m_pidControllerLeft.setFF(ff); //feed foward
+  m_pidControllerLeft.setIZone(iz); //i zone
+  m_pidControllerRight.setP(rightp);
+  m_pidControllerRight.setI(righti);
+  m_pidControllerRight.setD(rightd);
+  m_pidControllerRight.setOutputRange(rightminoutput, rightmaxoutput);
+  m_pidControllerRight.setFF(rightff);
+  m_pidControllerRight.setIZone(rightd);
 
-    m_leftLead.setIdleMode(IdleMode.kCoast);
-    m_rightLead.setIdleMode(IdleMode.kCoast);
-    m_leftFollow.setIdleMode(IdleMode.kCoast);
-    m_rightFollow.setIdleMode(IdleMode.kCoast);
+  m_leftLead.setIdleMode(IdleMode.kCoast);
+  m_rightLead.setIdleMode(IdleMode.kCoast);
+  m_leftFollow.setIdleMode(IdleMode.kCoast);
+  m_rightFollow.setIdleMode(IdleMode.kCoast);
 
   
 
 
-    m_differentialDrive.setDeadband(.1);
-    m_differentialDrive.setMaxOutput(.35);
-    m_differentialDrive.setSafetyEnabled(false);
+  m_differentialDrive.setDeadband(.1);
+  m_differentialDrive.setMaxOutput(.35);
+
+  m_differentialDrive.setSafetyEnabled(false);
 
 
 
@@ -175,8 +187,8 @@ public void Drive(double leftSpeed, double rightSpeed){
 
 }
 public void velocityDrive(double LeftRPM, double rightRPM){
-  m_pidControllerLeft.setReference(LeftRPM, CANSparkMax.ControlType.kVelocity);
-  m_pidControllerRight.setReference(rightRPM, CANSparkMax.ControlType.kVelocity);
+m_pidControllerLeft.setReference(LeftRPM, CANSparkMax.ControlType.kVelocity);
+m_pidControllerRight.setReference(rightRPM, CANSparkMax.ControlType.kVelocity);
 
 }
 
@@ -188,8 +200,8 @@ public void flipDrive(double left, double right, boolean flipped){
 
   if(flipped == false){
     m_pidControllerLeft.setReference(left, CANSparkMax.ControlType.kVelocity);
-    m_pidControllerRight.setReference(right, CANSparkMax.ControlType.kVelocity); }
-  else {
+    m_pidControllerRight.setReference(right, CANSparkMax.ControlType.kVelocity);
+  } else {
     m_pidControllerLeft.setReference(-right, CANSparkMax.ControlType.kVelocity);
     m_pidControllerRight.setReference(-left, CANSparkMax.ControlType.kVelocity);
   }
@@ -200,8 +212,8 @@ public void flipDrive(double left, double right, boolean flipped){
 public void toggleFlipped(){
   if(isFlipped == true){
     isFlipped = false;
-    SmartDashboard.putBoolean("Flipped?", false); }
-  else if(isFlipped == false){
+    SmartDashboard.putBoolean("Flipped?", false);
+  } else if(isFlipped == false){
     isFlipped = true;
     SmartDashboard.putBoolean("Flipped?", true);
 
@@ -222,8 +234,8 @@ public void toggleBrake(){
     m_rightLead.setIdleMode(IdleMode.kBrake);
     m_leftFollow.setIdleMode(IdleMode.kBrake);
     m_rightFollow.setIdleMode(IdleMode.kBrake);
-    SmartDashboard.putBoolean("Brake?", true); }
-  else {
+    SmartDashboard.putBoolean("Brake?", true);
+  } else {
     m_leftLead.setIdleMode(IdleMode.kCoast);
     m_rightLead.setIdleMode(IdleMode.kCoast);
     m_leftFollow.setIdleMode(IdleMode.kCoast);
@@ -254,6 +266,7 @@ public void periodic()   {
    //TEMP
    SmartDashboard.putNumber("RobotYaw", m_pigeon.getYaw() % 360);
    SmartDashboard.putNumber("RobotPitch", m_pigeon.getRoll());
+
    SmartDashboard.putNumber("EncoderLeft", m_leftEncoder.getPosition());
 
   }
@@ -261,10 +274,12 @@ public void periodic()   {
 
   // Returns the navX Yaw, it's up and down like the way your neck moves 
   public double robotYaw(){
+  //  return m_navX.getYaw();
       return m_pigeon.getYaw() % 360;
   }
   // Returns the navX Pitch, it's side to side like the way a turntable rotates
   public double robotPitch(){
+  //  return m_navX.getPitch();
       return m_pigeon.getRoll();
   }
 
@@ -301,8 +316,32 @@ public void periodic()   {
     return m_odometry.getPoseMeters();
   }
 
+
+
+
   public void setTrajectory(Trajectory traj){
 
     m_Field2d.getObject("traj").setTrajectory(traj);
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
