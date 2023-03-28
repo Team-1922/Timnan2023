@@ -192,8 +192,8 @@ m_pidControllerRight.setReference(rightRPM, CANSparkMax.ControlType.kVelocity);
 
 }
 
-public void curvatureDrive(double left, double right, Joystick joystick){
-  m_differentialDrive.curvatureDrive(left, right, joystick.getRawButton(1));
+public void curvatureDrive(double left, double right, boolean turn){
+  m_differentialDrive.curvatureDrive(left, right, turn);
 }
 
 public void flipDrive(double left, double right, boolean flipped){

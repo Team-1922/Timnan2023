@@ -4,25 +4,20 @@
 
 package frc.robot.commands.autocommands;
 
-import edu.wpi.first.wpilibj.Timer;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrainSubsystem;
 
-public class AutoStraight extends CommandBase {
+public class AutoStraightBalance extends CommandBase {
   private DriveTrainSubsystem m_driveTrain;
   private double m_RPM;
   private double startPitch;
   private double newPitch;
 
   private boolean check1;
-  private boolean check2;
 
-  private Timer timer = new Timer();
-  private Timer timer2 = new Timer();
-
-
-  /** Creates a new AutoStraight. */
-  public AutoStraight(DriveTrainSubsystem driveTrain, double RPM) {
+  /** Creates a new AutoStraightBack. */
+  public AutoStraightBalance(DriveTrainSubsystem driveTrain, double RPM) {
     m_driveTrain = driveTrain;
     m_RPM = RPM;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -34,11 +29,6 @@ public class AutoStraight extends CommandBase {
   public void initialize() {
     startPitch = m_driveTrain.robotPitch();
     check1 = false;
-    check2 = false;
-
-
-    timer2.stop();
-    timer2.reset();
 
   }
 
@@ -52,22 +42,7 @@ public class AutoStraight extends CommandBase {
       check1 = true;
     }
 
-    // If the change goes down (Down the ramp)
-    if(check1 == true && newPitch - startPitch <= -3){
-      check2 = true; 
-    }
-
-    if(check2){
-      timer2.start();
-    }
-
     m_driveTrain.velocityDrive(m_RPM, m_RPM);
-
-    if(newPitch >= startPitch-2 && newPitch <= startPitch+2){
-      timer.start();
-    } else {
-      timer.reset();
-    }
 
   }
 
@@ -80,14 +55,6 @@ public class AutoStraight extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (check2 && timer.get() >= .1)// || timer2.get() >= 2;
-    ;
+    return (check1);
   }
 }
-
-
-// PUt a little balance break after going across
-// Move off the thing for less time ---    .15 -> .1 ?
-// Just run the no mobility? Set default for now?
-
-// Test the new on-the-spot turning threshold

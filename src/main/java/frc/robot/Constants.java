@@ -25,7 +25,7 @@ public final class Constants {
     public static final int kPigeon = 0;
     public static final int kPDB = 63;
     public static final double kVeolcityRPMConversion = 0;
-    public static final double kIOMotorGatherPower = -1.2;
+    public static final double kIOMotorGatherPower = -3; // -1.2
     public static final double kIOMotorLowPower = 2;
     public static final double kIOMotorMidPower = 4;
     public static final double kIOMotorHighPower = 8;

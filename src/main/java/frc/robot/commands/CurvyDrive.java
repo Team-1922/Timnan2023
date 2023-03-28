@@ -12,6 +12,7 @@ public class CurvyDrive extends CommandBase {
   DriveTrainSubsystem m_driveTrain;
   Joystick m_left;
   Joystick m_right;
+  boolean deadzone;
 
   /** Creates a new CurvyDrive. */
   public CurvyDrive(DriveTrainSubsystem driveTrain, Joystick left, Joystick right) {
@@ -29,7 +30,11 @@ public class CurvyDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.curvatureDrive(-m_left.getY(), -m_right.getX(), m_right);
+    if(Math.abs(m_left.getY()) >= .1){
+      deadzone = true;
+    }
+
+    m_driveTrain.curvatureDrive(-m_left.getY(), -m_right.getX(), deadzone);
   }
 
   // Called once the command ends or is interrupted.

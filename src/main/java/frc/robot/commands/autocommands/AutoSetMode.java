@@ -5,6 +5,7 @@
 package frc.robot.commands.autocommands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.subsystems.LightEmittingDiode;
 import frc.robot.subsystems.ScoreMode;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -12,9 +13,12 @@ import frc.robot.subsystems.ScoreMode;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoSetMode extends InstantCommand {
   ScoreMode m_scoreMode;
+  LightEmittingDiode m_LED;
   int m_mode;
-  public AutoSetMode(ScoreMode scoreMode, int mode) {
+
+  public AutoSetMode(ScoreMode scoreMode, LightEmittingDiode LED, int mode) {
     m_scoreMode = scoreMode;
+    m_LED = LED;
     m_mode = mode;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_scoreMode);
@@ -24,5 +28,13 @@ public class AutoSetMode extends InstantCommand {
   @Override
   public void initialize() {
     m_scoreMode.setScoreMode(m_mode);
+    
+      if(m_mode == 1){
+        m_LED.setColor(0, 255, 0);
+      } else if(m_mode == 2){
+        m_LED.setColor(255, 200, 0);
+      } else {
+        m_LED.setColor(255, 0, 0);
+      }
   }
 }

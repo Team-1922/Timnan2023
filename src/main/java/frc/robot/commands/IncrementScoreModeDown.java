@@ -38,7 +38,7 @@ public class IncrementScoreModeDown extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     if (m_Score.getScoreMode()== 1){ m_LED.setColor(0, 255, 0);}
-    if (m_Score.getScoreMode()== 2){m_LED.setColor(255, 255, 0);}
+    if (m_Score.getScoreMode()== 2){m_LED.setColor(255, 200, 0);}
     if (m_Score.getScoreMode() == 3){m_LED.setColor(255, 0, 0);}
   }
 
