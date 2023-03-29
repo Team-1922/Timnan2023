@@ -40,6 +40,8 @@ public class AutoStraight extends CommandBase {
     timer2.stop();
     timer2.reset();
 
+  timer.stop();
+  timer.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -63,7 +65,7 @@ public class AutoStraight extends CommandBase {
 
     m_driveTrain.velocityDrive(m_RPM, m_RPM);
 
-    if(newPitch >= startPitch-2 && newPitch <= startPitch+2){
+    if(newPitch >= startPitch-1 && newPitch <= startPitch+1){
       timer.start();
     } else {
       timer.reset();

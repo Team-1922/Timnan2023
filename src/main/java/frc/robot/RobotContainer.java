@@ -18,6 +18,8 @@ import frc.robot.commands.DriveStraight;
 import frc.robot.commands.FlipTankDrive;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.XBoxTankDrive;
+import frc.robot.commands.autocommands.AutoStraight;
+import frc.robot.commands.autocommands.AutoStraightBack;
 import frc.robot.commands.autocommands.Autos;
 import frc.robot.commands.autocommands.TrajectoryDrive;
 import frc.robot.commands.GatherTheCube;
@@ -105,7 +107,8 @@ public class RobotContainer {
     // Auto drive commands
     //private final AutoBalance m_autoBalance = new AutoBalance(m_DriveTrainSubsystem);
     //private final AutoBalance m_autoBalance2 = new AutoBalance(m_DriveTrainSubsystem);
-
+ private final AutoStraight m_AutoStraight = new AutoStraight(m_DriveTrainSubsystem, 3000);
+ private final AutoStraightBack m_AutoStraightBack = new AutoStraightBack(m_DriveTrainSubsystem, -3000);
     //private final AutoStraight m_autoStraight = new AutoStraight(m_DriveTrainSubsystem, 3000);
     //private final  AutoStraightBack m_autoStraightBack = new AutoStraightBack(m_DriveTrainSubsystem, -2700);
     private final TrajectoryDrive m_trajectoryDriveTest = new TrajectoryDrive(m_DriveTrainSubsystem, new Translation2d(2, 0), new Translation2d(5.6, 0), new Translation2d(4,0), new Pose2d(new Translation2d(5.7, 0), Rotation2d.fromDegrees(90)));
@@ -248,14 +251,18 @@ visionDGain.setNumber(0.002);
 
 
 
-
+new JoystickButton(LeftJoystick, 12)
+    .onTrue(m_AutoStraight);
+  
+new JoystickButton(LeftJoystick, 11)
+    .onTrue(m_AutoStraightBack);
 
       
     //                       *** LED CONTROLS ***
 
       //LED buttons
       
-      
+      /* 
       new JoystickButton(RightJoystick, 12)
       .onTrue(m_Rainbow);
       new JoystickButton(RightJoystick, 11)
@@ -281,7 +288,7 @@ visionDGain.setNumber(0.002);
        .onTrue(m_AmericaAnimation);
        new JoystickButton(LeftJoystick, 7)
        .onTrue(m_FireAnimation); 
-       
+       */
        
   }
 
