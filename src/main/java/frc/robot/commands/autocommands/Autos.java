@@ -31,6 +31,7 @@ public final class Autos {
   private static EndEffector m_endEffector = RobotContainer.m_EndEffector;
   private static LightEmittingDiode m_LED = RobotContainer.m_LightEmittingDiode;
 
+  private static AutoWAIT m_AutoWAIT = new AutoWAIT(m_driveTrain, 0.25);
 
 
   private static AutoStraight m_autoStraight = new AutoStraight(m_driveTrain, 3000);
@@ -60,5 +61,5 @@ public final class Autos {
   public static final SequentialCommandGroup m_autoStraightGroup = new SequentialCommandGroup(m_setMode1, m_score, m_autoStraight, m_autoStraightBack, m_autoBalance);
   public static final SequentialCommandGroup m_autoBackup = new SequentialCommandGroup(m_setMode2, m_score2, m_timerDrive);
   public static final SequentialCommandGroup m_autoStraightToBalance = new SequentialCommandGroup(m_setMode3, m_score3, m_autoStraightBalance, m_autoBalance2);
-
+  public static final SequentialCommandGroup m_autoStraightGroupWithWaiting = new SequentialCommandGroup(m_setMode1, m_score, m_autoStraight,m_AutoWAIT, m_autoStraightBack, m_autoBalance);
 }

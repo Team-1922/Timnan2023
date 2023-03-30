@@ -37,8 +37,6 @@ public class AutoStraight extends CommandBase {
     check2 = false;
 
 
-    timer2.stop();
-    timer2.reset();
 
   timer.stop();
   timer.reset();
@@ -59,10 +57,7 @@ public class AutoStraight extends CommandBase {
       check2 = true; 
     }
 
-    if(check2){
-      timer2.start();
-    }
-
+    
     m_driveTrain.velocityDrive(m_RPM, m_RPM);
 
     if(newPitch >= startPitch-1 && newPitch <= startPitch+1){
