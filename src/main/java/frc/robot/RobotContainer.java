@@ -108,7 +108,7 @@ public class RobotContainer {
 
     //private final AutoStraight m_autoStraight = new AutoStraight(m_DriveTrainSubsystem, 3000);
     //private final  AutoStraightBack m_autoStraightBack = new AutoStraightBack(m_DriveTrainSubsystem, -2700);
-    private final TrajectoryDrive m_trajectoryDriveTest = new TrajectoryDrive(m_DriveTrainSubsystem, new Translation2d(2, 0), new Translation2d(5.6, 0), new Translation2d(4,0), new Pose2d(new Translation2d(5.7, 0), Rotation2d.fromDegrees(90)));
+    private final TrajectoryDrive m_trajectoryDriveTest = new TrajectoryDrive(m_DriveTrainSubsystem, new Translation2d(.7, 0), new Translation2d(.75, 1), new Translation2d(.75,2), new Pose2d(new Translation2d(.75, 3), Rotation2d.fromDegrees(90)), false);
 
 
 
@@ -244,7 +244,7 @@ visionDGain.setNumber(0.002);
     new JoystickButton(RightJoystick, 3).whileTrue(m_buzz);
 
 
-    // new JoystickButton(RightJoystick, 5).onTrue(m_trajectoryDriveTest);
+     new JoystickButton(RightJoystick, 5).onTrue(m_trajectoryDriveTest);
 
 
 

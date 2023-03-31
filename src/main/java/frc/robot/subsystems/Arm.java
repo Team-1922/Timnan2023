@@ -71,6 +71,8 @@ public class Arm extends SubsystemBase {
      }
      m_valueRefCounter++;
      SmartDashboard.putNumber("Arm angle",m_ArmEncoder.getPosition());
+
+
   }
 
   public double getPosition() {

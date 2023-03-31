@@ -55,13 +55,15 @@ public class TrajectoryDrive extends CommandBase {
 
 
   /** Creates a new TrajectoryDrive. */
-  public TrajectoryDrive(DriveTrainSubsystem driveTrain, Translation2d waypoint1, Translation2d waypoint2, Translation2d waypoint3, Pose2d endingPose) {
+  public TrajectoryDrive(DriveTrainSubsystem driveTrain, Translation2d waypoint1, Translation2d waypoint2, Translation2d waypoint3, Pose2d endingPose, boolean reversed) {
     m_driveTrain = driveTrain;
     m_waypoint1 = waypoint1;
     m_waypoint2 = waypoint2;
     m_waypoint3 = waypoint3;
 
     m_endingPose = endingPose;
+
+    config.setReversed(reversed);
 
     
     // Use addRequirements() here to declare subsystem dependencies.
