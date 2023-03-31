@@ -58,8 +58,8 @@ public final class Autos {
     throw new UnsupportedOperationException("This is a utility class!");
   }
 
-  public static final SequentialCommandGroup m_autoStraightGroup = new SequentialCommandGroup(m_setMode1, m_score, m_autoStraight, m_autoStraightBack, m_autoBalance);
+  public static final SequentialCommandGroup m_autoStraightGroup = new SequentialCommandGroup(m_setMode1, m_score, m_autoStraight,m_AutoWAIT, m_autoStraightBack, m_autoBalance);
   public static final SequentialCommandGroup m_autoBackup = new SequentialCommandGroup(m_setMode2, m_score2, m_timerDrive);
   public static final SequentialCommandGroup m_autoStraightToBalance = new SequentialCommandGroup(m_setMode3, m_score3, m_autoStraightBalance, m_autoBalance2);
-  public static final SequentialCommandGroup m_autoStraightGroupWithWaiting = new SequentialCommandGroup(m_setMode1, m_score, m_autoStraight,m_AutoWAIT, m_autoStraightBack, m_autoBalance);
+
 }

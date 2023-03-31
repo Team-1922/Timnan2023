@@ -43,7 +43,9 @@ m_candle.setLEDs(red, green, blue,0,0,108);
 
 }
 public void LedAnimate(Animation Animation, int AnimationSlot){
- 
+  m_candle.clearAnimation(0);
+  m_candle.clearAnimation(1);
+  m_candle.clearAnimation(2);
   m_candle.animate(Animation, AnimationSlot);
   
 } }

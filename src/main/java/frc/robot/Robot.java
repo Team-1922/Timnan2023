@@ -5,9 +5,16 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import javax.security.auth.login.LoginContext;
+
+import com.ctre.phoenix.led.Animation;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.LedCoolAnimation;
+import frc.robot.subsystems.LightEmittingDiode;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -21,7 +28,9 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   public boolean inAuto;
-
+  LightEmittingDiode m_LED = new LightEmittingDiode();
+  Animation RainbowAnimation = new com.ctre.phoenix.led.RainbowAnimation(1,0.5,108);
+ private LedCoolAnimation LedCoolAnimation = new LedCoolAnimation(m_LED);
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -52,7 +61,11 @@ public class Robot extends TimedRobot {
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+
+  RobotContainer.m_LightEmittingDiode.LedAnimate(RainbowAnimation, 0);;
+  //(m_LED.LedAnimate(RainbowAnimation, 0));
+  }
 
   @Override
   public void disabledPeriodic() {}
@@ -70,7 +83,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    
+  }
 
   @Override
   public void teleopInit() {
