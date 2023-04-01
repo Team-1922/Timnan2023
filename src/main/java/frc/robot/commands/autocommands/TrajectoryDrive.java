@@ -54,6 +54,7 @@ public class TrajectoryDrive extends CommandBase {
 
 
 
+
   /** Creates a new TrajectoryDrive. */
   public TrajectoryDrive(DriveTrainSubsystem driveTrain, Translation2d waypoint1, Translation2d waypoint2, Translation2d waypoint3, Pose2d endingPose, boolean reversed) {
     m_driveTrain = driveTrain;
@@ -64,6 +65,7 @@ public class TrajectoryDrive extends CommandBase {
     m_endingPose = endingPose;
 
     config.setReversed(reversed);
+    config.setEndVelocity(250*Constants.metersPerSecondToRPM); // Adjust to go faster
 
     
     // Use addRequirements() here to declare subsystem dependencies.
@@ -116,6 +118,7 @@ public class TrajectoryDrive extends CommandBase {
  //   result = limelight.getLatestResult();
 
     trajectoryState = trajectory.sample(timer.get());
+    SmartDashboard.putNumber("State X", trajectoryState.poseMeters.getX());
     
     chassisSpeeds = (ramseteController.calculate(m_driveTrain.getRobotPose(), trajectoryState));
     wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
@@ -140,7 +143,8 @@ public class TrajectoryDrive extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(m_driveTrain.getRobotPose().getX() - m_endingPose.getX() ) <.2
-        && Math.abs(m_driveTrain.getRobotPose().getY() - m_endingPose.getY() ) <.2;  
+    return Math.abs(m_driveTrain.getRobotPose().getX() - m_endingPose.getX() ) <.1
+        && Math.abs(m_driveTrain.getRobotPose().getY() - m_endingPose.getY() ) <.1;  
+ 
     }
 }

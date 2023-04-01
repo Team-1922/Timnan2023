@@ -108,7 +108,12 @@ public class RobotContainer {
 
     //private final AutoStraight m_autoStraight = new AutoStraight(m_DriveTrainSubsystem, 3000);
     //private final  AutoStraightBack m_autoStraightBack = new AutoStraightBack(m_DriveTrainSubsystem, -2700);
-    private final TrajectoryDrive m_trajectoryDriveTest = new TrajectoryDrive(m_DriveTrainSubsystem, new Translation2d(.7, 0), new Translation2d(.75, 1), new Translation2d(.75,2), new Pose2d(new Translation2d(.75, 3), Rotation2d.fromDegrees(90)), false);
+    private final TrajectoryDrive m_trajectoryDriveTest = new TrajectoryDrive(m_DriveTrainSubsystem, 
+    new Translation2d(.5, 0), 
+    new Translation2d(1, 0), 
+    new Translation2d(3,.01), 
+    new Pose2d(new Translation2d(2.9, 0), Rotation2d.fromDegrees(0)), 
+    false);
 
 
 
@@ -191,6 +196,7 @@ visionDGain.setNumber(0.002);
  m_autochooser.setDefaultOption("Back Up", Autos.m_autoBackup);
  m_autochooser.addOption("Balance w/o Mobility", Autos.m_autoStraightToBalance);
  m_autochooser.addOption("Balance w/ Mobility", Autos.m_autoStraightGroup);
+ m_autochooser.addOption("Trajectory Test", Autos.m_trajectoryAuto);
 
 
 

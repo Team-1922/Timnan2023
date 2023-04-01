@@ -9,6 +9,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
+
+import com.playingwithfusion.TimeOfFlight;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
@@ -27,6 +29,8 @@ public class Arm extends SubsystemBase {
   public double m_CalculatedVoltage;
   private int m_valueRefCounter;
   public double aP = .0055, aI = 0, aD = 0.05, aFF = 0; //p .0055 d .08
+
+  private TimeOfFlight m_TOF = new TimeOfFlight(Constants.kFrontSensorID);
 
   // public double aP = .0025, aI = 16e-7, aD = 0.016, aFF = 2e-6;
   public static double m_FinalAngle;
@@ -70,7 +74,7 @@ public class Arm extends SubsystemBase {
 
      }
      m_valueRefCounter++;
-     SmartDashboard.putNumber("Arm angle",m_ArmEncoder.getPosition());
+     SmartDashboard.putBoolean("Has Cube?", m_TOF.getRange() <= 145);
 
 
   }
@@ -106,5 +110,17 @@ public class Arm extends SubsystemBase {
 
   public void setVoltage(double Voltage) {
     m_ArmPID.setReference(Voltage, ControlType.kVoltage);
+  }
+
+
+
+  public double getTOF(){
+    return m_TOF.getRange();
+  }
+
+  public boolean hasCube(){
+    // Threshold for no cube is about 365
+    // Threshold for yes, cube, farthest away possible is 145
+    return (m_TOF.getRange() <= 145);
   }
 }

@@ -245,6 +245,13 @@ public void toggleBrake(){
   }
 }
 
+public void setBrake(){
+  m_leftLead.setIdleMode(IdleMode.kBrake);
+  m_rightLead.setIdleMode(IdleMode.kBrake);
+  m_leftFollow.setIdleMode(IdleMode.kBrake);
+  m_rightFollow.setIdleMode(IdleMode.kBrake);
+}
+
 
 
 

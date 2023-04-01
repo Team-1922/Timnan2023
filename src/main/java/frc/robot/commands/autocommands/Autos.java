@@ -6,6 +6,7 @@ package frc.robot.commands.autocommands;
 
 import frc.robot.RobotContainer;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.GatherTheCube;
 import frc.robot.commands.Score;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DriveTrainSubsystem;
@@ -14,9 +15,11 @@ import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.LightEmittingDiode;
 import frc.robot.subsystems.ScoreMode;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
@@ -65,10 +68,10 @@ public final class Autos {
 
   private static final TrajectoryDrive CubeTrajectory(boolean reversed){
 
-    Translation2d waypoint1 = new Translation2d();
-    Translation2d waypoint2 = new Translation2d();
-    Translation2d waypoint3 = new Translation2d();
-    Pose2d endPose = new Pose2d();
+    Translation2d waypoint1 = new Translation2d(.5, 0);
+    Translation2d waypoint2 = new Translation2d(1, 0);
+    Translation2d waypoint3 = new Translation2d(3, .01);
+    Pose2d endPose = new Pose2d(new Translation2d(2.9, 0), Rotation2d.fromDegrees(0));
 
 
     TrajectoryDrive m_trajectory = new TrajectoryDrive(m_driveTrain, waypoint1, waypoint2, waypoint3, endPose, reversed);
@@ -76,7 +79,18 @@ public final class Autos {
     return m_trajectory;
   }
 
+  private static final TrajectoryDrive HomeTrajectory(boolean reversed){
 
+    Translation2d waypoint1 = new Translation2d(2, 0);
+    Translation2d waypoint2 = new Translation2d(1, 0);
+    Translation2d waypoint3 = new Translation2d(0.1, 0);
+    Pose2d endPose = new Pose2d(new Translation2d(0, 0), Rotation2d.fromDegrees(0));
+
+
+    TrajectoryDrive m_trajectory = new TrajectoryDrive(m_driveTrain, waypoint1, waypoint2, waypoint3, endPose, reversed);
+
+    return m_trajectory;
+  }
 
 
 
@@ -95,6 +109,8 @@ public final class Autos {
   private static Score m_score3 = new Score(m_arm, m_endEffector, m_scoreMode);
 
 
+  private static GatherTheCube m_gather = new GatherTheCube(m_arm, m_endEffector);
+  private static SetBrake m_brake = new SetBrake(m_driveTrain);
  
 
 
@@ -106,5 +122,14 @@ public final class Autos {
   public static final SequentialCommandGroup m_autoStraightGroup = new SequentialCommandGroup(SetMode(3), Score(), m_autoStraight, m_autoStraightBack, AutoBalance());
   public static final SequentialCommandGroup m_autoBackup = new SequentialCommandGroup(SetMode(3), Score(), m_timerDrive);
   public static final SequentialCommandGroup m_autoStraightToBalance = new SequentialCommandGroup(SetMode(3), Score(), m_autoStraightBalance, AutoBalance());
+  public static final SequentialCommandGroup m_trajectoryAuto = new SequentialCommandGroup(
+    SetMode(3), 
+    Score(), 
+    new WaitCommand(.25), 
+    new ParallelDeadlineGroup(m_gather, CubeTrajectory(false)), 
+    m_brake, 
+    HomeTrajectory(true), 
+    SetMode(2), 
+    Score());
 
 }
