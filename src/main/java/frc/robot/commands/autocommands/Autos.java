@@ -134,7 +134,6 @@ public final class Autos {
     SetMode(3), 
     HomeTrajectory(true), 
     m_aim,
-   
     Score());
 
 }

@@ -50,7 +50,7 @@ public class TrajectoryDrive extends CommandBase {
 
   private Trajectory.State trajectoryState;
  
-  private TrajectoryConfig config = new TrajectoryConfig(((Constants.maxRPM*Constants.metersPerSecondToRPM)/10), (Constants.maxRPM*Constants.metersPerSecondToRPM)).setKinematics(kinematics);
+  private TrajectoryConfig config = new TrajectoryConfig(((Constants.maxRPM*Constants.metersPerSecondToRPM)/8), (Constants.maxRPM*Constants.metersPerSecondToRPM)).setKinematics(kinematics);
 
 
 
