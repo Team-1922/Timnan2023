@@ -10,10 +10,13 @@ import javax.security.auth.login.LoginContext;
 
 import com.ctre.phoenix.led.Animation;
 
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.LedCoolAnimation;
+import frc.robot.subsystems.LedCoolAnimationSubsystem;
 import frc.robot.subsystems.LightEmittingDiode;
 
 /**
@@ -28,9 +31,11 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   public boolean inAuto;
-  LightEmittingDiode m_LED = new LightEmittingDiode();
+  LightEmittingDiode m_LightEmittingDiode = new LightEmittingDiode();
   Animation RainbowAnimation = new com.ctre.phoenix.led.RainbowAnimation(1,0.5,108);
- private LedCoolAnimation LedCoolAnimation = new LedCoolAnimation(m_LED);
+ private LedCoolAnimation LedCoolAnimation = new LedCoolAnimation(m_LightEmittingDiode);
+LedCoolAnimationSubsystem m_LedCoolAnimationSubsystem = new LedCoolAnimationSubsystem(LedCoolAnimation, m_LightEmittingDiode);
+ //p final LedCoolAnimation m_CoolAnimation = new LedCoolAnimation(m_LightEmittingDiode);
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -62,8 +67,8 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
-
-  RobotContainer.m_LightEmittingDiode.LedAnimate(RainbowAnimation, 0);;
+   RobotContainer.m_LedCoolAnimationSubsystem.CoolAnimation(LedCoolAnimation, m_LightEmittingDiode);
+ // RobotContainer.m_LightEmittingDiode.LedAnimate(RainbowAnimation, 0);;
   //(m_LED.LedAnimate(RainbowAnimation, 0));
   }
 

@@ -27,6 +27,7 @@ import frc.robot.commands.Score;
 import frc.robot.commands.SwivelDrive;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.EndEffector;
+import frc.robot.subsystems.LedCoolAnimationSubsystem;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.LightEmittingDiode;
 
@@ -85,16 +86,17 @@ public class RobotContainer {
 
  private final CommandXboxController m_driverController = new CommandXboxController(Constants.kDriverControllerPort);
 
-
+public static LightEmittingDiode m_LightEmittingDiode = new LightEmittingDiode();
 
   private static final AHRS m_navX = new AHRS(SPI.Port.kMXP);
-
+  private final static LedCoolAnimation m_CoolAnimation = new LedCoolAnimation(m_LightEmittingDiode);
 // Subsystems, put them here or code might not work 
+  public static LedCoolAnimationSubsystem m_LedCoolAnimationSubsystem = new LedCoolAnimationSubsystem(m_CoolAnimation, m_LightEmittingDiode);
   public static EndEffector m_EndEffector = new EndEffector();
   public static Arm m_Arm = new Arm();
   public static ScoreMode m_ScoreMode = new ScoreMode();
   public static DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
-  public static LightEmittingDiode m_LightEmittingDiode = new LightEmittingDiode();
+  
   //arm commands
   private final GatherTheCube m_GatherCube = new GatherTheCube(m_Arm, m_EndEffector);
   private final Score m_Score = new Score(m_Arm, m_EndEffector, m_ScoreMode);
@@ -138,7 +140,7 @@ private final LedAnimate m_RGBAnimation = new LedAnimate(m_LightEmittingDiode, R
 private final LedAnimate m_FireAnimation = new LedAnimate(m_LightEmittingDiode, FireAnimation, 0);
 private final LedColors m_Lightoff = new LedColors(m_LightEmittingDiode,0,0,0 );
 private final LedColors m_LightUpRed = new LedColors(m_LightEmittingDiode, 255,0,0);
-private final LedCoolAnimation m_CoolAnimation = new LedCoolAnimation(m_LightEmittingDiode);
+
 private final AnimateStop m_AnimateStop = new AnimateStop(m_LightEmittingDiode);
 private final LedAnimate m_StrobeAnimation = new LedAnimate(m_LightEmittingDiode, StrobeAnimation, 0);
 private final LedAnimate m_ColorFlowAnimation = new LedAnimate(m_LightEmittingDiode, ColorFlowAnimation, 0);  

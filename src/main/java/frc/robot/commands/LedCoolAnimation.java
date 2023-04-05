@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LightEmittingDiode;
 
 public class LedCoolAnimation extends CommandBase {
-  Animation m_animationOne = new LarsonAnimation(255, 255, 0, 0, 1,50, BounceMode.Back, 2, 0);
-  Animation m_animationTwo = new LarsonAnimation(255,255, 0, 0, 1, 50, BounceMode.Back, 2, 50);
+  Animation m_animationOne = new LarsonAnimation(255, 255, 0, 0, .5,46, BounceMode.Back, 2, 8);
+  Animation m_animationTwo = new LarsonAnimation(255,255, 0, 0, .5, 46, BounceMode.Back, 2, 54);
   LightEmittingDiode m_LED = new LightEmittingDiode();
   /** Creates a new LedCoolAnimation. */
   public LedCoolAnimation(LightEmittingDiode LED) {
@@ -28,6 +28,7 @@ addRequirements(LED);
     m_LED.LedAnimate(null, 0);
     m_LED.LedAnimate(null, 1);
     m_LED.LedAnimate(null, 2);
+  
   }
 
   // Called every time the scheduler runs while the command is scheduled.
