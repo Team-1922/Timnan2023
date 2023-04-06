@@ -252,6 +252,12 @@ public void setBrake(){
   m_rightFollow.setIdleMode(IdleMode.kBrake);
 }
 
+public void setCoast(){
+  m_leftLead.setIdleMode(IdleMode.kCoast);
+  m_rightLead.setIdleMode(IdleMode.kCoast);
+  m_leftFollow.setIdleMode(IdleMode.kCoast);
+  m_rightFollow.setIdleMode(IdleMode.kCoast);
+}
 
 
 
@@ -268,13 +274,7 @@ public void periodic()   {
     //m_Field2d.setRobotPose(getRobotPose().relativeTo(SpotOne));
     m_Field2d.setRobotPose(getRobotPose());
 
-    SmartDashboard.putNumber("LeftVelocity", m_leftEncoder.getVelocity());
 
-   //TEMP
-   SmartDashboard.putNumber("RobotYaw", m_pigeon.getYaw() % 360);
-   SmartDashboard.putNumber("RobotPitch", m_pigeon.getRoll());
-
-   SmartDashboard.putNumber("EncoderLeft", m_leftEncoder.getPosition());
 
   }
 

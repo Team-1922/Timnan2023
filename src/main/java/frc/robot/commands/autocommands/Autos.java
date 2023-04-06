@@ -68,12 +68,12 @@ public final class Autos {
   }
 
 
-  private static final TrajectoryDrive CubeTrajectory(boolean reversed){
-
+  private static final TrajectoryDrive CubeTrajectory(boolean reversed, double left){
+// pass 'left' -1 for right side
     Translation2d waypoint1 = new Translation2d(.25, 0);
-    Translation2d waypoint2 = new Translation2d(1.5, -.01);
-    Translation2d waypoint3 = new Translation2d(3, -.2);
-    Pose2d endPose = new Pose2d(new Translation2d(5.7, -.2), Rotation2d.fromDegrees(0));
+    Translation2d waypoint2 = new Translation2d(1.5, (left * .01));
+    Translation2d waypoint3 = new Translation2d(3, left * .2);
+    Pose2d endPose = new Pose2d(new Translation2d(5.7, left * .1), Rotation2d.fromDegrees(0));
 
 
     TrajectoryDrive m_trajectory = new TrajectoryDrive(m_driveTrain, waypoint1, waypoint2, waypoint3, endPose, reversed);
@@ -81,12 +81,12 @@ public final class Autos {
     return m_trajectory;
   }
 
-  private static final TrajectoryDrive HomeTrajectory(boolean reversed){
+  private static final TrajectoryDrive HomeTrajectory(boolean reversed, double left){
 
-    Translation2d waypoint1 = new Translation2d(3, -.2);
+    Translation2d waypoint1 = new Translation2d(3,  left * 0);
     Translation2d waypoint2 = new Translation2d(1, 0);
     Translation2d waypoint3 = new Translation2d(0.5, 0);
-    Pose2d endPose = new Pose2d(new Translation2d(.2, 0), Rotation2d.fromDegrees(0));
+    Pose2d endPose = new Pose2d(new Translation2d(.15, 0), Rotation2d.fromDegrees(0));
 
 
     TrajectoryDrive m_trajectory = new TrajectoryDrive(m_driveTrain, waypoint1, waypoint2, waypoint3, endPose, reversed);
@@ -95,26 +95,28 @@ public final class Autos {
   }
 
 
+  private static final SetBrake Brake(){
+    SetBrake m_brake = new SetBrake(m_driveTrain);
+    return m_brake;
+  }
+
+  private static final SetCoast Coast(){
+    SetCoast m_coast = new SetCoast(m_driveTrain);
+    return m_coast;
+  }
+
+  private static final Apriltag Aim(){
+    Apriltag m_aim = new Apriltag(m_driveTrain);
+    return m_aim;
+  }
+
+  private static final GatherTheCube Gather(){
+    GatherTheCube m_gather = new GatherTheCube(m_arm, m_endEffector);
+    return m_gather;
+  }
 
 
 
-
-  private static AutoBalance m_autoBalance = new AutoBalance(m_driveTrain);
-  private static AutoBalance m_autoBalance2 = new AutoBalance(m_driveTrain);
-
-
-  private static AutoSetMode m_setMode1 = new AutoSetMode(m_scoreMode, m_LED, 3);
-  private static AutoSetMode m_setMode2 = new AutoSetMode(m_scoreMode, m_LED, 3);
-  private static AutoSetMode m_setMode3 = new AutoSetMode(m_scoreMode, m_LED, 3);
-
-  private static Score m_score2 = new Score(m_arm, m_endEffector, m_scoreMode);
-  private static Score m_score3 = new Score(m_arm, m_endEffector, m_scoreMode);
-
-
-  private static GatherTheCube m_gather = new GatherTheCube(m_arm, m_endEffector);
-  private static SetBrake m_brake = new SetBrake(m_driveTrain);
-  private static Apriltag m_aim = new Apriltag(m_driveTrain);
- 
 
 
 
@@ -125,15 +127,31 @@ public final class Autos {
   public static final SequentialCommandGroup m_autoStraightGroup = new SequentialCommandGroup(SetMode(3), Score(), m_autoStraight, m_autoStraightBack, AutoBalance());
   public static final SequentialCommandGroup m_autoBackup = new SequentialCommandGroup(SetMode(3), Score(), m_timerDrive);
   public static final SequentialCommandGroup m_autoStraightToBalance = new SequentialCommandGroup(SetMode(3), Score(), m_autoStraightBalance, AutoBalance());
-  public static final SequentialCommandGroup m_trajectoryAuto = new SequentialCommandGroup(
+
+
+
+  public static final SequentialCommandGroup m_trajectoryAutoLEFT = new SequentialCommandGroup(
     SetMode(2), 
     Score(), 
-  //  new WaitCommand(.25), 
-    new ParallelDeadlineGroup(m_gather, CubeTrajectory(false)), 
-    m_brake,  
+    new ParallelDeadlineGroup(Gather(), CubeTrajectory(false, 1)), 
+    Brake(),  
     SetMode(3), 
-    HomeTrajectory(true), 
-    m_aim,
+    HomeTrajectory(true, 1), 
+    Coast(),
+    Aim(),
+    Score());
+
+
+
+    public static final SequentialCommandGroup m_trajectoryAutoRIGHT = new SequentialCommandGroup(
+    SetMode(2), 
+    Score(), 
+    new ParallelDeadlineGroup(Gather(), CubeTrajectory(false, -1)), 
+    Brake(),  
+    SetMode(3), 
+    HomeTrajectory(true, -1), 
+    Coast(),
+    Aim(),
     Score());
 
 }

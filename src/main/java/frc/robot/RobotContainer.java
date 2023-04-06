@@ -193,9 +193,11 @@ visionDGain.setNumber(0.002);
   }
   public void autochooser(){
 
- m_autochooser.setDefaultOption("Trajectory Test", Autos.m_trajectoryAuto);
+ m_autochooser.setDefaultOption("(LEFT) Trajectory 2-Cube", Autos.m_trajectoryAutoLEFT);
+ m_autochooser.addOption("(RIGHT) Trajectory 2-Cube", Autos.m_trajectoryAutoRIGHT);
+ m_autochooser.addOption("(CENTER) Balance w/o Mobility", Autos.m_autoStraightToBalance);
+ 
  m_autochooser.addOption("Back Up", Autos.m_autoBackup);
- m_autochooser.addOption("Balance w/o Mobility", Autos.m_autoStraightToBalance);
  m_autochooser.addOption("Balance w/ Mobility", Autos.m_autoStraightGroup);
 
 

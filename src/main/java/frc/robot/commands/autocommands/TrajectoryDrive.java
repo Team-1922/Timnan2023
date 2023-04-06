@@ -65,7 +65,7 @@ public class TrajectoryDrive extends CommandBase {
     m_endingPose = endingPose;
 
     config.setReversed(reversed);
-    config.setEndVelocity(250*Constants.metersPerSecondToRPM); // Adjust to go faster
+    config.setEndVelocity(300*Constants.metersPerSecondToRPM); // Adjust to go faster
 
     
     // Use addRequirements() here to declare subsystem dependencies.
