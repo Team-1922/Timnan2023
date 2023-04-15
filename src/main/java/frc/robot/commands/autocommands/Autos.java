@@ -73,7 +73,7 @@ public final class Autos {
     Translation2d waypoint1 = new Translation2d(.25, 0);
     Translation2d waypoint2 = new Translation2d(1.5, (left * .01));
     Translation2d waypoint3 = new Translation2d(3, left * .2);
-    Pose2d endPose = new Pose2d(new Translation2d(5.7, left * .1), Rotation2d.fromDegrees(0));
+    Pose2d endPose = new Pose2d(new Translation2d(5.7, left * 0), Rotation2d.fromDegrees(0));
 
 
     TrajectoryDrive m_trajectory = new TrajectoryDrive(m_driveTrain, waypoint1, waypoint2, waypoint3, endPose, reversed);
@@ -85,8 +85,8 @@ public final class Autos {
 
     Translation2d waypoint1 = new Translation2d(3,  left * 0);
     Translation2d waypoint2 = new Translation2d(1, 0);
-    Translation2d waypoint3 = new Translation2d(0.5, 0);
-    Pose2d endPose = new Pose2d(new Translation2d(.15, 0), Rotation2d.fromDegrees(0));
+    Translation2d waypoint3 = new Translation2d(.75, 0);
+    Pose2d endPose = new Pose2d(new Translation2d(.15, left * -.15), Rotation2d.fromDegrees(0));
 
 
     TrajectoryDrive m_trajectory = new TrajectoryDrive(m_driveTrain, waypoint1, waypoint2, waypoint3, endPose, reversed);

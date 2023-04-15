@@ -5,9 +5,15 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import com.ctre.phoenix.led.Animation;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.LedCoolAnimation;
+import frc.robot.subsystems.CoolLedSubsystem;
+import frc.robot.subsystems.LightEmittingDiode;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -16,12 +22,18 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
+ 
+
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
 
   public boolean inAuto;
 
+  private LightEmittingDiode m_LED = new LightEmittingDiode();
+  private LedCoolAnimation m_LedCoolAnimation = new LedCoolAnimation(m_LED);
+  private CoolLedSubsystem m_CoolLedSubsystem = new CoolLedSubsystem(m_LED, m_LedCoolAnimation);
+  Animation RainbowAnimation = new com.ctre.phoenix.led.RainbowAnimation(1,.5,108);
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -52,7 +64,11 @@ public class Robot extends TimedRobot {
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    RobotContainer.m_CoolLedSubsystem.clearAnimation();
+ // RobotContainer.m_LightEmittingDiode.LedAnimate(RainbowAnimation, 0);
+    RobotContainer.m_CoolLedSubsystem.DisabledAnimation();
+  }
 
   @Override
   public void disabledPeriodic() {}
@@ -74,6 +90,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+   // RobotContainer.m_CoolLedSubsystem.clearAnimation();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove

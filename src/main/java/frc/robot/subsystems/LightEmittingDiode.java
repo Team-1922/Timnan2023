@@ -22,7 +22,6 @@ public class LightEmittingDiode extends SubsystemBase {
   /** Creates a new LED. */
   public LightEmittingDiode() {
  
-
   }
 
   @Override

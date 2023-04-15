@@ -26,8 +26,8 @@ public final class Constants {
     public static final int kPDB = 63;
     public static final double kVeolcityRPMConversion = 0;
     public static final double kIOMotorGatherPower = -3; // -1.2
-    public static final double kIOMotorLowPower = 2; //2
-    public static final double kIOMotorMidPower = 3.5; //4
+    public static final double kIOMotorLowPower = 2.5; //2
+    public static final double kIOMotorMidPower = 4; //4
     public static final double kIOMotorHighPower = 8;
     public static final double kIOMotorMaxPower = 12;
     public static final double kIOBottomToTopVoltageConversion = 1.02;

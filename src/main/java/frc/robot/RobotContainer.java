@@ -26,6 +26,7 @@ import frc.robot.commands.SwivelDrive;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.CoolLedSubsystem;
 import frc.robot.subsystems.LightEmittingDiode;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -140,7 +141,7 @@ private final LedAnimate m_RGBAnimation = new LedAnimate(m_LightEmittingDiode, R
 private final LedAnimate m_FireAnimation = new LedAnimate(m_LightEmittingDiode, FireAnimation, 0);
 private final LedColors m_Lightoff = new LedColors(m_LightEmittingDiode,0,0,0 );
 private final LedColors m_LightUpRed = new LedColors(m_LightEmittingDiode, 255,0,0);
-private final LedCoolAnimation m_CoolAnimation = new LedCoolAnimation(m_LightEmittingDiode);
+private final static LedCoolAnimation m_CoolAnimation = new LedCoolAnimation(m_LightEmittingDiode);
 private final AnimateStop m_AnimateStop = new AnimateStop(m_LightEmittingDiode);
 private final LedAnimate m_StrobeAnimation = new LedAnimate(m_LightEmittingDiode, StrobeAnimation, 0);
 private final LedAnimate m_ColorFlowAnimation = new LedAnimate(m_LightEmittingDiode, ColorFlowAnimation, 0);  
@@ -149,7 +150,7 @@ private final LedAnimate m_SingleFadeAnimation = new LedAnimate(m_LightEmittingD
 private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m_LightEmittingDiode);
 
 
-
+public static CoolLedSubsystem m_CoolLedSubsystem = new CoolLedSubsystem(m_LightEmittingDiode, m_CoolAnimation);
 
 
   
@@ -196,7 +197,7 @@ visionDGain.setNumber(0.002);
  m_autochooser.setDefaultOption("(LEFT) Trajectory 2-Cube", Autos.m_trajectoryAutoLEFT);
  m_autochooser.addOption("(RIGHT) Trajectory 2-Cube", Autos.m_trajectoryAutoRIGHT);
  m_autochooser.addOption("(CENTER) Balance w/o Mobility", Autos.m_autoStraightToBalance);
- 
+
  m_autochooser.addOption("Back Up", Autos.m_autoBackup);
  m_autochooser.addOption("Balance w/ Mobility", Autos.m_autoStraightGroup);
 
