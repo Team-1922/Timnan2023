@@ -274,6 +274,7 @@ public void periodic()   {
     //m_Field2d.setRobotPose(getRobotPose().relativeTo(SpotOne));
     m_Field2d.setRobotPose(getRobotPose());
 
+    SmartDashboard.putNumber("Gyro Pitch", m_pigeon.getRoll());
 
 
   }

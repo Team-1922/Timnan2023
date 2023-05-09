@@ -44,7 +44,7 @@ public final class Autos {
 
   private static AutoStraight m_autoStraight = new AutoStraight(m_driveTrain, 3000);
   private static AutoStraightBack m_autoStraightBack = new AutoStraightBack(m_driveTrain, -3000);
-  private static AutoStraightBalance m_autoStraightBalance = new AutoStraightBalance(m_driveTrain, 3000);
+  private static AutoStraightBalance m_autoStraightBalance = new AutoStraightBalance(m_driveTrain, 3500);
 
  private static AutoTimerDrive m_timerDrive = new AutoTimerDrive(m_driveTrain, 2.25);
 
@@ -84,9 +84,9 @@ public final class Autos {
   private static final TrajectoryDrive HomeTrajectory(boolean reversed, double left){
 
     Translation2d waypoint1 = new Translation2d(3,  left * 0);
-    Translation2d waypoint2 = new Translation2d(1, 0);
-    Translation2d waypoint3 = new Translation2d(.75, 0);
-    Pose2d endPose = new Pose2d(new Translation2d(.15, left * -.15), Rotation2d.fromDegrees(0));
+    Translation2d waypoint2 = new Translation2d(2, 0);
+    Translation2d waypoint3 = new Translation2d(1.5, 0);
+    Pose2d endPose = new Pose2d(new Translation2d(.15, left * -.1), Rotation2d.fromDegrees(0));
 
 
     TrajectoryDrive m_trajectory = new TrajectoryDrive(m_driveTrain, waypoint1, waypoint2, waypoint3, endPose, reversed);
@@ -131,7 +131,7 @@ public final class Autos {
 
 
   public static final SequentialCommandGroup m_trajectoryAutoLEFT = new SequentialCommandGroup(
-    SetMode(2), 
+    SetMode(1), 
     Score(), 
     new ParallelDeadlineGroup(Gather(), CubeTrajectory(false, 1)), 
     Brake(),  
@@ -144,7 +144,7 @@ public final class Autos {
 
 
     public static final SequentialCommandGroup m_trajectoryAutoRIGHT = new SequentialCommandGroup(
-    SetMode(2), 
+    SetMode(1), 
     Score(), 
     new ParallelDeadlineGroup(Gather(), CubeTrajectory(false, -1)), 
     Brake(),  
