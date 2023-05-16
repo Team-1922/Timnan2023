@@ -37,7 +37,7 @@ public class TankDrive extends CommandBase {
   public void initialize() {
 
 
-deadzone = 0.1;
+deadzone = 0.05;
  
   }
 
@@ -54,7 +54,7 @@ deadzone = 0.1;
      } else {m_RightDeadZoneOnOff = 1;}
 
 
-   m_DriveTrainSubsystem.Drive( Math.pow(-LeftJoystick.getY()*.35, 3)*m_LeftDeadZoneOnOff,  Math.pow(-RightJoystick.getY()*.35, 3)*m_RightDeadZoneOnOff);
+   m_DriveTrainSubsystem.Drive( Math.pow(-LeftJoystick.getY()*.5, 3)*m_LeftDeadZoneOnOff,  Math.pow(-RightJoystick.getY()*.5, 3)*m_RightDeadZoneOnOff);
 
   }
 
