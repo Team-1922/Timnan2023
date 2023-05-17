@@ -56,9 +56,26 @@ public final class Autos {
   private Autos() {
     throw new UnsupportedOperationException("This is a utility class!");
   }
+<<<<<<< Updated upstream
 
   public static final SequentialCommandGroup m_autoStraightGroup = new SequentialCommandGroup(m_setMode1, m_score, m_autoStraight, m_autoStraightBack, m_autoBalance);
   public static final SequentialCommandGroup m_autoBackup = new SequentialCommandGroup(m_setMode2, m_score2, m_timerDrive);
   public static final SequentialCommandGroup m_autoStraightToBalance = new SequentialCommandGroup(m_setMode3, m_score3, m_autoStraightBalance, m_autoBalance2);
+=======
+  public static final SequentialCommandGroup m_autoDriveTest = new SequentialCommandGroup(m_autoStraightBack);
+  public static final SequentialCommandGroup m_autoStraightGroup = new SequentialCommandGroup(SetMode(3), Score(), m_autoStraight, m_autoStraightBack, AutoBalance());
+  public static final SequentialCommandGroup m_autoBackup = new SequentialCommandGroup(SetMode(3), Score(), m_timerDrive);
+  public static final SequentialCommandGroup m_autoStraightToBalance = new SequentialCommandGroup(SetMode(3), Score(), m_autoStraightBalance, AutoBalance());
+  public static final SequentialCommandGroup m_trajectoryAuto = new SequentialCommandGroup(
+    SetMode(2), 
+    Score(), 
+  //  new WaitCommand(.25), 
+    new ParallelDeadlineGroup(m_gather, CubeTrajectory(false)), 
+    m_brake,  
+    SetMode(3), 
+    HomeTrajectory(true), 
+    m_aim,
+    Score());
+>>>>>>> Stashed changes
 
 }

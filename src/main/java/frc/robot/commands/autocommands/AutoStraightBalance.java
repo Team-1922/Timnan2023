@@ -5,16 +5,19 @@
 package frc.robot.commands.autocommands;
 
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrainSubsystem;
 
 public class AutoStraightBalance extends CommandBase {
   private DriveTrainSubsystem m_driveTrain;
+  private Timer Clock = new Timer();
   private double m_RPM;
   private double startPitch;
   private double newPitch;
 
   private boolean check1;
+  private boolean check2;
 
   /** Creates a new AutoStraightBack. */
   public AutoStraightBalance(DriveTrainSubsystem driveTrain, double RPM) {
@@ -29,6 +32,7 @@ public class AutoStraightBalance extends CommandBase {
   public void initialize() {
     startPitch = m_driveTrain.robotPitch();
     check1 = false;
+    check2 = false;
 
   }
 
@@ -37,11 +41,18 @@ public class AutoStraightBalance extends CommandBase {
   public void execute() {
     newPitch = m_driveTrain.robotPitch();
 
-    //If the change goes up (Up the ramp)
-    if(newPitch - startPitch >= 3){
-      check1 = true;
+    if (check1) {
+      while (newPitch - startPitch <= 3 && !check2) {
+        Clock.start();
+        if(!Clock.hasElapsed(.1)) check2 = true;
+      }
     }
-
+    else {
+    //If the change goes up (Up the ramp)
+      if(newPitch - startPitch >= 3 && !check1){
+        check1 = true;
+      }
+    }
     m_driveTrain.velocityDrive(m_RPM, m_RPM);
 
   }
@@ -55,6 +66,6 @@ public class AutoStraightBalance extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (check1);
+    return (check1 && check2);
   }
 }

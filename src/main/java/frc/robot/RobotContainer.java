@@ -191,6 +191,7 @@ visionDGain.setNumber(0.002);
  m_autochooser.setDefaultOption("Back Up", Autos.m_autoBackup);
  m_autochooser.addOption("Balance w/o Mobility", Autos.m_autoStraightToBalance);
  m_autochooser.addOption("Balance w/ Mobility", Autos.m_autoStraightGroup);
+ m_autochooser.addOption("Drive Test", Autos.m_autoDriveTest);
 
 
 
