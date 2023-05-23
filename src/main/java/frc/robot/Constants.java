@@ -66,6 +66,7 @@ public final class Constants {
     public static final double distBetweenWheelsMeters = 0.4572; 
     // Used in converting odometry wheel speeds to usable velocity units // It's a multiply
     public static final double metersPerSecondToRPM = .0019304;
+    public static final double feetToMeters = .3048;
     public static final int kLedCount = 8;
     public static final int kCandleId = 10;
 
