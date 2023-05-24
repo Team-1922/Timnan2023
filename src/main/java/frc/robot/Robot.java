@@ -63,13 +63,13 @@ public class Robot extends TimedRobot {
   }
   @Override
   public void autonomousExit() {
-      // TODO Auto-generated method stub
+      
       super.autonomousExit();
       RobotContainer.m_CoolLedSubsystem.teleopStartAnimation();
   }
   @Override
   public void teleopExit() {
-      // TODO Auto-generated method stub
+      
       super.teleopExit();
       RobotContainer.m_CoolLedSubsystem.RgbFadeAnimation();
   }
