@@ -2,42 +2,43 @@
   "NetworkTables": {
     "transitory": {
       "SmartDashboard": {
-        "Field": {
-          "open": true
-        },
-        "Scheduler": {
-          "open": true
-        },
         "open": true
       }
     },
     "types": {
       "/FMSInfo": "FMSInfo",
-      "/SmartDashboard/ autochooser": "String Chooser",
       "/SmartDashboard/Field": "Field2d",
-      "/SmartDashboard/Scheduler": "Scheduler"
+      "/SmartDashboard/Scheduler": "Scheduler",
+      "/SmartDashboard/autochooser": "String Chooser"
     },
     "windows": {
       "/SmartDashboard/Field": {
         "Robot": {
           "style": "Line"
         },
-        "height": 5.0,
         "traj": {
           "arrows": false,
-          "style": "Line",
-          "weight": 3.0
+          "style": "",
+          "weight": 0.0
         },
-        "units": "meters",
-        "width": 5.0,
         "window": {
           "visible": true
         }
       }
     }
   },
+  "NetworkTables Info": {
+    "Connections": {
+      "open": false
+    },
+    "Server": {
+      "Subscribers": {
+        "open": false
+      }
+    }
+  },
   "NetworkTables Settings": {
     "mode": "Client (NT4)",
-    "serverTeam": "1922"
+    "serverTeam": "10.19.22.2"
   }
 }
