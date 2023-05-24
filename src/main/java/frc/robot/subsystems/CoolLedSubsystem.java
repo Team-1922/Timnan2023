@@ -4,10 +4,16 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.led.RgbFadeAnimation;
+import com.ctre.phoenix.led.SingleFadeAnimation;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import frc.robot.commands.LedCoolAnimation;
 
 public class CoolLedSubsystem extends SubsystemBase {
+
+
 LightEmittingDiode m_LightEmittingDiode = new LightEmittingDiode();
 LedCoolAnimation m_LedCoolAnimation = new LedCoolAnimation(m_LightEmittingDiode);
   /** Creates a new CoolLedSubsystem. */
@@ -26,6 +32,15 @@ public void DisabledAnimation( ){
   m_LedCoolAnimation.initialize();
  
  }
+   public void RgbFadeAnimation(){
+    new RgbFadeAnimation(0.4,0.5,100);
+
+   } 
+ public void teleopStartAnimation(){
+  new SingleFadeAnimation(0, 0, 255,0,0.5,100,0);
+ }
+
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

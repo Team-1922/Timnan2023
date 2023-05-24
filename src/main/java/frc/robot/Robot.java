@@ -61,14 +61,28 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
   }
-
+  @Override
+  public void autonomousExit() {
+      // TODO Auto-generated method stub
+      super.autonomousExit();
+      RobotContainer.m_CoolLedSubsystem.teleopStartAnimation();
+  }
+  @Override
+  public void teleopExit() {
+      // TODO Auto-generated method stub
+      super.teleopExit();
+      RobotContainer.m_CoolLedSubsystem.RgbFadeAnimation();
+  }
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
     RobotContainer.m_CoolLedSubsystem.clearAnimation();
  // RobotContainer.m_LightEmittingDiode.LedAnimate(RainbowAnimation, 0);
+
+
     RobotContainer.m_CoolLedSubsystem.DisabledAnimation();
-  }
+    }
+  
 
   @Override
   public void disabledPeriodic() {}
@@ -77,6 +91,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+   // RobotContainer.m_LightEmittingDiode.LedAnimate(RainbowAnimation, 0);
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
