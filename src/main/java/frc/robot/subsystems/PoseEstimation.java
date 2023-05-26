@@ -54,9 +54,9 @@ private final DifferentialDrivePoseEstimator m_PoseEstimator = new DifferentialD
   m_DriveTrain.getLeftEncoderFeet()*Constants.feetToMeters, 
   m_DriveTrain.getRightEncoderFeet()*Constants.feetToMeters, 
   m_DriveTrain.getRobotPose(), 
-  VecBuilder.fill(0.05,0.05,Units.degreesToRadians(5)), // tune these tune these
-  VecBuilder.fill(05,05,Units.degreesToRadians(30)));
-
+  VecBuilder.fill(1,1,Units.degreesToRadians(30)), // tune these tune these
+  VecBuilder.fill(.1,.1,Units.degreesToRadians(10))); // pretty sure these are x,y,rotation values
+// doesn't work unless it sees a apriltag
   
 
   @Override
