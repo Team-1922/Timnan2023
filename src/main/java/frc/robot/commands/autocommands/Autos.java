@@ -14,6 +14,7 @@ import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.LightEmittingDiode;
+import frc.robot.subsystems.PoseEstimation;
 import frc.robot.subsystems.ScoreMode;
 import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -33,6 +34,7 @@ public final class Autos {
   }
 
   private static DriveTrainSubsystem m_driveTrain = RobotContainer.m_DriveTrainSubsystem;
+  private static PoseEstimation m_poseEstimation = RobotContainer.m_poseEstimation;
   private static ScoreMode m_scoreMode = RobotContainer.m_ScoreMode;
   private static Arm m_arm = RobotContainer.m_Arm;
   private static EndEffector m_endEffector = RobotContainer.m_EndEffector;
@@ -93,6 +95,40 @@ public final class Autos {
 
     return m_trajectory;
   }
+
+
+
+
+
+
+
+
+
+
+  private static final VisionTrajectoryDrive VisionTrajectory(boolean reversed){
+
+    Translation2d waypoint1 = new Translation2d(3, 0);
+    Translation2d waypoint2 = new Translation2d(2, 0);
+    Translation2d waypoint3 = new Translation2d(1.5, 0);
+    Pose2d endPose = new Pose2d(new Translation2d(.15, 0), Rotation2d.fromDegrees(0));
+
+
+    VisionTrajectoryDrive m_visionTrajectory = new VisionTrajectoryDrive(m_driveTrain, m_poseEstimation, waypoint1, waypoint2, waypoint3, endPose, reversed);
+
+    return m_visionTrajectory;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   private static final SetBrake Brake(){
