@@ -15,6 +15,7 @@ import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.LightEmittingDiode;
 import frc.robot.subsystems.ScoreMode;
+import frc.robot.commands.autocommands.AutoOverStation;
 import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -45,6 +46,7 @@ public final class Autos {
   private static AutoStraight m_autoStraight = new AutoStraight(m_driveTrain, 3000);
   private static AutoStraightBack m_autoStraightBack = new AutoStraightBack(m_driveTrain, -3000);
   private static AutoStraightBalance m_autoStraightBalance = new AutoStraightBalance(m_driveTrain, 3500);
+  private static final AutoOverStation m_overStation = new AutoOverStation(m_driveTrain, 3000);
 
  private static AutoTimerDrive m_timerDrive = new AutoTimerDrive(m_driveTrain, 2.25);
 
@@ -118,8 +120,6 @@ public final class Autos {
 
 
 
-
-
   private Autos() {
     throw new UnsupportedOperationException("This is a utility class!");
   }
@@ -127,6 +127,7 @@ public final class Autos {
   public static final SequentialCommandGroup m_autoStraightGroup = new SequentialCommandGroup(SetMode(3), Score(), m_autoStraight, m_autoStraightBack, AutoBalance());
   public static final SequentialCommandGroup m_autoBackup = new SequentialCommandGroup(SetMode(3), Score(), m_timerDrive);
   public static final SequentialCommandGroup m_autoStraightToBalance = new SequentialCommandGroup(SetMode(3), Score(), m_autoStraightBalance, AutoBalance());
+  public static final SequentialCommandGroup m_test = new SequentialCommandGroup(m_overStation);
 
 
 
