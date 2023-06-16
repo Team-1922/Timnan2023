@@ -161,7 +161,7 @@ public static CoolLedSubsystem m_CoolLedSubsystem = new CoolLedSubsystem(m_Light
 
 
 
-    m_DriveTrainSubsystem.setDefaultCommand(m_curvyDrive);
+    m_DriveTrainSubsystem.setDefaultCommand(m_TankDrive);
 
     // Configure the trigger bindings
     configureBindings();

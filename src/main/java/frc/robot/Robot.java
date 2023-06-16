@@ -65,9 +65,9 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
-    RobotContainer.m_CoolLedSubsystem.clearAnimation();
+ m_CoolLedSubsystem.clearAnimation();
  // RobotContainer.m_LightEmittingDiode.LedAnimate(RainbowAnimation, 0);
-    RobotContainer.m_CoolLedSubsystem.DisabledAnimation();
+ m_CoolLedSubsystem.DisabledAnimation();
   }
 
   @Override

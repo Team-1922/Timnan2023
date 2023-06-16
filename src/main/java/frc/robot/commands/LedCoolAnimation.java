@@ -12,8 +12,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LightEmittingDiode;
 
 public class LedCoolAnimation extends CommandBase {
-  Animation m_animationOne = new LarsonAnimation(255, 255, 0, 0, .3,46, BounceMode.Back, 2, 8);
-  Animation m_animationTwo = new LarsonAnimation(255,255, 0, 0, .3, 46, BounceMode.Back, 2, 54);
+  Animation m_animationOne = new LarsonAnimation(255, 255, 0, 0, .18,23, BounceMode.Front, 2, 8);
+  Animation m_animationTwo = new LarsonAnimation(255,255, 0, 0, .2, 23, BounceMode.Front, 2, 54);
+  Animation m_animationThree = new LarsonAnimation(255, 255, 0, 0, .2,23, BounceMode.Front, 2,31);
+  Animation m_animationfour = new LarsonAnimation(255,255, 0, 0, .18, 23, BounceMode.Front, 2, 77);
   LightEmittingDiode m_LED = new LightEmittingDiode();
   /** Creates a new LedCoolAnimation. */
   public LedCoolAnimation(LightEmittingDiode LED) {
@@ -35,6 +37,8 @@ addRequirements(LED);
   public void execute() {
     m_LED.LedAnimate(m_animationOne, 1);
     m_LED.LedAnimate(m_animationTwo, 2);
+    m_LED.LedAnimate(m_animationThree, 3);
+    m_LED.LedAnimate(m_animationfour, 4);
   } 
 
   // Called once the command ends or is interrupted.
