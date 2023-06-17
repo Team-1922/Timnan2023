@@ -13,6 +13,7 @@ public class AutoOverStation extends CommandBase {
   private DriveTrainSubsystem m_driveTrain;
   private Timer Clock = new Timer();
   private double m_RPM;
+  private double m_secondRPM;
   private double startPitch;
   private double newPitch;
 
@@ -20,9 +21,10 @@ public class AutoOverStation extends CommandBase {
   private boolean check2;
 
   /** Creates a new AutoStraightBack. */
-  public AutoOverStation(DriveTrainSubsystem driveTrain, double RPM) {
+  public AutoOverStation(DriveTrainSubsystem driveTrain, double RPM, double secondRPM) {
     m_driveTrain = driveTrain;
     m_RPM = RPM;
+    m_secondRPM = secondRPM;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_driveTrain);
   }
@@ -43,17 +45,20 @@ public class AutoOverStation extends CommandBase {
 
     if (check1) {
       while (Math.abs(newPitch) - startPitch <= 3 && !check2) {
+        m_driveTrain.toggleBrake();
+        m_driveTrain.velocityDrive(0, 0);
         Clock.start();
         if(!Clock.hasElapsed(.1)) check2 = true;
       }
+      m_driveTrain.velocityDrive(m_secondRPM, m_secondRPM);
     }
     else {
     //If the change goes up (Up the ramp)
       if(newPitch - startPitch >= 3 && !check1){
         check1 = true;
       }
+      m_driveTrain.velocityDrive(m_RPM, m_RPM);
     }
-    m_driveTrain.velocityDrive(m_RPM, m_RPM);
 
   }
 
@@ -61,6 +66,7 @@ public class AutoOverStation extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_driveTrain.Drive(0, 0);
+    m_driveTrain.toggleBrake();
   }
 
   // Returns true when the command should end.
