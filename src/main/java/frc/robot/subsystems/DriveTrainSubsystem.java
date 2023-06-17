@@ -34,7 +34,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 
 public class DriveTrainSubsystem extends SubsystemBase { 
-  public final static Field2d m_Field2d = new Field2d();
+  //public final static Field2d m_Field2d = new Field2d();
   private CANSparkMax m_leftLead = new CANSparkMax(Constants.kLeftLead, MotorType.kBrushless);
   private RelativeEncoder m_leftEncoder;
   private CANSparkMax m_leftFollow = new CANSparkMax(Constants.kLeftFollow, MotorType.kBrushless);
@@ -112,7 +112,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("right max output", rightmaxoutput);
     SmartDashboard.putNumber("right min output", rightminoutput);
 
-    SmartDashboard.putData(m_Field2d);
+   // SmartDashboard.putData(m_Field2d);
     //Motor controlers
     m_leftLead.restoreFactoryDefaults();
     m_leftLead.setInverted(false);
@@ -272,7 +272,7 @@ public void periodic()   {
     SpotOne = new Pose2d(-5, -5, Rotation2d.fromDegrees(0)).relativeTo(getRobotPose());
     // this puts it near the middle of the field
     //m_Field2d.setRobotPose(getRobotPose().relativeTo(SpotOne));
-    m_Field2d.setRobotPose(getRobotPose());
+    //m_Field2d.setRobotPose(getRobotPose());
 
     SmartDashboard.putNumber("Gyro Pitch", m_pigeon.getRoll());
 
@@ -329,7 +329,7 @@ public void periodic()   {
 
   public void setTrajectory(Trajectory traj){
 
-    m_Field2d.getObject("traj").setTrajectory(traj);
+   // m_Field2d.getObject("traj").setTrajectory(traj);
   }
 
 

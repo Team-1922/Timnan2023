@@ -14,7 +14,8 @@
       "/LiveWindow/Ungrouped/PIDController[1]": "PIDController",
       "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
       "/SmartDashboard/Field": "Field2d",
-      "/SmartDashboard/Scheduler": "Scheduler"
+      "/SmartDashboard/Scheduler": "Scheduler",
+      "/SmartDashboard/autochooser": "String Chooser"
     },
     "windows": {
       "/SmartDashboard/Field": {
@@ -26,10 +27,8 @@
             0.0063437195494771,
             255.0
           ],
-          "image": "C:\\Users\\FRC1922\\Downloads\\54.png",
           "style": "Line"
         },
-        "image": "C:\\Users\\FRC1922\\Downloads\\2023-field.png",
         "units": "meters",
         "window": {
           "visible": true

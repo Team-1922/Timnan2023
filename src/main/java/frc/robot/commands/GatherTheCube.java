@@ -15,6 +15,7 @@ public class GatherTheCube extends CommandBase {
   private Arm m_Arm;
   private EndEffector m_EndEffector;
   private Timer timer = new Timer();
+  private Timer cubeTimer = new Timer();
   /** Creates a new GatherTheCube. */
   public GatherTheCube(Arm pivotArm, EndEffector cubeEffector) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -29,6 +30,7 @@ public class GatherTheCube extends CommandBase {
   @Override
   public void initialize() {
     m_Arm.setAngle(Constants.kPivotMotorGatherAngle);
+    cubeTimer.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -41,6 +43,7 @@ public class GatherTheCube extends CommandBase {
     } else {
       timer.reset();
     }
+    cubeTimer.reset();
   }
 
   // Called once the command ends or is interrupted.
@@ -56,7 +59,9 @@ public class GatherTheCube extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    //return false;
-    return m_Arm.hasCube();
+    //return false; 
+    if(m_Arm.hasCube()== true) {cubeTimer.start();}
+    return cubeTimer.hasElapsed(.125);
+
   }
 }

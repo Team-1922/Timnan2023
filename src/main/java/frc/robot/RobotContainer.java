@@ -18,6 +18,7 @@ import frc.robot.commands.DriveStraight;
 import frc.robot.commands.FlipTankDrive;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.XBoxTankDrive;
+import frc.robot.commands.XboxCurvyDrive;
 import frc.robot.commands.autocommands.Autos;
 import frc.robot.commands.autocommands.TrajectoryDrive;
 import frc.robot.commands.GatherTheCube;
@@ -28,7 +29,7 @@ import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.CoolLedSubsystem;
 import frc.robot.subsystems.LightEmittingDiode;
-
+import frc.robot.subsystems.PoseEstimation;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -94,6 +95,7 @@ public class RobotContainer {
   public static ScoreMode m_ScoreMode = new ScoreMode();
   public static DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
   public static LightEmittingDiode m_LightEmittingDiode = new LightEmittingDiode();
+  public static PoseEstimation m_poseEstimation = new PoseEstimation();
   //arm commands
   private final GatherTheCube m_GatherCube = new GatherTheCube(m_Arm, m_EndEffector);
   private final Score m_Score = new Score(m_Arm, m_EndEffector, m_ScoreMode);
@@ -129,12 +131,15 @@ public class RobotContainer {
     private final ToggleFlip m_toggleFlip = new ToggleFlip(m_DriveTrainSubsystem);
   private final ToggleBrake m_toggleBrake = new ToggleBrake(m_DriveTrainSubsystem);
   private final SwivelDrive m_swivelDrive = new SwivelDrive(m_DriveTrainSubsystem, RightJoystick);
-   
+   private final XboxCurvyDrive m_XboxCurvyDrive = new XboxCurvyDrive(m_DriveTrainSubsystem, m_driverController);
   private final Apriltag m_Apriltag = new Apriltag(m_DriveTrainSubsystem);
   
 
   //other commands 
   private final ControllerBuzz m_buzz = new ControllerBuzz(m_driverController);
+
+
+
   //LED commands
 private final LedAnimate m_Rainbow = new LedAnimate(m_LightEmittingDiode, RainbowAnimation,1);
 private final LedAnimate m_RGBAnimation = new LedAnimate(m_LightEmittingDiode, RgbFadeAnimation, 1);
@@ -160,7 +165,7 @@ public static CoolLedSubsystem m_CoolLedSubsystem = new CoolLedSubsystem(m_Light
 
 
 
-    m_DriveTrainSubsystem.setDefaultCommand(m_curvyDrive);
+    m_DriveTrainSubsystem.setDefaultCommand(m_TankDrive);
 
     // Configure the trigger bindings
     configureBindings();

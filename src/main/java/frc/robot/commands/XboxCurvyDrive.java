@@ -10,17 +10,17 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.DriveTrainSubsystem;
 
-public class CurvyDrive extends CommandBase {
+public class XboxCurvyDrive extends CommandBase {
   DriveTrainSubsystem m_driveTrain;
-  Joystick m_left;
-  Joystick m_right;
+ 
   boolean deadzone;
+  CommandXboxController m_XboxController;
 
   /** Creates a new CurvyDrive. */
-  public CurvyDrive(DriveTrainSubsystem driveTrain, Joystick left, Joystick right) {
+  public XboxCurvyDrive(DriveTrainSubsystem driveTrain, CommandXboxController xboxController) {
     m_driveTrain = driveTrain;
-    m_left = left;
-    m_right = right;
+  
+    m_XboxController = xboxController;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_driveTrain);
   }
@@ -32,11 +32,11 @@ public class CurvyDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Math.abs(m_left.getY()) >= .1){
+    if(Math.abs(m_XboxController.getLeftY()) >= .1){
       deadzone = true;
     }
 
-    m_driveTrain.curvatureDrive(-m_left.getY()*.5, -m_right.getX()*.5, deadzone);
+    m_driveTrain.curvatureDrive(-m_XboxController.getLeftY()*.5, -m_XboxController.getRightX()*.5, deadzone);
   }
 
   // Called once the command ends or is interrupted.
