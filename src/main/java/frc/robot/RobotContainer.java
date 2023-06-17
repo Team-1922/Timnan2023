@@ -124,7 +124,7 @@ public class RobotContainer {
   // drive commands 
   private final TankDrive m_TankDrive = new TankDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick);
   private final XBoxTankDrive m_xBoxTankDrive = new XBoxTankDrive(m_DriveTrainSubsystem, m_driverController);
-  private final CurvyDrive m_curvyDrive = new CurvyDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick);
+  private final CurvyDrive m_curvyDrive = new CurvyDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick, m_driverController);
   private final DriveStraight m_DriveStraight = new DriveStraight(m_DriveTrainSubsystem, LeftJoystick);
   private final FlipTankDrive m_flipDrive = new FlipTankDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick);
     private final ToggleFlip m_toggleFlip = new ToggleFlip(m_DriveTrainSubsystem);

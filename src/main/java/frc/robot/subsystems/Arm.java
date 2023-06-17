@@ -121,6 +121,6 @@ public class Arm extends SubsystemBase {
   public boolean hasCube(){
     // Threshold for no cube is about 365
     // Threshold for yes, cube, farthest away possible is 145
-    return (m_TOF.getRange() <= 145);
+    return (m_TOF.getRange() <= 145);// 145
   }
 }
