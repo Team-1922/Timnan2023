@@ -18,6 +18,7 @@ import frc.robot.commands.DriveStraight;
 import frc.robot.commands.FlipTankDrive;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.XBoxTankDrive;
+import frc.robot.commands.XboxCurvyDrive;
 import frc.robot.commands.autocommands.Autos;
 import frc.robot.commands.autocommands.TrajectoryDrive;
 import frc.robot.commands.GatherTheCube;
@@ -124,18 +125,21 @@ public class RobotContainer {
   // drive commands 
   private final TankDrive m_TankDrive = new TankDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick);
   private final XBoxTankDrive m_xBoxTankDrive = new XBoxTankDrive(m_DriveTrainSubsystem, m_driverController);
-  private final CurvyDrive m_curvyDrive = new CurvyDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick, m_driverController);
+  private final CurvyDrive m_curvyDrive = new CurvyDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick);
   private final DriveStraight m_DriveStraight = new DriveStraight(m_DriveTrainSubsystem, LeftJoystick);
   private final FlipTankDrive m_flipDrive = new FlipTankDrive(m_DriveTrainSubsystem, LeftJoystick, RightJoystick);
     private final ToggleFlip m_toggleFlip = new ToggleFlip(m_DriveTrainSubsystem);
   private final ToggleBrake m_toggleBrake = new ToggleBrake(m_DriveTrainSubsystem);
   private final SwivelDrive m_swivelDrive = new SwivelDrive(m_DriveTrainSubsystem, RightJoystick);
-   
+   private final XboxCurvyDrive m_XboxCurvyDrive = new XboxCurvyDrive(m_DriveTrainSubsystem, m_driverController);
   private final Apriltag m_Apriltag = new Apriltag(m_DriveTrainSubsystem);
   
 
   //other commands 
   private final ControllerBuzz m_buzz = new ControllerBuzz(m_driverController);
+
+
+
   //LED commands
 private final LedAnimate m_Rainbow = new LedAnimate(m_LightEmittingDiode, RainbowAnimation,1);
 private final LedAnimate m_RGBAnimation = new LedAnimate(m_LightEmittingDiode, RgbFadeAnimation, 1);
