@@ -165,7 +165,7 @@ public static CoolLedSubsystem m_CoolLedSubsystem = new CoolLedSubsystem(m_Light
 
 
 
-    m_DriveTrainSubsystem.setDefaultCommand(m_TankDrive);
+    m_DriveTrainSubsystem.setDefaultCommand(m_curvyDrive);
 
     // Configure the trigger bindings
     configureBindings();
@@ -205,7 +205,7 @@ visionDGain.setNumber(0.002);
 
  m_autochooser.addOption("Back Up", Autos.m_autoBackup);
  m_autochooser.addOption("Balance w/ Mobility", Autos.m_autoStraightGroup);
- m_autochooser.addOption("Test run", Autos.m_test);
+// m_autochooser.addOption("Test run", Autos.m_test);
 
 
 

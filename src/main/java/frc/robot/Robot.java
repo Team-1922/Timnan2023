@@ -65,14 +65,17 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
+  
  m_CoolLedSubsystem.clearAnimation();
  // RobotContainer.m_LightEmittingDiode.LedAnimate(RainbowAnimation, 0);
  m_CoolLedSubsystem.DisabledAnimation();
   }
-
-//  @Override
- // public void disabledPeriodic() {}
-
+/* 
+  @Override
+  public void disabledPeriodic() {
+   // m_CoolLedSubsystem.Cube();
+  } // for testing tof seeing cubes
+*/
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
