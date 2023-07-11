@@ -165,7 +165,7 @@ public static CoolLedSubsystem m_CoolLedSubsystem = new CoolLedSubsystem(m_Light
 
 
 
-    m_DriveTrainSubsystem.setDefaultCommand(m_curvyDrive);
+    m_DriveTrainSubsystem.setDefaultCommand(m_XboxCurvyDrive);
 
     // Configure the trigger bindings
     configureBindings();
@@ -199,17 +199,21 @@ visionDGain.setNumber(0.002);
   }
   public void autochooser(){
 
- m_autochooser.setDefaultOption("(LEFT) Trajectory 2-Cube", Autos.m_trajectoryAutoLEFT);
+m_autochooser.setDefaultOption("TEST Field-Relative", Autos.VisionTrajectory(false));
+
+ m_autochooser.addOption("(LEFT) Trajectory 2-Cube", Autos.m_trajectoryAutoLEFT);
  m_autochooser.addOption("(RIGHT) Trajectory 2-Cube", Autos.m_trajectoryAutoRIGHT);
  m_autochooser.addOption("(CENTER) Balance w/o Mobility", Autos.m_autoStraightToBalance);
 
  m_autochooser.addOption("Back Up", Autos.m_autoBackup);
  m_autochooser.addOption("Balance w/ Mobility", Autos.m_autoStraightGroup);
+
+
 // m_autochooser.addOption("Test run", Autos.m_test);
 
 
 
- SmartDashboard.putData("autochooser",m_autochooser); }
+ SmartDashboard.putData("autochooser", m_autochooser); }
  
 
  

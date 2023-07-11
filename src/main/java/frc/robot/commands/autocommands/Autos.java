@@ -101,23 +101,19 @@ public final class Autos {
 
 
 
+  public static final VisionTrajectoryDrive VisionTrajectory(boolean reversed){
+
+    Translation2d waypoint1 = new Translation2d(-5.5, -3);
+    Translation2d waypoint2 = new Translation2d(-2, -3);
+    Pose2d endPose = new Pose2d(new Translation2d(-1.4, -2.8), Rotation2d.fromDegrees(0));
 
 
-
-
-
-
-  private static final VisionTrajectoryDrive VisionTrajectory(boolean reversed){
-
-    Translation2d waypoint1 = new Translation2d(3, 0);
-    Translation2d waypoint2 = new Translation2d(2, 0);
-    Translation2d waypoint3 = new Translation2d(1.5, 0);
-    Pose2d endPose = new Pose2d(new Translation2d(.15, 0), Rotation2d.fromDegrees(0));
-
-
-    VisionTrajectoryDrive m_visionTrajectory = new VisionTrajectoryDrive(m_driveTrain, m_poseEstimation, waypoint1, waypoint2, waypoint3, endPose, reversed);
+    VisionTrajectoryDrive m_visionTrajectory = new VisionTrajectoryDrive(m_driveTrain, m_poseEstimation, waypoint1, waypoint2, endPose, reversed);
 
     return m_visionTrajectory;
+    // 2 sides are equidistant from 0,0
+    // should be able to give parameters for side and color, calculate waypoitns based on that
+    // red or blue (and probably side of station) can be adjusted w/ sign values just fine
   }
 
 

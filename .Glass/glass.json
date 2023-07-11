@@ -4,6 +4,11 @@
       "open": false
     },
     "retained": {
+      "CameraPublisher": {
+        "limelight": {
+          "open": true
+        }
+      },
       "limelight": {
         "open": true
       }

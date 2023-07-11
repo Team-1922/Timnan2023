@@ -30,6 +30,10 @@ addRequirements(LED);
     m_LED.LedAnimate(null, 0);
     m_LED.LedAnimate(null, 1);
     m_LED.LedAnimate(null, 2);
+    
+    m_LED.LedAnimate(null, 3);
+    
+    m_LED.LedAnimate(null, 4);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

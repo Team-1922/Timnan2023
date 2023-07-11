@@ -27,7 +27,6 @@ public class VisionTrajectoryDrive extends CommandBase {
   private PoseEstimation m_poseEstimation;
   private Translation2d m_waypoint1;
   private Translation2d m_waypoint2;
-  private Translation2d m_waypoint3;
   private Pose2d m_endingPose;
 
  // private PhotonCamera limelight = new PhotonCamera("gloworm");
@@ -58,13 +57,11 @@ public class VisionTrajectoryDrive extends CommandBase {
 
 
   /** Creates a new TrajectoryDrive. */
-  public VisionTrajectoryDrive(DriveTrainSubsystem driveTrain, PoseEstimation poseEstimation, Translation2d waypoint1, Translation2d waypoint2, Translation2d waypoint3, Pose2d endingPose, boolean reversed) {
+  public VisionTrajectoryDrive(DriveTrainSubsystem driveTrain, PoseEstimation poseEstimation, Translation2d waypoint1, Translation2d waypoint2, Pose2d endingPose, boolean reversed) {
     m_driveTrain = driveTrain;
     m_poseEstimation = poseEstimation;
     m_waypoint1 = waypoint1;
     m_waypoint2 = waypoint2;
-    m_waypoint3 = waypoint3;
-
     m_endingPose = endingPose;
 
     config.setReversed(reversed);
@@ -94,7 +91,6 @@ public class VisionTrajectoryDrive extends CommandBase {
 
     waypoints.add(m_waypoint1);
     waypoints.add(m_waypoint2);  
-    waypoints.add(m_waypoint3);
 
   //***NOTE***//
   // All mid-points are generated relative to the (0, 0) made on startup, 
