@@ -36,15 +36,19 @@ public class PoseEstimation extends SubsystemBase {
 public final static Field2d m_Field2d = new Field2d();
 private DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Constants.distBetweenWheelsMeters);  
 private double loopCount = 0;
+private Pose3d lastPose = visionPose();
 private DriveTrainSubsystem m_DriveTrain = RobotContainer.m_DriveTrainSubsystem;
 
 private NetworkTable cameraTable = NetworkTableInstance.getDefault().getTable("limelight");
 private DoubleArraySubscriber botPose = cameraTable.getDoubleArrayTopic("botpose").subscribe(new double[]{});
 
 
+
+
   /** Creates a new Pose_estimation. */
   public PoseEstimation() {
   SmartDashboard.putData(m_Field2d);
+
   }
 
   
@@ -53,10 +57,9 @@ private final DifferentialDrivePoseEstimator m_PoseEstimator = new DifferentialD
   Rotation2d.fromDegrees(m_DriveTrain.robotYaw()), 
   m_DriveTrain.getLeftEncoderFeet()*Constants.feetToMeters, 
   m_DriveTrain.getRightEncoderFeet()*Constants.feetToMeters, 
-  m_DriveTrain.getRobotPose(), 
-  VecBuilder.fill(1,1,Units.degreesToRadians(30)), // tune these tune these
+  visionPose().toPose2d(), 
+  VecBuilder.fill(.1,.1,Units.degreesToRadians(30)), // tune these tune these
   VecBuilder.fill(.1,.1,Units.degreesToRadians(10))); // pretty sure these are x,y,rotation values
-// doesn't work unless it sees a apriltag
   
 
   @Override
@@ -65,23 +68,39 @@ private final DifferentialDrivePoseEstimator m_PoseEstimator = new DifferentialD
     loopCount++;
     m_PoseEstimator.update(Rotation2d.fromDegrees(m_DriveTrain.robotYaw()), m_DriveTrain.getLeftEncoderFeet()*Constants.feetToMeters, m_DriveTrain.getRightEncoderFeet()*Constants.feetToMeters);
 
+
+
     if(loopCount >= 5){
-      double[] pose = new double[7];
+      if(Math.abs(visionPose().getX() - lastPose.getX()) <= 1 && Math.abs(visionPose().getY() - lastPose.getY()) <= 1){
+        m_PoseEstimator.addVisionMeasurement(visionPose().toPose2d(), Timer.getFPGATimestamp() - (poseTime()/1000));
+        loopCount = 0;
 
-      pose = botPose.get();
-      Pose3d pose3d = new Pose3d(new Translation3d(pose[0], pose[1], pose[2]), new Rotation3d(pose[3], pose[4], pose[5]));
-
-
-
-      m_PoseEstimator.addVisionMeasurement(pose3d.toPose2d(), Timer.getFPGATimestamp() - (pose[6]/1000));
-      loopCount = 0;
+      }
+      
     }
 
     m_Field2d.setRobotPose(EstimatePose());
     SmartDashboard.putNumber("bose X", EstimatePose().getX());
+    lastPose = visionPose();
 
   }
 
+
+  public Pose3d visionPose(){
+    double[] pose = new double[7];
+
+    pose = botPose.get();
+    Pose3d pose3d = new Pose3d(new Translation3d(pose[0], pose[1], pose[2]), new Rotation3d(pose[3], pose[4], pose[5]));
+
+    return pose3d;
+  }
+
+  public double poseTime(){
+    double[] pose = new double[7];
+
+    pose = botPose.get();
+    return pose[6];
+  }
 
   // Use this for any 'get pose' calls
   public Pose2d EstimatePose(){
