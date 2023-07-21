@@ -103,10 +103,10 @@ public final class Autos {
 
   public static final VisionTrajectoryDrive VisionTrajectory(boolean reversed){
 
-    //Translation2d waypoint1 = new Translation2d(-5.5, -3);
-    //Translation2d waypoint2 = new Translation2d(-2, -3);
-    Translation2d waypoint1 = new Translation2d(-1.25, -2.9);
-    Translation2d waypoint2 = new Translation2d(-1.3, -2.85);
+    Translation2d waypoint1 = new Translation2d(1.25, 0);
+    Translation2d waypoint2 = new Translation2d(1.3, 0);
+    //Translation2d waypoint1 = new Translation2d(-1.25, -2.9);
+    //Translation2d waypoint2 = new Translation2d(-1.3, -2.85);
     Pose2d endPose = new Pose2d(new Translation2d(-1.4, -2.8), Rotation2d.fromDegrees(0));
 
 

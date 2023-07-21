@@ -36,11 +36,11 @@ public class PoseEstimation extends SubsystemBase {
 public final static Field2d m_Field2d = new Field2d();
 private DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Constants.distBetweenWheelsMeters);  
 private double loopCount = 0;
-private Pose3d lastPose = visionPose();
 private DriveTrainSubsystem m_DriveTrain = RobotContainer.m_DriveTrainSubsystem;
 
 private NetworkTable cameraTable = NetworkTableInstance.getDefault().getTable("limelight");
 private DoubleArraySubscriber botPose = cameraTable.getDoubleArrayTopic("botpose").subscribe(new double[]{});
+private Pose3d lastPose = visionPose();
 
 
 
@@ -55,25 +55,34 @@ private DoubleArraySubscriber botPose = cameraTable.getDoubleArrayTopic("botpose
 private final DifferentialDrivePoseEstimator m_PoseEstimator = new DifferentialDrivePoseEstimator(
   kinematics, 
   Rotation2d.fromDegrees(m_DriveTrain.robotYaw()), 
-  m_DriveTrain.getLeftEncoderFeet()*Constants.feetToMeters, 
-  m_DriveTrain.getRightEncoderFeet()*Constants.feetToMeters, 
+
+  -m_DriveTrain.getRightEncoderFeet()*Constants.feetToMeters, 
+  -m_DriveTrain.getLeftEncoderFeet()*Constants.feetToMeters, 
+    // Note on 'forward' in relation to apriltag
+  // Forward will move the robot closer to x0 ideally, on either red or blue side
+  // the actual positive and negative change does not really line up with this, it will 
+  // need different signage depending on color.
+    // flipping (left and right) to (-right and -left) swaps 'forward'
+
+
   visionPose().toPose2d(), 
-  VecBuilder.fill(.1,.1,Units.degreesToRadians(30)), // tune these tune these
-  VecBuilder.fill(.1,.1,Units.degreesToRadians(10))); // pretty sure these are x,y,rotation values
+  VecBuilder.fill(.1,.1,Units.degreesToRadians(10)), // tune these tune these
+  VecBuilder.fill(.5,.5,Units.degreesToRadians(10))); // pretty sure these are x,y,rotation values
   
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     loopCount++;
-    m_PoseEstimator.update(Rotation2d.fromDegrees(m_DriveTrain.robotYaw()), m_DriveTrain.getLeftEncoderFeet()*Constants.feetToMeters, m_DriveTrain.getRightEncoderFeet()*Constants.feetToMeters);
+    m_PoseEstimator.update(Rotation2d.fromDegrees(m_DriveTrain.robotYaw()), -m_DriveTrain.getRightEncoderFeet()*Constants.feetToMeters, -m_DriveTrain.getLeftEncoderFeet()*Constants.feetToMeters);
 
 
 
     if(loopCount >= 5){
-      if(Math.abs(visionPose().getX() - lastPose.getX()) <= 1 && Math.abs(visionPose().getY() - lastPose.getY()) <= 1){
+      if(Math.abs(visionPose().getX() - lastPose.getX()) <= 1 && Math.abs(visionPose().getY() - lastPose.getY()) <= 1 && visionPose().getX() != 0){
         m_PoseEstimator.addVisionMeasurement(visionPose().toPose2d(), Timer.getFPGATimestamp() - (poseTime()/1000));
         loopCount = 0;
+        System.out.print("vision added");
 
       }
       
