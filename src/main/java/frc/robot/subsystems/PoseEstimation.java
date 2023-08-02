@@ -54,7 +54,7 @@ private Pose3d lastPose = visionPose();
   
 private final DifferentialDrivePoseEstimator m_PoseEstimator = new DifferentialDrivePoseEstimator(
   kinematics, 
-  visionPose().toPose2d().getRotation(), 
+  Rotation2d.fromDegrees(poseRotation()),
   m_DriveTrain.getLeftEncoderFeet()*Constants.feetToMeters, 
   m_DriveTrain.getRightEncoderFeet()*Constants.feetToMeters, 
   visionPose().toPose2d(), 
@@ -83,6 +83,10 @@ private final DifferentialDrivePoseEstimator m_PoseEstimator = new DifferentialD
     SmartDashboard.putNumber("bose X", EstimatePose().getX());
     SmartDashboard.putNumber("bose Y", EstimatePose().getY());
 
+    SmartDashboard.putNumber("robot gyro", m_DriveTrain.robotYaw());
+
+
+
     lastPose = visionPose();
 
   }
@@ -93,6 +97,7 @@ private final DifferentialDrivePoseEstimator m_PoseEstimator = new DifferentialD
 
     pose = botPose.get();
     Pose3d pose3d = new Pose3d(new Translation3d(pose[0], pose[1], pose[2]), new Rotation3d(pose[3], pose[4], pose[5]));
+    SmartDashboard.putNumber("robot vision gyro",   pose[5]);
 
     return pose3d;
   }
@@ -102,6 +107,13 @@ private final DifferentialDrivePoseEstimator m_PoseEstimator = new DifferentialD
 
     pose = botPose.get();
     return pose[6];
+  }
+
+  public double poseRotation(){
+    double[] pose = new double[7];
+
+    pose = botPose.get();
+    return pose[5];
   }
 
   // Use this for any 'get pose' calls
