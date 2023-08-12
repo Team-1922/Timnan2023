@@ -41,6 +41,7 @@ private DriveTrainSubsystem m_DriveTrain = RobotContainer.m_DriveTrainSubsystem;
 private NetworkTable cameraTable = NetworkTableInstance.getDefault().getTable("limelight");
 private DoubleArraySubscriber botPose = cameraTable.getDoubleArrayTopic("botpose").subscribe(new double[]{});
 private Pose3d lastPose = visionPose();
+private double gyroOffset;
 
 
 
@@ -48,6 +49,8 @@ private Pose3d lastPose = visionPose();
   /** Creates a new Pose_estimation. */
   public PoseEstimation() {
   SmartDashboard.putData(m_Field2d);
+  gyroOffset = //Math.signum((poseRotation() - m_DriveTrain.robotYaw())) * 
+  (poseRotation() - m_DriveTrain.robotYaw());
 
   }
 
@@ -66,7 +69,7 @@ private final DifferentialDrivePoseEstimator m_PoseEstimator = new DifferentialD
   public void periodic() {
     // This method will be called once per scheduler run
     loopCount++;
-    m_PoseEstimator.update(Rotation2d.fromDegrees(m_DriveTrain.robotYaw()), -m_DriveTrain.getRightEncoderFeet()*Constants.feetToMeters, -m_DriveTrain.getLeftEncoderFeet()*Constants.feetToMeters);
+    m_PoseEstimator.update(Rotation2d.fromDegrees((m_DriveTrain.robotYaw() + gyroOffset) % 360 - (180 * Math.signum(m_DriveTrain.robotYaw() + gyroOffset))), -m_DriveTrain.getRightEncoderFeet()*Constants.feetToMeters, -m_DriveTrain.getLeftEncoderFeet()*Constants.feetToMeters);
 
 
 
@@ -83,12 +86,30 @@ private final DifferentialDrivePoseEstimator m_PoseEstimator = new DifferentialD
     SmartDashboard.putNumber("bose X", EstimatePose().getX());
     SmartDashboard.putNumber("bose Y", EstimatePose().getY());
 
-    SmartDashboard.putNumber("robot gyro", m_DriveTrain.robotYaw());
+    SmartDashboard.putNumber("Gyro Offset", gyroOffset);
+    SmartDashboard.putNumber("actual gyro", m_DriveTrain.robotYaw());
 
+    SmartDashboard.putNumber("robot gyro", (convertRotation((m_DriveTrain.robotYaw() - 180), gyroOffset)));
+    // This gets the number into the -180, 180 range -- I need to offset that number to match the vision rotation
 
 
     lastPose = visionPose();
 
+  }
+
+
+  public double convertRotation(double yaw, double numericalOffset){
+    // issue may be that this is structured to convert only values between 360 and -360 where an offset value may be larger than that
+    // how can I convert it modularly to the size of the value?
+
+    double newRotation = yaw + numericalOffset;
+    if(yaw > 180){
+      newRotation -= 360;
+    }
+    if(yaw < 180){
+      newRotation += 360;
+    }
+    return newRotation - (360);
   }
 
 
