@@ -282,8 +282,9 @@ public void periodic()   {
 
   // Returns the navX Yaw, it's up and down like the way your neck moves 
   public double robotYaw(){
-  //  return m_navX.getYaw();
-      return Math.abs(m_pigeon.getYaw() % 360);
+      return Math.abs(m_pigeon.getYaw()) % 360;
+      // Works fine until it crosses the raw '0 degrees' threshold
+      // then it begins to count in the opposite direction
   }
   // Returns the navX Pitch, it's side to side like the way a turntable rotates
   public double robotPitch(){
