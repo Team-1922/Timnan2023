@@ -165,7 +165,7 @@ public static CoolLedSubsystem m_CoolLedSubsystem = new CoolLedSubsystem(m_Light
 
 
 
-    m_DriveTrainSubsystem.setDefaultCommand(m_TankDrive);
+    m_DriveTrainSubsystem.setDefaultCommand(m_XboxCurvyDrive);
 
     // Configure the trigger bindings
     configureBindings();
@@ -242,7 +242,7 @@ visionDGain.setNumber(0.002);
 
 
     //                       *** DRIVER CONTROLS ***
-    
+    /* 
     // Left Trigger
     new JoystickButton(LeftJoystick, 1).whileTrue(m_DriveStraight);
     // Left 3
@@ -262,14 +262,14 @@ visionDGain.setNumber(0.002);
     // new JoystickButton(RightJoystick, 5).onTrue(m_trajectoryDriveTest);
 
 
-
+*/
 
 
       
     //                       *** LED CONTROLS ***
 
       //LED buttons
-      
+      /* 
       
       new JoystickButton(RightJoystick, 12)
       .onTrue(m_Rainbow);
@@ -296,7 +296,7 @@ visionDGain.setNumber(0.002);
        .onTrue(m_AmericaAnimation);
        new JoystickButton(LeftJoystick, 7)
        .onTrue(m_FireAnimation); 
-       
+       */
        
   }
 
