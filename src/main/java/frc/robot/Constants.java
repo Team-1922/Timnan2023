@@ -44,8 +44,6 @@ public final class Constants {
     public static final int kPivotMotorID = 2;
     public static final int kTopIOMotorID = 1;
     public static final int kBottomIOMotorID = 7;
-    public static final int kLeftHoldingMotorID = 23;
-    public static final int kRightHoldingMotorID = 24;
     public static final int kLeftJoystickID = 100;
     public static final int kRightJoystickID = 101;
     public static final double veolcityRPMConversion = 0;

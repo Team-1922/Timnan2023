@@ -36,7 +36,7 @@ public class XboxCurvyDrive extends CommandBase {
       deadzone = true;
     }
 
-    m_driveTrain.curvatureDrive(-m_XboxController.getLeftY(), -m_XboxController.getRightX(), deadzone);
+    m_driveTrain.curvatureDrive(-m_XboxController.getRawAxis(1), -m_XboxController.getRawAxis(4)*.9 , deadzone);
   }
 
   // Called once the command ends or is interrupted.

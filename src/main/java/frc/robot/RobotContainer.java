@@ -53,6 +53,7 @@ import com.ctre.phoenix.led.ColorFlowAnimation.Direction;
 import com.ctre.phoenix.led.TwinkleAnimation.TwinklePercent;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -84,8 +85,8 @@ public class RobotContainer {
  public final static Joystick RightJoystick = new Joystick(1);
 
  private final CommandXboxController m_driverController = new CommandXboxController(Constants.kDriverControllerPort);
-
-
+private final CommandXboxController m_operatorController = new CommandXboxController(3);
+final XboxController m_operator = new XboxController(3);
 
   private static final AHRS m_navX = new AHRS(SPI.Port.kMXP);
 
@@ -199,14 +200,14 @@ visionDGain.setNumber(0.002);
   }
   public void autochooser(){
 
-m_autochooser.setDefaultOption("TEST Field-Relative", Autos.VisionTrajectory(false));
-
+//m_autochooser.setDefaultOption("TEST Field-Relative", Autos.VisionTrajectory(false));//
+ m_autochooser.setDefaultOption("Back Up", Autos.m_autoBackup);
  m_autochooser.addOption("(LEFT) Trajectory 2-Cube", Autos.m_trajectoryAutoLEFT);
  m_autochooser.addOption("(RIGHT) Trajectory 2-Cube", Autos.m_trajectoryAutoRIGHT);
  m_autochooser.addOption("(CENTER) Balance w/o Mobility", Autos.m_autoStraightToBalance);
 
- m_autochooser.addOption("Back Up", Autos.m_autoBackup);
- m_autochooser.addOption("Balance w/ Mobility", Autos.m_autoStraightGroup);
+ 
+ //m_autochooser.addOption("Balance w/ Mobility", Autos.m_autoStraightGroup);
 
 
 // m_autochooser.addOption("Test run", Autos.m_test);
@@ -234,33 +235,49 @@ m_autochooser.setDefaultOption("TEST Field-Relative", Autos.VisionTrajectory(fal
     //                       *** OPERATOR CONTROLS ***
 
     // X Button
-    m_driverController.button(3).onTrue(m_ScoreModeIncrement); 
+    m_operatorController.button(3).onTrue(m_ScoreModeIncrement); 
     // Y Button
-    m_driverController.button(4).onTrue(m_ScoreModeIncrementDown);
+    m_operatorController.button(4).onTrue(m_ScoreModeIncrementDown);
     // Left Bumper - 5
-    m_driverController.button(5).whileTrue(m_GatherCube); 
+    m_operatorController.button(5).whileTrue(m_GatherCube); 
     // RightBumper - 6
-    m_driverController.button(6).whileTrue(m_Score); 
+    m_operatorController.button(6).whileTrue(m_Score); 
+  
+  
+  m_driverController.button(2).onTrue(m_Apriltag);
+  
 
+  m_driverController.button(4).onTrue(m_toggleBrake);
+
+  //m_operatorController.button(1).whileTrue(m_DriveStraight);
+  }
 
 
 
     //                       *** DRIVER CONTROLS ***
     
+
+
+
+
+
+
+       
     // Left Trigger
-    new JoystickButton(LeftJoystick, 1).whileTrue(m_DriveStraight);
+ 
+ //   new JoystickButton(LeftJoystick, 1).whileTrue(m_DriveStraight);
     // Left 3
-    new JoystickButton(LeftJoystick, 3).onTrue(m_toggleFlip);
+   // new JoystickButton(LeftJoystick, 3).onTrue(m_toggleFlip);
     // Left 4
-    new JoystickButton(LeftJoystick, 4).onTrue(m_Apriltag);
+    //new JoystickButton(LeftJoystick, 4).onTrue(m_Apriltag);
 
 
     // Right Trigger
-    new JoystickButton(RightJoystick, 1).whileTrue(m_swivelDrive);
+    //new JoystickButton(RightJoystick, 1).whileTrue(m_swivelDrive);
     // Right Side
-    new JoystickButton(RightJoystick, 2).onTrue(m_toggleBrake);
+    //new JoystickButton(RightJoystick, 2).onTrue(m_toggleBrake);
     // Right 3
-    new JoystickButton(RightJoystick, 3).whileTrue(m_buzz);
+    //new JoystickButton(RightJoystick, 3).whileTrue(m_buzz);
 
 
     // new JoystickButton(RightJoystick, 5).onTrue(m_trajectoryDriveTest);
@@ -274,7 +291,7 @@ m_autochooser.setDefaultOption("TEST Field-Relative", Autos.VisionTrajectory(fal
 
       //LED buttons
       
-      
+      /* 
       new JoystickButton(RightJoystick, 12)
       .onTrue(m_Rainbow);
       new JoystickButton(RightJoystick, 11)
@@ -300,9 +317,9 @@ m_autochooser.setDefaultOption("TEST Field-Relative", Autos.VisionTrajectory(fal
        .onTrue(m_AmericaAnimation);
        new JoystickButton(LeftJoystick, 7)
        .onTrue(m_FireAnimation); 
-       
-       
-  }
+}
+ */      
+  
 
 
   /**
