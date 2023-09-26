@@ -47,7 +47,7 @@ public final class Autos {
 
   private static AutoStraight m_autoStraight = new AutoStraight(m_driveTrain, 3000);
   private static AutoStraightBack m_autoStraightBack = new AutoStraightBack(m_driveTrain, -3000);
-  private static AutoStraightBalance m_autoStraightBalance = new AutoStraightBalance(m_driveTrain, 3500);
+  private static AutoStraightBalance m_autoStraightBalance = new AutoStraightBalance(m_driveTrain, 4000);
   private static final AutoOverStation m_overStation = new AutoOverStation(m_driveTrain, 3000, 200);
 
  private static AutoTimerDrive m_timerDrive = new AutoTimerDrive(m_driveTrain, 2.25);

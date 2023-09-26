@@ -33,7 +33,7 @@ public class AutoBalance extends PIDCommand {
         output -> {
           // Use the output here
           SmartDashboard.putNumber("output", output);
-          driveTrain.velocityDrive(MathUtil.clamp((-output*2), -2000, 2000), MathUtil.clamp((-output*2), -2000, 2000)); // Pitch down is pos, wheels need to go same sign as pitch
+          driveTrain.velocityDrive(MathUtil.clamp((-output*2), -3000, 3000), MathUtil.clamp((-output*2), -3000, 3000)); // Pitch down is pos, wheels need to go same sign as pitch
         });
 
         m_driveTrain = driveTrain;
