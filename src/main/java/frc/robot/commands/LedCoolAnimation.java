@@ -14,7 +14,7 @@ import frc.robot.subsystems.LightEmittingDiode;
 public class LedCoolAnimation extends CommandBase {
   Animation m_animationOne = new LarsonAnimation(255, 255, 0, 0, .18,23, BounceMode.Front, 2, 8);
   Animation m_animationTwo = new LarsonAnimation(255,255, 0, 0, .2, 23, BounceMode.Front, 2, 54);
-  Animation m_animationThree = new LarsonAnimation(255, 255, 0, 0, .2,23, BounceMode.Front, 2,31);
+  Animation m_animationThree= new LarsonAnimation(255, 255, 0, 0, .2,23, BounceMode.Front, 2,31);
   Animation m_animationfour = new LarsonAnimation(255,255, 0, 0, .18, 23, BounceMode.Front, 2, 77);
   LightEmittingDiode m_LED = new LightEmittingDiode();
   /** Creates a new LedCoolAnimation. */
