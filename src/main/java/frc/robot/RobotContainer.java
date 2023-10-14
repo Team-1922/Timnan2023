@@ -76,7 +76,7 @@ public class RobotContainer {
  Animation RgbFadeAnimation = new RgbFadeAnimation(1, 0.5, 108);
  Animation FireAnimation = new FireAnimation(1, 1,108 , .8, 0); 
  Animation StrobeAnimation = new com.ctre.phoenix.led.StrobeAnimation(255, 0, 0, 0, 0.1, 108) ;
- Animation ColorFlowAnimation = new com.ctre.phoenix.led.ColorFlowAnimation(255, 255, 0, 0, 0.3, 108, Direction.Backward);
+ Animation ColorFlowAnimation = new ColorFlowAnimation(255, 255, 0, 0, 0.3, 108, Direction.Backward);
  Animation TwinkleAnimation = new com.ctre.phoenix.led.TwinkleAnimation(255, 0, 0, 0, 0, 108, TwinklePercent.Percent42);
  Animation SingleFadeAnimation = new com.ctre.phoenix.led.SingleFadeAnimation(255, 255, 0, 0, 0.3, 100);
  // joysticks and xboxcontrollers 
@@ -84,7 +84,7 @@ public class RobotContainer {
  public final static Joystick RightJoystick = new Joystick(1);
 
  private final CommandXboxController m_driverController = new CommandXboxController(Constants.kDriverControllerPort);
- final CommandXboxController m_operatior = new CommandXboxController(3);
+
 
 
   private static final AHRS m_navX = new AHRS(SPI.Port.kMXP);
@@ -165,7 +165,7 @@ public static CoolLedSubsystem m_CoolLedSubsystem = new CoolLedSubsystem(m_Light
 
 
 
-    m_DriveTrainSubsystem.setDefaultCommand(m_XboxCurvyDrive);
+    m_DriveTrainSubsystem.setDefaultCommand(m_TankDrive);
 
     // Configure the trigger bindings
     configureBindings();

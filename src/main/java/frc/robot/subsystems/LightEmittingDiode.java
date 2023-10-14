@@ -37,8 +37,6 @@ public void setColor(int red, int green, int blue){
 m_candle.clearAnimation(0);
 m_candle.clearAnimation(1);
 m_candle.clearAnimation(2);
-m_candle.clearAnimation(3);
-m_candle.clearAnimation(4);
 m_candle.setLEDs(red, green, blue,0,0,108);
 
 
