@@ -45,10 +45,9 @@ public class AutoOverStation extends CommandBase {
 
     if (check1) {
       while (Math.abs(newPitch) - startPitch <= 3 && !check2) {
-        m_driveTrain.toggleBrake();
         m_driveTrain.velocityDrive(0, 0);
         Clock.start();
-        if(!Clock.hasElapsed(.1)) check2 = true;
+        if(!Clock.hasElapsed(2)) check2 = true;
       }
       m_driveTrain.velocityDrive(m_secondRPM, m_secondRPM);
     }
