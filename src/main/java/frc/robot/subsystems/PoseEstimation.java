@@ -1,7 +1,7 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
-
+/*
 package frc.robot.subsystems;
 
 import org.ejml.dense.row.linsol.qr.AdjLinearSolverQr_FDRM;
@@ -46,7 +46,7 @@ private double gyroOffset;
 
 
 
-  /** Creates a new Pose_estimation. */
+  /** Creates a new Pose_estimation. 
   public PoseEstimation() {
   SmartDashboard.putData(m_Field2d);
   gyroOffset = (m_DriveTrain.robotYaw() - (poseRotation() + 180));
@@ -145,3 +145,4 @@ private final DifferentialDrivePoseEstimator m_PoseEstimator = new DifferentialD
     m_Field2d.getObject("traj").setTrajectory(traj);
   }
 }
+*/
