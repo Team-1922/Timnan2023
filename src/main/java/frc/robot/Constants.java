@@ -32,14 +32,14 @@ public final class Constants {
     public static final double kIOMotorMaxPower = 12;
     public static final double kIOBottomToTopVoltageConversion = 1.02;
 
-    public static final double kZeroOffset = 128.5;
+    public static final double kZeroOffset = 128.5;//128.5
     public static final double kPivotMotorGatherAngle = 588; // 528
 
-    public static final double kPivotMotorLowAngle = 100;
-    public static final double kPivotMotorMidAngle = 149; //140
-    public static final double kPivotMotorHighAngle = 155;
+    public static final double kPivotMotorLowAngle = 563;//100
+    public static final double kPivotMotorMidAngle = 563+49; //140
+    public static final double kPivotMotorHighAngle = 563+55;//155
     public static final double kPivotMotorMinAngle = 0;
-    public static final double kPivotMotorMaxAngle = 540;
+    public static final double kPivotMotorMaxAngle = 700;//540
     // Min and Max angle represent the angles at which the arm contacts the ground or its frame
     public static final int kPivotMotorID = 2;
     public static final int kTopIOMotorID = 1;
