@@ -60,9 +60,9 @@ public class ScoreAlt extends CommandBase {
   public void execute() {
     m_Position = m_Arm.getPosition();
     if (m_Arm.getPosition() <= m_BaselineVectors[1][0]) {
-        m_CalculatedVoltage = (.1+m_BaselineVectors[1][1] - m_BaselineVectors[1][1]*(m_BaselineVectors[1][0]-m_Position)/(m_BaselineVectors[1][0]*.9));
+        m_CalculatedVoltage = (.25+m_BaselineVectors[1][1] - m_BaselineVectors[1][1]*(m_BaselineVectors[1][0]-m_Position)/(m_BaselineVectors[1][0]*.9));
     } else {
-        m_CalculatedVoltage = (.1+m_BaselineVectors[1][1] - m_BaselineVectors[1][1]*(m_Position-m_BaselineVectors[1][0])/(m_Position*.9));
+        m_CalculatedVoltage = (.25+m_BaselineVectors[1][1] - m_BaselineVectors[1][1]*(m_Position-m_BaselineVectors[1][0])/(m_Position*.9));
     }
     m_Arm.setVoltage(m_CalculatedVoltage);
     System.out.println(m_Position);

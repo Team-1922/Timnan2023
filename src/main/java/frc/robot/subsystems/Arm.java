@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 
-//import com.playingwithfusion.TimeOfFlight;
+import com.playingwithfusion.TimeOfFlight;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
@@ -28,9 +28,9 @@ public class Arm extends SubsystemBase {
   public double [] m_MidVector = new double[2];
   public double m_CalculatedVoltage;
   private int m_valueRefCounter;
-  public double aP = .0055, aI = 0, aD = 0.05, aFF = 0; //p .0055 d .08
+  public double aP = .0035, aI = 0, aD = 0.02, aFF = 0; //p .0055 d .08
 
-  //private TimeOfFlight m_TOF = new TimeOfFlight(Constants.kFrontSensorID);
+  private TimeOfFlight m_TOF = new TimeOfFlight(Constants.kFrontSensorID);
 
   // public double aP = .0025, aI = 16e-7, aD = 0.016, aFF = 2e-6;
   public static double m_FinalAngle;
@@ -74,9 +74,9 @@ public class Arm extends SubsystemBase {
 
      }
      m_valueRefCounter++;
-    // SmartDashboard.putBoolean("Has Cube?", m_TOF.getRange() <= 160 && m_TOF.getRange() >= 50);
-    // SmartDashboard.putNumber("TOF distance", m_TOF.getRange());
-    // SmartDashboard.putBoolean("TOF Too Close", m_TOF.getRange() <=50 );
+    SmartDashboard.putBoolean("Has Cube?", m_TOF.getRange() <= 160 && m_TOF.getRange() >= 50);
+    SmartDashboard.putNumber("TOF distance", m_TOF.getRange());
+    SmartDashboard.putBoolean("TOF Too Close", m_TOF.getRange() <=50 );
 
   }
 
@@ -115,7 +115,7 @@ public class Arm extends SubsystemBase {
 
 
 
- /* public double getTOF(){
+ public double getTOF(){
 
     return m_TOF.getRange();
   }
@@ -124,5 +124,5 @@ public class Arm extends SubsystemBase {
     // Threshold for no cube is about 365
     // Threshold for yes, cube, farthest away possible is 145
     return (  m_TOF.getRange()<= 160 && m_TOF.getRange() >= 50);// 145
-  } */
+  }
 }

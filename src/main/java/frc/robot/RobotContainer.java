@@ -85,7 +85,7 @@ public class RobotContainer {
  public final static Joystick RightJoystick = new Joystick(1);
 
  private final CommandXboxController m_driverController = new CommandXboxController(Constants.kDriverControllerPort);
-private final CommandXboxController m_operatorController = new CommandXboxController(3);
+private final CommandXboxController m_operatorController = new CommandXboxController(0);
 final XboxController m_operator = new XboxController(3);
 
   private static final AHRS m_navX = new AHRS(SPI.Port.kMXP);
