@@ -86,6 +86,6 @@ public class ScoreAlt extends CommandBase {
   @Override
   public boolean isFinished() {
     m_Position = m_Arm.getPosition();
-    return (Math.abs(m_BaselineVectors[2][0]-m_Position) <= 6);
+    return ((Math.abs(m_BaselineVectors[2][0]-m_Position) <= 6) || m_SMode == 1);
   }
 }
