@@ -37,13 +37,13 @@ public class GatherTheCube extends CommandBase {
   @Override
   public void execute() {
     m_EndEffector.gatherTheCube();
-/*
+
     if(m_EndEffector.hasCube()){
       timer.start();
     } else {
       timer.reset();
     }
-    cubeTimer.reset(); **/
+    cubeTimer.reset();
   }
 
   // Called once the command ends or is interrupted.
@@ -59,9 +59,9 @@ public class GatherTheCube extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false; 
-   // if(m_Arm.hasCube()== true) {cubeTimer.start();}
-   // return cubeTimer.hasElapsed(.75);
+    //return false; 
+    if(m_Arm.hasCube()== true) {cubeTimer.start();}
+    return cubeTimer.hasElapsed(.75);
 
   }
 }

@@ -1,7 +1,7 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
-/*
+
 package frc.robot.commands.autocommands;
 
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ public class VisionTrajectoryDrive extends CommandBase {
 
 
 
-  /** Creates a new TrajectoryDrive. 
+  /** Creates a new TrajectoryDrive. */
   public VisionTrajectoryDrive(DriveTrainSubsystem driveTrain, PoseEstimation poseEstimation, Translation2d waypoint1, Translation2d waypoint2, Pose2d endingPose, boolean reversed) {
     m_driveTrain = driveTrain;
     m_poseEstimation = poseEstimation;
@@ -85,14 +85,14 @@ public class VisionTrajectoryDrive extends CommandBase {
     endTransform = new Transform2d(endPoseTranslation, Rotation2d.fromDegrees(-90));
     //endPose = startingPose.plus(endTransform);
     endPose = new Pose2d(endPoseTranslation, Rotation2d.fromDegrees(180));
-  
+  */
 
     waypoints.clear();
 
     waypoints.add(m_waypoint1);
     waypoints.add(m_waypoint2);  
 
-
+  //***NOTE***//
   // All mid-points are generated relative to the (0, 0) made on startup, 
   // even in a new run of the command.
 
@@ -148,4 +148,3 @@ public class VisionTrajectoryDrive extends CommandBase {
  
     }
 }
-*/

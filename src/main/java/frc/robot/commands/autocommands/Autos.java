@@ -14,7 +14,7 @@ import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.LightEmittingDiode;
-//import frc.robot.subsystems.PoseEstimation;
+import frc.robot.subsystems.PoseEstimation;
 import frc.robot.subsystems.ScoreMode;
 import frc.robot.commands.autocommands.AutoOverStation;
 import edu.wpi.first.apriltag.AprilTag;
@@ -35,7 +35,7 @@ public final class Autos {
   }
 
   private static DriveTrainSubsystem m_driveTrain = RobotContainer.m_DriveTrainSubsystem;
-  //private static PoseEstimation m_poseEstimation = RobotContainer.m_poseEstimation;
+  private static PoseEstimation m_poseEstimation = RobotContainer.m_poseEstimation;
   private static ScoreMode m_scoreMode = RobotContainer.m_ScoreMode;
   private static Arm m_arm = RobotContainer.m_Arm;
   private static EndEffector m_endEffector = RobotContainer.m_EndEffector;
@@ -101,22 +101,23 @@ public final class Autos {
 
 
 
- /* public static final VisionTrajectoryDrive VisionTrajectory(boolean reversed){
+  public static final VisionTrajectoryDrive VisionTrajectory(boolean reversed){
 
     Translation2d waypoint1 = new Translation2d(-1.25, -2.8);
     Translation2d waypoint2 = new Translation2d(-1.3, -2.8);
     //Translation2d waypoint1 = new Translation2d(-1.25, -2.9);
     //Translation2d waypoint2 = new Translation2d(-1.3, -2.85);
     Pose2d endPose = new Pose2d(new Translation2d(-1.4, -2.8), Rotation2d.fromDegrees(0));
-*/
 
-//    VisionTrajectoryDrive m_visionTrajectory = new VisionTrajectoryDrive(m_driveTrain, m_poseEstimation, waypoint1, waypoint2, endPose, reversed);
 
-    //return m_visionTrajectory;
+    VisionTrajectoryDrive m_visionTrajectory = new VisionTrajectoryDrive(m_driveTrain, m_poseEstimation, waypoint1, waypoint2, endPose, reversed);
+
+    return m_visionTrajectory;
     // 2 sides are equidistant from 0,0
     // should be able to give parameters for side and color, calculate waypoitns based on that
     // red or blue (and probably side of station) can be adjusted w/ sign values just fine
-  
+  }
+
 
 
 

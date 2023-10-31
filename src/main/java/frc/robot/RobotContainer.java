@@ -29,7 +29,7 @@ import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.CoolLedSubsystem;
 import frc.robot.subsystems.LightEmittingDiode;
-//import frc.robot.subsystems.PoseEstimation;
+import frc.robot.subsystems.PoseEstimation;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -96,7 +96,7 @@ final XboxController m_operator = new XboxController(3);
   public static ScoreMode m_ScoreMode = new ScoreMode();
   public static DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem(m_navX);
   public static LightEmittingDiode m_LightEmittingDiode = new LightEmittingDiode();
-//  public static PoseEstimation m_poseEstimation = new PoseEstimation();
+  public static PoseEstimation m_poseEstimation = new PoseEstimation();
   //arm commands
   private final GatherTheCube m_GatherCube = new GatherTheCube(m_Arm, m_EndEffector);
   private final Score m_Score = new Score(m_Arm, m_EndEffector, m_ScoreMode);
