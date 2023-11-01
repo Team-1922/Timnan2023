@@ -21,7 +21,7 @@ public class ScoreAlt extends CommandBase {
   
   public static double[][] m_BaselineVectors = new double[3][2];
   public double m_CalculatedVoltage;
-  public double m_Difference;
+  public double m_MaxValue;
   public double m_SMode;
   public String m_ShootingSpeed;
   public double m_Position;
@@ -46,26 +46,29 @@ public class ScoreAlt extends CommandBase {
     if (m_SMode == 1) {m_Arm.calculateVoltage(Constants.kPivotMotorLowAngle, .25, m_BaselineVectors);
       m_ShootingSpeed = "low";
     }
-    else if (m_SMode == 2) {m_Arm.calculateVoltage(Constants.kPivotMotorMidAngle, .7, m_BaselineVectors);
+    else if (m_SMode == 2) {m_Arm.calculateVoltage(Constants.kPivotMotorMidAngle, 1.5, m_BaselineVectors);
       m_ShootingSpeed = "mid";
     }
-    else if ( m_SMode == 3) {m_Arm.calculateVoltage(Constants.kPivotMotorHighAngle, .3, m_BaselineVectors);
+    else if ( m_SMode == 3) {m_Arm.calculateVoltage(Constants.kPivotMotorHighAngle, 1.5, m_BaselineVectors);
       m_ShootingSpeed = "high";
     }
     System.out.println(m_BaselineVectors[2][0]);
+    m_MaxValue = ((m_BaselineVectors[2][0]/2 - m_BaselineVectors[0][0])*(m_BaselineVectors[2][0] - m_BaselineVectors[2][0]/2));
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     m_Position = m_Arm.getPosition();
-    if (m_Arm.getPosition() <= m_BaselineVectors[1][0]) {
-        m_CalculatedVoltage = (.25+m_BaselineVectors[1][1] - m_BaselineVectors[1][1]*(m_BaselineVectors[1][0]-m_Position)/(m_BaselineVectors[1][0]*.9));
-    } else {
-        m_CalculatedVoltage = (.25+m_BaselineVectors[1][1] - m_BaselineVectors[1][1]*(m_Position-m_BaselineVectors[1][0])/(m_Position*.9));
-    }
-    m_Arm.setVoltage(m_CalculatedVoltage);
     System.out.println(m_Position);
+    m_CalculatedVoltage = ((m_Position - m_BaselineVectors[0][0])*(m_BaselineVectors[2][0] - m_Position));
+    if ((0.5 + 3*m_CalculatedVoltage/m_MaxValue) >=3) {
+      m_Arm.setVoltage(3);
+    }
+    else {
+      m_Arm.setVoltage(0.5 + 3*m_CalculatedVoltage/m_MaxValue);
+    }
+    System.out.println(m_CalculatedVoltage);
   }
 
   // Called once the command ends or is interrupted.

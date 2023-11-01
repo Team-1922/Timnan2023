@@ -35,7 +35,7 @@ public final class Constants {
     public static final double kZeroOffset = 594;//128.5
     public static final double kPivotMotorGatherAngle = 600; // 528
 
-    public static final double kPivotMotorLowAngle = 100;//100
+    public static final double kPivotMotorLowAngle = 120;//100
     public static final double kPivotMotorMidAngle = 149; //140
     public static final double kPivotMotorHighAngle = 155;//155
     public static final double kPivotMotorMinAngle = 0;

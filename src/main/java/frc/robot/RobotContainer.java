@@ -23,6 +23,7 @@ import frc.robot.commands.autocommands.Autos;
 import frc.robot.commands.autocommands.TrajectoryDrive;
 import frc.robot.commands.GatherTheCube;
 import frc.robot.commands.Score;
+import frc.robot.commands.ScoreAlt;
 import frc.robot.commands.SwivelDrive;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.EndEffector;
@@ -100,6 +101,7 @@ final XboxController m_operator = new XboxController(3);
   //arm commands
   private final GatherTheCube m_GatherCube = new GatherTheCube(m_Arm, m_EndEffector);
   private final Score m_Score = new Score(m_Arm, m_EndEffector, m_ScoreMode);
+  private final ScoreAlt m_ScoreAlt = new ScoreAlt(m_Arm, m_EndEffector, m_ScoreMode);
   private final IncrementScoreMode m_ScoreModeIncrement = new IncrementScoreMode(m_ScoreMode, m_LightEmittingDiode);
   private final IncrementScoreModeDown m_ScoreModeIncrementDown = new IncrementScoreModeDown(m_ScoreMode, m_LightEmittingDiode);
 
@@ -241,7 +243,7 @@ visionDGain.setNumber(0.002);
     // Left Bumper - 5
     m_operatorController.button(5).whileTrue(m_GatherCube); 
     // RightBumper - 6
-    m_operatorController.button(6).whileTrue(m_Score); 
+    m_operatorController.button(6).whileTrue(m_ScoreAlt); 
   
   
   m_driverController.button(2).onTrue(m_Apriltag);
