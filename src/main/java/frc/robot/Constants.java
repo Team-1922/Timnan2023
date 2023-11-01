@@ -35,9 +35,9 @@ public final class Constants {
     public static final double kZeroOffset = 128.5;//128.5
     public static final double kPivotMotorGatherAngle = 588; // 528
 
-    public static final double kPivotMotorLowAngle = 563;//100
-    public static final double kPivotMotorMidAngle = 563+49; //140
-    public static final double kPivotMotorHighAngle = 563+55;//155
+    public static final double kPivotMotorLowAngle = 120;//100
+    public static final double kPivotMotorMidAngle = 149; //140
+    public static final double kPivotMotorHighAngle = 155;//155
     public static final double kPivotMotorMinAngle = 0;
     public static final double kPivotMotorMaxAngle = 700;//540
     // Min and Max angle represent the angles at which the arm contacts the ground or its frame
