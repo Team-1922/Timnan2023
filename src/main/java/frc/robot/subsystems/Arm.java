@@ -96,16 +96,12 @@ public class Arm extends SubsystemBase {
     m_Position = m_ArmEncoder.getPosition();
     m_StartingVector[0] = m_Position;
     m_StartingVector[1] = 0;
-    m_MidVector[0] = (finalAngle-m_Position)/2;
-    m_MidVector[1] = (12*voltageDialation);
     m_TargetVector[0] = finalAngle;
     m_TargetVector[1] = 0;
     combinedVectors[0][0] = m_StartingVector[0];
     combinedVectors[0][1] = m_StartingVector[1];
-    combinedVectors[1][0] = m_MidVector[0];
-    combinedVectors[1][1] = m_MidVector[1];
-    combinedVectors[2][0] = m_TargetVector[0];
-    combinedVectors[2][1] = m_TargetVector[1];
+    combinedVectors[1][0] = m_TargetVector[0];
+    combinedVectors[1][1] = m_TargetVector[1];
     
     return combinedVectors;
   }

@@ -93,6 +93,7 @@ public class EndEffector extends SubsystemBase {
 
   @Override
   public void periodic() {
+    /*
     // This method will be called once per scheduler run
     if (m_valueRefCounter % Constants.eeRefRateMod == 0) {
      double ioP = SmartDashboard.getNumber("P gain", eP);
@@ -107,5 +108,6 @@ public class EndEffector extends SubsystemBase {
       if (eD != ioD) {m_BottomPID.setD(eD); m_TopPID.setD(eD); eD = ioD;}
     }
     m_valueRefCounter++;
+    */
   }
 }
