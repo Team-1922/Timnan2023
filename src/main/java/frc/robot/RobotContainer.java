@@ -177,8 +177,8 @@ visionDGain.setNumber(0.002);
 
 //m_autochooser.setDefaultOption("TEST Field-Relative", Autos.VisionTrajectory(false));//
  m_autochooser.setDefaultOption("Back Up", Autos.m_autoBackup);
- m_autochooser.addOption("(LEFT) Trajectory 2-Cube", Autos.m_trajectoryAutoLEFT);
- m_autochooser.addOption("(RIGHT) Trajectory 2-Cube", Autos.m_trajectoryAutoRIGHT);
+// m_autochooser.addOption("(LEFT) Trajectory 2-Cube", Autos.m_trajectoryAutoLEFT);
+// m_autochooser.addOption("(RIGHT) Trajectory 2-Cube", Autos.m_trajectoryAutoRIGHT);
  m_autochooser.addOption("(CENTER) Balance w/o Mobility", Autos.m_autoStraightToBalance);
 
 
@@ -214,10 +214,10 @@ visionDGain.setNumber(0.002);
     m_operatorController.button(6).whileTrue(m_ScoreAlt); 
   
   
-  m_driverController.button(2).onTrue(m_Apriltag);
+ // m_driverController.button(2).onTrue(m_Apriltag);
   
 
-  m_driverController.button(4).onTrue(m_toggleBrake);
+  //m_driverController.button(4).onTrue(m_toggleBrake);
 
   //m_operatorController.button(1).whileTrue(m_DriveStraight);
   }
