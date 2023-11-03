@@ -50,7 +50,7 @@ public final class Autos {
   private static AutoStraightBalance m_autoStraightBalance = new AutoStraightBalance(m_driveTrain, 4000);
   private static final AutoOverStation m_overStation = new AutoOverStation(m_driveTrain, 3000, 200);
 
- private static AutoTimerDrive m_timerDrive = new AutoTimerDrive(m_driveTrain, 2.25);
+ private static AutoTimerDrive m_timerDrive = new AutoTimerDrive(m_driveTrain, 1.5);
 
 
 
