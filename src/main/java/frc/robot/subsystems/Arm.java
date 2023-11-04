@@ -58,7 +58,6 @@ public class Arm extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    /*
     if (m_valueRefCounter % Constants.eeRefRateMod == 0) {
       double kP = SmartDashboard.getNumber("P gain", aP);
       if (aP != kP) {m_ArmPID.setP(kP); aP = kP;}
@@ -75,10 +74,10 @@ public class Arm extends SubsystemBase {
 
      }
      m_valueRefCounter++;
-     */
      SmartDashboard.putBoolean("Has Cube?", m_TOF.getRange() <= 160 && m_TOF.getRange() >= 50);
      SmartDashboard.putNumber("TOF distance", m_TOF.getRange());
      SmartDashboard.putBoolean("TOF Too Close", m_TOF.getRange() <=50 );
+
   }
 
   public double getPosition() {
