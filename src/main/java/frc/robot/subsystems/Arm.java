@@ -28,7 +28,7 @@ public class Arm extends SubsystemBase {
   public double [] m_MidVector = new double[2];
   public double m_CalculatedVoltage;
   private int m_valueRefCounter;
-  public double aP = .0035, aI = 0, aD = 0.02, aFF = 0; //p .0055 d .08
+  public double aP = .0055, aI = 0, aD = 0.05, aFF = 0; //p .0055 d .08
 
   private TimeOfFlight m_TOF = new TimeOfFlight(Constants.kFrontSensorID);
 
@@ -112,7 +112,7 @@ public class Arm extends SubsystemBase {
 
 
 
- public double getTOF(){
+  public double getTOF(){
 
     return m_TOF.getRange();
   }
@@ -121,5 +121,5 @@ public class Arm extends SubsystemBase {
     // Threshold for no cube is about 365
     // Threshold for yes, cube, farthest away possible is 145
     return (  m_TOF.getRange()<= 160 && m_TOF.getRange() >= 50);// 145
-  }
+  } 
 }

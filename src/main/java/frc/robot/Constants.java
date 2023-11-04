@@ -15,7 +15,7 @@ package frc.robot;
 public final class Constants {
  // public static class OperatorConstants {
     public static final int eeRefRateMod = 5;
-    public static final int kDriverControllerPort = 1;
+    public static final int kDriverControllerPort = 2;
  
     public static final int kLeftLead = 5;
     public static final int kLeftFollow = 4;
@@ -32,8 +32,8 @@ public final class Constants {
     public static final double kIOMotorMaxPower = 12;
     public static final double kIOBottomToTopVoltageConversion = 1.02;
 
-    public static final double kZeroOffset = 594;//128.5
-    public static final double kPivotMotorGatherAngle = 600; // 528
+    public static final double kZeroOffset = 128.5;//128.5
+    public static final double kPivotMotorGatherAngle = 588; // 528
 
     public static final double kPivotMotorLowAngle = 120;//100
     public static final double kPivotMotorMidAngle = 149; //140
