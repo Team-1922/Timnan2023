@@ -11,6 +11,8 @@ import com.ctre.phoenix.led.Animation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.LedCoolAnimation;
+import frc.robot.subsystems.CoolLedSubsystem;
 import frc.robot.subsystems.LightEmittingDiode;
 
 /**
@@ -29,6 +31,8 @@ public class Robot extends TimedRobot {
   public boolean inAuto;
 
   private LightEmittingDiode m_LED = new LightEmittingDiode();
+  private LedCoolAnimation m_LedCoolAnimation = new LedCoolAnimation(m_LED);
+  private CoolLedSubsystem m_CoolLedSubsystem = new CoolLedSubsystem(m_LED, m_LedCoolAnimation);
   Animation RainbowAnimation = new com.ctre.phoenix.led.RainbowAnimation(1,.5,108);
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -61,7 +65,10 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
-  m_LED.DisabledAnimation();
+  
+ m_CoolLedSubsystem.clearAnimation();
+ // RobotContainer.m_LightEmittingDiode.LedAnimate(RainbowAnimation, 0);
+ m_CoolLedSubsystem.DisabledAnimation();
   }
 /* 
   @Override

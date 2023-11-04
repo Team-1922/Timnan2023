@@ -6,8 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.led.Animation;
 import com.ctre.phoenix.led.CANdle;
-import com.ctre.phoenix.led.LarsonAnimation;
-import com.ctre.phoenix.led.LarsonAnimation.BounceMode;
+
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -17,9 +16,6 @@ public class LightEmittingDiode extends SubsystemBase {
 
   
   private final CANdle m_candle = new CANdle(Constants.kCandleId);
-Animation m_two = new LarsonAnimation(255, 255, 0, 0, .3,46, BounceMode.Back, 2, 8);
-Animation m_one = new LarsonAnimation(255,255, 0, 0, .3, 46, BounceMode.Back, 2, 54);
-
 
 
   // private Animation m_animation = new RainbowAnimation();
@@ -49,18 +45,7 @@ public void LedAnimate(Animation Animation, int AnimationSlot){
  
   m_candle.animate(Animation, AnimationSlot);
   
-} 
-
-public void DisabledAnimation(){
-
-
-m_candle.animate(m_one,0);
-m_candle.animate(m_two,1);
-
-}
-
-
-}
+} }
 
 
 

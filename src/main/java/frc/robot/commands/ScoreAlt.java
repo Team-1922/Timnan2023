@@ -19,7 +19,7 @@ public class ScoreAlt extends CommandBase {
   private Arm m_Arm;
   private ScoreMode m_ScoreMode;
   
-  public static double[][] m_BaselineVectors = new double[2][2];
+  public static double[][] m_BaselineVectors = new double[3][2];
   public double m_CalculatedVoltage;
   public double m_MaxValue;
   public double m_SMode;
@@ -52,22 +52,23 @@ public class ScoreAlt extends CommandBase {
     else if ( m_SMode == 3) {m_Arm.calculateVoltage(Constants.kPivotMotorHighAngle, 1.5, m_BaselineVectors);
       m_ShootingSpeed = "high";
     }
-    System.out.println(m_BaselineVectors[1][0]);
-    m_MaxValue = (((m_BaselineVectors[1][0])/2 - m_BaselineVectors[0][0])*(m_BaselineVectors[1][0] - (m_BaselineVectors[1][0])/2));
+    System.out.println(m_BaselineVectors[2][0]);
+    m_MaxValue = ((m_BaselineVectors[2][0]/2 - m_BaselineVectors[0][0])*(m_BaselineVectors[2][0] - m_BaselineVectors[2][0]/2));
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     m_Position = m_Arm.getPosition();
-    m_CalculatedVoltage = ((m_Position - m_BaselineVectors[0][0])*(m_BaselineVectors[1][0] - m_Position));
-    if ((0.5 + 12*m_CalculatedVoltage/m_MaxValue) >=1.5) {
-      m_Arm.setVoltage(1.5);
+    System.out.println(m_Position);
+    m_CalculatedVoltage = ((m_Position - m_BaselineVectors[0][0])*(m_BaselineVectors[2][0] - m_Position));
+    if ((0.5 + 3*m_CalculatedVoltage/m_MaxValue) >=3) {
+      m_Arm.setVoltage(3);
     }
     else {
-      m_Arm.setVoltage(0.5 + 12*Math.abs(m_CalculatedVoltage/m_MaxValue));
+      m_Arm.setVoltage(0.5 + 3*m_CalculatedVoltage/m_MaxValue);
     }
-    System.out.println(0.5 + 12*Math.abs(m_CalculatedVoltage/m_MaxValue));
+    System.out.println(m_CalculatedVoltage);
   }
 
   // Called once the command ends or is interrupted.
@@ -77,7 +78,7 @@ public class ScoreAlt extends CommandBase {
     Timer.delay(.4);
     m_EndEffector.stopMotors();
     m_Arm.setAngle(Constants.kPivotMotorLowAngle);
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 2; j++) {
         m_BaselineVectors[i][j] = 0;
       }
@@ -88,6 +89,6 @@ public class ScoreAlt extends CommandBase {
   @Override
   public boolean isFinished() {
     m_Position = m_Arm.getPosition();
-    return (Math.abs(m_BaselineVectors[1][0]-m_Position) <= 6);
+    return ((Math.abs(m_BaselineVectors[2][0]-m_Position) <= 6) || m_SMode == 1);
   }
 }

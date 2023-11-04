@@ -10,6 +10,7 @@ import frc.robot.subsystems.ScoreMode;
 import frc.robot.commands.IncrementScoreMode;
 import frc.robot.commands.IncrementScoreModeDown;
 import frc.robot.commands.LedAmericaAnimation;
+import frc.robot.commands.AnimateStop;
 import frc.robot.commands.Apriltag;
 import frc.robot.commands.ControllerBuzz;
 import frc.robot.commands.CurvyDrive;
@@ -27,6 +28,7 @@ import frc.robot.commands.SwivelDrive;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.CoolLedSubsystem;
 import frc.robot.subsystems.LightEmittingDiode;
 import frc.robot.subsystems.PoseEstimation;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -58,6 +60,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // tryout temp imports
 
+import frc.robot.commands.LedAnimate;
+import frc.robot.commands.LedColors;
+import frc.robot.commands.LedCoolAnimation;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -102,7 +107,14 @@ final XboxController m_operator = new XboxController(3);
 
 
   
- private final TrajectoryDrive m_trajectoryDriveTest = new TrajectoryDrive(m_DriveTrainSubsystem, 
+
+    // Auto drive commands
+    //private final AutoBalance m_autoBalance = new AutoBalance(m_DriveTrainSubsystem);
+    //private final AutoBalance m_autoBalance2 = new AutoBalance(m_DriveTrainSubsystem);
+
+    //private final AutoStraight m_autoStraight = new AutoStraight(m_DriveTrainSubsystem, 3000);
+    //private final  AutoStraightBack m_autoStraightBack = new AutoStraightBack(m_DriveTrainSubsystem, -2700);
+    private final TrajectoryDrive m_trajectoryDriveTest = new TrajectoryDrive(m_DriveTrainSubsystem, 
     new Translation2d(.5, 0), 
     new Translation2d(1, 0), 
     new Translation2d(3,.01), 
@@ -131,7 +143,22 @@ final XboxController m_operator = new XboxController(3);
 
 
 
+  //LED commands
+private final LedAnimate m_Rainbow = new LedAnimate(m_LightEmittingDiode, RainbowAnimation,1);
+private final LedAnimate m_RGBAnimation = new LedAnimate(m_LightEmittingDiode, RgbFadeAnimation, 1);
+private final LedAnimate m_FireAnimation = new LedAnimate(m_LightEmittingDiode, FireAnimation, 0);
+private final LedColors m_Lightoff = new LedColors(m_LightEmittingDiode,0,0,0 );
+private final LedColors m_LightUpRed = new LedColors(m_LightEmittingDiode, 255,0,0);
+private final static LedCoolAnimation m_CoolAnimation = new LedCoolAnimation(m_LightEmittingDiode);
+private final AnimateStop m_AnimateStop = new AnimateStop(m_LightEmittingDiode);
+private final LedAnimate m_StrobeAnimation = new LedAnimate(m_LightEmittingDiode, StrobeAnimation, 0);
+private final LedAnimate m_ColorFlowAnimation = new LedAnimate(m_LightEmittingDiode, ColorFlowAnimation, 0);  
+private final LedAnimate m_TwinkleAnimation = new LedAnimate(m_LightEmittingDiode, TwinkleAnimation, 0);
+private final LedAnimate m_SingleFadeAnimation = new LedAnimate(m_LightEmittingDiode, SingleFadeAnimation, 0);
+private final LedAmericaAnimation m_AmericaAnimation = new LedAmericaAnimation(m_LightEmittingDiode);
 
+
+public static CoolLedSubsystem m_CoolLedSubsystem = new CoolLedSubsystem(m_LightEmittingDiode, m_CoolAnimation);
 
 
   
@@ -181,6 +208,11 @@ visionDGain.setNumber(0.002);
 // m_autochooser.addOption("(RIGHT) Trajectory 2-Cube", Autos.m_trajectoryAutoRIGHT);
  m_autochooser.addOption("(CENTER) Balance w/o Mobility", Autos.m_autoStraightToBalance);
 
+ 
+ //m_autochooser.addOption("Balance w/ Mobility", Autos.m_autoStraightGroup);
+
+
+// m_autochooser.addOption("Test run", Autos.m_test);
 
 
 
@@ -224,18 +256,72 @@ visionDGain.setNumber(0.002);
 
 
 
+    //                       *** DRIVER CONTROLS ***
+    
+
+
 
 
 
 
        
+    // Left Trigger
+ 
+ //   new JoystickButton(LeftJoystick, 1).whileTrue(m_DriveStraight);
+    // Left 3
+   // new JoystickButton(LeftJoystick, 3).onTrue(m_toggleFlip);
+    // Left 4
+    //new JoystickButton(LeftJoystick, 4).onTrue(m_Apriltag);
+
+
+    // Right Trigger
+    //new JoystickButton(RightJoystick, 1).whileTrue(m_swivelDrive);
+    // Right Side
+    //new JoystickButton(RightJoystick, 2).onTrue(m_toggleBrake);
+    // Right 3
+    //new JoystickButton(RightJoystick, 3).whileTrue(m_buzz);
+
+
+    // new JoystickButton(RightJoystick, 5).onTrue(m_trajectoryDriveTest);
 
 
 
 
 
       
- 
+    //                       *** LED CONTROLS ***
+
+      //LED buttons
+      
+      /* 
+      new JoystickButton(RightJoystick, 12)
+      .onTrue(m_Rainbow);
+      new JoystickButton(RightJoystick, 11)
+      .onTrue(m_LightUpRed);
+      new JoystickButton(RightJoystick, 10)
+      .onTrue(m_Lightoff);
+      new JoystickButton(RightJoystick, 9)
+      .onTrue(m_AnimateStop);
+      new JoystickButton(RightJoystick, 8)
+      .onTrue(m_RGBAnimation);
+      new JoystickButton(RightJoystick, 7)
+      .onTrue(m_CoolAnimation);
+
+       new JoystickButton(LeftJoystick, 12) 
+       .onTrue(m_StrobeAnimation);
+       new JoystickButton(LeftJoystick, 11)
+      .onTrue(m_ColorFlowAnimation);
+       new JoystickButton(LeftJoystick, 10)
+       .onTrue(m_TwinkleAnimation);
+       new JoystickButton(LeftJoystick, 9)
+       .onTrue(m_SingleFadeAnimation);
+       new JoystickButton(LeftJoystick, 8)
+       .onTrue(m_AmericaAnimation);
+       new JoystickButton(LeftJoystick, 7)
+       .onTrue(m_FireAnimation); 
+}
+ */      
+  
 
 
   /**
@@ -245,7 +331,10 @@ visionDGain.setNumber(0.002);
    */
   public Command getAutonomousCommand() {
     return m_autochooser.getSelected();
-
+    // An example command will be run in autonomous
+    //return Autos.m_autoBackup;
+    //return Autos.m_autoStraightHalf;
+ //   return Autos.m_autoStraightGroup;
 }
 
 }
