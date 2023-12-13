@@ -60,7 +60,7 @@ public class GatherTheCube extends CommandBase {
   @Override
   public boolean isFinished() {
     //return false; 
-    if(m_Arm.hasCube()== true) {cubeTimer.start();}
+    //if(m_Arm.hasCube()== true) {cubeTimer.start();}
     return cubeTimer.hasElapsed(.75);
 
   }
