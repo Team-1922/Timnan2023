@@ -13,6 +13,7 @@ import frc.robot.Constants;
 
 import com.playingwithfusion.TimeOfFlight;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.MotorFeedbackSensor;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 import com.ctre.phoenix.sensors.AbsoluteSensorRange;
@@ -24,7 +25,7 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
 
 public class Arm extends SubsystemBase {
-  private static CANCoder m_CANCoder = new CANCoder(0);
+  private static CANCoder m_CANCoder = new CANCoder(1);
   private static CANCoderConfiguration m_config = new CANCoderConfiguration();
   
   private static CANSparkMax m_Arm = new CANSparkMax(Constants.kPivotMotorID, MotorType.kBrushless);
@@ -46,10 +47,10 @@ public class Arm extends SubsystemBase {
   //Put some encoder stuff in the future
   /** Creates a new ARM. */
   public Arm() {
-    m_config.absoluteSensorRange = AbsoluteSensorRange.Unsigned_0_to_360;
-    m_config.magnetOffsetDegrees = Constants.kZeroOffset;
-    m_config.sensorCoefficient = 1000 / 4096.0;
-    m_config.sensorTimeBase = SensorTimeBase.PerSecond; //The time frame in which velocity will be measured (if we ever need it)
+    m_CANCoder.setPositionToAbsolute();
+    m_CANCoder.configAbsoluteSensorRange(AbsoluteSensorRange.Unsigned_0_to_360);
+    m_config.sensorDirection = false;
+    m_config.magnetOffsetDegrees = 0.459717*360;
     m_CANCoder.configAllSettings(m_config);
 
     m_Arm.restoreFactoryDefaults();
@@ -63,7 +64,6 @@ public class Arm extends SubsystemBase {
     m_ArmPID.setFF(aFF);
     SmartDashboard.putNumber("FF gain", aFF);
     m_ArmPID.getIZone();
-    m_ArmPID.setFeedbackDevice(m_ArmEncoder);
     m_ArmEncoder.setInverted(false);
     m_ArmEncoder.setPositionConversionFactor(Constants.kPositionConversionFactor);
     m_ArmEncoder.setZeroOffset(Constants.kZeroOffset);
@@ -98,7 +98,7 @@ public class Arm extends SubsystemBase {
   }
 
   public double getPosition() {
-    return m_CANCoder.getPosition();
+    return m_CANCoder.getAbsolutePosition();
   }
 
   public double setAngle(double finalAngle)  {
@@ -109,7 +109,7 @@ public class Arm extends SubsystemBase {
   }
 
   public double[][] calculateVoltage(double finalAngle, double voltageDialation, double[][] combinedVectors) {
-    m_Position = m_CANCoder.getPosition();
+    m_Position = -1 * m_CANCoder.getPosition();
     m_StartingVector[0] = m_Position;
     m_StartingVector[1] = 0.5;
     m_MidVector[0] = (finalAngle-m_Position)/2;
